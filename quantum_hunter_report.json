@@ -1,0 +1,1077 @@
+{
+  "time": "2026-02-27T13:54:36.879Z",
+  "buys": [
+    {
+      "stock": {
+        "code": "688256",
+        "name": "寒锐钴业",
+        "sector": "新材料",
+        "market": "sh"
+      },
+      "data": {
+        "code": "688256",
+        "name": "�����-U",
+        "price": 1178,
+        "changePct": 1145.02,
+        "volume": 12151165,
+        "high": 1212.12,
+        "low": 1141.33,
+        "bids": [
+          {
+            "price": 90,
+            "vol": 1177
+          },
+          {
+            "price": 22,
+            "vol": 1177
+          },
+          {
+            "price": 3,
+            "vol": 1177
+          },
+          {
+            "price": 4,
+            "vol": 1177
+          },
+          {
+            "price": 2,
+            "vol": 1178
+          }
+        ],
+        "asks": [
+          {
+            "price": 2,
+            "vol": 1178
+          },
+          {
+            "price": 2,
+            "vol": 1178
+          },
+          {
+            "price": 2,
+            "vol": 1178
+          },
+          {
+            "price": 3,
+            "vol": 1178
+          },
+          {
+            "price": 3,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 25,
+        "signals": [
+          "MODERATE:1.5x"
+        ]
+      },
+      "bottom": {
+        "score": 90,
+        "phase": "BREAKOUT",
+        "nearLow": "3.21",
+        "range": "6.20"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 49,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "300122",
+        "name": "智飞生物",
+        "sector": "医药",
+        "market": "sz"
+      },
+      "data": {
+        "code": "300122",
+        "name": "�Ƿ�����",
+        "price": 17.29,
+        "changePct": 17.23,
+        "volume": 105143,
+        "high": 17.33,
+        "low": 17.2,
+        "bids": [
+          {
+            "price": 553,
+            "vol": 17
+          },
+          {
+            "price": 466,
+            "vol": 17
+          },
+          {
+            "price": 876,
+            "vol": 17
+          },
+          {
+            "price": 1125,
+            "vol": 17
+          },
+          {
+            "price": 706,
+            "vol": 17
+          }
+        ],
+        "asks": [
+          {
+            "price": 443,
+            "vol": 17
+          },
+          {
+            "price": 1238,
+            "vol": 17
+          },
+          {
+            "price": 372,
+            "vol": 17
+          },
+          {
+            "price": 351,
+            "vol": 17
+          },
+          {
+            "price": 371,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "0.52",
+        "range": "0.76"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "002475",
+        "name": "立讯精密",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "002475",
+        "name": "��Ѷ����",
+        "price": 50.22,
+        "changePct": 50.65,
+        "volume": 1272716,
+        "high": 50.69,
+        "low": 49.32,
+        "bids": [
+          {
+            "price": 1068,
+            "vol": 50
+          },
+          {
+            "price": 920,
+            "vol": 50
+          },
+          {
+            "price": 1492,
+            "vol": 50
+          },
+          {
+            "price": 794,
+            "vol": 50
+          },
+          {
+            "price": 717,
+            "vol": 50
+          }
+        ],
+        "asks": [
+          {
+            "price": 880,
+            "vol": 50
+          },
+          {
+            "price": 428,
+            "vol": 50
+          },
+          {
+            "price": 2383,
+            "vol": 50
+          },
+          {
+            "price": 3537,
+            "vol": 50
+          },
+          {
+            "price": 644,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "1.82",
+        "range": "2.78"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "002594",
+        "name": "比亚迪",
+        "sector": "新能源车",
+        "market": "sz"
+      },
+      "data": {
+        "code": "002594",
+        "name": "���ǵ�",
+        "price": 89.32,
+        "changePct": 89.4,
+        "volume": 219341,
+        "high": 89.94,
+        "low": 89.1,
+        "bids": [
+          {
+            "price": 143,
+            "vol": 89
+          },
+          {
+            "price": 19,
+            "vol": 89
+          },
+          {
+            "price": 266,
+            "vol": 89
+          },
+          {
+            "price": 44,
+            "vol": 89
+          },
+          {
+            "price": 27,
+            "vol": 89
+          }
+        ],
+        "asks": [
+          {
+            "price": 4,
+            "vol": 89
+          },
+          {
+            "price": 6,
+            "vol": 89
+          },
+          {
+            "price": 1,
+            "vol": 89
+          },
+          {
+            "price": 2,
+            "vol": 89
+          },
+          {
+            "price": 41,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "0.25",
+        "range": "0.94"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "000651",
+        "name": "格力电器",
+        "sector": "家电",
+        "market": "sz"
+      },
+      "data": {
+        "code": "000651",
+        "name": "��������",
+        "price": 37.45,
+        "changePct": 37.58,
+        "volume": 472218,
+        "high": 37.67,
+        "low": 37.22,
+        "bids": [
+          {
+            "price": 210,
+            "vol": 37
+          },
+          {
+            "price": 564,
+            "vol": 37
+          },
+          {
+            "price": 646,
+            "vol": 37
+          },
+          {
+            "price": 901,
+            "vol": 37
+          },
+          {
+            "price": 807,
+            "vol": 37
+          }
+        ],
+        "asks": [
+          {
+            "price": 162,
+            "vol": 37
+          },
+          {
+            "price": 113,
+            "vol": 37
+          },
+          {
+            "price": 166,
+            "vol": 37
+          },
+          {
+            "price": 1030,
+            "vol": 37
+          },
+          {
+            "price": 681,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "0.62",
+        "range": "1.21"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "000333",
+        "name": "美的集团",
+        "sector": "家电",
+        "market": "sz"
+      },
+      "data": {
+        "code": "000333",
+        "name": "���ļ���",
+        "price": 78.64,
+        "changePct": 79.03,
+        "volume": 201604,
+        "high": 79.5,
+        "low": 78.5,
+        "bids": [
+          {
+            "price": 62,
+            "vol": 78
+          },
+          {
+            "price": 22,
+            "vol": 78
+          },
+          {
+            "price": 45,
+            "vol": 78
+          },
+          {
+            "price": 37,
+            "vol": 78
+          },
+          {
+            "price": 330,
+            "vol": 78
+          }
+        ],
+        "asks": [
+          {
+            "price": 2,
+            "vol": 78
+          },
+          {
+            "price": 4,
+            "vol": 78
+          },
+          {
+            "price": 100,
+            "vol": 78
+          },
+          {
+            "price": 1,
+            "vol": 78
+          },
+          {
+            "price": 84,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "0.18",
+        "range": "1.27"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "600276",
+        "name": "恒瑞医药",
+        "sector": "医药",
+        "market": "sh"
+      },
+      "data": {
+        "code": "600276",
+        "name": "����ҽҩ",
+        "price": 56.56,
+        "changePct": 56.62,
+        "volume": 363641,
+        "high": 57.27,
+        "low": 56.3,
+        "bids": [
+          {
+            "price": 504,
+            "vol": 56
+          },
+          {
+            "price": 1161,
+            "vol": 56
+          },
+          {
+            "price": 231,
+            "vol": 56
+          },
+          {
+            "price": 127,
+            "vol": 56
+          },
+          {
+            "price": 819,
+            "vol": 56
+          }
+        ],
+        "asks": [
+          {
+            "price": 8,
+            "vol": 56
+          },
+          {
+            "price": 21,
+            "vol": 56
+          },
+          {
+            "price": 22,
+            "vol": 56
+          },
+          {
+            "price": 5,
+            "vol": 56
+          },
+          {
+            "price": 143,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "0.46",
+        "range": "1.72"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "601012",
+        "name": "隆基绿能",
+        "sector": "光伏",
+        "market": "sh"
+      },
+      "data": {
+        "code": "601012",
+        "name": "¡������",
+        "price": 18.32,
+        "changePct": 18.17,
+        "volume": 1156079,
+        "high": 18.5,
+        "low": 18.16,
+        "bids": [
+          {
+            "price": 1855,
+            "vol": 18
+          },
+          {
+            "price": 7565,
+            "vol": 18
+          },
+          {
+            "price": 6660,
+            "vol": 18
+          },
+          {
+            "price": 5576,
+            "vol": 18
+          },
+          {
+            "price": 4540,
+            "vol": 18
+          }
+        ],
+        "asks": [
+          {
+            "price": 4130,
+            "vol": 18
+          },
+          {
+            "price": 1014,
+            "vol": 18
+          },
+          {
+            "price": 2284,
+            "vol": 18
+          },
+          {
+            "price": 828,
+            "vol": 18
+          },
+          {
+            "price": 505,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "0.88",
+        "range": "1.87"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    }
+  ],
+  "bottoms": [
+    {
+      "stock": {
+        "code": "688256",
+        "name": "寒锐钴业",
+        "sector": "新材料",
+        "market": "sh"
+      },
+      "data": {
+        "code": "688256",
+        "name": "�����-U",
+        "price": 1178,
+        "changePct": 1145.02,
+        "volume": 12151165,
+        "high": 1212.12,
+        "low": 1141.33,
+        "bids": [
+          {
+            "price": 90,
+            "vol": 1177
+          },
+          {
+            "price": 22,
+            "vol": 1177
+          },
+          {
+            "price": 3,
+            "vol": 1177
+          },
+          {
+            "price": 4,
+            "vol": 1177
+          },
+          {
+            "price": 2,
+            "vol": 1178
+          }
+        ],
+        "asks": [
+          {
+            "price": 2,
+            "vol": 1178
+          },
+          {
+            "price": 2,
+            "vol": 1178
+          },
+          {
+            "price": 2,
+            "vol": 1178
+          },
+          {
+            "price": 3,
+            "vol": 1178
+          },
+          {
+            "price": 3,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 25,
+        "signals": [
+          "MODERATE:1.5x"
+        ]
+      },
+      "bottom": {
+        "score": 90,
+        "phase": "BREAKOUT",
+        "nearLow": "3.21",
+        "range": "6.20"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 49,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "300122",
+        "name": "智飞生物",
+        "sector": "医药",
+        "market": "sz"
+      },
+      "data": {
+        "code": "300122",
+        "name": "�Ƿ�����",
+        "price": 17.29,
+        "changePct": 17.23,
+        "volume": 105143,
+        "high": 17.33,
+        "low": 17.2,
+        "bids": [
+          {
+            "price": 553,
+            "vol": 17
+          },
+          {
+            "price": 466,
+            "vol": 17
+          },
+          {
+            "price": 876,
+            "vol": 17
+          },
+          {
+            "price": 1125,
+            "vol": 17
+          },
+          {
+            "price": 706,
+            "vol": 17
+          }
+        ],
+        "asks": [
+          {
+            "price": 443,
+            "vol": 17
+          },
+          {
+            "price": 1238,
+            "vol": 17
+          },
+          {
+            "price": 372,
+            "vol": 17
+          },
+          {
+            "price": 351,
+            "vol": 17
+          },
+          {
+            "price": 371,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "0.52",
+        "range": "0.76"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "002475",
+        "name": "立讯精密",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "002475",
+        "name": "��Ѷ����",
+        "price": 50.22,
+        "changePct": 50.65,
+        "volume": 1272716,
+        "high": 50.69,
+        "low": 49.32,
+        "bids": [
+          {
+            "price": 1068,
+            "vol": 50
+          },
+          {
+            "price": 920,
+            "vol": 50
+          },
+          {
+            "price": 1492,
+            "vol": 50
+          },
+          {
+            "price": 794,
+            "vol": 50
+          },
+          {
+            "price": 717,
+            "vol": 50
+          }
+        ],
+        "asks": [
+          {
+            "price": 880,
+            "vol": 50
+          },
+          {
+            "price": 428,
+            "vol": 50
+          },
+          {
+            "price": 2383,
+            "vol": 50
+          },
+          {
+            "price": 3537,
+            "vol": 50
+          },
+          {
+            "price": 644,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "1.82",
+        "range": "2.78"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "002594",
+        "name": "比亚迪",
+        "sector": "新能源车",
+        "market": "sz"
+      },
+      "data": {
+        "code": "002594",
+        "name": "���ǵ�",
+        "price": 89.32,
+        "changePct": 89.4,
+        "volume": 219341,
+        "high": 89.94,
+        "low": 89.1,
+        "bids": [
+          {
+            "price": 143,
+            "vol": 89
+          },
+          {
+            "price": 19,
+            "vol": 89
+          },
+          {
+            "price": 266,
+            "vol": 89
+          },
+          {
+            "price": 44,
+            "vol": 89
+          },
+          {
+            "price": 27,
+            "vol": 89
+          }
+        ],
+        "asks": [
+          {
+            "price": 4,
+            "vol": 89
+          },
+          {
+            "price": 6,
+            "vol": 89
+          },
+          {
+            "price": 1,
+            "vol": 89
+          },
+          {
+            "price": 2,
+            "vol": 89
+          },
+          {
+            "price": 41,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "0.25",
+        "range": "0.94"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    },
+    {
+      "stock": {
+        "code": "000651",
+        "name": "格力电器",
+        "sector": "家电",
+        "market": "sz"
+      },
+      "data": {
+        "code": "000651",
+        "name": "��������",
+        "price": 37.45,
+        "changePct": 37.58,
+        "volume": 472218,
+        "high": 37.67,
+        "low": 37.22,
+        "bids": [
+          {
+            "price": 210,
+            "vol": 37
+          },
+          {
+            "price": 564,
+            "vol": 37
+          },
+          {
+            "price": 646,
+            "vol": 37
+          },
+          {
+            "price": 901,
+            "vol": 37
+          },
+          {
+            "price": 807,
+            "vol": 37
+          }
+        ],
+        "asks": [
+          {
+            "price": 162,
+            "vol": 37
+          },
+          {
+            "price": 113,
+            "vol": 37
+          },
+          {
+            "price": 166,
+            "vol": 37
+          },
+          {
+            "price": 1030,
+            "vol": 37
+          },
+          {
+            "price": 681,
+            "vol": null
+          }
+        ]
+      },
+      "secret": {
+        "score": 0,
+        "signals": []
+      },
+      "bottom": {
+        "score": 100,
+        "phase": "SQUEEZE",
+        "nearLow": "0.62",
+        "range": "1.21"
+      },
+      "distEnd": {
+        "score": 30,
+        "signals": [
+          "RETAIL_PANIC"
+        ]
+      },
+      "smartMoney": {
+        "score": 43,
+        "action": "BUY",
+        "sentiment": "🟢 BUY"
+      }
+    }
+  ]
+}

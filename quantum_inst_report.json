@@ -1,0 +1,1764 @@
+{
+  "time": "2026-02-27T13:38:17.980Z",
+  "portfolio": [
+    {
+      "stock": {
+        "code": "688185",
+        "name": "康希诺",
+        "sector": "医药",
+        "market": "sh"
+      },
+      "data": {
+        "code": "688185",
+        "name": "��ϣŵ",
+        "price": 72,
+        "change": 67.78,
+        "changePct": 68,
+        "volume": 5029426,
+        "amount": 3092695,
+        "open": 68,
+        "high": 72.4,
+        "low": 67.7,
+        "pe": 638.16,
+        "turnover": 35585,
+        "high52": 72.4,
+        "low52": 67.7,
+        "bids": [
+          {
+            "price": 52,
+            "vol": 71
+          },
+          {
+            "price": 21,
+            "vol": 71
+          },
+          {
+            "price": 3,
+            "vol": 71
+          },
+          {
+            "price": 8,
+            "vol": 71
+          },
+          {
+            "price": 8,
+            "vol": 72
+          },
+          {
+            "price": 2,
+            "vol": 72
+          },
+          {
+            "price": 4,
+            "vol": 72
+          },
+          {
+            "price": 27,
+            "vol": 72
+          },
+          {
+            "price": 30,
+            "vol": 72
+          },
+          {
+            "price": 121,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 2,
+            "vol": 72
+          },
+          {
+            "price": 4,
+            "vol": 72
+          },
+          {
+            "price": 27,
+            "vol": 72
+          },
+          {
+            "price": 30,
+            "vol": 72
+          },
+          {
+            "price": 121,
+            "vol": 0
+          },
+          {
+            "price": 20260227161448,
+            "vol": 4
+          },
+          {
+            "price": 6.23,
+            "vol": 72
+          },
+          {
+            "price": 67.7,
+            "vol": 72
+          },
+          {
+            "price": 5029426,
+            "vol": 35585
+          },
+          {
+            "price": 4.4,
+            "vol": 638
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -97,
+        "signal": "STRONG_SELL",
+        "bidVol": 644,
+        "askVol": 36659,
+        "spread": "-50.000",
+        "spreadPct": "-69.444",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "1.10",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 5,
+        "topBid": {
+          "price": 52,
+          "vol": 71
+        },
+        "topAsk": {
+          "price": 2,
+          "vol": 72
+        }
+      },
+      "inst": {
+        "score": -13,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "WEAK"
+    }
+  ],
+  "hidden": [
+    {
+      "stock": {
+        "code": "835670",
+        "name": "数字人",
+        "sector": "AI教育",
+        "market": "bj"
+      },
+      "data": {
+        "code": "835670",
+        "name": "������",
+        "price": 18.45,
+        "change": 18.45,
+        "changePct": 0,
+        "volume": 0,
+        "amount": 0,
+        "open": 0,
+        "high": 0,
+        "low": 0,
+        "pe": 239.38,
+        "turnover": 0,
+        "high52": 0,
+        "low52": 0,
+        "bids": [
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 20260227090000,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 18
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 239
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -100,
+        "signal": "STRONG_SELL",
+        "bidVol": 0,
+        "askVol": 257,
+        "spread": "0.000",
+        "spreadPct": "0.000",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "Infinity",
+        "pattern": "STRONG_ACCUM",
+        "hiddenBuys": 0,
+        "hiddenSells": 2,
+        "topBid": {
+          "price": 0,
+          "vol": 0
+        },
+        "topAsk": {
+          "price": 0,
+          "vol": 0
+        }
+      },
+      "inst": {
+        "score": -4,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "HOLD"
+    },
+    {
+      "stock": {
+        "code": "300122",
+        "name": "智飞生物",
+        "sector": "医药",
+        "market": "sz"
+      },
+      "data": {
+        "code": "300122",
+        "name": "�Ƿ�����",
+        "price": 17.29,
+        "change": 17.23,
+        "changePct": 17.23,
+        "volume": 105143,
+        "amount": 48882,
+        "open": 17.23,
+        "high": 17.33,
+        "low": 17.2,
+        "pe": -31.6,
+        "turnover": 18161,
+        "high52": 17.33,
+        "low52": 17.2,
+        "bids": [
+          {
+            "price": 553,
+            "vol": 17
+          },
+          {
+            "price": 466,
+            "vol": 17
+          },
+          {
+            "price": 876,
+            "vol": 17
+          },
+          {
+            "price": 1125,
+            "vol": 17
+          },
+          {
+            "price": 706,
+            "vol": 17
+          },
+          {
+            "price": 443,
+            "vol": 17
+          },
+          {
+            "price": 1238,
+            "vol": 17
+          },
+          {
+            "price": 372,
+            "vol": 17
+          },
+          {
+            "price": 351,
+            "vol": 17
+          },
+          {
+            "price": 371,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 443,
+            "vol": 17
+          },
+          {
+            "price": 1238,
+            "vol": 17
+          },
+          {
+            "price": 372,
+            "vol": 17
+          },
+          {
+            "price": 351,
+            "vol": 17
+          },
+          {
+            "price": 371,
+            "vol": 0
+          },
+          {
+            "price": 20260227161439,
+            "vol": 0
+          },
+          {
+            "price": 0.35,
+            "vol": 17
+          },
+          {
+            "price": 17.2,
+            "vol": 17
+          },
+          {
+            "price": 105143,
+            "vol": 18161
+          },
+          {
+            "price": 0.74,
+            "vol": -31
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -98,
+        "signal": "STRONG_SELL",
+        "bidVol": 153,
+        "askVol": 18232,
+        "spread": "-110.000",
+        "spreadPct": "-636.206",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "1.11",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 4,
+        "topBid": {
+          "price": 553,
+          "vol": 17
+        },
+        "topAsk": {
+          "price": 443,
+          "vol": 17
+        }
+      },
+      "inst": {
+        "score": -13,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "WEAK"
+    },
+    {
+      "stock": {
+        "code": "300476",
+        "name": "中际旭创",
+        "sector": "AI硬件",
+        "market": "sz"
+      },
+      "data": {
+        "code": "300476",
+        "name": "ʤ��Ƽ�",
+        "price": 304.06,
+        "change": 315.25,
+        "changePct": 304.01,
+        "volume": 493502,
+        "amount": 231556,
+        "open": 304.01,
+        "high": 307.68,
+        "low": 298.1,
+        "pe": 72.99,
+        "turnover": 1493929,
+        "high52": 307.68,
+        "low52": 298.1,
+        "bids": [
+          {
+            "price": 626,
+            "vol": 304
+          },
+          {
+            "price": 257,
+            "vol": 304
+          },
+          {
+            "price": 9,
+            "vol": 304
+          },
+          {
+            "price": 705,
+            "vol": 304
+          },
+          {
+            "price": 251,
+            "vol": 304
+          },
+          {
+            "price": 393,
+            "vol": 304
+          },
+          {
+            "price": 198,
+            "vol": 304
+          },
+          {
+            "price": 24,
+            "vol": 304
+          },
+          {
+            "price": 63,
+            "vol": 304
+          },
+          {
+            "price": 6,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 393,
+            "vol": 304
+          },
+          {
+            "price": 198,
+            "vol": 304
+          },
+          {
+            "price": 24,
+            "vol": 304
+          },
+          {
+            "price": 63,
+            "vol": 304
+          },
+          {
+            "price": 6,
+            "vol": 0
+          },
+          {
+            "price": 20260227161415,
+            "vol": -11
+          },
+          {
+            "price": -3.55,
+            "vol": 307
+          },
+          {
+            "price": 298.1,
+            "vol": 304
+          },
+          {
+            "price": 493502,
+            "vol": 1493929
+          },
+          {
+            "price": 5.76,
+            "vol": 72
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -100,
+        "signal": "STRONG_SELL",
+        "bidVol": 2736,
+        "askVol": 1495817,
+        "spread": "-233.000",
+        "spreadPct": "-76.630",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "1.11",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 4,
+        "topBid": {
+          "price": 626,
+          "vol": 304
+        },
+        "topAsk": {
+          "price": 393,
+          "vol": 304
+        }
+      },
+      "inst": {
+        "score": -14,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "WEAK"
+    },
+    {
+      "stock": {
+        "code": "300682",
+        "name": "朗新科技",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "300682",
+        "name": "���¿Ƽ�",
+        "price": 19.08,
+        "change": 19,
+        "changePct": 18.8,
+        "volume": 373864,
+        "amount": 184913,
+        "open": 18.8,
+        "high": 19.23,
+        "low": 18.63,
+        "pe": -67.53,
+        "turnover": 70851,
+        "high52": 19.23,
+        "low52": 18.63,
+        "bids": [
+          {
+            "price": 942,
+            "vol": 19
+          },
+          {
+            "price": 248,
+            "vol": 19
+          },
+          {
+            "price": 433,
+            "vol": 19
+          },
+          {
+            "price": 65,
+            "vol": 19
+          },
+          {
+            "price": 56,
+            "vol": 19
+          },
+          {
+            "price": 1058,
+            "vol": 19
+          },
+          {
+            "price": 712,
+            "vol": 19
+          },
+          {
+            "price": 1488,
+            "vol": 19
+          },
+          {
+            "price": 646,
+            "vol": 19
+          },
+          {
+            "price": 218,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 1058,
+            "vol": 19
+          },
+          {
+            "price": 712,
+            "vol": 19
+          },
+          {
+            "price": 1488,
+            "vol": 19
+          },
+          {
+            "price": 646,
+            "vol": 19
+          },
+          {
+            "price": 218,
+            "vol": 0
+          },
+          {
+            "price": 20260227161442,
+            "vol": 0
+          },
+          {
+            "price": 0.42,
+            "vol": 19
+          },
+          {
+            "price": 18.63,
+            "vol": 19
+          },
+          {
+            "price": 373864,
+            "vol": 70851
+          },
+          {
+            "price": 3.62,
+            "vol": -67
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -100,
+        "signal": "STRONG_SELL",
+        "bidVol": 171,
+        "askVol": 70898,
+        "spread": "116.000",
+        "spreadPct": "607.966",
+        "liqScore": 25,
+        "liqAnalysis": "LOW - RETAIL",
+        "concentration": "1.11",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 4,
+        "topBid": {
+          "price": 942,
+          "vol": 19
+        },
+        "topAsk": {
+          "price": 1058,
+          "vol": 19
+        }
+      },
+      "inst": {
+        "score": -40,
+        "sentiment": "🔴 STRONG SELL"
+      },
+      "rec": "SELL"
+    },
+    {
+      "stock": {
+        "code": "300454",
+        "name": "网宿科技",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "300454",
+        "name": "���ŷ�",
+        "price": 131.1,
+        "change": 125.28,
+        "changePct": 124.97,
+        "volume": 149313,
+        "amount": 68555,
+        "open": 124.97,
+        "high": 132.7,
+        "low": 124.72,
+        "pe": 79.23,
+        "turnover": 192800,
+        "high52": 132.7,
+        "low52": 124.72,
+        "bids": [
+          {
+            "price": 1,
+            "vol": 130
+          },
+          {
+            "price": 3,
+            "vol": 130
+          },
+          {
+            "price": 91,
+            "vol": 130
+          },
+          {
+            "price": 4,
+            "vol": 129
+          },
+          {
+            "price": 1,
+            "vol": 131
+          },
+          {
+            "price": 9,
+            "vol": 131
+          },
+          {
+            "price": 2,
+            "vol": 131
+          },
+          {
+            "price": 2,
+            "vol": 131
+          },
+          {
+            "price": 5,
+            "vol": 131
+          },
+          {
+            "price": 2,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 9,
+            "vol": 131
+          },
+          {
+            "price": 2,
+            "vol": 131
+          },
+          {
+            "price": 2,
+            "vol": 131
+          },
+          {
+            "price": 5,
+            "vol": 131
+          },
+          {
+            "price": 2,
+            "vol": 0
+          },
+          {
+            "price": 20260227161439,
+            "vol": 5
+          },
+          {
+            "price": 4.65,
+            "vol": 132
+          },
+          {
+            "price": 124.72,
+            "vol": 131
+          },
+          {
+            "price": 149313,
+            "vol": 192800
+          },
+          {
+            "price": 5.39,
+            "vol": 79
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -99,
+        "signal": "STRONG_SELL",
+        "bidVol": 1174,
+        "askVol": 193671,
+        "spread": "8.000",
+        "spreadPct": "6.102",
+        "liqScore": 25,
+        "liqAnalysis": "LOW - RETAIL",
+        "concentration": "1.11",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 5,
+        "topBid": {
+          "price": 1,
+          "vol": 130
+        },
+        "topAsk": {
+          "price": 9,
+          "vol": 131
+        }
+      },
+      "inst": {
+        "score": -40,
+        "sentiment": "🔴 STRONG SELL"
+      },
+      "rec": "SELL"
+    },
+    {
+      "stock": {
+        "code": "002475",
+        "name": "立讯精密",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "002475",
+        "name": "��Ѷ����",
+        "price": 50.22,
+        "change": 51.16,
+        "changePct": 50.65,
+        "volume": 1272716,
+        "amount": 517253,
+        "open": 50.65,
+        "high": 50.69,
+        "low": 49.32,
+        "pe": 23.15,
+        "turnover": 634949,
+        "high52": 50.69,
+        "low52": 49.32,
+        "bids": [
+          {
+            "price": 1068,
+            "vol": 50
+          },
+          {
+            "price": 920,
+            "vol": 50
+          },
+          {
+            "price": 1492,
+            "vol": 50
+          },
+          {
+            "price": 794,
+            "vol": 50
+          },
+          {
+            "price": 717,
+            "vol": 50
+          },
+          {
+            "price": 880,
+            "vol": 50
+          },
+          {
+            "price": 428,
+            "vol": 50
+          },
+          {
+            "price": 2383,
+            "vol": 50
+          },
+          {
+            "price": 3537,
+            "vol": 50
+          },
+          {
+            "price": 644,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 880,
+            "vol": 50
+          },
+          {
+            "price": 428,
+            "vol": 50
+          },
+          {
+            "price": 2383,
+            "vol": 50
+          },
+          {
+            "price": 3537,
+            "vol": 50
+          },
+          {
+            "price": 644,
+            "vol": 0
+          },
+          {
+            "price": 20260227161421,
+            "vol": 0
+          },
+          {
+            "price": -1.84,
+            "vol": 50
+          },
+          {
+            "price": 49.32,
+            "vol": 50
+          },
+          {
+            "price": 1272716,
+            "vol": 634949
+          },
+          {
+            "price": 1.75,
+            "vol": 23
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -100,
+        "signal": "STRONG_SELL",
+        "bidVol": 450,
+        "askVol": 635272,
+        "spread": "-188.000",
+        "spreadPct": "-374.353",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "1.11",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 4,
+        "topBid": {
+          "price": 1068,
+          "vol": 50
+        },
+        "topAsk": {
+          "price": 880,
+          "vol": 50
+        }
+      },
+      "inst": {
+        "score": -14,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "WEAK"
+    },
+    {
+      "stock": {
+        "code": "000651",
+        "name": "格力电器",
+        "sector": "家电",
+        "market": "sz"
+      },
+      "data": {
+        "code": "000651",
+        "name": "��������",
+        "price": 37.45,
+        "change": 37.59,
+        "changePct": 37.58,
+        "volume": 472218,
+        "amount": 225275,
+        "open": 37.58,
+        "high": 37.67,
+        "low": 37.22,
+        "pe": 6.62,
+        "turnover": 176740,
+        "high52": 37.67,
+        "low52": 37.22,
+        "bids": [
+          {
+            "price": 210,
+            "vol": 37
+          },
+          {
+            "price": 564,
+            "vol": 37
+          },
+          {
+            "price": 646,
+            "vol": 37
+          },
+          {
+            "price": 901,
+            "vol": 37
+          },
+          {
+            "price": 807,
+            "vol": 37
+          },
+          {
+            "price": 162,
+            "vol": 37
+          },
+          {
+            "price": 113,
+            "vol": 37
+          },
+          {
+            "price": 166,
+            "vol": 37
+          },
+          {
+            "price": 1030,
+            "vol": 37
+          },
+          {
+            "price": 681,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 162,
+            "vol": 37
+          },
+          {
+            "price": 113,
+            "vol": 37
+          },
+          {
+            "price": 166,
+            "vol": 37
+          },
+          {
+            "price": 1030,
+            "vol": 37
+          },
+          {
+            "price": 681,
+            "vol": 0
+          },
+          {
+            "price": 20260227161406,
+            "vol": 0
+          },
+          {
+            "price": -0.37,
+            "vol": 37
+          },
+          {
+            "price": 37.22,
+            "vol": 37
+          },
+          {
+            "price": 472218,
+            "vol": 176740
+          },
+          {
+            "price": 0.86,
+            "vol": 6
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -100,
+        "signal": "STRONG_SELL",
+        "bidVol": 333,
+        "askVol": 176968,
+        "spread": "-48.000",
+        "spreadPct": "-128.171",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "1.11",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 4,
+        "topBid": {
+          "price": 210,
+          "vol": 37
+        },
+        "topAsk": {
+          "price": 162,
+          "vol": 37
+        }
+      },
+      "inst": {
+        "score": -14,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "WEAK"
+    }
+  ],
+  "top": [
+    {
+      "stock": {
+        "code": "835670",
+        "name": "数字人",
+        "sector": "AI教育",
+        "market": "bj"
+      },
+      "data": {
+        "code": "835670",
+        "name": "������",
+        "price": 18.45,
+        "change": 18.45,
+        "changePct": 0,
+        "volume": 0,
+        "amount": 0,
+        "open": 0,
+        "high": 0,
+        "low": 0,
+        "pe": 239.38,
+        "turnover": 0,
+        "high52": 0,
+        "low52": 0,
+        "bids": [
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 20260227090000,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 18
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 239
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -100,
+        "signal": "STRONG_SELL",
+        "bidVol": 0,
+        "askVol": 257,
+        "spread": "0.000",
+        "spreadPct": "0.000",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "Infinity",
+        "pattern": "STRONG_ACCUM",
+        "hiddenBuys": 0,
+        "hiddenSells": 2,
+        "topBid": {
+          "price": 0,
+          "vol": 0
+        },
+        "topAsk": {
+          "price": 0,
+          "vol": 0
+        }
+      },
+      "inst": {
+        "score": -4,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "HOLD"
+    },
+    {
+      "stock": {
+        "code": "688185",
+        "name": "康希诺",
+        "sector": "医药",
+        "market": "sh"
+      },
+      "data": {
+        "code": "688185",
+        "name": "��ϣŵ",
+        "price": 72,
+        "change": 67.78,
+        "changePct": 68,
+        "volume": 5029426,
+        "amount": 3092695,
+        "open": 68,
+        "high": 72.4,
+        "low": 67.7,
+        "pe": 638.16,
+        "turnover": 35585,
+        "high52": 72.4,
+        "low52": 67.7,
+        "bids": [
+          {
+            "price": 52,
+            "vol": 71
+          },
+          {
+            "price": 21,
+            "vol": 71
+          },
+          {
+            "price": 3,
+            "vol": 71
+          },
+          {
+            "price": 8,
+            "vol": 71
+          },
+          {
+            "price": 8,
+            "vol": 72
+          },
+          {
+            "price": 2,
+            "vol": 72
+          },
+          {
+            "price": 4,
+            "vol": 72
+          },
+          {
+            "price": 27,
+            "vol": 72
+          },
+          {
+            "price": 30,
+            "vol": 72
+          },
+          {
+            "price": 121,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 2,
+            "vol": 72
+          },
+          {
+            "price": 4,
+            "vol": 72
+          },
+          {
+            "price": 27,
+            "vol": 72
+          },
+          {
+            "price": 30,
+            "vol": 72
+          },
+          {
+            "price": 121,
+            "vol": 0
+          },
+          {
+            "price": 20260227161448,
+            "vol": 4
+          },
+          {
+            "price": 6.23,
+            "vol": 72
+          },
+          {
+            "price": 67.7,
+            "vol": 72
+          },
+          {
+            "price": 5029426,
+            "vol": 35585
+          },
+          {
+            "price": 4.4,
+            "vol": 638
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -97,
+        "signal": "STRONG_SELL",
+        "bidVol": 644,
+        "askVol": 36659,
+        "spread": "-50.000",
+        "spreadPct": "-69.444",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "1.10",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 5,
+        "topBid": {
+          "price": 52,
+          "vol": 71
+        },
+        "topAsk": {
+          "price": 2,
+          "vol": 72
+        }
+      },
+      "inst": {
+        "score": -13,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "WEAK"
+    },
+    {
+      "stock": {
+        "code": "300122",
+        "name": "智飞生物",
+        "sector": "医药",
+        "market": "sz"
+      },
+      "data": {
+        "code": "300122",
+        "name": "�Ƿ�����",
+        "price": 17.29,
+        "change": 17.23,
+        "changePct": 17.23,
+        "volume": 105143,
+        "amount": 48882,
+        "open": 17.23,
+        "high": 17.33,
+        "low": 17.2,
+        "pe": -31.6,
+        "turnover": 18161,
+        "high52": 17.33,
+        "low52": 17.2,
+        "bids": [
+          {
+            "price": 553,
+            "vol": 17
+          },
+          {
+            "price": 466,
+            "vol": 17
+          },
+          {
+            "price": 876,
+            "vol": 17
+          },
+          {
+            "price": 1125,
+            "vol": 17
+          },
+          {
+            "price": 706,
+            "vol": 17
+          },
+          {
+            "price": 443,
+            "vol": 17
+          },
+          {
+            "price": 1238,
+            "vol": 17
+          },
+          {
+            "price": 372,
+            "vol": 17
+          },
+          {
+            "price": 351,
+            "vol": 17
+          },
+          {
+            "price": 371,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 443,
+            "vol": 17
+          },
+          {
+            "price": 1238,
+            "vol": 17
+          },
+          {
+            "price": 372,
+            "vol": 17
+          },
+          {
+            "price": 351,
+            "vol": 17
+          },
+          {
+            "price": 371,
+            "vol": 0
+          },
+          {
+            "price": 20260227161439,
+            "vol": 0
+          },
+          {
+            "price": 0.35,
+            "vol": 17
+          },
+          {
+            "price": 17.2,
+            "vol": 17
+          },
+          {
+            "price": 105143,
+            "vol": 18161
+          },
+          {
+            "price": 0.74,
+            "vol": -31
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -98,
+        "signal": "STRONG_SELL",
+        "bidVol": 153,
+        "askVol": 18232,
+        "spread": "-110.000",
+        "spreadPct": "-636.206",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "1.11",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 4,
+        "topBid": {
+          "price": 553,
+          "vol": 17
+        },
+        "topAsk": {
+          "price": 443,
+          "vol": 17
+        }
+      },
+      "inst": {
+        "score": -13,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "WEAK"
+    },
+    {
+      "stock": {
+        "code": "300476",
+        "name": "中际旭创",
+        "sector": "AI硬件",
+        "market": "sz"
+      },
+      "data": {
+        "code": "300476",
+        "name": "ʤ��Ƽ�",
+        "price": 304.06,
+        "change": 315.25,
+        "changePct": 304.01,
+        "volume": 493502,
+        "amount": 231556,
+        "open": 304.01,
+        "high": 307.68,
+        "low": 298.1,
+        "pe": 72.99,
+        "turnover": 1493929,
+        "high52": 307.68,
+        "low52": 298.1,
+        "bids": [
+          {
+            "price": 626,
+            "vol": 304
+          },
+          {
+            "price": 257,
+            "vol": 304
+          },
+          {
+            "price": 9,
+            "vol": 304
+          },
+          {
+            "price": 705,
+            "vol": 304
+          },
+          {
+            "price": 251,
+            "vol": 304
+          },
+          {
+            "price": 393,
+            "vol": 304
+          },
+          {
+            "price": 198,
+            "vol": 304
+          },
+          {
+            "price": 24,
+            "vol": 304
+          },
+          {
+            "price": 63,
+            "vol": 304
+          },
+          {
+            "price": 6,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 393,
+            "vol": 304
+          },
+          {
+            "price": 198,
+            "vol": 304
+          },
+          {
+            "price": 24,
+            "vol": 304
+          },
+          {
+            "price": 63,
+            "vol": 304
+          },
+          {
+            "price": 6,
+            "vol": 0
+          },
+          {
+            "price": 20260227161415,
+            "vol": -11
+          },
+          {
+            "price": -3.55,
+            "vol": 307
+          },
+          {
+            "price": 298.1,
+            "vol": 304
+          },
+          {
+            "price": 493502,
+            "vol": 1493929
+          },
+          {
+            "price": 5.76,
+            "vol": 72
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -100,
+        "signal": "STRONG_SELL",
+        "bidVol": 2736,
+        "askVol": 1495817,
+        "spread": "-233.000",
+        "spreadPct": "-76.630",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "1.11",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 4,
+        "topBid": {
+          "price": 626,
+          "vol": 304
+        },
+        "topAsk": {
+          "price": 393,
+          "vol": 304
+        }
+      },
+      "inst": {
+        "score": -14,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "WEAK"
+    },
+    {
+      "stock": {
+        "code": "002475",
+        "name": "立讯精密",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "002475",
+        "name": "��Ѷ����",
+        "price": 50.22,
+        "change": 51.16,
+        "changePct": 50.65,
+        "volume": 1272716,
+        "amount": 517253,
+        "open": 50.65,
+        "high": 50.69,
+        "low": 49.32,
+        "pe": 23.15,
+        "turnover": 634949,
+        "high52": 50.69,
+        "low52": 49.32,
+        "bids": [
+          {
+            "price": 1068,
+            "vol": 50
+          },
+          {
+            "price": 920,
+            "vol": 50
+          },
+          {
+            "price": 1492,
+            "vol": 50
+          },
+          {
+            "price": 794,
+            "vol": 50
+          },
+          {
+            "price": 717,
+            "vol": 50
+          },
+          {
+            "price": 880,
+            "vol": 50
+          },
+          {
+            "price": 428,
+            "vol": 50
+          },
+          {
+            "price": 2383,
+            "vol": 50
+          },
+          {
+            "price": 3537,
+            "vol": 50
+          },
+          {
+            "price": 644,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 880,
+            "vol": 50
+          },
+          {
+            "price": 428,
+            "vol": 50
+          },
+          {
+            "price": 2383,
+            "vol": 50
+          },
+          {
+            "price": 3537,
+            "vol": 50
+          },
+          {
+            "price": 644,
+            "vol": 0
+          },
+          {
+            "price": 20260227161421,
+            "vol": 0
+          },
+          {
+            "price": -1.84,
+            "vol": 50
+          },
+          {
+            "price": 49.32,
+            "vol": 50
+          },
+          {
+            "price": 1272716,
+            "vol": 634949
+          },
+          {
+            "price": 1.75,
+            "vol": 23
+          }
+        ]
+      },
+      "ab": {
+        "imbalance": -100,
+        "signal": "STRONG_SELL",
+        "bidVol": 450,
+        "askVol": 635272,
+        "spread": "-188.000",
+        "spreadPct": "-374.353",
+        "liqScore": 90,
+        "liqAnalysis": "HIGH INSTITUTIONAL",
+        "concentration": "1.11",
+        "pattern": "DISTRIBUTED",
+        "hiddenBuys": 6,
+        "hiddenSells": 4,
+        "topBid": {
+          "price": 1068,
+          "vol": 50
+        },
+        "topAsk": {
+          "price": 880,
+          "vol": 50
+        }
+      },
+      "inst": {
+        "score": -14,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "WEAK"
+    }
+  ]
+}

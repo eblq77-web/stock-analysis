@@ -1,0 +1,23 @@
+{
+  "day": 1,
+  "date": "2026-03-02",
+  "winRate": 86,
+  "pnl": 3.29,
+  "insights": {
+    "worked": [
+      "quantum>80",
+      "新能源",
+      "创业板"
+    ],
+    "improve": [
+      "higher threshold",
+      "sector diversity",
+      "intraday alerts"
+    ]
+  },
+  "adjustments": [
+    "quantum threshold: 70->80",
+    "sector max: 2",
+    "intraday -3% alert"
+  ]
+}

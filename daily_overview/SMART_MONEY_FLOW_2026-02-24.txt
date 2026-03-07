@@ -1,0 +1,90 @@
+# 💰 SMART MONEY FLOW ANALYZER
+## 2026-02-24 | 126 Stocks Analyzed
+
+## 📊 SECTOR MONEY FLOW
+| Sector | Flow (B) | Signal | Avg Score |
+|--------|----------|--------|----------|
+| 科技 | +32.4B | 🟢 STRONG | 70 |
+| 新能源 | +30.5B | 🟢 STRONG | 73 |
+| AI硬件 | +28.5B | 🟢 STRONG | 73 |
+| AI教育 | +25.2B | 🟢 STRONG | 68 |
+| 新材料 | +18.2B | 🟡 IN | 66 |
+| 军工 | +12.5B | 🟡 IN | 67 |
+| 消费 | +8.8B | 🟡 IN | 69 |
+| 医药 | +6.8B | 🟡 IN | 66 |
+| 稀土 | 0B | 🔴 OUT | 60 |
+| 汽车 | 0B | 🔴 OUT | 60 |
+| 航空 | 0B | 🔴 OUT | 54 |
+| 医疗 | 0B | 🔴 OUT | 56 |
+| AI | 0B | 🔴 OUT | 61 |
+| 农业 | 0B | 🔴 OUT | 60 |
+| 化工 | 0B | 🔴 OUT | 60 |
+| 物流 | 0B | 🔴 OUT | 62 |
+| 通信 | 0B | 🔴 OUT | 60 |
+| 制造 | 0B | 🔴 OUT | 61 |
+| 基建 | 0B | 🔴 OUT | 58 |
+| 建材 | 0B | 🔴 OUT | 62 |
+| 电子 | 0B | 🔴 OUT | 63 |
+| 家电 | 0B | 🔴 OUT | 65 |
+| 公用 | 0B | 🔴 OUT | 68 |
+| 材料 | 0B | 🔴 OUT | 58 |
+| 设备 | 0B | 🔴 OUT | 55 |
+| 传媒 | 0B | 🔴 OUT | 57 |
+| 有色 | 0B | 🔴 OUT | 56 |
+| 综合 | 0B | 🔴 OUT | 59 |
+| 能源 | -8.5B | 🔴 OUT | 57 |
+| 钢铁 | -12.2B | 🔴 OUT | 57 |
+| 金融 | -14.3B | 🔴 OUT | 57 |
+| 地产 | -33.7B | 🔴 OUT | 48 |
+
+## 🎯 TOP 30 SMART MONEY STOCKS
+| Rank | Code | Name | Sector | Conf | Flow | Vol | Signal |
+|------|------|------|--------|------|------|-----|--------|
+| 1 | 300750 | 宁德时代 | 新能源 | **78** | STRONG_INFLOW | 1.8x | HOLD |
+| 2 | 002594 | 比亚迪 | 新能源 | **78** | STRONG_INFLOW | 1.8x | HOLD |
+| 3 | 0700 | 腾讯控股 | 科技 | **77** | STRONG_INFLOW | 1.5x | HOLD |
+| 4 | 9988 | 阿里巴巴 | 科技 | **76** | STRONG_INFLOW | 1.6x | HOLD |
+| 5 | 300014 | 亿纬锂能 | 新能源 | **75** | STRONG_INFLOW | 1.7x | HOLD |
+| 6 | 300308 | 中际旭创 | AI硬件 | **75** | STRONG_INFLOW | 1.8x | HOLD |
+| 7 | 300476 | 中际旭创 | AI硬件 | **75** | STRONG_INFLOW | 1.8x | HOLD |
+| 8 | 600519 | 贵州茅台 | 消费 | **75** | INFLOW | 1.8x | BUY |
+| 9 | 3690 | 美团 | 科技 | **73** | STRONG_INFLOW | 1.5x | HOLD |
+| 10 | 300018 | 中科创达 | 科技 | **73** | STRONG_INFLOW | 1.8x | HOLD |
+| 11 | 300033 | 同花顺 | 科技 | **73** | STRONG_INFLOW | 1.7x | HOLD |
+| 12 | 002415 | 海康威视 | 科技 | **73** | STRONG_INFLOW | 1.8x | HOLD |
+| 13 | 9618 | 京东集团 | 科技 | **72** | STRONG_INFLOW | 1.5x | HOLD |
+| 14 | 872926 | 贝特瑞 | 新能源 | **72** | STRONG_INFLOW | 1.8x | HOLD |
+| 15 | 000858 | 五粮液 | 消费 | **72** | INFLOW | 1.8x | BUY |
+| 16 | 002475 | 立讯精密 | 科技 | **72** | STRONG_INFLOW | 1.8x | HOLD |
+| 17 | 300408 | 三环集团 | 科技 | **71** | STRONG_INFLOW | 1.8x | HOLD |
+| 18 | 300015 | 爱尔眼科 | 医药 | **70** | INFLOW | 1.7x | BUY |
+| 19 | 300024 | 机器人 | 科技 | **70** | STRONG_INFLOW | 1.7x | HOLD |
+| 20 | 300039 | 上海钢联 | 科技 | **70** | STRONG_INFLOW | 1.8x | HOLD |
+| 21 | 300226 | 上海钢联 | 科技 | **70** | STRONG_INFLOW | 1.8x | HOLD |
+| 22 | 300502 | 新易盛 | AI硬件 | **70** | STRONG_INFLOW | 1.7x | HOLD |
+| 23 | 300682 | 朗新科技 | 科技 | **70** | STRONG_INFLOW | 1.8x | HOLD |
+| 24 | 601012 | 隆基绿能 | 新能源 | **70** | STRONG_INFLOW | 1.7x | HOLD |
+| 25 | 000538 | 云南白药 | 医药 | **70** | INFLOW | 1.8x | BUY |
+| 26 | 000568 | 泸州老窖 | 消费 | **70** | INFLOW | 1.8x | BUY |
+| 27 | 1024 | 快手 | 科技 | **69** | STRONG_INFLOW | 1.5x | HOLD |
+| 28 | 600089 | 特变电工 | 新能源 | **69** | STRONG_INFLOW | 1.8x | HOLD |
+| 29 | 600276 | 恒瑞医药 | 医药 | **69** | INFLOW | 1.8x | ACCUMULATE |
+| 30 | 1810 | 小米集团 | 科技 | **68** | STRONG_INFLOW | 1.5x | HOLD |
+
+## 🏦 INSTITUTIONAL BUY SIGNALS
+- **600519 贵州茅台** | 消费 | Conf: 75 | Vol: 1.8x
+- **000858 五粮液** | 消费 | Conf: 72 | Vol: 1.8x
+- **300015 爱尔眼科** | 医药 | Conf: 70 | Vol: 1.7x
+- **000538 云南白药** | 医药 | Conf: 70 | Vol: 1.8x
+- **000568 泸州老窖** | 消费 | Conf: 70 | Vol: 1.8x
+
+## 🔴 AVOID (Smart Money Out)
+- **1109 华润置地** | 地产 | Conf: 50 | Outflow
+- **600048 保利发展** | 地产 | Conf: 50 | Outflow
+- **0960 龙湖集团** | 地产 | Conf: 49 | Outflow
+- **0688 中国海外发展** | 地产 | Conf: 48 | Outflow
+- **871445 海泰发展** | 地产 | Conf: 46 | Outflow
+- **000002 万科A** | 地产 | Conf: 46 | Outflow
+
+---
+*💰 Smart Money Flow Analyzer - Charles's Brain*

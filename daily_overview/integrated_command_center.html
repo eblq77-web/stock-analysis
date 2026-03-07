@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧠 Charles's Super Brain - Integrated Command Center</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0a0a15 0%, #1a1a2e 100%); min-height: 100vh; color: #fff; }
+.header { background: rgba(0,0,0,0.6); padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+.header h1 { font-size: 20px; background: linear-gradient(90deg, #00ff88, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.btn { background: #00ff88; border: none; color: #000; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+.container { max-width: 1800px; margin: 0 auto; padding: 20px; }
+.grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+.panel { background: rgba(255,255,255,0.03); border-radius: 15px; padding: 20px; border: 1px solid #333; }
+.panel h2 { font-size: 16px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #333; }
+.stock-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.stock-table th { text-align: left; padding: 10px; color: #888; border-bottom: 1px solid #333; font-size: 10px; }
+.stock-table td { padding: 12px 10px; border-bottom: 1px solid #222; }
+.code { color: #00d4ff; font-weight: bold; }
+.score { color: #00ff88; font-weight: bold; font-size: 14px; }
+.signal { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+.signal.buy { background: rgba(0,255,136,0.2); color: #00ff88; }
+.signal.hold { background: rgba(255,200,0,0.2); color: #ffd700; }
+.signal.sell { background: rgba(255,68,68,0.2); color: #ff4444; }
+.cycle-bar { height: 8px; background: #222; border-radius: 4px; overflow: hidden; margin-top: 5px; }
+.cycle-fill { height: 100%; border-radius: 4px; }
+.timing { font-size: 10px; font-weight: bold; }
+.timing.perfect { color: #00ff88; }
+.timing.good { color: #00d4ff; }
+.timing.late { color: #ff4444; }
+.timing.wait { color: #ffd700; }
+.reports { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 20px; }
+.report-link { background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 10px; padding: 15px; text-align: center; text-decoration: none; display: block; transition: all 0.3s; }
+.report-link:hover { background: rgba(0,255,136,0.1); border-color: #00ff88; transform: translateY(-2px); }
+.report-link .icon { font-size: 24px; display: block; margin-bottom: 5px; }
+.report-link .name { color: #fff; font-size: 11px; font-weight: bold; }
+.report-link .desc { color: #888; font-size: 9px; margin-top: 3px; }
+.footer { text-align: center; padding: 20px; color: #666; font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="header">
+<h1>🧠 CHARLES'S SUPER BRAIN - INTEGRATED COMMAND CENTER</h1>
+<button class="btn" onclick="location.reload()">🔄 Refresh</button>
+</div>
+<div class="container">
+<div class="grid">
+<div class="panel">
+<h2>🎯 CYCLE & TIMING ANALYSIS - ENTRY SIGNALS</h2>
+<table class="stock-table">
+<tr><th>Code</th><th>Name</th><th>Price</th><th>Cycle Phase</th><th>Progress</th><th>Trend</th><th>Signal</th><th>Score</th><th>Target</th><th>Stop</th><th>Timing</th></tr>
+<tr>
+<td class="code">835670</td>
+<td>数字人</td>
+<td>¥45</td>
+<td style="color:#00ff88">🔴 Bottom Formation</td>
+<td><div class="cycle-bar"><div class="cycle-fill" style="width:30%;background:#00ff88"></div></div></td>
+<td>UP</td>
+<td><span class="signal buy">BUY</span></td>
+<td class="score">92</td>
+<td style="color:#00ff88">¥80</td>
+<td style="color:#ff4444">¥38</td>
+<td class="timing perfect">🔥 PERFECT ENTRY</td>
+</tr><tr>
+<td class="code">0700</td>
+<td>腾讯控股</td>
+<td>¥380</td>
+<td style="color:#00d4ff">🟢 Early Recovery</td>
+<td><div class="cycle-bar"><div class="cycle-fill" style="width:80%;background:#00d4ff"></div></div></td>
+<td>UP</td>
+<td><span class="signal buy">BUY</span></td>
+<td class="score">91</td>
+<td style="color:#00ff88">¥450</td>
+<td style="color:#ff4444">¥360</td>
+<td class="timing good">🟢 GOOD ENTRY</td>
+</tr><tr>
+<td class="code">300476</td>
+<td>中际旭创</td>
+<td>¥155</td>
+<td style="color:#ffd700">🟡 Mid-Range</td>
+<td><div class="cycle-bar"><div class="cycle-fill" style="width:75%;background:#ffd700"></div></div></td>
+<td>UP</td>
+<td><span class="signal buy">BUY</span></td>
+<td class="score">90</td>
+<td style="color:#00ff88">¥280</td>
+<td style="color:#ff4444">¥140</td>
+<td class="timing wait">WAIT</td>
+</tr><tr>
+<td class="code">870299</td>
+<td>吉林碳谷</td>
+<td>¥85</td>
+<td style="color:#00ff88">🔴 Bottom Formation</td>
+<td><div class="cycle-bar"><div class="cycle-fill" style="width:50%;background:#00ff88"></div></div></td>
+<td>UP</td>
+<td><span class="signal buy">BUY</span></td>
+<td class="score">88</td>
+<td style="color:#00ff88">¥120</td>
+<td style="color:#ff4444">¥75</td>
+<td class="timing perfect">🔥 PERFECT ENTRY</td>
+</tr><tr>
+<td class="code">002594</td>
+<td>比亚迪</td>
+<td>¥205</td>
+<td style="color:#ff4444">🔴 Peak Zone</td>
+<td><div class="cycle-bar"><div class="cycle-fill" style="width:10%;background:#ff4444"></div></div></td>
+<td>SIDE</td>
+<td><span class="signal hold">HOLD</span></td>
+<td class="score">87</td>
+<td style="color:#00ff88">¥300</td>
+<td style="color:#ff4444">¥190</td>
+<td class="timing late">🔴 LATE</td>
+</tr><tr>
+<td class="code">300750</td>
+<td>宁德时代</td>
+<td>¥210</td>
+<td style="color:#ffd700">🟡 Mid-Range</td>
+<td><div class="cycle-bar"><div class="cycle-fill" style="width:100%;background:#ffd700"></div></div></td>
+<td>UP</td>
+<td><span class="signal buy">BUY</span></td>
+<td class="score">86</td>
+<td style="color:#00ff88">¥280</td>
+<td style="color:#ff4444">¥195</td>
+<td class="timing wait">WAIT</td>
+</tr><tr>
+<td class="code">872926</td>
+<td>贝特瑞</td>
+<td>¥82</td>
+<td style="color:#ffd700">🟡 Mid-Range</td>
+<td><div class="cycle-bar"><div class="cycle-fill" style="width:100%;background:#ffd700"></div></div></td>
+<td>UP</td>
+<td><span class="signal accumulate">ACCUMULATE</span></td>
+<td class="score">85</td>
+<td style="color:#00ff88">¥180</td>
+<td style="color:#ff4444">¥75</td>
+<td class="timing wait">WAIT</td>
+</tr><tr>
+<td class="code">3690</td>
+<td>美团</td>
+<td>¥120</td>
+<td style="color:#00ff88">🔴 Bottom Formation</td>
+<td><div class="cycle-bar"><div class="cycle-fill" style="width:20%;background:#00ff88"></div></div></td>
+<td>UP</td>
+<td><span class="signal buy">BUY</span></td>
+<td class="score">84</td>
+<td style="color:#00ff88">¥150</td>
+<td style="color:#ff4444">¥110</td>
+<td class="timing perfect">🔥 PERFECT ENTRY</td>
+</tr>
+</table>
+</div>
+<div class="panel">
+<h2>📊 MARKET CYCLE INDICATORS</h2>
+<div style="padding:15px">
+<div style="margin-bottom:20px">
+<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span>🌊 Market Cycle</span><span style="color:#00ff88">RECOVERY</span></div>
+<div class="cycle-bar"><div class="cycle-fill" style="width:35%;background:linear-gradient(90deg,#00ff88,#00d4ff)"></div></div>
+</div>
+<div style="margin-bottom:20px">
+<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span>📈 Trend Direction</span><span style="color:#00ff88">BULLISH</span></div>
+<div class="cycle-bar"><div class="cycle-fill" style="width:70%;background:linear-gradient(90deg,#00ff88,#00d4ff)"></div></div>
+</div>
+<div style="margin-bottom:20px">
+<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span>⏰ Entry Window</span><span style="color:#00ff88">OPEN</span></div>
+<div class="cycle-bar"><div class="cycle-fill" style="width:85%;background:linear-gradient(90deg,#00ff88,#00d4ff)"></div></div>
+</div>
+<div style="margin-bottom:20px">
+<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span>⚠️ Risk Level</span><span style="color:#ffd700">MODERATE</span></div>
+<div class="cycle-bar"><div class="cycle-fill" style="width:45%;background:linear-gradient(90deg,#ffd700,#ff8800)"></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="panel" style="margin-top:20px">
+<h2>🔮 CYCLE PREDICTIONS - PEAK & BOTTOM</h2>
+<table class="stock-table">
+<tr><th>Stock</th><th>Current Cycle</th><th>Days to Peak</th><th>Days to Bottom</th><th>Prediction</th></tr>
+<tr>
+<td class="code">835670</td>
+<td style="color:#00ff88">🔴 Bottom Formation</td>
+<td>60+</td>
+<td>0</td>
+<td style="color:#00ff88">📈 UPTREND</td>
+</tr><tr>
+<td class="code">0700</td>
+<td style="color:#00d4ff">🟢 Early Recovery</td>
+<td>30-45</td>
+<td>45</td>
+<td style="color:#00ff88">📈 UPTREND</td>
+</tr><tr>
+<td class="code">300476</td>
+<td style="color:#ffd700">🟡 Mid-Range</td>
+<td>15-20</td>
+<td>20</td>
+<td style="color:#00ff88">📈 UPTREND</td>
+</tr><tr>
+<td class="code">870299</td>
+<td style="color:#00ff88">🔴 Bottom Formation</td>
+<td>60+</td>
+<td>0</td>
+<td style="color:#00ff88">📈 UPTREND</td>
+</tr><tr>
+<td class="code">002594</td>
+<td style="color:#ff4444">🔴 Peak Zone</td>
+<td>0</td>
+<td>5-10</td>
+<td style="color:#00ff88">➡️ SIDEWAYS</td>
+</tr>
+</table>
+</div>
+<div class="panel" style="margin-top:20px">
+<h2>⚡ TODAY'S ACTION PLAN</h2>
+<div style="padding:15px">
+<div style="background:rgba(0,255,136,0.1);border:1px solid #00ff88;border-radius:10px;padding:15px;margin-bottom:10px">
+<div style="color:#00ff88;font-weight:bold;margin-bottom:5px">🔥 PERFECT ENTRY (Now)</div>
+<div style="font-size:12px">数字人, 美团 - Bottom formation, start accumulating</div>
+</div>
+<div style="background:rgba(0,212,255,0.1);border:1px solid #00d4ff;border-radius:10px;padding:15px;margin-bottom:10px">
+<div style="color:#00d4ff;font-weight:bold;margin-bottom:5px">🟢 GOOD ENTRY</div>
+<div style="font-size:12px">中际旭创, 宁德时代 - Recovery phase, building position</div>
+</div>
+<div style="background:rgba(255,200,0,0.1);border:1px solid #ffd700;border-radius:10px;padding:15px">
+<div style="color:#ffd700;font-weight:bold;margin-bottom:5px">🟡 HOLD</div>
+<div style="font-size:12px">比亚迪 - Near peak, hold but don't add</div>
+</div>
+</div>
+</div>
+<div class="panel" style="margin-top:20px">
+<h2>📁 REPORTS - CLICK TO OPEN</h2>
+<div class="reports">
+<a href="file:///Users/liu/Desktop/Stock_Analysis/daily_overview/COMPREHENSIVE_SCAN_2026-02-24.txt" class="report-link" target="_blank"><span class="icon">📊</span><span class="name">Comprehensive</span><span class="desc">176 stocks</span></a>
+<a href="file:///Users/liu/Desktop/Stock_Analysis/daily_overview/SMART_MONEY_FLOW_2026-02-24.txt" class="report-link" target="_blank"><span class="icon">💰</span><span class="name">Smart Money</span><span class="desc">Flows</span></a>
+<a href="file:///Users/liu/Desktop/Stock_Analysis/daily_overview/HIDDEN_GEMS_2026-02-24.txt" class="report-link" target="_blank"><span class="icon">💎</span><span class="name">Hidden Gems</span><span class="desc">Analysis</span></a>
+<a href="file:///Users/liu/Desktop/Stock_Analysis/daily_overview/PUBLIC_INTELLIGENCE_2026-02-24.txt" class="report-link" target="_blank"><span class="icon">🔍</span><span class="name">Intelligence</span><span class="desc">Insiders</span></a>
+<a href="file:///Users/liu/Desktop/Stock_Analysis/daily_overview/DEEP_INTELLIGENCE.txt" class="report-link" target="_blank"><span class="icon">🧠</span><span class="name">Deep Intel</span><span class="desc">Advanced</span></a>
+<a href="file:///Users/liu/Desktop/Stock_Analysis/daily_overview/TOMORROW_PREDICTION.txt" class="report-link" target="_blank"><span class="icon">🔮</span><span class="name">Prediction</span><span class="desc">Next Day</span></a>
+</div>
+</div>
+<div class="footer">🧠 Charles's Super Brain | Cycle Analysis + Timing + Hidden Gems | Updated: 2/24/2026, 10:16:59 PM</div>
+</div>
+</body>
+</html>

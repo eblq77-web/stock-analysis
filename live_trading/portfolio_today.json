@@ -1,0 +1,91 @@
+{
+  "date": "2026-03-05",
+  "daily": [
+    {
+      "code": "600066",
+      "name": "宇通客车",
+      "src": "DAILY",
+      "price": 31.03,
+      "pct": 5.58
+    },
+    {
+      "code": "600089",
+      "name": "特变电工",
+      "src": "DAILY",
+      "price": 31.74,
+      "pct": 2.82
+    },
+    {
+      "code": "000792",
+      "name": "盐湖股份",
+      "src": "DAILY",
+      "price": 37.22,
+      "pct": 2.73
+    }
+  ],
+  "mid": [
+    {
+      "code": "600030",
+      "name": "中信证券",
+      "src": "MID",
+      "price": 26.39,
+      "pct": 0.96
+    },
+    {
+      "code": "000513",
+      "name": "丽珠集团",
+      "src": "MID",
+      "price": 34.12,
+      "pct": 0.92
+    },
+    {
+      "code": "600085",
+      "name": "同仁堂",
+      "src": "MID",
+      "price": 29.98,
+      "pct": 0.91
+    },
+    {
+      "code": "600009",
+      "name": "上海机场",
+      "src": "MID",
+      "price": 29.55,
+      "pct": 0.75
+    }
+  ],
+  "long": [
+    {
+      "code": "600036",
+      "name": "招商银行",
+      "src": "LONG",
+      "price": 38.96,
+      "pct": 0.93
+    },
+    {
+      "code": "000651",
+      "name": "格力电器",
+      "src": "LONG",
+      "price": 37.12,
+      "pct": 0.62
+    },
+    {
+      "code": "600038",
+      "name": "中直股份",
+      "src": "LONG",
+      "price": 37.48,
+      "pct": -0.11
+    },
+    {
+      "code": "000999",
+      "name": "华润三九",
+      "src": "LONG",
+      "price": 29.59,
+      "pct": -0.34
+    }
+  ],
+  "stats": {
+    "dailyWin": 3,
+    "midWin": 4,
+    "longWin": 2
+  }
+}

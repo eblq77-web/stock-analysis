@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-02-26T12:23:21.575Z",
+  "totalStocks": 88,
+  "exchanges": {
+    "SH": 20,
+    "SZ": 15,
+    "CN": 25,
+    "BSE": 11,
+    "HK": 15,
+    "HKG": 2
+  },
+  "news": [
+    {
+      "source": "SYSTEM",
+      "title": "Market Surveillance Complete",
+      "content": "Scanned 88 stocks across 6 exchanges",
+      "timestamp": "2026-02-26T12:23:21.578Z"
+    }
+  ],
+  "alerts": [],
+  "insiderSignals": []
+}

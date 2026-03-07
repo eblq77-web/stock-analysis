@@ -1,0 +1,36 @@
+{
+  "test_name": "Quantum 20-Stock Multi-Exchange Verification",
+  "start_date": "2026-03-02",
+  "end_date": "2026-03-09",
+  "algorithm": "Quantum 10-Factor V9",
+  "rules": {
+    "stop_loss": -7,
+    "take_profit_partial": 10,
+    "max_position": 20
+  },
+  "stocks": [
+    {"code": "sz000725", "name": "京东方A", "exchange": "深圳", "sector": "科技", "entry": 4.49, "shares": 500, "stop": 4.18, "target": 4.94, "quantum": 84.5},
+    {"code": "sz300498", "name": "中科曙光", "exchange": "创业", "sector": "科技", "entry": 16.00, "shares": 60, "stop": 14.88, "target": 17.60, "quantum": 83.4},
+    {"code": "sh600900", "name": "长江电力", "exchange": "上海", "sector": "电力", "entry": 26.41, "shares": 38, "stop": 24.56, "target": 29.05, "quantum": 72.0},
+    {"code": "bj872541", "name": "万润科技", "exchange": "北京", "sector": "科技", "entry": 3.90, "shares": 250, "stop": 3.63, "target": 4.29, "quantum": 60.0},
+    {"code": "bj835985", "name": "瑞华技术", "exchange": "北京", "sector": "化工", "entry": 13.77, "shares": 70, "stop": 12.81, "target": 15.15, "quantum": 58.0},
+    {"code": "sz000858", "name": "五粮液", "exchange": "深圳", "sector": "消费", "entry": 102.90, "shares": 10, "stop": 95.70, "target": 113.19, "quantum": 56.3},
+    {"code": "sh601888", "name": "中国中免", "exchange": "上海", "sector": "消费", "entry": 77.25, "shares": 13, "stop": 71.84, "target": 84.98, "quantum": 53.0},
+    {"code": "sz000568", "name": "泸州老窖", "exchange": "深圳", "sector": "消费", "entry": 107.89, "shares": 9, "stop": 100.34, "target": 118.68, "quantum": 52.5},
+    {"code": "sz300015", "name": "爱尔眼科", "exchange": "创业", "sector": "医药", "entry": 10.37, "shares": 95, "stop": 9.64, "target": 11.41, "quantum": 51.3},
+    {"code": "sz300676", "name": "康泰生物", "exchange": "创业", "sector": "医药", "entry": 46.79, "shares": 21, "stop": 43.51, "target": 51.47, "quantum": 51.0},
+    {"code": "sz300003", "name": "乐普医疗", "exchange": "创业", "sector": "医药", "entry": 17.69, "shares": 56, "stop": 16.45, "target": 19.46, "quantum": 51.0},
+    {"code": "sz300142", "name": "沃森生物", "exchange": "创业", "sector": "医药", "entry": 11.83, "shares": 84, "stop": 11.00, "target": 13.01, "quantum": 50.7},
+    {"code": "sh600030", "name": "中信证券", "exchange": "上海", "sector": "金融", "entry": 26.89, "shares": 37, "stop": 25.01, "target": 29.58, "quantum": 48.0},
+    {"code": "sz300059", "name": "东方财富", "exchange": "创业", "sector": "金融", "entry": 21.96, "shares": 45, "stop": 20.42, "target": 24.16, "quantum": 47.9},
+    {"code": "sh1024", "name": "快手", "exchange": "恒生", "sector": "平台", "entry": 65.00, "shares": 15, "stop": 60.45, "target": 71.50, "quantum": 50.0},
+    {"code": "sh1810", "name": "小米集团", "exchange": "恒生", "sector": "科技", "entry": 35.00, "shares": 28, "stop": 32.55, "target": 38.50, "quantum": 50.0}
+  ],
+  "summary": {
+    "total_invested": 25000,
+    "current_value": 25000,
+    "total_pnl": 0,
+    "wins": 0,
+    "losses": 0
+  }
+}

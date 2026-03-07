@@ -1,0 +1,260 @@
+{
+  "buy": [
+    {
+      "rank": 1,
+      "code": "600276",
+      "name": "恒瑞医药",
+      "sector": "医药",
+      "quality": 82,
+      "score": 84.3,
+      "signal": "🎯 STRONG",
+      "currentPrice": 821.4177220531036,
+      "patterns": [
+        "HIGH_SCORE"
+      ],
+      "reason": "Top Score 84.3"
+    },
+    {
+      "rank": 2,
+      "code": "300003",
+      "name": "乐普医疗",
+      "sector": "医药",
+      "quality": 78,
+      "score": 82.9,
+      "signal": "🎯 STRONG",
+      "currentPrice": 797.3775636642837,
+      "patterns": [
+        "HIGH_SCORE"
+      ],
+      "reason": "Top Score 82.9"
+    },
+    {
+      "rank": 4,
+      "code": "300039",
+      "name": "上海钢联",
+      "sector": "科技",
+      "quality": 70,
+      "score": 79.3,
+      "signal": "🟢 BUY",
+      "currentPrice": 740.7112870316341,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 79.3 + BUY Signal"
+    },
+    {
+      "rank": 5,
+      "code": "300142",
+      "name": "沃森生物",
+      "sector": "医药",
+      "quality": 75,
+      "score": 78.9,
+      "signal": "🟢 BUY",
+      "currentPrice": 776.7609715822259,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 78.9 + BUY Signal"
+    },
+    {
+      "rank": 6,
+      "code": "000028",
+      "name": "国药一致",
+      "sector": "医药",
+      "quality": 72,
+      "score": 78.7,
+      "signal": "🟢 BUY",
+      "currentPrice": 758.4842134196414,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 78.7 + BUY Signal"
+    },
+    {
+      "rank": 7,
+      "code": "300033",
+      "name": "同花顺",
+      "sector": "科技",
+      "quality": 78,
+      "score": 78.6,
+      "signal": "🟢 BUY",
+      "currentPrice": 805.3326165895439,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 78.6 + BUY Signal"
+    },
+    {
+      "rank": 8,
+      "code": "300026",
+      "name": "红日药业",
+      "sector": "医药",
+      "quality": 68,
+      "score": 78.5,
+      "signal": "🟢 BUY",
+      "currentPrice": 712.7562325415716,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 78.5 + BUY Signal"
+    },
+    {
+      "rank": 10,
+      "code": "300408",
+      "name": "三环集团",
+      "sector": "科技",
+      "quality": 72,
+      "score": 77.3,
+      "signal": "🟢 BUY",
+      "currentPrice": 740.7444149116575,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 77.3 + BUY Signal"
+    },
+    {
+      "rank": 11,
+      "code": "600111",
+      "name": "北方稀土",
+      "sector": "稀土",
+      "quality": 72,
+      "score": 76.7,
+      "signal": "🟢 BUY",
+      "currentPrice": 721.3927864523602,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 76.7 + BUY Signal"
+    },
+    {
+      "rank": 12,
+      "code": "600183",
+      "name": "生益科技",
+      "sector": "电子",
+      "quality": 72,
+      "score": 76.4,
+      "signal": "🟢 BUY",
+      "currentPrice": 741.8263447946467,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 76.4 + BUY Signal"
+    },
+    {
+      "rank": 13,
+      "code": "600161",
+      "name": "天坛生物",
+      "sector": "医药",
+      "quality": 75,
+      "score": 76.2,
+      "signal": "🟢 BUY",
+      "currentPrice": 776.4625068664302,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 76.2 + BUY Signal"
+    },
+    {
+      "rank": 14,
+      "code": "600887",
+      "name": "伊利股份",
+      "sector": "消费",
+      "quality": 75,
+      "score": 75.6,
+      "signal": "🟢 BUY",
+      "currentPrice": 785.8832560250701,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 75.6 + BUY Signal"
+    },
+    {
+      "rank": 15,
+      "code": "002475",
+      "name": "立讯精密",
+      "sector": "科技",
+      "quality": 75,
+      "score": 75.6,
+      "signal": "🟢 BUY",
+      "currentPrice": 776.7909450907142,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 75.6 + BUY Signal"
+    },
+    {
+      "rank": 17,
+      "code": "300682",
+      "name": "朗新科技",
+      "sector": "科技",
+      "quality": 68,
+      "score": 75.2,
+      "signal": "🟢 BUY",
+      "currentPrice": 721.2770624684752,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 75.2 + BUY Signal"
+    },
+    {
+      "rank": 18,
+      "code": "600196",
+      "name": "复星医药",
+      "sector": "医药",
+      "quality": 78,
+      "score": 75.2,
+      "signal": "🟢 BUY",
+      "currentPrice": 825.3215282983588,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 75.2 + BUY Signal"
+    },
+    {
+      "rank": 20,
+      "code": "300036",
+      "name": "航发动力",
+      "sector": "军工",
+      "quality": 75,
+      "score": 75,
+      "signal": "🟢 BUY",
+      "currentPrice": 768.743380267751,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 75 + BUY Signal"
+    },
+    {
+      "rank": 21,
+      "code": "000034",
+      "name": "神州数码",
+      "sector": "科技",
+      "quality": 60,
+      "score": 75,
+      "signal": "🟢 BUY",
+      "currentPrice": 633.9947944959436,
+      "patterns": [
+        "HIGH_SCORE",
+        "BUY_SIGNAL"
+      ],
+      "reason": "Score 75 + BUY Signal"
+    }
+  ],
+  "sell": [],
+  "watch": [],
+  "timestamp": "2026-03-06T00:51:59.340Z"
+}

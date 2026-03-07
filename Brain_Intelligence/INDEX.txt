@@ -1,0 +1,78 @@
+# CHARLES'S BRAIN INTELLIGENCE
+## Master Index
+
+---
+
+## FOLDER STRUCTURE
+
+```
+Brain_Intelligence/
+├── Philosophy/          - Our core identity
+├── Modules/            - Our analytical modules  
+├── Concepts/           - Advanced trading concepts
+├── Predictions/        - Market predictions
+├── Hidden_Gems/         - Hidden stock picks
+└── Analysis/           - Research and analysis
+```
+
+---
+
+## MODULES
+
+### 01_Proprietary_Scoring.txt
+Our core scoring algorithm: SmartMoney 40% + Quality 30% + Momentum 20% + Risk 10%
+
+### 02_Predictive_Engine.txt
+Forward-looking analysis: Cycles, Patterns, Sentiment, Catalysts
+
+### 03_Contrarian_Thinking.txt
+Opposite thinking: Beat the crowd
+
+### 04_Hidden_Gems.txt
+Finding undiscovered opportunities
+
+---
+
+## PHILOSOPHY
+
+### 01_OUR_IDENTITY.txt
+Who we are: Revolutionary thinking machine
+
+---
+
+## PREDICTIONS
+
+### 2026_Predictions.txt
+Our yearly outlook and sector calls
+
+---
+
+## CONCEPTS
+
+### (See Concepts folder)
+- Advanced trading concepts
+- Technical analysis
+- Institutional trading
+
+---
+
+## HOW TO USE
+
+1. Start with Philosophy
+2. Read Modules in order
+3. Apply Concepts
+4. Use Predictions
+5. Find Hidden Gems
+
+---
+
+## OUR MISSION
+
+Think DIFFERENT.
+Find HIDDEN.
+Predict FUTURE.
+Beat CROWD.
+
+---
+
+*Charles's Brain Intelligence - Master Index*

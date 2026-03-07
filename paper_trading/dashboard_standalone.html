@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Paper Trading Dashboard</title>
+    <style>
+        body { font-family: Arial; background: #1a1a2e; color: #fff; padding: 20px; }
+        h1 { text-align: center; }
+        .stats { display: flex; gap: 20px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+        .stat { background: #16213e; padding: 20px; border-radius: 10px; min-width: 150px; text-align: center; }
+        .stat h3 { color: #888; margin: 0 0 10px 0; font-size: 14px; }
+        .stat .val { font-size: 24px; font-weight: bold; }
+        .green { color: #00ff88; }
+        .red { color: #ff4757; }
+        
+        .section { margin: 30px 0; }
+        .section h2 { border-bottom: 1px solid #333; padding-bottom: 10px; }
+        
+        .positions { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+        .pos-card { background: #16213e; padding: 15px; border-radius: 10px; border-left: 4px solid #667eea; }
+        .pos-card.profit { border-left-color: #00ff88; }
+        .pos-card.loss { border-left-color: #ff4757; }
+        
+        button { background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        button.buy { background: #00c853; }
+        button.sell { background: #ff1744; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #333; }
+        th { color: #888; }
+    </style>
+</head>
+<body>
+    <h1>📈 Paper Trading Dashboard</h1>
+    <p style="text-align:center">Loading...</p>
+    
+    <script>
+    // Manual data - paste from API response
+    const MANUAL_DATA = {"log":{"capital":328758.61867801915,"positions":[{"code":"300122","name":"智飞生物","entryPrice":855.53,"shares":233,"entryDate":"2026-03-01","sector":"医药","score":79.9},{"code":"002475","name":"立讯精密","entryPrice":787.02,"shares":203,"entryDate":"2026-03-01","sector":"科技","score":79.9},{"code":"300682","name":"朗新科技","entryPrice":697.43,"shares":183,"entryDate":"2026-03-01","sector":"科技","score":79.7},{"code":"835670","name":"数字人","entryPrice":727.99,"shares":141,"entryDate":"2026-03-01","sector":"AI教育","score":78.4},{"code":"300454","name":"网宿科技","entryPrice":601.93,"shares":136,"entryDate":"2026-03-01","sector":"科技","score":77.5}],"closedTrades":[]},"signals":{"buy":[{"code":"000651","name":"格力电器","sector":"家电","score":77.2,"currentPrice":754},{"code":"870864","name":"红东方","sector":"化工","score":76.7,"currentPrice":722},{"code":"872926","name":"贝特瑞","sector":"新能源","score":76,"currentPrice":761}],"sell":[],"watch":[]}};
+    
+    function render() {
+        const log = MANUAL_DATA.log;
+        const sig = MANUAL_DATA.signals;
+        
+        let html = '<div class="stats">' +
+            '<div class="stat"><h3>💰 Capital</h3><div class="val">¥' + Math.round(log.capital).toLocaleString() + '</div></div>' +
+            '<div class="stat"><h3>📊 Positions</h3><div class="val">' + log.positions.length + '</div></div>' +
+            '<div class="stat"><h3>✅ Closed</h3><div class="val">' + log.closedTrades.length + '</div></div>' +
+            '<div class="stat"><h3>🎯 P&L</h3><div class="val green">¥0</div></div>' +
+        '</div>';
+        
+        html += '<div class="section"><h2>📋 Open Positions</h2><div class="positions">';
+        for (const p of log.positions) {
+            const pnl = Math.random() * 10 - 3; // Mock P&L
+            const cls = pnl >= 0 ? 'profit' : 'loss';
+            html += '<div class="pos-card ' + cls + '">' +
+                '<b>' + p.code + '</b> ' + p.name + '<br>' +
+                'Entry: ¥' + p.entryPrice.toFixed(2) + ' | Shares: ' + p.shares + '<br>' +
+                'P&L: <span class="' + (pnl>=0?'green':'red') + '">' + (pnl>=0?'+':'') + pnl.toFixed(2) + '%</span>' +
+            '</div>';
+        }
+        html += '</div></div>';
+        
+        html += '<div class="section"><h2>🟢 Buy Signals</h2><table>';
+        for (const s of sig.buy) {
+            html += '<tr><td><b>' + s.code + '</b></td><td>' + s.name + '</td><td>' + s.sector + '</td><td>' + s.score + '</td></tr>';
+        }
+        html += '</table></div>';
+        
+        document.body.innerHTML = '<h1>📈 Paper Trading Dashboard</h1>' + html;
+    }
+    
+    render();
+    </script>
+</body>
+</html>

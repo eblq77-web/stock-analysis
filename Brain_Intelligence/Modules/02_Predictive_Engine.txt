@@ -1,0 +1,133 @@
+# MODULE 2: PREDICTIVE ENGINE
+
+## FORWARD-LOOKING ANALYSIS
+
+Not just present data - We PREDICT the future!
+
+---
+
+## PREDICTION MODELS
+
+### Model 1: Cycle Analysis (15%)
+
+#### Business Cycle Stages:
+
+```
+EXPANSION    → PEAK    → CONTRACTION → TROUGH    → RECOVERY
+   ↑           ↓          ↓            ↑           ↑
+Growth    Inflation  Slowdown    Bottom      Restart
+```
+
+#### Sector Rotation by Cycle:
+
+| Stage | Best Sectors | Avoid |
+|-------|--------------|-------|
+| Expansion | Tech, Consumer | Utilities |
+| Peak | Energy, Commodities | Growth |
+| Contraction | Utilities, Staples | Discretionary |
+| Recovery | Financials, Tech | Energy |
+
+---
+
+### Model 2: Pattern Recognition (20%)
+
+#### Technical Patterns We Track:
+
+1. **Breakout Patterns**
+   - Horizontal resistance
+   - Trendline breakout
+   - Channel breakout
+
+2. **Reversal Patterns**
+   - Double bottom/top
+   - Head and shoulders
+   - Wedge formations
+
+3. **Continuation Patterns**
+   - Bull flags
+   - Pennants
+   - Triangles
+
+---
+
+### Model 3: Sentiment Analysis (15%)
+
+#### Sentiment Indicators:
+
+| Indicator | Signal |
+|-----------|--------|
+| VIX < 15 | Extreme greed - CAUTION |
+| VIX 15-25 | Neutral |
+| VIX 25-35 | Fear - OPPORTUNITY |
+| VIX > 35 | Panic - BIG OPPORTUNITY |
+
+#### Put/Call Ratio:
+- High put/call = Bullish
+- Low put/call = Bearish
+
+---
+
+### Model 4: Catalyst Identification (25%)
+
+#### Catalysts We Look For:
+
+1. **Earnings**
+   - Earnings surprise
+   - Guidance raise
+   - Revenue beat
+
+2. **Corporate Actions**
+   - Stock buyback
+   - Dividend increase
+   - M&A announcement
+
+3. **Policy Changes**
+   - Government support
+   - Tax benefits
+   - Industry subsidies
+
+4. **Macroeconomic**
+   - Rate cuts
+   - GDP growth
+   - Trade deals
+
+---
+
+### Model 5: Seasonal Patterns (25%)
+
+#### Seasonal Tendencies:
+
+| Month | Pattern |
+|-------|---------|
+| Jan-Feb | Small caps rally |
+| March | Q1 earnings prep |
+| April | Tax deadline effect |
+| May-Oct | Summer doldrums |
+| Nov-Dec | Year-end rally |
+| December | Window dressing |
+
+#### Sector Seasonality:
+
+- January: Small caps, Bitcoin
+- April: Tax selling reversal
+- November: Holiday shopping
+- December: Year-end window dressing
+
+---
+
+## PREDICTION OUTPUT
+
+### Our Prediction Format:
+
+```
+STOCK: [Name]
+CURRENT PHASE: [Cycle stage]
+NEXT PHASE: [Expected]
+TIMELINE: [When]
+CONFIDENCE: [Probability]
+CATALYST: [What triggers]
+```
+
+---
+
+*Module 2 - Predictive Engine*

@@ -1,0 +1,111 @@
+{
+  "timestamp": "2026-02-28T02:00:14.733Z",
+  "sector": "liquor",
+  "stocks": [
+    {
+      "code": "600519",
+      "name": "贵州茅台",
+      "ex": "SH",
+      "price": 1455.02,
+      "pct": -11.19,
+      "pe": 20.24,
+      "pb": 18220.78,
+      "success": true
+    },
+    {
+      "code": "000858",
+      "name": "五粮液",
+      "ex": "SZ",
+      "price": 104.05,
+      "pct": 0.17,
+      "pe": 14.2,
+      "pb": 4038.81,
+      "success": true
+    },
+    {
+      "code": "000568",
+      "name": "泸州老窖",
+      "ex": "SZ",
+      "price": 110.5,
+      "pct": -0.5,
+      "pe": 12.87,
+      "pb": 1626.5,
+      "success": true
+    },
+    {
+      "code": "002304",
+      "name": "洋河股份",
+      "ex": "SZ",
+      "price": 53.2,
+      "pct": -0.05,
+      "pe": 38.72,
+      "pb": 801.43,
+      "success": true
+    },
+    {
+      "code": "603589",
+      "name": "金种子酒",
+      "ex": "SH",
+      "price": 28.13,
+      "pct": 0.08,
+      "pe": 15.48,
+      "pb": 168.25,
+      "success": true
+    }
+  ],
+  "summary": {
+    "avgPct": "-2.30",
+    "avgPE": "20.3",
+    "verdict": "NEUTRAL"
+  },
+  "cycles": [
+    {
+      "period": "2013-2014",
+      "phase": "bear",
+      "driver": "Anti-corruption",
+      "ret": -30
+    },
+    {
+      "period": "2015-2017",
+      "phase": "bull",
+      "driver": "消费升级",
+      "ret": 150
+    },
+    {
+      "period": "2018-2019",
+      "phase": "correction",
+      "driver": "Trade war",
+      "ret": -20
+    },
+    {
+      "period": "2020-2021",
+      "phase": "bull",
+      "driver": "COVID recovery",
+      "ret": 100
+    },
+    {
+      "period": "2022-2024",
+      "phase": "bear",
+      "driver": "Property slump",
+      "ret": -40
+    },
+    {
+      "period": "2025-2026",
+      "phase": "correction",
+      "driver": "Current",
+      "ret": -15
+    }
+  ],
+  "keyLevels": {
+    "support": [
+      100,
+      95,
+      90
+    ],
+    "resistance": [
+      110,
+      120,
+      130
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-02-26T14:26:48.360Z",
+  "marketForensics": {
+    "state": "BULL",
+    "confidence": "95%",
+    "avgChange": "814.70%",
+    "avgVolume": "0.0亿",
+    "positiveRatio": "100%"
+  },
+  "recommendations": [],
+  "institutional": [],
+  "volumeAnomalies": [
+    {
+      "code": "300476",
+      "name": "ʤ��Ƽ�",
+      "volume": 9,
+      "ratio": "7.0x"
+    },
+    {
+      "code": "300018",
+      "name": "��Ԫ�ɷ�",
+      "volume": 3,
+      "ratio": "2.3x"
+    },
+    {
+      "code": "300502",
+      "name": "����ʢ",
+      "volume": 3,
+      "ratio": "2.3x"
+    },
+    {
+      "code": "300014",
+      "name": "��γ���",
+      "volume": 3,
+      "ratio": "2.3x"
+    },
+    {
+      "code": "000858",
+      "name": "500��Ϣ",
+      "volume": 3,
+      "ratio": "2.3x"
+    }
+  ]
+}

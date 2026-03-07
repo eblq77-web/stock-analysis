@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "name": "Super Brain Knowledge Tree",
+    "lastUpdate": "2026-03-04T11:05:16.313Z"
+  },
+  "categories": {
+    "finance": {
+      "keywords": [
+        "A股",
+        "创业板",
+        "新能源"
+      ],
+      "sources": [
+        "EastMoney"
+      ]
+    },
+    "geopolitics": {
+      "keywords": [
+        "中美关系",
+        "贸易战"
+      ],
+      "sources": [
+        "Reuters"
+      ]
+    },
+    "patterns": {
+      "keywords": [
+        "建仓",
+        "吸筹"
+      ],
+      "sources": [
+        "Internal"
+      ]
+    }
+  },
+  "insights": [
+    {
+      "type": "observation",
+      "note": "Test insight",
+      "createdAt": "2026-03-04T11:05:16.313Z"
+    }
+  ],
+  "patternSuccess": {
+    "accumulation": {
+      "wins": 2,
+      "total": 3,
+      "rate": 67
+    },
+    "breakout": {
+      "wins": 1,
+      "total": 1,
+      "rate": 100
+    }
+  }
+}

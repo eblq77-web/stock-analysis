@@ -1,0 +1,36 @@
+{
+  "test_name": "Super Brain 20-Stock Verification",
+  "start_date": "2026-03-02",
+  "end_date": "2026-03-09",
+  "exchanges": ["上海", "深圳", "创业", "北京", "恒生"],
+  "rules": {
+    "stop_loss": -7,
+    "take_profit_partial": 10,
+    "max_position": 20
+  },
+  "stocks": [
+    {"code": "sh600519", "name": "贵州茅台", "exchange": "上海", "entry": 1448.40, "shares": 1, "stop": 1347.01, "target": 1593.24, "signal": "Super Brain Top"},
+    {"code": "sh601012", "name": "隆基绿能", "exchange": "上海", "entry": 18.31, "shares": 109, "stop": 17.03, "target": 20.14, "signal": "Next Day Surfer"},
+    {"code": "sh600036", "name": "招商银行", "exchange": "上海", "entry": 38.64, "shares": 51, "stop": 35.94, "target": 42.50, "signal": "Value Pick"},
+    {"code": "sh600276", "name": "恒瑞医药", "exchange": "上海", "entry": 55.64, "shares": 35, "stop": 51.75, "target": 61.20, "signal": "Pharma Gem"},
+    {"code": "sz000651", "name": "格力电器", "exchange": "深圳", "entry": 37.25, "shares": 53, "stop": 34.64, "target": 40.98, "signal": "Value Pick"},
+    {"code": "sz000001", "name": "平安银行", "exchange": "深圳", "entry": 10.84, "shares": 184, "stop": 10.08, "target": 11.92, "signal": "Financial"},
+    {"code": "sz300750", "name": "宁德时代", "exchange": "创业", "entry": 340.60, "shares": 5, "stop": 316.76, "target": 374.66, "signal": "Next Day Surfer"},
+    {"code": "sz002594", "name": "比亚迪", "exchange": "创业", "entry": 92.64, "shares": 21, "stop": 86.16, "target": 101.90, "signal": "Super Brain Top"},
+    {"code": "sz300308", "name": "中际旭创", "exchange": "创业", "entry": 545.00, "shares": 3, "stop": 506.85, "target": 599.50, "signal": "Tech Surge"},
+    {"code": "sz300122", "name": "智飞生物", "exchange": "创业", "entry": 16.92, "shares": 118, "stop": 15.74, "target": 18.61, "signal": "Pharma Gem"},
+    {"code": "sz300014", "name": "亿纬锂能", "exchange": "创业", "entry": 62.06, "shares": 32, "stop": 57.72, "target": 68.27, "signal": "Battery"},
+    {"code": "sz300033", "name": "同花顺", "exchange": "创业", "entry": 325.85, "shares": 6, "stop": 303.04, "target": 358.44, "signal": "Fintech"},
+    {"code": "sz300454", "name": "网宿科技", "exchange": "创业", "entry": 126.25, "shares": 15, "stop": 117.41, "target": 138.88, "signal": "Tech"},
+    {"code": "sz300682", "name": "朗新科技", "exchange": "创业", "entry": 18.21, "shares": 109, "stop": 16.94, "target": 20.03, "signal": "Tech"},
+    {"code": "bj835670", "name": "数字人", "exchange": "北京", "entry": 18.45, "shares": 108, "stop": 17.16, "target": 20.30, "signal": "AI Hidden Gem"},
+    {"code": "bj870299", "name": "吉林碳谷", "exchange": "北京", "entry": 8.99, "shares": 222, "stop": 8.36, "target": 9.89, "signal": "Hidden Gem"}
+  ],
+  "summary": {
+    "total_invested": 30419,
+    "current_value": 30419,
+    "total_pnl": 0,
+    "wins": 0,
+    "losses": 0
+  }
+}

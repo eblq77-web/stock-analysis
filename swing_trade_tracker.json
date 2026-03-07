@@ -1,0 +1,23 @@
+{
+  "project": "SWING TEST WEEK",
+  "start_date": "2026-02-27",
+  "end_date": "2026-03-06",
+  "status": "ACTIVE",
+  "rules": {
+    "max_position": "10% per stock",
+    "stop_loss": "-5%",
+    "take_profit": "+8%",
+    "max_hold_days": "5 trading days"
+  },
+  "trades": [
+    {"code": "sh600522", "name": "中天科技", "entry_price": 29.14, "entry_date": "2026-02-27", "target": 31.47, "stop": 27.68, "quantum": 86, "day": 1},
+    {"code": "sh688185", "name": "康希诺", "entry_price": 72.00, "entry_date": "2026-02-27", "target": 77.76, "stop": 68.40, "quantum": 80, "day": 1},
+    {"code": "sh600703", "name": "三安光电", "entry_price": 16.70, "entry_date": "2026-02-27", "target": 18.04, "stop": 15.86, "quantum": 77, "day": 1},
+    {"code": "sz300454", "name": "深信服", "entry_price": 131.10, "entry_date": "2026-02-27", "target": 141.59, "stop": 124.54, "quantum": 75, "day": 1},
+    {"code": "sh688777", "name": "中控技术", "entry_price": 80.20, "entry_date": "2026-02-27", "target": 86.62, "stop": 76.19, "quantum": 71, "day": 1}
+  ],
+  "day": 1,
+  "total_pnl": 0,
+  "win_count": 0,
+  "loss_count": 0
+}

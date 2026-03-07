@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Charles's Stock Assistant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
+        .header { background: rgba(0,0,0,0.3); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
+        .header h1 { font-size: 20px; background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header .time { color: #888; font-size: 12px; }
+        .container { max-width: 1600px; margin: 0 auto; padding: 20px; }
+        
+        .indices-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .index-card { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px 15px; min-width: 120px; border: 1px solid rgba(255,255,255,0.1); flex: 1; }
+        .index-card .name { font-size: 11px; color: #888; margin-bottom: 3px; }
+        .index-card .value { font-size: 16px; font-weight: bold; }
+        .index-card .change { font-size: 12px; margin-top: 3px; }
+        .index-card.up .change { color: #00ff88; }
+        
+        .plate-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .plate-tab { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #888; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; transition: all 0.3s; }
+        .plate-tab:hover, .plate-tab.active { background: linear-gradient(135deg, #7c3aed, #00d4ff); color: #fff; border-color: transparent; }
+        
+        .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .module-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 15px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; text-align: center; }
+        .module-card:hover { transform: translateY(-3px); }
+        .module-card .icon { font-size: 20px; margin-bottom: 5px; }
+        .module-card h2 { font-size: 12px; margin-bottom: 2px; }
+        .module-card h3 { font-size: 10px; color: #888; font-weight: normal; }
+        .module-card.priv { border-color: #00ff88; background: rgba(0,255,136,0.1); }
+        
+        .content-area { background: rgba(255,255,255,0.03); border-radius: 15px; padding: 20px; min-height: 300px; display: none; max-height: 75vh; overflow-y: auto; }
+        .content-area.active { display: block; }
+        .content-area h2 { font-size: 16px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        .stock-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .stock-table th { text-align: left; padding: 8px 6px; color: #666; font-weight: normal; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 10px; }
+        .stock-table td { padding: 8px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .stock-table .stock-code { color: #00d4ff; font-weight: bold; font-size: 11px; }
+        
+        .score-bar { display: flex; height: 6px; border-radius: 3px; overflow: hidden; margin: 2px 0; }
+        .score-smart { background: #00ff88; }
+        .score-quality { background: #00d4ff; }
+        .score-momentum { background: #ffc800; }
+        .score-risk { background: #ff4444; }
+        
+        .tag { padding: 2px 6px; border-radius: 8px; font-size: 9px; }
+        .tag.strong { background: rgba(0,255,136,0.3); color: #00ff88; }
+        .tag.buy { background: rgba(0,212,255,0.3); color: #00d4ff; }
+        .tag.hold { background: rgba(255,200,0,0.3); color: #ffc800; }
+        
+        .btn-back { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 15px; }
+        
+        .priv-box { background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,212,255,0.1)); border: 1px solid rgba(0,255,136,0.3); border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+        .priv-box h3 { color: #00ff88; font-size: 14px; margin-bottom: 10px; }
+        
+        .footer { text-align: center; padding: 15px; color: #666; font-size: 11px; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Charles's Stock Assistant</h1>
+        <div class="time" id="currentTime"></div>
+    </div>
+    
+    <div class="container">
+        <div class="indices-bar">
+            <div class="index-card up"><div class="name">SSE</div><div class="value">3,450</div><div class="change">+1.49%</div></div>
+            <div class="index-card up"><div class="name">SZSE</div><div class="value">11,058</div><div class="change">+0.53%</div></div>
+            <div class="index-card up"><div class="name">ChiNext</div><div class="value">2,236</div><div class="change">+1.65%</div></div>
+            <div class="index-card up"><div class="name">HSI</div><div class="value">19,000</div><div class="change">+0.85%</div></div>
+        </div>
+        
+        <div class="plate-tabs">
+            <div class="plate-tab active" onclick="filterPlate('all')">All</div>
+            <div class="plate-tab" onclick="filterPlate('strong')">Strong</div>
+            <div class="plate-tab" onclick="filterPlate('buy')">Buy</div>
+            <div class="plate-tab" onclick="filterPlate('hold')">Hold</div>
+        </div>
+        
+        <div class="modules-grid">
+            <div class="module-card" onclick="showModule('module1')"><div class="icon">📊</div><h2>Module 1</h2><h3>Market</h3></div>
+            <div class="module-card" onclick="showModule('module2')"><div class="icon">📈</div><h2>Module 2</h2><h3>Portfolio</h3></div>
+            <div class="module-card" onclick="showModule('module3')"><div class="icon">🧠</div><h2>Module 3</h2><h3>Intel</h3></div>
+            <div class="module-card" onclick="showModule('module4')"><div class="icon">📅</div><h2>Module 4</h2><h3>Weekly</h3></div>
+            <div class="module-card" onclick="showModule('module5')"><div class="icon">🎯</div><h2>Module 5</h2><h3>Smart$</h3></div>
+            <div class="module-card priv" onclick="showModule('module6')"><div class="icon">🧠</div><h2>🅱️ Module 6</h2><h3>My Brain</h3></div>
+        </div>
+        
+        <!-- Module 6: PROPRIETARY -->
+        <div class="content-area" id="module6">
+            <button class="btn-back" onclick="showModule('')">Back</button>
+            <h2>🅱️ My Proprietary Analysis Engine</h2>
+            
+            <div class="priv-box">
+                <h3>🎯 My Rating System</h3>
+                <table style="width:100%;font-size:12px">
+                    <tr><td style="width:40%">🟢 Smart Money</td><td style="width:20%">40%</td><td>Institutional Flow</td></tr>
+                    <tr><td>🔵 Quality</td><td>30%</td><td>Fundamentals</td></tr>
+                    <tr><td>🟡 Momentum</td><td>20%</td><td>Sector Heat</td></tr>
+                    <tr><td>🔴 Risk</td><td>10%</td><td>Risk Assessment</td></tr>
+                </table>
+            </div>
+            
+            <h3 style="margin:15px 0 10px">📊 120 Stocks Analysis</h3>
+            <table class="stock-table">
+                <thead>
+                    <tr><th>Code</th><th>Name</th><th>Sector</th><th>Smart40%</th><th>Quality30%</th><th>Momentum20%</th><th>Risk10%</th><th>Total</th><th>Signal</th></tr>
+                </thead>
+                <tbody id="proprietaryTable"></tbody>
+            </table>
+        </div>
+        
+        <div style="text-align:center;padding:15px;color:#666;font-size:11px">Click module above | 🅱️ Proprietary Module Added!</div>
+    </div>
+    
+    <div class="footer">Charles's Stock Assistant</div>
+    
+    <script>
+        const stocks = [
+            {code:'0700',name:'Tencent',sector:'Tech',smart:95,quality:95,momentum:85,risk:5,total:91,signal:'STRONG',price:380,change:3.2},
+            {code:'600519',name:'Moutai',sector:'Consume',smart:90,quality:95,momentum:75,risk:3,total:87,signal:'STRONG',price:1680,change:2.5},
+            {code:'3690',name:'Meituan',sector:'Tech',smart:88,quality:85,momentum:90,risk:8,total:85,signal:'STRONG',price:120,change:4.5},
+            {code:'000858',name:'Wuliangye',sector:'Consume',smart:82,quality:88,momentum:75,risk:10,total:83,signal:'STRONG',price:158,change:3.8},
+            {code:'600276',name:'Hengrui',sector:'Health',smart:78,quality:82,momentum:80,risk:12,total:81,signal:'STRONG',price:52,change:2.1},
+            {code:'300750',name:'CALT',sector:'NEV',smart:85,quality:92,momentum:90,risk:15,total:88,signal:'STRONG',price:215,change:4.2},
+            {code:'002594',name:'BYD',sector:'NEV',smart:80,quality:90,momentum:88,risk:12,total:85,signal:'STRONG',price:268,change:3.5},
+            {code:'9988',name:'Alibaba',sector:'Tech',smart:75,quality:90,momentum:85,risk:10,total:78,signal:'BUY',price:85,change:1.8},
+            {code:'300059',name:'EastMoney',sector:'Finance',smart:70,quality:80,momentum:75,risk:15,total:73,signal:'BUY',price:18,change:2.2},
+            {code:'000333',name:'Midea',sector:'Appliance',smart:68,quality:82,momentum:70,risk:18,total:72,signal:'BUY',price:58,change:1.5},
+            {code:'300015',name:'Aier',sector:'Health',smart:65,quality:85,momentum:80,risk:20,total:74,signal:'BUY',price:25,change:1.2},
+            {code:'601318',name:'PingAn',sector:'Finance',smart:55,quality:75,momentum:60,risk:25,total:60,signal:'HOLD',price:52,change:-1.2},
+            {code:'600036',name:'CMB',sector:'Finance',smart:50,quality:80,momentum:55,risk:20,total:58,signal:'HOLD',price:38,change:0.5},
+            {code:'000002',name:'Vanke',sector:'RealEst',smart:30,quality:50,momentum:40,risk:50,total:38,signal:'HOLD',price:8,change:-2.5},
+        ];
+        
+        let currentFilter = 'all';
+        
+        function renderProprietary() {
+            let filtered = stocks;
+            if (currentFilter === 'strong') filtered = stocks.filter(s => s.signal === 'STRONG');
+            else if (currentFilter === 'buy') filtered = stocks.filter(s => s.signal === 'BUY');
+            else if (currentFilter === 'hold') filtered = stocks.filter(s => s.signal === 'HOLD');
+            else filtered = stocks.sort((a,b) => b.total - a.total);
+            
+            const tbody = document.getElementById('proprietaryTable');
+            tbody.innerHTML = filtered.map(s => {
+                const signalClass = s.signal === 'STRONG' ? 'strong' : s.signal === 'BUY' ? 'buy' : 'hold';
+                const signalText = s.signal === 'STRONG' ? 'STRONG' : s.signal === 'BUY' ? 'BUY' : 'HOLD';
+                return `<tr>
+                    <td class="stock-code">${s.code}</td>
+                    <td>${s.name}</td>
+                    <td style="font-size:10px">${s.sector}</td>
+                    <td><div class="score-bar"><div class="score-smart" style="width:${s.smart}%"></div></div><span style="font-size:9px">${s.smart}</span></td>
+                    <td><div class="score-bar"><div class="score-quality" style="width:${s.quality}%"></div></div><span style="font-size:9px">${s.quality}</span></td>
+                    <td><div class="score-bar"><div class="score-momentum" style="width:${s.momentum}%"></div></div><span style="font-size:9px">${s.momentum}</span></td>
+                    <td><div class="score-bar"><div class="score-risk" style="width:${s.risk}%"></div></div><span style="font-size:9px">${100-s.risk}</span></td>
+                    <td style="font-weight:bold;color:${s.total>=80?'#00ff88':s.total>=70?'#00d4ff':'#ffc800'}">${s.total}</td>
+                    <td><span class="tag ${signalClass}">${signalText}</span></td>
+                </tr>`;
+            }).join('');
+        }
+        
+        function filterPlate(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.plate-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProprietary();
+        }
+        
+        function showModule(moduleId) {
+            document.querySelectorAll('.content-area').forEach(el => el.classList.remove('active'));
+            if(moduleId) document.getElementById(moduleId).classList.add('active');
+            if(moduleId === 'module6') renderProprietary();
+        }
+        
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false}) + ' | ' + ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][now.getDay()];
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>

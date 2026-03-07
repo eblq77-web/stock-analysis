@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Super Brain - China & HK Trading</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, Arial; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 20px; }
+        .top-bar { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; color: white; }
+        .btn-scan { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .btn-refresh { background: linear-gradient(135deg, #667eea, #764ba2); }
+        
+        .stats { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .stat { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; text-align: center; min-width: 140px; }
+        .stat h3 { color: #888; font-size: 12px; margin-bottom: 8px; }
+        .stat .val { font-size: 24px; font-weight: bold; }
+        .green { color: #00ff88; }
+        .red { color: #ff4757; }
+        
+        .section { margin-bottom: 30px; }
+        .section h2 { border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
+        
+        .exchange-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        .tab { padding: 8px 16px; background: rgba(255,255,255,0.1); border-radius: 20px; cursor: pointer; font-size: 12px; }
+        .tab.active { background: #667eea; }
+        
+        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 10px; }
+        th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #333; font-size: 13px; }
+        th { color: #888; }
+        
+        .buy-btn { background: linear-gradient(135deg, #00c853, #00e676); padding: 6px 12px; border: none; border-radius: 5px; color: white; cursor: pointer; }
+        
+        .loading { text-align: center; padding: 50px; color: #888; }
+    </style>
+</head>
+<body>
+    <h1>🧠 Super Brain - China & HK Markets</h1>
+    
+    <div class="top-bar">
+        <button class="btn btn-scan" onclick="runScan()">🔍 Scan Markets</button>
+        <button class="btn btn-refresh" onclick="loadData()">🔄 Refresh</button>
+    </div>
+    
+    <div class="stats">
+        <div class="stat"><h3>📊 Total Scanned</h3><div class="val" id="total">-</div></div>
+        <div class="stat"><h3>🟢 Strong Buy</h3><div class="val green" id="strongBuy">-</div></div>
+        <div class="stat"><h3>🟡 Buy Signal</h3><div class="val" id="buy">-</div></div>
+        <div class="stat"><h3>💰 Capital</h3><div class="val" id="capital">-</div></div>
+    </div>
+    
+    <div class="exchange-tabs" id="exchangeTabs"></div>
+    
+    <div class="section">
+        <h2>📈 Top Signals</h2>
+        <table>
+            <thead><tr><th>Exchange</th><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Score</th><th>Action</th></tr></thead>
+            <tbody id="signalsTable"></tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>📋 My Positions</h2>
+        <table>
+            <thead><tr><th>Code</th><th>Name</th><th>Exchange</th><th>Entry</th><th>Shares</th><th>Value</th><th>Score</th><th>Action</th></tr></thead>
+            <tbody id="positionsTable"></tbody>
+        </table>
+    </div>
+    
+    <script>
+    const API_URL = 'http://localhost:3899';
+    let currentExchange = 'ALL';
+    let scanResults = [];
+    
+    async function loadData() {
+        document.getElementById('signalsTable').innerHTML = '<tr><td colspan="8" class="loading">Loading...</td></tr>';
+        
+        try {
+            // Get positions from trading API
+            const res = await fetch(API_URL + '/api/data');
+            const data = await res.json();
+            
+            if (data.success) {
+                document.getElementById('capital').textContent = '¥' + Math.round(data.log.capital).toLocaleString();
+                
+                // Render positions
+                document.getElementById('positionsTable').innerHTML = data.log.positions.map(p => 
+                    '<tr><td><b>' + p.code + '</b></td><td>' + p.name + '</td><td>A</td><td>¥' + p.entryPrice.toFixed(2) + '</td><td>' + p.shares + '</td><td>¥' + Math.round(p.entryPrice*p.shares).toLocaleString() + '</td><td>' + p.score + '</td><td><button class="buy-btn" style="background:#ff1744" onclick="sell(\'' + p.code + '\', ' + p.entryPrice + ')">SELL</button></td></tr>'
+                ).join('') || '<tr><td colspan="8" style="text-align:center;color:#666">No positions</td></tr>';
+            }
+        } catch(e) {
+            console.log('Position load error:', e);
+        }
+    }
+    
+    async function runScan() {
+        document.getElementById('signalsTable').innerHTML = '<tr><td colspan="8" class="loading">Scanning markets...</td></tr>';
+        
+        // This would call the scanner API - for now show demo data
+        const demoData = [
+            {exchange:'上海主板',code:'601012',name:'隆基绿能',sector:'新能源',price:'45.67',change:'+2.68',score:'88.7'},
+            {exchange:'恒生科技',code:'1810',name:'小米集团',sector:'科技',price:'18.92',change:'+1.49',score:'88.3'},
+            {exchange:'深圳主板',code:'002475',name:'立讯精密',sector:'科技',price:'32.15',change:'+7.89',score:'84.1'},
+            {exchange:'香港恒生',code:'9888',name:'百度集团',sector:'科技',price:'142.30',change:'-5.50',score:'81.7'},
+            {exchange:'恒生科技',code:'0185',name:'众安在线',sector:'科技',price:'28.50',change:'+13.10',score:'81.4'},
+            {exchange:'创业板',code:'300015',name:'爱尔眼科',sector:'医药',price:'28.90',change:'+5.22',score:'81.3'},
+            {exchange:'北京交所',code:'835670',name:'数字人',sector:'AI教育',price:'12.45',change:'-2.90',score:'78.8'},
+            {exchange:'创业板',code:'300750',name:'宁德时代',sector:'新能源',price:'185.60',change:'-2.26',score:'78.3'},
+        ];
+        
+        scanResults = demoData;
+        renderSignals(demoData);
+    }
+    
+    function renderSignals(data) {
+        const filtered = currentExchange === 'ALL' ? data : data.filter(d => d.exchange === currentExchange);
+        
+        document.getElementById('total').textContent = data.length;
+        document.getElementById('strongBuy').textContent = data.filter(d => parseFloat(d.score) >= 80).length;
+        document.getElementById('buy').textContent = data.filter(d => parseFloat(d.score) >= 75).length;
+        
+        // Render tabs
+        const exchanges = ['ALL', '上海主板', '深圳主板', '创业板', '北京交所', '香港恒生', '恒生科技'];
+        document.getElementById('exchangeTabs').innerHTML = exchanges.map(e => 
+            '<div class="tab ' + (e === currentExchange ? 'active' : '') + '" onclick="filterExchange(\'' + e + '\')">' + e + '</div>'
+        ).join('');
+        
+        // Render table
+        document.getElementById('signalsTable').innerHTML = filtered.map(s => {
+            const color = parseFloat(s.change) >= 0 ? 'green' : 'red';
+            const scoreColor = parseFloat(s.score) >= 80 ? 'green' : parseFloat(s.score) >= 75 ? '#ffd93d' : '#888';
+            return '<tr>' +
+                '<td>' + s.exchange + '</td>' +
+                '<td><b>' + s.code + '</b></td>' +
+                '<td>' + s.name + '</td>' +
+                '<td>' + s.sector + '</td>' +
+                '<td>¥' + s.price + '</td>' +
+                '<td class="' + color + '">' + s.change + '%</td>' +
+                '<td style="color:' + scoreColor + ';font-weight:bold">' + s.score + '</td>' +
+                '<td><button class="buy-btn" onclick="quickBuy(\'' + s.code + '\', \'' + s.name + '\', ' + s.price + ', \'' + s.exchange + '\', ' + s.score + ')">BUY</button></td>' +
+            '</tr>';
+        }).join('');
+    }
+    
+    function filterExchange(exchange) {
+        currentExchange = exchange;
+        runScan();
+    }
+    
+    async function quickBuy(code, name, price, exchange, score) {
+        try {
+            const res = await fetch(API_URL + '/api/buy', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    code, name, price, 
+                    shares: Math.floor(200000 / price), // Max 20%
+                    sector: 'N/A', score
+                })
+            });
+            const result = await res.json();
+            if (result.success) {
+                alert('Bought ' + code + '!');
+                loadData();
+            } else {
+                alert(result.error);
+            }
+        } catch(e) {
+            alert('Error: ' + e.message);
+        }
+    }
+    
+    async function sell(code, price) {
+        if (!confirm('Sell ' + code + '?')) return;
+        
+        try {
+            const res = await fetch(API_URL + '/api/sell', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({code, exitPrice: price})
+            });
+            const result = await res.json();
+            if (result.success) {
+                alert('Sold! P&L: ¥' + Math.round(result.pnl).toLocaleString());
+                loadData();
+            }
+        } catch(e) {}
+    }
+    
+    // Auto load
+    loadData();
+    runScan();
+    </script>
+</body>
+</html>

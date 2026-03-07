@@ -1,0 +1,2083 @@
+{
+  "time": "2026-02-27T14:04:55.706Z",
+  "total": 118,
+  "setups": [
+    {
+      "stock": {
+        "code": "002841",
+        "name": "视源股份",
+        "sector": "电子",
+        "market": "sz",
+        "board": "SZ"
+      },
+      "data": {
+        "code": "002841",
+        "name": "��Դ�ɷ�",
+        "price": 38.66,
+        "changePct": 38.56,
+        "volume": 30511,
+        "amount": 13714,
+        "high": 38.73,
+        "low": 38.21,
+        "bids": [
+          {
+            "price": 39,
+            "vol": 38
+          },
+          {
+            "price": 5,
+            "vol": 38
+          },
+          {
+            "price": 3,
+            "vol": 38
+          },
+          {
+            "price": 27,
+            "vol": 38
+          },
+          {
+            "price": 2,
+            "vol": 38
+          }
+        ],
+        "asks": [
+          {
+            "price": 16,
+            "vol": 38
+          },
+          {
+            "price": 4,
+            "vol": 38
+          },
+          {
+            "price": 9,
+            "vol": null
+          }
+        ]
+      },
+      "bottom": {
+        "score": 55,
+        "stage": "BASE_BUILDING",
+        "nearLow": "1.18",
+        "range": "1.36"
+      },
+      "accum": {
+        "score": 65,
+        "signals": [
+          "BUY Pressure:43%",
+          "Deep Accum"
+        ]
+      },
+      "vol": {
+        "score": 0,
+        "pattern": "NORMAL",
+        "vol": "3"
+      },
+      "support": {
+        "score": 40,
+        "zone": "STRONG_SUPPORT",
+        "distance": "-0.879"
+      },
+      "deep": {
+        "score": 48,
+        "action": "BUY - Bottom Building",
+        "emoji": "🟢",
+        "factors": [
+          {
+            "name": "Bottom",
+            "value": 55,
+            "w": 40,
+            "contrib": "22.0"
+          },
+          {
+            "name": "Accum",
+            "value": 65,
+            "w": 30,
+            "contrib": "19.5"
+          },
+          {
+            "name": "Volume",
+            "value": 0,
+            "w": 15,
+            "contrib": "0.0"
+          },
+          {
+            "name": "Support",
+            "value": 40,
+            "w": 15,
+            "contrib": "6.0"
+          }
+        ]
+      }
+    },
+    {
+      "stock": {
+        "code": "002812",
+        "name": "恩捷股份",
+        "sector": "新能源",
+        "market": "sz",
+        "board": "SZ"
+      },
+      "data": {
+        "code": "002812",
+        "name": "���ݹɷ�",
+        "price": 61.93,
+        "changePct": 62.57,
+        "volume": 296585,
+        "amount": 127418,
+        "high": 62.96,
+        "low": 61.25,
+        "bids": [
+          {
+            "price": 1,
+            "vol": 61
+          },
+          {
+            "price": 10,
+            "vol": 61
+          },
+          {
+            "price": 39,
+            "vol": 61
+          },
+          {
+            "price": 9,
+            "vol": 61
+          }
+        ],
+        "asks": [
+          {
+            "price": 73,
+            "vol": 62
+          },
+          {
+            "price": 2,
+            "vol": 62
+          },
+          {
+            "price": 1,
+            "vol": null
+          }
+        ]
+      },
+      "bottom": {
+        "score": 55,
+        "stage": "BASE_BUILDING",
+        "nearLow": "1.11",
+        "range": "2.79"
+      },
+      "accum": {
+        "score": 65,
+        "signals": [
+          "BUY Pressure:33%",
+          "Deep Accum"
+        ]
+      },
+      "vol": {
+        "score": 20,
+        "pattern": "MODERATE_VOL",
+        "vol": "30"
+      },
+      "support": {
+        "score": 10,
+        "zone": "NO_SUPPORT",
+        "distance": "98.385"
+      },
+      "deep": {
+        "score": 46,
+        "action": "BUY - Bottom Building",
+        "emoji": "🟢",
+        "factors": [
+          {
+            "name": "Bottom",
+            "value": 55,
+            "w": 40,
+            "contrib": "22.0"
+          },
+          {
+            "name": "Accum",
+            "value": 65,
+            "w": 30,
+            "contrib": "19.5"
+          },
+          {
+            "name": "Volume",
+            "value": 20,
+            "w": 15,
+            "contrib": "3.0"
+          },
+          {
+            "name": "Support",
+            "value": 10,
+            "w": 15,
+            "contrib": "1.5"
+          }
+        ]
+      }
+    },
+    {
+      "stock": {
+        "code": "601601",
+        "name": "中国太保",
+        "sector": "保险",
+        "market": "sh",
+        "board": "SH"
+      },
+      "data": {
+        "code": "601601",
+        "name": "�й�̫��",
+        "price": 40.81,
+        "changePct": 40.89,
+        "volume": 378825,
+        "amount": 156812,
+        "high": 41.18,
+        "low": 40.35,
+        "bids": [
+          {
+            "price": 31,
+            "vol": 40
+          },
+          {
+            "price": 11,
+            "vol": 40
+          },
+          {
+            "price": 4,
+            "vol": 40
+          },
+          {
+            "price": 26,
+            "vol": 40
+          }
+        ],
+        "asks": []
+      },
+      "bottom": {
+        "score": 55,
+        "stage": "BASE_BUILDING",
+        "nearLow": "1.14",
+        "range": "2.06"
+      },
+      "accum": {
+        "score": 65,
+        "signals": [
+          "BUY Pressure:100%",
+          "Deep Accum"
+        ]
+      },
+      "vol": {
+        "score": 20,
+        "pattern": "MODERATE_VOL",
+        "vol": "38"
+      },
+      "support": {
+        "score": 10,
+        "zone": "NO_SUPPORT",
+        "distance": "24.038"
+      },
+      "deep": {
+        "score": 46,
+        "action": "BUY - Bottom Building",
+        "emoji": "🟢",
+        "factors": [
+          {
+            "name": "Bottom",
+            "value": 55,
+            "w": 40,
+            "contrib": "22.0"
+          },
+          {
+            "name": "Accum",
+            "value": 65,
+            "w": 30,
+            "contrib": "19.5"
+          },
+          {
+            "name": "Volume",
+            "value": 20,
+            "w": 15,
+            "contrib": "3.0"
+          },
+          {
+            "name": "Support",
+            "value": 10,
+            "w": 15,
+            "contrib": "1.5"
+          }
+        ]
+      }
+    },
+    {
+      "stock": {
+        "code": "601888",
+        "name": "中国中免",
+        "sector": "旅游",
+        "market": "sh",
+        "board": "SH"
+      },
+      "data": {
+        "code": "601888",
+        "name": "�й�����",
+        "price": 80.58,
+        "changePct": 79.88,
+        "volume": 285875,
+        "amount": 117723,
+        "high": 81.34,
+        "low": 79.85,
+        "bids": [
+          {
+            "price": 51,
+            "vol": 80
+          },
+          {
+            "price": 11,
+            "vol": 80
+          },
+          {
+            "price": 14,
+            "vol": 80
+          },
+          {
+            "price": 2,
+            "vol": 80
+          },
+          {
+            "price": 28,
+            "vol": 80
+          }
+        ],
+        "asks": [
+          {
+            "price": 23,
+            "vol": 80
+          },
+          {
+            "price": 21,
+            "vol": null
+          }
+        ]
+      },
+      "bottom": {
+        "score": 55,
+        "stage": "BASE_BUILDING",
+        "nearLow": "0.91",
+        "range": "1.87"
+      },
+      "accum": {
+        "score": 65,
+        "signals": [
+          "BUY Pressure:67%",
+          "Deep Accum"
+        ]
+      },
+      "vol": {
+        "score": 20,
+        "pattern": "MODERATE_VOL",
+        "vol": "29"
+      },
+      "support": {
+        "score": 10,
+        "zone": "NO_SUPPORT",
+        "distance": "36.709"
+      },
+      "deep": {
+        "score": 46,
+        "action": "BUY - Bottom Building",
+        "emoji": "🟢",
+        "factors": [
+          {
+            "name": "Bottom",
+            "value": 55,
+            "w": 40,
+            "contrib": "22.0"
+          },
+          {
+            "name": "Accum",
+            "value": 65,
+            "w": 30,
+            "contrib": "19.5"
+          },
+          {
+            "name": "Volume",
+            "value": 20,
+            "w": 15,
+            "contrib": "3.0"
+          },
+          {
+            "name": "Support",
+            "value": 10,
+            "w": 15,
+            "contrib": "1.5"
+          }
+        ]
+      }
+    },
+    {
+      "stock": {
+        "code": "600760",
+        "name": "黑牡丹",
+        "sector": "地产",
+        "market": "sh",
+        "board": "SH"
+      },
+      "data": {
+        "code": "600760",
+        "name": "�к����",
+        "price": 55.34,
+        "changePct": 55.83,
+        "volume": 218544,
+        "amount": 85774,
+        "high": 56.22,
+        "low": 55,
+        "bids": [
+          {
+            "price": 57,
+            "vol": 55
+          },
+          {
+            "price": 36,
+            "vol": 55
+          },
+          {
+            "price": 7,
+            "vol": 55
+          }
+        ],
+        "asks": []
+      },
+      "bottom": {
+        "score": 55,
+        "stage": "BASE_BUILDING",
+        "nearLow": "0.62",
+        "range": "2.22"
+      },
+      "accum": {
+        "score": 35,
+        "signals": [
+          "BUY Pressure:100%"
+        ]
+      },
+      "vol": {
+        "score": 20,
+        "pattern": "MODERATE_VOL",
+        "vol": "22"
+      },
+      "support": {
+        "score": 40,
+        "zone": "STRONG_SUPPORT",
+        "distance": "-3.000"
+      },
+      "deep": {
+        "score": 42,
+        "action": "WATCH - Potential",
+        "emoji": "🟡",
+        "factors": [
+          {
+            "name": "Bottom",
+            "value": 55,
+            "w": 40,
+            "contrib": "22.0"
+          },
+          {
+            "name": "Accum",
+            "value": 35,
+            "w": 30,
+            "contrib": "10.5"
+          },
+          {
+            "name": "Volume",
+            "value": 20,
+            "w": 15,
+            "contrib": "3.0"
+          },
+          {
+            "name": "Support",
+            "value": 40,
+            "w": 15,
+            "contrib": "6.0"
+          }
+        ]
+      }
+    },
+    {
+      "stock": {
+        "code": "300826",
+        "name": "华测检测",
+        "sector": "检测",
+        "market": "sz",
+        "board": "CN"
+      },
+      "data": {
+        "code": "300826",
+        "name": "���ɷ�",
+        "price": 17.33,
+        "changePct": 17.21,
+        "volume": 25978,
+        "amount": 14357,
+        "high": 17.37,
+        "low": 17.21,
+        "bids": [
+          {
+            "price": 23,
+            "vol": 17
+          },
+          {
+            "price": 21,
+            "vol": 17
+          }
+        ],
+        "asks": []
+      },
+      "bottom": {
+        "score": 55,
+        "stage": "BASE_BUILDING",
+        "nearLow": "0.70",
+        "range": "0.93"
+      },
+      "accum": {
+        "score": 35,
+        "signals": [
+          "BUY Pressure:100%"
+        ]
+      },
+      "vol": {
+        "score": 0,
+        "pattern": "NORMAL",
+        "vol": "3"
+      },
+      "support": {
+        "score": 40,
+        "zone": "STRONG_SUPPORT",
+        "distance": "-32.718"
+      },
+      "deep": {
+        "score": 39,
+        "action": "WATCH - Potential",
+        "emoji": "🟡",
+        "factors": [
+          {
+            "name": "Bottom",
+            "value": 55,
+            "w": 40,
+            "contrib": "22.0"
+          },
+          {
+            "name": "Accum",
+            "value": 35,
+            "w": 30,
+            "contrib": "10.5"
+          },
+          {
+            "name": "Volume",
+            "value": 0,
+            "w": 15,
+            "contrib": "0.0"
+          },
+          {
+            "name": "Support",
+            "value": 40,
+            "w": 15,
+            "contrib": "6.0"
+          }
+        ]
+      }
+    },
+    {
+      "stock": {
+        "code": "600309",
+        "name": "万华化学",
+        "sector": "化工",
+        "market": "sh",
+        "board": "SH"
+      },
+      "data": {
+        "code": "600309",
+        "name": "�򻪻�ѧ",
+        "price": 93,
+        "changePct": 90.02,
+        "volume": 467425,
+        "amount": 258252,
+        "high": 94.28,
+        "low": 89.92,
+        "bids": [
+          {
+            "price": 5,
+            "vol": 92
+          },
+          {
+            "price": 9,
+            "vol": 92
+          },
+          {
+            "price": 1,
+            "vol": 92
+          },
+          {
+            "price": 1,
+            "vol": 92
+          },
+          {
+            "price": 1,
+            "vol": 93
+          }
+        ],
+        "asks": [
+          {
+            "price": 47,
+            "vol": 93
+          },
+          {
+            "price": 25,
+            "vol": 93
+          },
+          {
+            "price": 3,
+            "vol": 93
+          }
+        ]
+      },
+      "bottom": {
+        "score": 45,
+        "stage": "EARLY_BREAKOUT",
+        "nearLow": "3.43",
+        "range": "4.85"
+      },
+      "accum": {
+        "score": 50,
+        "signals": [
+          "Moderate:25%",
+          "Deep Accum"
+        ]
+      },
+      "vol": {
+        "score": 20,
+        "pattern": "MODERATE_VOL",
+        "vol": "47"
+      },
+      "support": {
+        "score": 10,
+        "zone": "NO_SUPPORT",
+        "distance": "94.624"
+      },
+      "deep": {
+        "score": 38,
+        "action": "WATCH - Potential",
+        "emoji": "🟡",
+        "factors": [
+          {
+            "name": "Bottom",
+            "value": 45,
+            "w": 40,
+            "contrib": "18.0"
+          },
+          {
+            "name": "Accum",
+            "value": 50,
+            "w": 30,
+            "contrib": "15.0"
+          },
+          {
+            "name": "Volume",
+            "value": 20,
+            "w": 15,
+            "contrib": "3.0"
+          },
+          {
+            "name": "Support",
+            "value": 10,
+            "w": 15,
+            "contrib": "1.5"
+          }
+        ]
+      }
+    },
+    {
+      "stock": {
+        "code": "600570",
+        "name": "恒生电子",
+        "sector": "软件",
+        "market": "sh",
+        "board": "SH"
+      },
+      "data": {
+        "code": "600570",
+        "name": "��������",
+        "price": 30.02,
+        "changePct": 29.81,
+        "volume": 205797,
+        "amount": 99845,
+        "high": 30.11,
+        "low": 29.8,
+        "bids": [
+          {
+            "price": 3,
+            "vol": 30
+          },
+          {
+            "price": 36,
+            "vol": 30
+          }
+        ],
+        "asks": [
+          {
+            "price": 45,
+            "vol": 30
+          }
+        ]
+      },
+      "bottom": {
+        "score": 55,
+        "stage": "BASE_BUILDING",
+        "nearLow": "0.74",
+        "range": "1.04"
+      },
+      "accum": {
+        "score": 35,
+        "signals": [
+          "BUY Pressure:33%"
+        ]
+      },
+      "vol": {
+        "score": 20,
+        "pattern": "MODERATE_VOL",
+        "vol": "21"
+      },
+      "support": {
+        "score": 10,
+        "zone": "NO_SUPPORT",
+        "distance": "90.007"
+      },
+      "deep": {
+        "score": 37,
+        "action": "WATCH - Potential",
+        "emoji": "🟡",
+        "factors": [
+          {
+            "name": "Bottom",
+            "value": 55,
+            "w": 40,
+            "contrib": "22.0"
+          },
+          {
+            "name": "Accum",
+            "value": 35,
+            "w": 30,
+            "contrib": "10.5"
+          },
+          {
+            "name": "Volume",
+            "value": 20,
+            "w": 15,
+            "contrib": "3.0"
+          },
+          {
+            "name": "Support",
+            "value": 10,
+            "w": 15,
+            "contrib": "1.5"
+          }
+        ]
+      }
+    },
+    {
+      "stock": {
+        "code": "000333",
+        "name": "美的集团",
+        "sector": "家电",
+        "market": "sz",
+        "board": "SZ"
+      },
+      "data": {
+        "code": "000333",
+        "name": "���ļ���",
+        "price": 78.64,
+        "changePct": 79.03,
+        "volume": 201604,
+        "amount": 80458,
+        "high": 79.5,
+        "low": 78.5,
+        "bids": [
+          {
+            "price": 62,
+            "vol": 78
+          },
+          {
+            "price": 22,
+            "vol": 78
+          },
+          {
+            "price": 45,
+            "vol": 78
+          },
+          {
+            "price": 37,
+            "vol": 78
+          }
+        ],
+        "asks": [
+          {
+            "price": 2,
+            "vol": 78
+          },
+          {
+            "price": 4,
+            "vol": 78
+          },
+          {
+            "price": 100,
+            "vol": 78
+          },
+          {
+            "price": 1,
+            "vol": 78
+          },
+          {
+            "price": 84,
+            "vol": null
+          }
+        ]
+      },
+      "bottom": {
+        "score": 55,
+        "stage": "BASE_BUILDING",
+        "nearLow": "0.18",
+        "range": "1.27"
+      },
+      "accum": {
+        "score": 30,
+        "signals": [
+          "Deep Accum"
+        ]
+      },
+      "vol": {
+        "score": 20,
+        "pattern": "MODERATE_VOL",
+        "vol": "20"
+      },
+      "support": {
+        "score": 10,
+        "zone": "NO_SUPPORT",
+        "distance": "21.160"
+      },
+      "deep": {
+        "score": 36,
+        "action": "WATCH - Potential",
+        "emoji": "🟡",
+        "factors": [
+          {
+            "name": "Bottom",
+            "value": 55,
+            "w": 40,
+            "contrib": "22.0"
+          },
+          {
+            "name": "Accum",
+            "value": 30,
+            "w": 30,
+            "contrib": "9.0"
+          },
+          {
+            "name": "Volume",
+            "value": 20,
+            "w": 15,
+            "contrib": "3.0"
+          },
+          {
+            "name": "Support",
+            "value": 10,
+            "w": 15,
+            "contrib": "1.5"
+          }
+        ]
+      }
+    }
+  ],
+  "byBoard": {
+    "CN": 14,
+    "SZ": 20,
+    "SH": 29
+  },
+  "all": [
+    {
+      "code": "002841",
+      "name": "��Դ�ɷ�",
+      "board": "SZ",
+      "price": 38.66,
+      "change": 38.56,
+      "score": 48,
+      "action": "BUY - Bottom Building",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002812",
+      "name": "���ݹɷ�",
+      "board": "SZ",
+      "price": 61.93,
+      "change": 62.57,
+      "score": 46,
+      "action": "BUY - Bottom Building",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601601",
+      "name": "�й�̫��",
+      "board": "SH",
+      "price": 40.81,
+      "change": 40.89,
+      "score": 46,
+      "action": "BUY - Bottom Building",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601888",
+      "name": "�й�����",
+      "board": "SH",
+      "price": 80.58,
+      "change": 79.88,
+      "score": 46,
+      "action": "BUY - Bottom Building",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600760",
+      "name": "�к����",
+      "board": "SH",
+      "price": 55.34,
+      "change": 55.83,
+      "score": 42,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300826",
+      "name": "���ɷ�",
+      "board": "CN",
+      "price": 17.33,
+      "change": 17.21,
+      "score": 39,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600309",
+      "name": "�򻪻�ѧ",
+      "board": "SH",
+      "price": 93,
+      "change": 90.02,
+      "score": 38,
+      "action": "WATCH - Potential",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "600570",
+      "name": "��������",
+      "board": "SH",
+      "price": 30.02,
+      "change": 29.81,
+      "score": 37,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "000333",
+      "name": "���ļ���",
+      "board": "SZ",
+      "price": 78.64,
+      "change": 79.03,
+      "score": 36,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300822",
+      "name": "���˴��",
+      "board": "CN",
+      "price": 16.01,
+      "change": 15.9,
+      "score": 34,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300803",
+      "name": "ָ����",
+      "board": "CN",
+      "price": 116.03,
+      "change": 115.88,
+      "score": 33,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300836",
+      "name": "�۰�����",
+      "board": "CN",
+      "price": 63.3,
+      "change": 63.36,
+      "score": 33,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "000858",
+      "name": "�� �� Һ",
+      "board": "SZ",
+      "price": 104.05,
+      "change": 103.88,
+      "score": 33,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002049",
+      "name": "�Ϲ��΢",
+      "board": "SZ",
+      "price": 79.7,
+      "change": 79.38,
+      "score": 33,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002920",
+      "name": "��������",
+      "board": "SZ",
+      "price": 124.04,
+      "change": 124.59,
+      "score": 33,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600519",
+      "name": "����ę́",
+      "board": "SH",
+      "price": 1455.02,
+      "change": 1466.99,
+      "score": 33,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600809",
+      "name": "ɽ���ھ�",
+      "board": "SH",
+      "price": 161.15,
+      "change": 161.87,
+      "score": 33,
+      "action": "WATCH - Potential",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300502",
+      "name": "����ʢ",
+      "board": "CN",
+      "price": 359.86,
+      "change": 371,
+      "score": 31,
+      "action": "WATCH - Potential",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "300308",
+      "name": "�м���",
+      "board": "CN",
+      "price": 534,
+      "change": 555,
+      "score": 30,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "300812",
+      "name": "����ɷ�",
+      "board": "CN",
+      "price": 45.52,
+      "change": 42.52,
+      "score": 30,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300454",
+      "name": "���ŷ�",
+      "board": "CN",
+      "price": 131.1,
+      "change": 124.97,
+      "score": 29,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300567",
+      "name": "�������",
+      "board": "CN",
+      "price": 152.73,
+      "change": 152.1,
+      "score": 29,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300807",
+      "name": "�����Ƽ�",
+      "board": "CN",
+      "price": 56.06,
+      "change": 54.59,
+      "score": 29,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300818",
+      "name": "���տ��",
+      "board": "CN",
+      "price": 46.41,
+      "change": 43.88,
+      "score": 29,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300830",
+      "name": "���ִ�",
+      "board": "CN",
+      "price": 14.88,
+      "change": 12.86,
+      "score": 29,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "002601",
+      "name": "���ۼ���",
+      "board": "SZ",
+      "price": 23.35,
+      "change": 22.41,
+      "score": 29,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "002916",
+      "name": "���ϵ�·",
+      "board": "SZ",
+      "price": 285.46,
+      "change": 284,
+      "score": 29,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300832",
+      "name": "�²�ҵ",
+      "board": "CN",
+      "price": 52.33,
+      "change": 51.98,
+      "score": 28,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300838",
+      "name": "�㽭��ŵ",
+      "board": "CN",
+      "price": 16.82,
+      "change": 16.75,
+      "score": 28,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "000001",
+      "name": "ƽ������",
+      "board": "SZ",
+      "price": 10.9,
+      "change": 10.86,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "000002",
+      "name": "��  �ƣ�",
+      "board": "SZ",
+      "price": 4.84,
+      "change": 4.83,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "000063",
+      "name": "����ͨѶ",
+      "board": "SZ",
+      "price": 38.65,
+      "change": 38.1,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002001",
+      "name": "�� �� ��",
+      "board": "SZ",
+      "price": 31.5,
+      "change": 31.39,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "002027",
+      "name": "���ڴ�ý",
+      "board": "SZ",
+      "price": 7.07,
+      "change": 7.14,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002371",
+      "name": "��������",
+      "board": "SZ",
+      "price": 471.88,
+      "change": 481.12,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "002456",
+      "name": "ŷ�ƹ�",
+      "board": "SZ",
+      "price": 9.83,
+      "change": 9.72,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002475",
+      "name": "��Ѷ����",
+      "board": "SZ",
+      "price": 50.22,
+      "change": 50.65,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002594",
+      "name": "���ǵ�",
+      "board": "SZ",
+      "price": 89.32,
+      "change": 89.4,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002617",
+      "name": "¶Ц�Ƽ�",
+      "board": "SZ",
+      "price": 9.37,
+      "change": 9.25,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002709",
+      "name": "��Ͳ���",
+      "board": "SZ",
+      "price": 42.28,
+      "change": 42.1,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600000",
+      "name": "�ַ�����",
+      "board": "SH",
+      "price": 9.72,
+      "change": 9.73,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600016",
+      "name": "��������",
+      "board": "SH",
+      "price": 3.88,
+      "change": 3.88,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600019",
+      "name": "���ֹɷ�",
+      "board": "SH",
+      "price": 7.2,
+      "change": 7.06,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600028",
+      "name": "�й�ʯ��",
+      "board": "SH",
+      "price": 6.46,
+      "change": 6.5,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600030",
+      "name": "����֤ȯ",
+      "board": "SH",
+      "price": 27.37,
+      "change": 27.36,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600036",
+      "name": "��������",
+      "board": "SH",
+      "price": 38.75,
+      "change": 38.75,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600048",
+      "name": "������չ",
+      "board": "SH",
+      "price": 6.8,
+      "change": 6.77,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600050",
+      "name": "�й���ͨ",
+      "board": "SH",
+      "price": 4.92,
+      "change": 4.87,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600183",
+      "name": "����Ƽ�",
+      "board": "SH",
+      "price": 69.11,
+      "change": 70.5,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "600406",
+      "name": "��������",
+      "board": "SH",
+      "price": 27.3,
+      "change": 27.24,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600547",
+      "name": "ɽ���ƽ�",
+      "board": "SH",
+      "price": 47.31,
+      "change": 46.93,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600900",
+      "name": "��������",
+      "board": "SH",
+      "price": 26.04,
+      "change": 26.05,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601012",
+      "name": "¡������",
+      "board": "SH",
+      "price": 18.32,
+      "change": 18.17,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601166",
+      "name": "��ҵ����",
+      "board": "SH",
+      "price": 18.31,
+      "change": 18.24,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601288",
+      "name": "ũҵ����",
+      "board": "SH",
+      "price": 6.4,
+      "change": 6.42,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601318",
+      "name": "�й�ƽ��",
+      "board": "SH",
+      "price": 63.09,
+      "change": 63.6,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601328",
+      "name": "��ͨ����",
+      "board": "SH",
+      "price": 6.55,
+      "change": 6.58,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601398",
+      "name": "��������",
+      "board": "SH",
+      "price": 6.92,
+      "change": 6.94,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601668",
+      "name": "�й�����",
+      "board": "SH",
+      "price": 5.04,
+      "change": 5.03,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601688",
+      "name": "��̩֤ȯ",
+      "board": "SH",
+      "price": 21.38,
+      "change": 21.5,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601766",
+      "name": "�й��г�",
+      "board": "SH",
+      "price": 6.29,
+      "change": 6.33,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601818",
+      "name": "�������",
+      "board": "SH",
+      "price": 3.24,
+      "change": 3.24,
+      "score": 27,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002714",
+      "name": "��ԭ�ɷ�",
+      "board": "SZ",
+      "price": 46.9,
+      "change": 45.15,
+      "score": 26,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "000651",
+      "name": "��������",
+      "board": "SZ",
+      "price": 37.45,
+      "change": 37.58,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002074",
+      "name": "�����߿�",
+      "board": "SZ",
+      "price": 37.9,
+      "change": 37.73,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002230",
+      "name": "�ƴ�Ѷ��",
+      "board": "SZ",
+      "price": 55.82,
+      "change": 55.48,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002236",
+      "name": "�󻪹ɷ�",
+      "board": "SZ",
+      "price": 19.26,
+      "change": 19.12,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002251",
+      "name": "������",
+      "board": "SZ",
+      "price": 4.85,
+      "change": 4.84,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002415",
+      "name": "��������",
+      "board": "SZ",
+      "price": 31.44,
+      "change": 31.4,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002736",
+      "name": "����֤ȯ",
+      "board": "SZ",
+      "price": 12.56,
+      "change": 12.37,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600104",
+      "name": "��������",
+      "board": "SH",
+      "price": 14.33,
+      "change": 14.26,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600276",
+      "name": "����ҽҩ",
+      "board": "SH",
+      "price": 56.56,
+      "change": 56.62,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600585",
+      "name": "����ˮ��",
+      "board": "SH",
+      "price": 25.56,
+      "change": 25.45,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "600690",
+      "name": "�����Ǽ�",
+      "board": "SH",
+      "price": 25.7,
+      "change": 25.91,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600745",
+      "name": "��̩�Ƽ�",
+      "board": "SH",
+      "price": 33.5,
+      "change": 33.5,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600887",
+      "name": "�����ɷ�",
+      "board": "SH",
+      "price": 26.08,
+      "change": 26.13,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601088",
+      "name": "�й���",
+      "board": "SH",
+      "price": 42.26,
+      "change": 41.9,
+      "score": 25,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300767",
+      "name": "�𰲿Ƽ�",
+      "board": "CN",
+      "price": 20.66,
+      "change": 20.54,
+      "score": 24,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300820",
+      "name": "Ӣ�ܵ���",
+      "board": "CN",
+      "price": 56.96,
+      "change": 57.5,
+      "score": 24,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300834",
+      "name": "�ǻԻ���",
+      "board": "CN",
+      "price": 25.67,
+      "change": 25.55,
+      "score": 24,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002304",
+      "name": "��ӹɷ�",
+      "board": "SZ",
+      "price": 53.2,
+      "change": 53.22,
+      "score": 24,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002493",
+      "name": "��ʢʯ��",
+      "board": "SZ",
+      "price": 15.6,
+      "change": 15.25,
+      "score": 24,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300777",
+      "name": "�м�Ƽ�",
+      "board": "CN",
+      "price": 44.92,
+      "change": 43.19,
+      "score": 23,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "000725",
+      "name": "��������",
+      "board": "SZ",
+      "price": 4.48,
+      "change": 4.33,
+      "score": 23,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "002156",
+      "name": "ͨ��΢��",
+      "board": "SZ",
+      "price": 52.01,
+      "change": 50.5,
+      "score": 23,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "002185",
+      "name": "����Ƽ�",
+      "board": "SZ",
+      "price": 15.18,
+      "change": 14.82,
+      "score": 23,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "002429",
+      "name": "�׳۹ɷ�",
+      "board": "SZ",
+      "price": 10.69,
+      "change": 10.4,
+      "score": 23,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "600111",
+      "name": "����ϡ��",
+      "board": "SH",
+      "price": 62.4,
+      "change": 59.13,
+      "score": 23,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "600703",
+      "name": "�������",
+      "board": "SH",
+      "price": 16.7,
+      "change": 15.94,
+      "score": 23,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300122",
+      "name": "�Ƿ�����",
+      "board": "CN",
+      "price": 17.29,
+      "change": 17.23,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300663",
+      "name": "��������",
+      "board": "CN",
+      "price": 17.22,
+      "change": 17.19,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300815",
+      "name": "�����",
+      "board": "CN",
+      "price": 25.87,
+      "change": 25.45,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300824",
+      "name": "�����ɷ�",
+      "board": "CN",
+      "price": 11.11,
+      "change": 11.11,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "002007",
+      "name": "��������",
+      "board": "SZ",
+      "price": 15.47,
+      "change": 15.48,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600009",
+      "name": "�Ϻ�����",
+      "board": "SH",
+      "price": 30.51,
+      "change": 30.49,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "600893",
+      "name": "��������",
+      "board": "SH",
+      "price": 57.14,
+      "change": 58.88,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "601066",
+      "name": "���Ž�Ͷ",
+      "board": "SH",
+      "price": 23.85,
+      "change": 23.71,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601236",
+      "name": "����֤ȯ",
+      "board": "SH",
+      "price": 8.16,
+      "change": 8.12,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "601628",
+      "name": "�й�����",
+      "board": "SH",
+      "price": 44.48,
+      "change": 44.72,
+      "score": 22,
+      "action": "WATCH",
+      "stage": "BASE_BUILDING"
+    },
+    {
+      "code": "300476",
+      "name": "ʤ��Ƽ�",
+      "board": "CN",
+      "price": 304.06,
+      "change": 304.01,
+      "score": 21,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "000425",
+      "name": "�칤��е",
+      "board": "SZ",
+      "price": 12.26,
+      "change": 12.34,
+      "score": 21,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "000768",
+      "name": "�к�����",
+      "board": "SZ",
+      "price": 30.83,
+      "change": 30.92,
+      "score": 21,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "002466",
+      "name": "�����ҵ",
+      "board": "SZ",
+      "price": 56.6,
+      "change": 54.84,
+      "score": 21,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "600176",
+      "name": "�й���ʯ",
+      "board": "SH",
+      "price": 27.04,
+      "change": 27.6,
+      "score": 21,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "300626",
+      "name": "����ɷ�",
+      "board": "CN",
+      "price": 19.81,
+      "change": 19.36,
+      "score": 20,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300792",
+      "name": "Ҽ��Ҽ��",
+      "board": "CN",
+      "price": 42.24,
+      "change": 41,
+      "score": 20,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "300828",
+      "name": "���¿Ƽ�",
+      "board": "CN",
+      "price": 25.56,
+      "change": 28,
+      "score": 19,
+      "action": "WATCH",
+      "stage": "DEEP_BOTTOM"
+    },
+    {
+      "code": "000100",
+      "name": "TCL�Ƽ�",
+      "board": "SZ",
+      "price": 4.97,
+      "change": 4.84,
+      "score": 19,
+      "action": "WATCH",
+      "stage": "MOMENTUM_BUILD"
+    },
+    {
+      "code": "300840",
+      "name": "��������",
+      "board": "CN",
+      "price": 19.85,
+      "change": 19.27,
+      "score": 18,
+      "action": "WATCH",
+      "stage": "EARLY_BREAKOUT"
+    },
+    {
+      "code": "002460",
+      "name": "�ӷ��ҵ",
+      "board": "SZ",
+      "price": 73.1,
+      "change": 71.4,
+      "score": 15,
+      "action": "WATCH",
+      "stage": "UNKNOWN"
+    },
+    {
+      "code": "002311",
+      "name": "������",
+      "board": "SZ",
+      "price": 54.81,
+      "change": 53.49,
+      "score": 11,
+      "action": "AVOID - No Setup",
+      "stage": "UNKNOWN"
+    },
+    {
+      "code": "300810",
+      "name": "�пƺ�Ѷ",
+      "board": "CN",
+      "price": 44.06,
+      "change": 42.75,
+      "score": 8,
+      "action": "AVOID - No Setup",
+      "stage": "UNKNOWN"
+    },
+    {
+      "code": "002410",
+      "name": "������",
+      "board": "SZ",
+      "price": 13.97,
+      "change": 13.64,
+      "score": 5,
+      "action": "AVOID - No Setup",
+      "stage": "UNKNOWN"
+    },
+    {
+      "code": "600588",
+      "name": "��������",
+      "board": "SH",
+      "price": 14.22,
+      "change": 13.96,
+      "score": 5,
+      "action": "AVOID - No Setup",
+      "stage": "UNKNOWN"
+    },
+    {
+      "code": "300682",
+      "name": "���¿Ƽ�",
+      "board": "CN",
+      "price": 19.08,
+      "change": 18.8,
+      "score": 3,
+      "action": "AVOID - No Setup",
+      "stage": "UNKNOWN"
+    },
+    {
+      "code": "300796",
+      "name": "��˹��",
+      "board": "CN",
+      "price": 10.36,
+      "change": 10.31,
+      "score": 3,
+      "action": "AVOID - No Setup",
+      "stage": "UNKNOWN"
+    },
+    {
+      "code": "600837",
+      "name": "��֤ͨȯ",
+      "board": "SH",
+      "price": 10.41,
+      "change": 0,
+      "score": 0,
+      "action": "AVOID - No Setup",
+      "stage": "UNKNOWN"
+    },
+    {
+      "code": "601989",
+      "name": "�й��ع�",
+      "board": "SH",
+      "price": 5.1,
+      "change": 0,
+      "score": 0,
+      "action": "AVOID - No Setup",
+      "stage": "UNKNOWN"
+    }
+  ]
+}

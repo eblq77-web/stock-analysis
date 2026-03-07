@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📈 Paper Trading Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 30px; font-size: 2rem; }
+        h1 span { font-size: 2.5rem; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .card { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .card h3 { color: #aaa; font-size: 0.9rem; margin-bottom: 10px; }
+        .card .value { font-size: 1.8rem; font-weight: bold; }
+        .card .value.green { color: #00ff88; }
+        .card .value.red { color: #ff4757; }
+        .section { margin-bottom: 30px; }
+        .section h2 { background: linear-gradient(90deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+        th, td { padding: 12px 15px; text-align: left; }
+        th { background: rgba(255,255,255,0.1); font-weight: 600; color: #aaa; }
+        tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        tr:hover { background: rgba(255,255,255,0.05); }
+        .positive { color: #00ff88; }
+        .negative { color: #ff4757; }
+        .tag { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; background: rgba(255,255,255,0.1); margin-right: 5px; }
+        .tag.high { background: rgba(0,255,136,0.2); color: #00ff88; }
+        .positions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; }
+        .position-card { background: rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; border-left: 4px solid #667eea; }
+        .position-card.profit { border-left-color: #00ff88; }
+        .position-card.loss { border-left-color: #ff4757; }
+        .position-card .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .position-card .code { font-weight: bold; font-size: 1.1rem; }
+        .position-card .name { color: #aaa; font-size: 0.9rem; }
+        .position-card .details { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem; }
+        .position-card .detail span { color: #aaa; }
+        .position-card .pnl { font-size: 1.3rem; font-weight: bold; }
+        .btn { background: linear-gradient(135deg, #667eea, #764ba2); border: none; padding: 12px 25px; border-radius: 8px; color: white; cursor: pointer; font-size: 1rem; margin: 10px 5px; }
+        .btn:hover { opacity: 0.9; }
+        .timestamp { text-align: center; color: #666; margin-top: 30px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span>📈</span> Paper Trading Dashboard</h1>
+        
+        <div class="summary">
+            <div class="card"><h3>💰 Capital</h3><div class="value">¥328,758.619</div></div>
+            <div class="card"><h3>📊 Open Positions</h3><div class="value">5</div></div>
+            <div class="card"><h3>✅ Closed Trades</h3><div class="value">0</div></div>
+            <div class="card"><h3>🎯 Total P&L</h3><div class="value green">¥0</div></div>
+            <div class="card"><h3>📈 Return %</h3><div class="value green">0.00%</div></div>
+        </div>
+        
+        <div class="section">
+            <h2>📋 Open Positions</h2>
+            <div class="positions-grid">
+                <div class="position-card profit">
+                    <div class="header">
+                        <div><div class="code">300122</div><div class="name">智飞生物</div></div>
+                        <div class="pnl" style="color:#00ff88">+0.00%</div>
+                    </div>
+                    <div class="details">
+                        <div class="detail"><span>Entry:</span> ¥855.53</div>
+                        <div class="detail"><span>Shares:</span> 233</div>
+                        <div class="detail"><span>Sector:</span> 医药</div>
+                        <div class="detail"><span>Score:</span> 79.9</div>
+                        <div class="detail"><span>Value:</span> ¥199,337.355</div>
+                        <div class="detail"><span>Date:</span> 2026-03-01</div>
+                    </div>
+                </div>
+                <div class="position-card profit">
+                    <div class="header">
+                        <div><div class="code">002475</div><div class="name">立讯精密</div></div>
+                        <div class="pnl" style="color:#00ff88">+0.00%</div>
+                    </div>
+                    <div class="details">
+                        <div class="detail"><span>Entry:</span> ¥787.02</div>
+                        <div class="detail"><span>Shares:</span> 203</div>
+                        <div class="detail"><span>Sector:</span> 科技</div>
+                        <div class="detail"><span>Score:</span> 79.9</div>
+                        <div class="detail"><span>Value:</span> ¥159,764.97</div>
+                        <div class="detail"><span>Date:</span> 2026-03-01</div>
+                    </div>
+                </div>
+                <div class="position-card profit">
+                    <div class="header">
+                        <div><div class="code">300682</div><div class="name">朗新科技</div></div>
+                        <div class="pnl" style="color:#00ff88">+0.00%</div>
+                    </div>
+                    <div class="details">
+                        <div class="detail"><span>Entry:</span> ¥697.43</div>
+                        <div class="detail"><span>Shares:</span> 183</div>
+                        <div class="detail"><span>Sector:</span> 科技</div>
+                        <div class="detail"><span>Score:</span> 79.7</div>
+                        <div class="detail"><span>Value:</span> ¥127,630.45</div>
+                        <div class="detail"><span>Date:</span> 2026-03-01</div>
+                    </div>
+                </div>
+                <div class="position-card profit">
+                    <div class="header">
+                        <div><div class="code">835670</div><div class="name">数字人</div></div>
+                        <div class="pnl" style="color:#00ff88">+0.00%</div>
+                    </div>
+                    <div class="details">
+                        <div class="detail"><span>Entry:</span> ¥727.99</div>
+                        <div class="detail"><span>Shares:</span> 141</div>
+                        <div class="detail"><span>Sector:</span> AI教育</div>
+                        <div class="detail"><span>Score:</span> 78.4</div>
+                        <div class="detail"><span>Value:</span> ¥102,646.28</div>
+                        <div class="detail"><span>Date:</span> 2026-03-01</div>
+                    </div>
+                </div>
+                <div class="position-card profit">
+                    <div class="header">
+                        <div><div class="code">300454</div><div class="name">网宿科技</div></div>
+                        <div class="pnl" style="color:#00ff88">+0.00%</div>
+                    </div>
+                    <div class="details">
+                        <div class="detail"><span>Entry:</span> ¥601.93</div>
+                        <div class="detail"><span>Shares:</span> 136</div>
+                        <div class="detail"><span>Sector:</span> 科技</div>
+                        <div class="detail"><span>Score:</span> 77.5</div>
+                        <div class="detail"><span>Value:</span> ¥81,862.327</div>
+                        <div class="detail"><span>Date:</span> 2026-03-01</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🟢 Buy Signals (9)</h2>
+            <table>
+                <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Score</th><th>Price</th><th>Reason</th></tr></thead>
+                <tbody>
+                    <tr><td><b>000651</b></td><td>格力电器</td><td>家电</td><td><span class="tag high">77.2</span></td><td>¥779.81</td><td>Score 77.2 + BUY Signal</td></tr>
+                    <tr><td><b>870864</b></td><td>红东方</td><td>化工</td><td><span class="tag high">76.7</span></td><td>¥709.90</td><td>Score 76.7 + BUY Signal</td></tr>
+                    <tr><td><b>600196</b></td><td>复星医药</td><td>医药</td><td><span class="tag high">76.2</span></td><td>¥829.59</td><td>Score 76.2 + BUY Signal</td></tr>
+                    <tr><td><b>600176</b></td><td>中国巨石</td><td>建材</td><td><span class="tag high">76.1</span></td><td>¥732.05</td><td>Score 76.1 + BUY Signal</td></tr>
+                    <tr><td><b>872926</b></td><td>贝特瑞</td><td>新能源</td><td><span class="tag high">76</span></td><td>¥778.42</td><td>Score 76 + BUY Signal</td></tr>
+                    <tr><td><b>300018</b></td><td>中科创达</td><td>科技</td><td><span class="tag high">75.2</span></td><td>¥787.32</td><td>Score 75.2 + BUY Signal</td></tr>
+                    <tr><td><b>300015</b></td><td>爱尔眼科</td><td>医药</td><td><span class="tag high">75</span></td><td>¥867.55</td><td>Score 75 + BUY Signal</td></tr>
+                    <tr><td><b>300033</b></td><td>同花顺</td><td>科技</td><td><span class="tag high">75</span></td><td>¥788.05</td><td>Score 75 + BUY Signal</td></tr>
+                    <tr><td><b>300226</b></td><td>上海钢联</td><td>科技</td><td><span class="tag high">75</span></td><td>¥728.75</td><td>Score 75 + BUY Signal</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <h2>👀 Watch List (5)</h2>
+            <table>
+                <thead><tr><th>Code</th><th>Name</th><th>Entry</th><th>Current</th><th>P&L</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td><b>300122</b></td><td>智飞生物</td><td>¥N/A</td><td>¥861.16</td><td class="positive">+0.66%</td><td><span class="tag">HOLDING</span></td></tr>
+                    <tr><td><b>002475</b></td><td>立讯精密</td><td>¥N/A</td><td>¥787.89</td><td class="positive">+0.11%</td><td><span class="tag">HOLDING</span></td></tr>
+                    <tr><td><b>300682</b></td><td>朗新科技</td><td>¥N/A</td><td>¥702.18</td><td class="positive">+0.68%</td><td><span class="tag">HOLDING</span></td></tr>
+                    <tr><td><b>835670</b></td><td>数字人</td><td>¥N/A</td><td>¥707.79</td><td class="negative">-2.77%</td><td><span class="tag">HOLDING</span></td></tr>
+                    <tr><td><b>300454</b></td><td>网宿科技</td><td>¥N/A</td><td>¥648.19</td><td class="positive">+7.69%</td><td><span class="tag">HOLDING</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn" onclick="location.reload()">🔄 Refresh</button>
+        </div>
+        
+        <div class="timestamp">Last updated: 3/1/2026, 8:39:04 AM</div>
+    </div>
+</body>
+</html>

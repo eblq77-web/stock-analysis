@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>mega_database</title>
+<style>
+body{font-family:-apple-system,sans-serif;background:#1a1a2e;color:#fff;padding:20px;max-width:1200px;margin:0 auto}
+h1{color:#00ff88;margin-bottom:20px}
+pre{white-space:pre-wrap;background:#0a0a0a;padding:15px;border-radius:10px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;margin:15px 0}
+th,td{border:1px solid #333;padding:10px;text-align:left}
+th{background:#333}
+.green{color:#00ff88}
+.red{color:#ff4444}
+</style></head><body>
+<h1>📊 mega_database</h1>
+<pre>
+{
+  "updated": "2026-02-25",
+  "exchanges": {
+    "SH": {
+      "name": "上海主板",
+      "en": "Shanghai Main",
+      "traits": [
+        "Large cap",
+        "State-owned",
+        "Stable",
+        "Blue chip"
+      ],
+      "market": "A-Share"
+    },
+    "SZ": {
+      "name": "深圳主板",
+      "en": "Shenzhen Main",
+      "traits": [
+        "Mid cap",
+        "Private",
+        "Growth",
+        "Manufacturing"
+      ],
+      "market": "A-Share"
+    },
+    "CN": {
+      "name": "创业板",
+      "en": "ChiNext",
+      "traits": [
+        "High growth",
+        "Tech",
+        "Innovation",
+        "High volatility"
+      ],
+      "market": "A-Share"
+    },
+    "BSE": {
+      "name": "北京交所",
+      "en": "Beijing Stock Exchange",
+      "traits": [
+        "New",
+        "Small cap",
+        "Hidden gems",
+        "High potential"
+      ],
+      "market": "A-Share"
+    },
+    "HK": {
+      "name": "港股主板",
+      "en": "HK Main Board",
+      "traits": [
+        "International",
+        "H-share",
+        "Dividend",
+        "Liquidity"
+      ],
+      "market": "HK"
+    },
+    "HKG": {
+      "name": "港股创业板",
+      "en": "HK GEM",
+      "traits": [
+        "Small cap",
+        "Growth",
+        "Speculative",
+        "Low liquidity"
+      ],
+      "market": "HK"
+    }
+  },
+  "sectors": [
+    "科技",
+    "新能源",
+    "医药",
+    "消费",
+    "金融",
+    "化工",
+    "半导体",
+    "AI",
+    "新材料",
+    "家电",
+    "制造",
+    "通信",
+    "地产",
+    "公用",
+    "军工",
+    "环保",
+    "农业",
+    "传媒",
+    "物流",
+    "建材",
+    "钢铁",
+    "有色",
+    "矿业",
+    "电力",
+    "汽车",
+    "航空",
+    "旅游",
+    "食品",
+    "纺织",
+    "造纸"
+  ],
+  "stocks": [
+    {
+      "code": "600519",
+      "name": "贵州茅台",
+      "exchange": "SH",
+      "sector": "科技",
+      "cap": 1295,
+      "pe": 37,
+      "quality": 58
+    },
+    {
+      "code": "601318",
+      "name": "中国平安",
+      "exchange": "SH",
+      "sector": "新能源",
+      "cap": 2060,
+      "pe": 27,
+      "quality": 70
+    },
+    {
+      "code": "600036",
+      "name": "招商银行",
+      "exchange": "SH",
+      "sector": "医药",
+      "cap": 3354,
+      "pe": 6,
+      "quality": 74
+    },
+    {
+      "code": "600900",
+      "name": "长江电力",
+      "exchange": "SH",
+      "sector": "消费",
+      "cap": 4718,
+      "pe": 16,
+      "quality": 76
+    },
+    {
+      "code": "601012",
+      "name": "隆基绿能",
+      "exchange": "SH",
+      "sector": "金融",
+      "cap": 245,
+      "pe": 27,
+      "quality": 83
+    },
+    {
+      "code": "600276",
+      "name": "恒瑞医药",
+      "exchange": "SH",
+      "sector": "化工",
+      "cap": 1788,
+      "pe": 54,
+      "quality": 77
+    },
+    {
+      "code": "600309",
+      "name": "万华化学",
+      "exchange": "SH",
+      "sector": "半导体",
+      "cap": 2502,
+      "pe": 54,
+      "quality": 90
+    },
+    {
+      "code": "600887",
+      "name": "伊利股份",
+      "exchange": "SH",
+      "sector": "AI",
+      "cap": 1258,
+      "pe": 15,
+      "quality": 76
+    },
+    {
+      "code": "600196",
+      "name": "复星医药",
+      "exchange": "SH",
+      "sector": "新材料",
+      "cap": 3639,
+      "pe": 22,
+      "quality": 93
+    },
+    {
+      "code": "600176",
+      "name": "中国巨石",
+      "exchange": "SH",
+      "sector": "家电",
+      "cap": 2918,
+      "pe": 25,
+      "quality": 51
+    },
+    {
+      "code": "600030",
+      "name": "中信证券",
+      "exchange": "SH",
+      "sector": "制造",
+      "cap": 575,
+      "pe": 35,
+      "quality": 63
+    },
+    {
+      "code": "600028",
+      "name": "中国石化",
+      "exchange": "SH",
+      "sector": "通信",
+      "cap": 4880,
+      "pe": 33,
+      "quality": 78
+    },
+    {
+      "code": "600050",
+      "name": "中国联通",
+      "exchange": "SH",
+      "sector": "地产",
+      "cap": 1960,
+      "pe": 8,
+      "quality": 60
+    },
+    {
+      "code": "600104",
+      "name": "上汽集团",
+      "exchange": "SH",
+      "sector": "公用",
+      "cap": 4541,
+      "pe": 39,
+      "quality": 75
+    },
+    {
+      "code": "600585",
+      "name": "海螺水泥",
+      "exchange": "SH",
+      "sector": "军工",
+      "cap": 1036,
+      "pe": 34,
+      "quality": 76
+    },
+    {
+      "code": "600111",
+      "name": "北方稀土",
+      "exchange": "SH",
+      "sector": "环保",
+      "cap": 1668,
+      "pe": 20,
+      "quality": 65
+    },
+    {
+      "code": "600150",
+      "name": "中国船舶",
+      "exchange": "SH",
+      "sector": "农业",
+      "cap": 1656,
+      "pe": 34,
+      "quality": 79
+    },
+    {
+      "code": "600161",
+      "name": "天坛生物",
+      "exchange": "SH",
+      "sector": "传媒",
+      "cap": 1180,
+      "pe": 13,
+      "quality": 73
+    },
+    {
+      "code": "600183",
+      "name": "生益科技",
+      "exchange": "SH",
+      "sector": "物流",
+      "cap": 4358,
+      "pe": 12,
+      "quality": 75
+    },
+    {
+      "code": "600188",
+      "name": "兖州煤业",
+      "exchange": "SH",
+      "sector": "建材",
+      "cap": 1435,
+      "pe": 54,
+      "quality": 91
+    },
+    {
+      "code": "600195",
+      "name": "中牧股份",
+      "exchange": "SH",
+      "sector": "钢铁",
+      "cap": 4899,
+      "pe": 38,
+      "quality": 57
+    },
+    {
+      "code": "600201",
+      "name": "哈药股份",
+      "exchange": "SH",
+      "sector": "有色",
+      "cap": 4909,
+      "pe": 20,
+      "quality": 94
+    },
+    {
+      "code": "600208",
+      "name": "新湖中宝",
+      "exchange": "SH",
+      "sector": "矿业",
+      "cap": 874,
+      "pe": 5,
+      "quality": 76
+    },
+    {
+      "code": "600222",
+      "name": "万邦达",
+      "exchange": "SH",
+      "sector": "电力",
+      "cap": 4348,
+      "pe": 13,
+      "quality": 54
+    },
+    {
+      "code": "600227",
+      "name": "赤峰黄金",
+      "exchange": "SH",
+      "sector": "汽车",
+      "cap": 1788,
+      "pe": 23,
+      "quality": 53
+    },
+    {
+      "code": "600231",
+      "name": "沙钢股份",
+      "exchange": "SH",
+      "sector": "航空",
+      "cap": 2629,
+      "pe": 38,
+      "quality": 94
+    },
+    {
+      "code": "600233",
+      "name": "圆通速递",
+      "exchange": "SH",
+      "sector": "旅游",
+      "cap": 2452,
+      "pe": 22,
+      "quality": 85
+    },
+    {
+      "code": "600011",
+      "name": "华能国际",
+      "exchange": "SH",
+      "sector": "食品",
+      "cap": 565,
+      "pe": 17,
+      "quality": 87
+    },
+    {
+      "code": "600031",
+      "name": "三一重工",
+      "exchange": "SH",
+      "sector": "纺织",
+      "cap": 1893,
+      "pe": 20,
+      "quality": 72
+    },
+    {
+      "code": "600048",
+      "name": "保利发展",
+      "exchange": "SH",
+      "sector": "造纸",
+      "cap": 3201,
+      "pe": 19,
+      "quality": 68
+    },
+    {
+      "code": "600089",
+      "name": "特变电工",
+      "exchange": "SH",
+      "sector": "科技",
+      "cap": 4887,
+      "pe": 52,
+      "quality": 80
+    },
+    {
+      "code": "600019",
+      "name": "宝钢股份",
+      "exchange": "SH",
+      "sector": "新能源",
+      "cap": 719,
+      "pe": 41,
+      "quality": 93
+    },
+    {
+      "code": "600018",
+      "name": "上港集团",
+      "exchange": "SH",
+      "sector": "医药",
+      "cap": 989,
+      "pe": 12,
+      "quality": 61
+    },
+    {
+      "code": "600017",
+      "name": "日照港",
+      "exchange": "SH",
+      "sector": "消费",
+      "cap": 1198,
+      "pe": 12,
+      "quality": 53
+    },
+    {
+      "code": "600016",
+      "name": "民生银行",
+      "exchange": "SH",
+      "sector": "金融",
+      "cap": 276,
+      "pe": 24,
+      "quality": 88
+    },
+    {
+      "code": "600015",
+      "name": "华夏银行",
+      "exchange": "SH",
+      "sector": "化工",
+      "cap": 1718,
+      "pe": 39,
+      "quality": 83
+    },
+    {
+      "code": "600014",
+      "name": "首创股份",
+      "exchange": "SH",
+      "sector": "半导体",
+      "cap": 2887,
+      "pe": 31,
+      "quality": 58
+    },
+    {
+      "code": "600010",
+      "name": "包钢股份",
+      "exchange": "SH",
+      "sector": "AI",
+      "cap": 857,
+      "pe": 43,
+      "quality": 86
+    },
+    {
+      "code": "600009",
+      "name": "上海机场",
+      "exchange": "SH",
+      "sector": "新材料",
+      "cap": 5100,
+      "pe": 14,
+      "quality": 83
+    },
+    {
+      "code": "600008",
+      "name": "首创股份",
+      "exchange": "SH",
+      "sector": "家电",
+      "cap": 1063,
+      "pe": 22,
+      "quality": 65
+    },
+    {
+      "code": "600007",
+      "name": "中国国贸",
+      "exchange": "SH",
+      "sector": "制造",
+      "cap": 4947,
+      "pe": 42,
+      "quality": 78
+    },
+    {
+      "code": "600006",
+      "name": "东风汽车",
+      "exchange": "SH",
+      "sector": "通信",
+      "cap": 2614,
+      "pe": 46,
+      "quality": 84
+    },
+    {
+      "code": "600005",
+      "name": "武钢股份",
+      "exchange": "SH",
+      "sector": "地产",
+      "cap": 3304,
+      "pe": 50,
+      "quality": 55
+    },
+    {
+      "code": "600004",
+      "name": "白云机场",
+      "exchange": "SH",
+      "sector": "公用",
+      "cap": 3300,
+      "pe": 43,
+      "quality": 87
+    },
+    {
+      "code": "600003",
+      "name": "ST东北高",
+      "exchange": "SH",
+      "sector": "军工",
+      "cap": 4834,
+      "pe": 25,
+      "quality": 51
+    },
+    {
+      "code": "000001",
+      "name": "平安银行",
+      "exchange": "SZ",
+      "sector": "科技",
+      "cap": 424,
+      "pe": 32,
+      "quality": 71
+    },
+    {
+      "code": "000002",
+      "name": "万科A",
+      "exchange": "SZ",
+      "sector": "新能源",
+      "cap": 270,
+      "pe": 18,
+      "quality": 76
+    },
+    {
+      "code": "000333",
+      "name": "美的集团",
+      "exchange": "SZ",
+      "sector": "医药",
+      "cap": 329,
+      "pe": 43,
+      "quality": 84
+    },
+    {
+      "code": "000651",
+      "name": "格力电器",
+      "exchange": "SZ",
+      "sector": "消费",
+      "cap": 314,
+      "pe": 27,
+      "quality": 85
+    },
+    {
+      "code": "000858",
+      "name": "五粮液",
+      "exchange": "SZ",
+      "sector": "金融",
+      "cap": 163,
+      "pe": 16,
+      "quality": 92
+    },
+    {
+      "code": "000725",
+      "name": "京东方A",
+      "exchange": "SZ",
+      "sector": "化工",
+      "cap": 469,
+      "pe": 31,
+      "quality": 84
+    },
+    {
+      "code": "002415",
+      "name": "海康威视",
+      "exchange": "SZ",
+      "sector": "半导体",
+      "cap": 375,
+      "pe": 9,
+      "quality": 64
+    },
+    {
+      "code": "002594",
+      "name": "比亚迪",
+      "exchange": "SZ",
+      "sector": "AI",
+      "cap": 324,
+      "pe": 48,
+      "quality": 76
+    },
+    {
+      "code": "002475",
+      "name": "立讯精密",
+      "exchange": "SZ",
+      "sector": "新材料",
+      "cap": 316,
+      "pe": 37,
+      "quality": 79
+    },
+    {
+      "code": "000786",
+      "name": "北新建材",
+      "exchange": "SZ",
+      "sector": "家电",
+      "cap": 52,
+      "pe": 43,
+      "quality": 54
+    },
+    {
+      "code": "000021",
+      "name": "深科技",
+      "exchange": "SZ",
+      "sector": "制造",
+      "cap": 258,
+      "pe": 29,
+      "quality": 70
+    },
+    {
+      "code": "000028",
+      "name": "国药一致",
+      "exchange": "SZ",
+      "sector": "通信",
+      "cap": 444,
+      "pe": 16,
+      "quality": 56
+    },
+    {
+      "code": "000039",
+      "name": "中集集团",
+      "exchange": "SZ",
+      "sector": "地产",
+      "cap": 439,
+      "pe": 16,
+      "quality": 94
+    },
+    {
+      "code": "000063",
+      "name": "中兴通讯",
+      "exchange": "SZ",
+      "sector": "公用",
+      "cap": 104,
+      "pe": 45,
+      "quality": 56
+    },
+    {
+      "code": "000066",
+      "name": "中国长城",
+      "exchange": "SZ",
+      "sector": "军工",
+      "cap": 144,
+      "pe": 50,
+      "quality": 56
+    },
+    {
+      "code": "000100",
+      "name": "TCL科技",
+      "exchange": "SZ",
+      "sector": "环保",
+      "cap": 392,
+      "pe": 10,
+      "quality": 92
+    },
+    {
+      "code": "000338",
+      "name": "潍柴动力",
+      "exchange": "SZ",
+      "sector": "农业",
+      "cap": 540,
+      "pe": 9,
+      "quality": 77
+    },
+    {
+      "code": "000425",
+      "name": "建投能源",
+      "exchange": "SZ",
+      "sector": "传媒",
+      "cap": 199,
+      "pe": 50,
+      "quality": 88
+    },
+    {
+      "code": "000538",
+      "name": "云南白药",
+      "exchange": "SZ",
+      "sector": "物流",
+      "cap": 115,
+      "pe": 52,
+      "quality": 93
+    },
+    {
+      "code": "000568",
+      "name": "泸州老窖",
+      "exchange": "SZ",
+      "sector": "建材",
+      "cap": 408,
+      "pe": 13,
+      "quality": 56
+    },
+    {
+      "code": "000596",
+      "name": "古井贡酒",
+      "exchange": "SZ",
+      "sector": "钢铁",
+      "cap": 119,
+      "pe": 13,
+      "quality": 81
+    },
+    {
+      "code": "000661",
+      "name": "长春高新",
+      "exchange": "SZ",
+      "sector": "有色",
+      "cap": 187,
+      "pe": 47,
+      "quality": 58
+    },
+    {
+      "code": "000708",
+      "name": "阿尔特",
+      "exchange": "SZ",
+      "sector": "矿业",
+      "cap": 212,
+      "pe": 41,
+      "quality": 77
+    },
+    {
+      "code": "000768",
+      "name": "中航飞机",
+      "exchange": "SZ",
+      "sector": "电力",
+      "cap": 423,
+      "pe": 26,
+      "quality": 55
+    },
+    {
+      "code": "000783",
+      "name": "长江证券",
+      "exchange": "SZ",
+      "sector": "汽车",
+      "cap": 322,
+      "pe": 53,
+      "quality": 82
+    },
+    {
+      "code": "000825",
+      "name": "太钢不锈",
+      "exchange": "SZ",
+      "sector": "航空",
+      "cap": 254,
+      "pe": 17,
+      "quality": 57
+    },
+    {
+      "code": "000876",
+      "name": "新希望",
+      "exchange": "SZ",
+      "sector": "旅游",
+      "cap": 85,
+      "pe": 33,
+      "quality": 74
+    },
+    {
+      "code": "000897",
+      "name": "闽发股份",
+      "exchange": "SZ",
+      "sector": "食品",
+      "cap": 290,
+      "pe": 52,
+      "quality": 60
+    },
+    {
+      "code": "000901",
+      "name": "航天科技",
+      "exchange": "SZ",
+      "sector": "纺织",
+      "cap": 70,
+      "pe": 10,
+      "quality": 92
+    },
+    {
+      "code": "000938",
+      "name": "紫光股份",
+      "exchange": "SZ",
+      "sector": "造纸",
+      "cap": 93,
+      "pe": 18,
+      "quality": 62
+    },
+    {
+      "code": "000977",
+      "name": "浪潮信息",
+      "exchange": "SZ",
+      "sector": "科技",
+      "cap": 114,
+      "pe": 31,
+      "quality": 88
+    },
+    {
+      "code": "000983",
+      "name": "西山煤电",
+      "exchange": "SZ",
+      "sector": "新能源",
+      "cap": 296,
+      "pe": 13,
+      "quality": 87
+    },
+    {
+      "code": "001696",
+      "name": "燃气股份",
+      "exchange": "SZ",
+      "sector": "医药",
+      "cap": 176,
+      "pe": 35,
+      "quality": 88
+    },
+    {
+      "code": "001896",
+      "name": "新丰洋",
+      "exchange": "SZ",
+      "sector": "消费",
+      "cap": 56,
+      "pe": 40,
+      "quality": 64
+    },
+    {
+      "code": "001979",
+      "name": "招商蛇口",
+      "exchange": "SZ",
+      "sector": "金融",
+      "cap": 466,
+      "pe": 37,
+      "quality": 62
+    },
+    {
+      "code": "002001",
+      "name": "新和成",
+      "exchange": "SZ",
+      "sector": "化工",
+      "cap": 225,
+      "pe": 9,
+      "quality": 53
+    },
+    {
+      "code": "002007",
+      "name": "华兰生物",
+      "exchange": "SZ",
+      "sector": "半导体",
+      "cap": 151,
+      "pe": 43,
+      "quality": 74
+    },
+    {
+      "code": "002008",
+      "name": "大族激光",
+      "exchange": "SZ",
+      "sector": "AI",
+      "cap": 538,
+      "pe": 50,
+      "quality": 68
+    },
+    {
+      "code": "002013",
+      "name": "中航机电",
+      "exchange": "SZ",
+      "sector": "新材料",
+      "cap": 104,
+      "pe": 52,
+      "quality": 66
+    },
+    {
+      "code": "002024",
+      "name": "苏宁易购",
+      "exchange": "SZ",
+      "sector": "家电",
+      "cap": 545,
+      "pe": 11,
+      "quality": 91
+    },
+    {
+      "code": "002025",
+      "name": "航天电器",
+      "exchange": "SZ",
+      "sector": "制造",
+      "cap": 255,
+      "pe": 20,
+      "quality": 79
+    },
+    {
+      "code": "002027",
+      "name": "分众传媒",
+      "exchange": "SZ",
+      "sector": "通信",
+      "cap": 235,
+      "pe": 22,
+      "quality": 83
+    },
+    {
+      "code": "002028",
+      "name": "思源电气",
+      "exchange": "SZ",
+      "sector": "地产",
+      "cap": 246,
+      "pe": 32,
+      "quality": 85
+    },
+    {
+      "code": "002029",
+      "name": "七匹狼",
+      "exchange": "SZ",
+      "sector": "公用",
+      "cap": 67,
+      "pe": 19,
+      "quality": 54
+    },
+    {
+      "code": "002030",
+      "name": "达安基因",
+      "exchange": "SZ",
+      "sector": "军工",
+      "cap": 81,
+      "pe": 11,
+      "quality": 73
+    },
+    {
+      "code": "300750",
+      "name": "宁德时代",
+      "exchange": "CN",
+      "sector": "科技",
+      "cap": 158,
+      "pe": 27,
+      "quality": 95
+    },
+    {
+      "code": "300059",
+      "name": "东方财富",
+      "exchange": "CN",
+      "sector": "新能源",
+      "cap": 122,
+      "pe": 55,
+      "quality": 94
+    },
+    {
+      "code": "300015",
+      "name": "爱尔眼科",
+      "exchange": "CN",
+      "sector": "医药",
+      "cap": 34,
+      "pe": 64,
+      "quality": 70
+    },
+    {
+      "code": "300033",
+      "name": "同花顺",
+      "exchange": "CN",
+      "sector": "消费",
+      "cap": 144,
+      "pe": 36,
+      "quality": 86
+    },
+    {
+      "code": "300122",
+      "name": "智飞生物",
+      "exchange": "CN",
+      "sector": "金融",
+      "cap": 304,
+      "pe": 61,
+      "quality": 84
+    },
+    {
+      "code": "300142",
+      "name": "沃森生物",
+      "exchange": "CN",
+      "sector": "化工",
+      "cap": 151,
+      "pe": 22,
+      "quality": 56
+    },
+    {
+      "code": "300454",
+      "name": "网宿科技",
+      "exchange": "CN",
+      "sector": "半导体",
+      "cap": 54,
+      "pe": 51,
+      "quality": 78
+    },
+    {
+      "code": "300498",
+      "name": "温氏股份",
+      "exchange": "CN",
+      "sector": "AI",
+      "cap": 231,
+      "pe": 18,
+      "quality": 90
+    },
+    {
+      "code": "300347",
+      "name": "泰格医药",
+      "exchange": "CN",
+      "sector": "新材料",
+      "cap": 170,
+      "pe": 37,
+      "quality": 61
+    },
+    {
+      "code": "300682",
+      "name": "朗新科技",
+      "exchange": "CN",
+      "sector": "家电",
+      "cap": 72,
+      "pe": 19,
+      "quality": 58
+    },
+    {
+      "code": "300408",
+      "name": "三环集团",
+      "exchange": "CN",
+      "sector": "制造",
+      "cap": 270,
+      "pe": 57,
+      "quality": 59
+    },
+    {
+      "code": "300014",
+      "name": "亿纬锂能",
+      "exchange": "CN",
+      "sector": "通信",
+      "cap": 159,
+      "pe": 74,
+      "quality": 72
+    },
+    {
+      "code": "300018",
+      "name": "中科创达",
+      "exchange": "CN",
+      "sector": "地产",
+      "cap": 207,
+      "pe": 48,
+      "quality": 76
+    },
+    {
+      "code": "300003",
+      "name": "乐普医疗",
+      "exchange": "CN",
+      "sector": "公用",
+      "cap": 272,
+      "pe": 75,
+      "quality": 56
+    },
+    {
+      "code": "300024",
+      "name": "机器人",
+      "exchange": "CN",
+      "sector": "军工",
+      "cap": 161,
+      "pe": 48,
+      "quality": 62
+    },
+    {
+      "code": "300036",
+      "name": "航发动力",
+      "exchange": "CN",
+      "sector": "环保",
+      "cap": 113,
+      "pe": 33,
+      "quality": 64
+    },
+    {
+      "code": "300124",
+      "name": "汇川技术",
+      "exchange": "CN",
+      "sector": "农业",
+      "cap": 186,
+      "pe": 20,
+      "quality": 70
+    },
+    {
+      "code": "300212",
+      "name": "易瑞生物",
+      "exchange": "CN",
+      "sector": "传媒",
+      "cap": 213,
+      "pe": 72,
+      "quality": 63
+    },
+    {
+      "code": "300226",
+      "name": "上海钢联",
+      "exchange": "CN",
+      "sector": "物流",
+      "cap": 127,
+      "pe": 60,
+      "quality": 61
+    },
+    {
+      "code": "300001",
+      "name": "睿创微纳",
+      "exchange": "CN",
+      "sector": "建材",
+      "cap": 256,
+      "pe": 34,
+      "quality": 84
+    },
+    {
+      "code": "300012",
+      "name": "华测检测",
+      "exchange": "CN",
+      "sector": "钢铁",
+      "cap": 311,
+      "pe": 32,
+      "quality": 67
+    },
+    {
+      "code": "300251",
+      "name": "光线传媒",
+      "exchange": "CN",
+      "sector": "有色",
+      "cap": 247,
+      "pe": 54,
+      "quality": 60
+    },
+    {
+      "code": "300296",
+      "name": "利亚德",
+      "exchange": "CN",
+      "sector": "矿业",
+      "cap": 59,
+      "pe": 27,
+      "quality": 60
+    },
+    {
+      "code": "300308",
+      "name": "中际旭创",
+      "exchange": "CN",
+      "sector": "电力",
+      "cap": 122,
+      "pe": 73,
+      "quality": 82
+    },
+    {
+      "code": "300316",
+      "name": "晶盛机电",
+      "exchange": "CN",
+      "sector": "汽车",
+      "cap": 119,
+      "pe": 70,
+      "quality": 58
+    },
+    {
+      "code": "300395",
+      "name": "四川长虹",
+      "exchange": "CN",
+      "sector": "航空",
+      "cap": 22,
+      "pe": 60,
+      "quality": 93
+    },
+    {
+      "code": "300418",
+      "name": "昆仑万维",
+      "exchange": "CN",
+      "sector": "旅游",
+      "cap": 201,
+      "pe": 22,
+      "quality": 70
+    },
+    {
+      "code": "300433",
+      "name": "蓝思科技",
+      "exchange": "CN",
+      "sector": "食品",
+      "cap": 282,
+      "pe": 15,
+      "quality": 94
+    },
+    {
+      "code": "300451",
+      "name": "创业慧康",
+      "exchange": "CN",
+      "sector": "纺织",
+      "cap": 216,
+      "pe": 24,
+      "quality": 90
+    },
+    {
+      "code": "300459",
+      "name": "金科股份",
+      "exchange": "CN",
+      "sector": "造纸",
+      "cap": 79,
+      "pe": 22,
+      "quality": 92
+    },
+    {
+      "code": "300476",
+      "name": "中际旭创",
+      "exchange": "CN",
+      "sector": "科技",
+      "cap": 179,
+      "pe": 74,
+      "quality": 74
+    },
+    {
+      "code": "300502",
+      "name": "新易盛",
+      "exchange": "CN",
+      "sector": "新能源",
+      "cap": 201,
+      "pe": 20,
+      "quality": 78
+    },
+    {
+      "code": "300672",
+      "name": "NOVA科技",
+      "exchange": "CN",
+      "sector": "医药",
+      "cap": 317,
+      "pe": 63,
+      "quality": 84
+    },
+    {
+      "code": "300339",
+      "name": "润和软件",
+      "exchange": "CN",
+      "sector": "消费",
+      "cap": 22,
+      "pe": 67,
+      "quality": 60
+    },
+    {
+      "code": "300759",
+      "name": "理财金字塔",
+      "exchange": "CN",
+      "sector": "金融",
+      "cap": 212,
+      "pe": 19,
+      "quality": 88
+    },
+    {
+      "code": "300767",
+      "name": "博济医药",
+      "exchange": "CN",
+      "sector": "化工",
+      "cap": 23,
+      "pe": 47,
+      "quality": 74
+    },
+    {
+      "code": "300001",
+      "name": "睿创微纳",
+      "exchange": "CN",
+      "sector": "半导体",
+      "cap": 292,
+      "pe": 33,
+      "quality": 66
+    },
+    {
+      "code": "300002",
+      "name": "红宝丽",
+      "exchange": "CN",
+      "sector": "AI",
+      "cap": 137,
+      "pe": 62,
+      "quality": 88
+    },
+    {
+      "code": "300004",
+      "name": "浩丰科技",
+      "exchange": "CN",
+      "sector": "新材料",
+      "cap": 166,
+      "pe": 32,
+      "quality": 77
+    },
+    {
+      "code": "300005",
+      "name": "锦富股份",
+      "exchange": "CN",
+      "sector": "家电",
+      "cap": 36,
+      "pe": 71,
+      "quality": 56
+    },
+    {
+      "code": "300006",
+      "name": "莱美药业",
+      "exchange": "CN",
+      "sector": "制造",
+      "cap": 217,
+      "pe": 58,
+      "quality": 70
+    },
+    {
+      "code": "300007",
+      "name": "华鹏飞",
+      "exchange": "CN",
+      "sector": "通信",
+      "cap": 219,
+      "pe": 61,
+      "quality": 86
+    },
+    {
+      "code": "300008",
+      "name": "上海佳豪",
+      "exchange": "CN",
+      "sector": "地产",
+      "cap": 225,
+      "pe": 67,
+      "quality": 90
+    },
+    {
+      "code": "300009",
+      "name": "京泉华",
+      "exchange": "CN",
+      "sector": "公用",
+      "cap": 199,
+      "pe": 16,
+      "quality": 91
+    },
+    {
+      "code": "300010",
+      "name": "立思辰",
+      "exchange": "CN",
+      "sector": "军工",
+      "cap": 36,
+      "pe": 39,
+      "quality": 89
+    },
+    {
+      "code": "870299",
+      "name": "吉林碳谷",
+      "exchange": "BSE",
+      "sector": "科技",
+      "cap": 3,
+      "pe": 30,
+      "quality": 49
+    },
+    {
+      "code": "872926",
+      "name": "贝特瑞",
+      "exchange": "BSE",
+      "sector": "新能源",
+      "cap": 11,
+      "pe": 49,
+      "quality": 77
+    },
+    {
+      "code": "835670",
+      "name": "数字人",
+      "exchange": "BSE",
+      "sector": "医药",
+      "cap": 13,
+      "pe": 40,
+      "quality": 77
+    },
+    {
+      "code": "871212",
+      "name": "安达科技",
+      "exchange": "BSE",
+      "sector": "消费",
+      "cap": 4,
+      "pe": 27,
+      "quality": 85
+    },
+    {
+      "code": "835992",
+      "name": "戈碧迦",
+      "exchange": "BSE",
+      "sector": "金融",
+      "cap": 26,
+      "pe": 47,
+      "quality": 56
+    },
+    {
+      "code": "870864",
+      "name": "红东方",
+      "exchange": "BSE",
+      "sector": "化工",
+      "cap": 19,
+      "pe": 24,
+      "quality": 46
+    },
+    {
+      "code": "872951",
+      "name": "华韵股份",
+      "exchange": "BSE",
+      "sector": "半导体",
+      "cap": 34,
+      "pe": 44,
+      "quality": 74
+    },
+    {
+      "code": "870366",
+      "name": "酒仙网",
+      "exchange": "BSE",
+      "sector": "AI",
+      "cap": 11,
+      "pe": 19,
+      "quality": 60
+    },
+    {
+      "code": "872545",
+      "name": "恒合股份",
+      "exchange": "BSE",
+      "sector": "新材料",
+      "cap": 25,
+      "pe": 37,
+      "quality": 70
+    },
+    {
+      "code": "871445",
+      "name": "海泰发展",
+      "exchange": "BSE",
+      "sector": "家电",
+      "cap": 34,
+      "pe": 45,
+      "quality": 70
+    },
+    {
+      "code": "872374",
+      "name": "科强股份",
+      "exchange": "BSE",
+      "sector": "制造",
+      "cap": 27,
+      "pe": 38,
+      "quality": 55
+    },
+    {
+      "code": "873169",
+      "name": "七丰精工",
+      "exchange": "BSE",
+      "sector": "通信",
+      "cap": 48,
+      "pe": 37,
+      "quality": 70
+    },
+    {
+      "code": "871453",
+      "name": "瑞华技术",
+      "exchange": "BSE",
+      "sector": "地产",
+      "cap": 38,
+      "pe": 27,
+      "quality": 53
+    },
+    {
+      "code": "872541",
+      "name": "万达轴承",
+      "exchange": "BSE",
+      "sector": "公用",
+      "cap": 34,
+      "pe": 17,
+      "quality": 73
+    },
+    {
+      "code": "835305",
+      "name": "中创光电",
+      "exchange": "BSE",
+      "sector": "军工",
+      "cap": 7,
+      "pe": 16,
+      "quality": 69
+    },
+    {
+      "code": "870177",
+      "name": "晶科能源",
+      "exchange": "BSE",
+      "sector": "环保",
+      "cap": 40,
+      "pe": 44,
+      "quality": 77
+    },
+    {
+      "code": "871761",
+      "name": "珠海鸿瑞",
+      "exchange": "BSE",
+      "sector": "农业",
+      "cap": 13,
+      "pe": 46,
+      "quality": 50
+    },
+    {
+      "code": "872808",
+      "name": "慧荣科技",
+      "exchange": "BSE",
+      "sector": "传媒",
+      "cap": 8,
+      "pe": 27,
+      "quality": 66
+    },
+    {
+      "code": "870905",
+      "name": "星月股份",
+      "exchange": "BSE",
+      "sector": "物流",
+      "cap": 46,
+      "pe": 49,
+      "quality": 53
+    },
+    {
+      "code": "871198",
+      "name": "莱萌股份",
+      "exchange": "BSE",
+      "sector": "建材",
+      "cap": 18,
+      "pe": 47,
+      "quality": 65
+    },
+    {
+      "code": "872121",
+      "name": "德迈仕",
+      "exchange": "BSE",
+      "sector": "钢铁",
+      "cap": 43,
+      "pe": 24,
+      "quality": 64
+    },
+    {
+      "code": "870388",
+      "name": "华岭股份",
+      "exchange": "BSE",
+      "sector": "有色",
+      "cap": 50,
+      "pe": 40,
+      "quality": 77
+    },
+    {
+      "code": "871678",
+      "name": "龙竹科技",
+      "exchange": "BSE",
+      "sector": "矿业",
+      "cap": 7,
+      "pe": 46,
+      "quality": 68
+    },
+    {
+      "code": "872927",
+      "name": "中顺洁柔",
+      "exchange": "BSE",
+      "sector": "电力",
+      "cap": 42,
+      "pe": 17,
+      "quality": 46
+    },
+    {
+      "code": "835188",
+      "name": "璟泓科技",
+      "exchange": "BSE",
+      "sector": "汽车",
+      "cap": 11,
+      "pe": 29,
+      "quality": 77
+    },
+    {
+      "code": "870032",
+      "name": "宜信股份",
+      "exchange": "BSE",
+      "sector": "航空",
+      "cap": 20,
+      "pe": 24,
+      "quality": 45
+    },
+    {
+      "code": "872529",
+      "name": "华羽股份",
+      "exchange": "BSE",
+      "sector": "旅游",
+      "cap": 15,
+      "pe": 13,
+      "quality": 47
+    },
+    {
+      "code": "0700",
+      "name": "腾讯控股",
+      "exchange": "HK",
+      "sector": "科技",
+      "cap": 1280,
+      "pe": 35,
+      "quality": 93
+    },
+    {
+      "code": "9988",
+      "name": "阿里巴巴",
+      "exchange": "HK",
+      "sector": "新能源",
+      "cap": 1052,
+      "pe": 27,
+      "quality": 63
+    },
+    {
+      "code": "3690",
+      "name": "美团",
+      "exchange": "HK",
+      "sector": "医药",
+      "cap": 3553,
+      "pe": 28,
+      "quality": 64
+    },
+    {
+      "code": "1810",
+      "name": "小米集团",
+      "exchange": "HK",
+      "sector": "消费",
+      "cap": 3790,
+      "pe": 16,
+      "quality": 68
+    },
+    {
+      "code": "9618",
+      "name": "京东集团",
+      "exchange": "HK",
+      "sector": "金融",
+      "cap": 1639,
+      "pe": 27,
+      "quality": 84
+    },
+    {
+      "code": "1024",
+      "name": "快手",
+      "exchange": "HK",
+      "sector": "化工",
+      "cap": 833,
+      "pe": 13,
+      "quality": 71
+    },
+    {
+      "code": "2318",
+      "name": "中国平安",
+      "exchange": "HK",
+      "sector": "半导体",
+      "cap": 374,
+      "pe": 16,
+      "quality": 94
+    },
+    {
+      "code": "1398",
+      "name": "工商银行",
+      "exchange": "HK",
+      "sector": "AI",
+      "cap": 2732,
+      "pe": 31,
+      "quality": 74
+    },
+    {
+      "code": "0941",
+      "name": "中国移动",
+      "exchange": "HK",
+      "sector": "新材料",
+      "cap": 1820,
+      "pe": 7,
+      "quality": 65
+    },
+    {
+      "code": "0005",
+      "name": "汇丰控股",
+      "exchange": "HK",
+      "sector": "家电",
+      "cap": 2247,
+      "pe": 34,
+      "quality": 75
+    },
+    {
+      "code": "0386",
+      "name": "中国石油",
+      "exchange": "HK",
+      "sector": "制造",
+      "cap": 3163,
+      "pe": 30,
+      "quality": 73
+    },
+    {
+      "code": "0857",
+      "name": "中国光大",
+      "exchange": "HK",
+      "sector": "通信",
+      "cap": 1796,
+      "pe": 32,
+      "quality": 93
+    },
+    {
+      "code": "1109",
+      "name": "华润置地",
+      "exchange": "HK",
+      "sector": "地产",
+      "cap": 518,
+      "pe": 30,
+      "quality": 90
+    },
+    {
+      "code": "1758",
+      "name": "中国太保",
+      "exchange": "HK",
+      "sector": "公用",
+      "cap": 2546,
+      "pe": 7,
+      "quality": 66
+    },
+    {
+      "code": "0669",
+      "name": "创科实业",
+      "exchange": "HK",
+      "sector": "军工",
+      "cap": 2820,
+      "pe": 21,
+      "quality": 89
+    },
+    {
+      "code": "0185",
+      "name": "众安在线",
+      "exchange": "HK",
+      "sector": "环保",
+      "cap": 3871,
+      "pe": 27,
+      "quality": 92
+    },
+    {
+      "code": "3580",
+      "name": "金融科技",
+      "exchange": "HK",
+      "sector": "农业",
+      "cap": 310,
+      "pe": 19,
+      "quality": 64
+    },
+    {
+      "code": "7726",
+      "name": "医渡科技",
+      "exchange": "HK",
+      "sector": "传媒",
+      "cap": 3574,
+      "pe": 22,
+      "quality": 77
+    },
+    {
+      "code": "3969",
+      "name": "中国民航",
+      "exchange": "HK",
+      "sector": "物流",
+      "cap": 1399,
+      "pe": 18,
+      "quality": 70
+    },
+    {
+      "code": "0175",
+      "name": "吉利汽车",
+      "exchange": "HK",
+      "sector": "建材",
+      "cap": 2224,
+      "pe": 20,
+      "quality": 91
+    },
+    {
+      "code": "0231",
+      "name": "中国太保",
+      "exchange": "HK",
+      "sector": "钢铁",
+      "cap": 1203,
+      "pe": 32,
+      "quality": 77
+    },
+    {
+      "code": "0269",
+      "name": "中国铁建",
+      "exchange": "HK",
+      "sector": "有色",
+      "cap": 4854,
+      "pe": 8,
+      "quality": 83
+    },
+    {
+      "code": "0388",
+      "name": "香港交易所",
+      "exchange": "HK",
+      "sector": "矿业",
+      "cap": 4298,
+      "pe": 24,
+      "quality": 57
+    },
+    {
+      "code": "0688",
+      "name": "中国海外",
+      "exchange": "HK",
+      "sector": "电力",
+      "cap": 1937,
+      "pe": 6,
+      "quality": 66
+    },
+    {
+      "code": "0762",
+      "name": "中国铁建",
+      "exchange": "HK",
+      "sector": "汽车",
+      "cap": 1021,
+      "pe": 25,
+      "quality": 78
+    },
+    {
+      "code": "0788",
+      "name": "中国铁建",
+      "exchange": "HK",
+      "sector": "航空",
+      "cap": 856,
+      "pe": 28,
+      "quality": 71
+    },
+    {
+      "code": "0836",
+      "name": "华润电力",
+      "exchange": "HK",
+      "sector": "旅游",
+      "cap": 254,
+      "pe": 34,
+      "quality": 63
+    },
+    {
+      "code": "0883",
+      "name": "中国海洋石油",
+      "exchange": "HK",
+      "sector": "食品",
+      "cap": 3645,
+      "pe": 17,
+      "quality": 84
+    },
+    {
+      "code": "0939",
+      "name": "建设银行",
+      "exchange": "HK",
+      "sector": "纺织",
+      "cap": 536,
+      "pe": 6,
+      "quality": 57
+    },
+    {
+      "code": "1038",
+      "name": "长江基建",
+      "exchange": "HK",
+      "sector": "造纸",
+      "cap": 1003,
+      "pe": 27,
+      "quality": 87
+    },
+    {
+      "code": "1044",
+      "name": "恒安国际",
+      "exchange": "HK",
+      "sector": "科技",
+      "cap": 2594,
+      "pe": 21,
+      "quality": 56
+    },
+    {
+      "code": "1088",
+      "name": "中国神华",
+      "exchange": "HK",
+      "sector": "新能源",
+      "cap": 2705,
+      "pe": 18,
+      "quality": 77
+    },
+    {
+      "code": "1093",
+      "name": "石药集团",
+      "exchange": "HK",
+      "sector": "医药",
+      "cap": 4135,
+      "pe": 5,
+      "quality": 76
+    },
+    {
+      "code": "1109",
+      "name": "华润置地",
+      "exchange": "HK",
+      "sector": "消费",
+      "cap": 253,
+      "pe": 11,
+      "quality": 74
+    },
+    {
+      "code": "1177",
+      "name": "中国生物制药",
+      "exchange": "HK",
+      "sector": "金融",
+      "cap": 1574,
+      "pe": 29,
+      "quality": 68
+    },
+    {
+      "code": "1179",
+      "name": "康龙化成",
+      "exchange": "HK",
+      "sector": "化工",
+      "cap": 1830,
+      "pe": 23,
+      "quality": 65
+    },
+    {
+      "code": "1186",
+      "name": "中国铁建",
+      "exchange": "HK",
+      "sector": "半导体",
+      "cap": 4362,
+      "pe": 27,
+      "quality": 89
+    },
+    {
+      "code": "1193",
+      "name": "华润燃气",
+      "exchange": "HK",
+      "sector": "AI",
+      "cap": 2077,
+      "pe": 18,
+      "quality": 57
+    },
+    {
+      "code": "1249",
+      "name": "安居宝",
+      "exchange": "HK",
+      "sector": "新材料",
+      "cap": 1006,
+      "pe": 17,
+      "quality": 80
+    },
+    {
+      "code": "1339",
+      "name": "中国人民保险",
+      "exchange": "HK",
+      "sector": "家电",
+      "cap": 286,
+      "pe": 13,
+      "quality": 93
+    },
+    {
+      "code": "1348",
+      "name": "海螺水泥",
+      "exchange": "HK",
+      "sector": "制造",
+      "cap": 2146,
+      "pe": 13,
+      "quality": 86
+    },
+    {
+      "code": "1359",
+      "name": "中国信达",
+      "exchange": "HK",
+      "sector": "通信",
+      "cap": 3211,
+      "pe": 5,
+      "quality": 86
+    },
+    {
+      "code": "6622",
+      "name": "比亚迪股份",
+      "exchange": "HKG",
+      "sector": "科技",
+      "cap": 64,
+      "pe": 35,
+      "quality": 47
+    },
+    {
+      "code": "9888",
+      "name": "百度集团",
+      "exchange": "HKG",
+      "sector": "新能源",
+      "cap": 52,
+      "pe": 27,
+      "quality": 49
+    },
+    {
+      "code": "3638",
+      "name": "泡泡玛特",
+      "exchange": "HKG",
+      "sector": "医药",
+      "cap": 48,
+      "pe": 43,
+      "quality": 56
+    },
+    {
+      "code": "9961",
+      "name": "携程集团",
+      "exchange": "HKG",
+      "sector": "消费",
+      "cap": 87,
+      "pe": 25,
+      "quality": 50
+    },
+    {
+      "code": "9991",
+      "name": "宝洁",
+      "exchange": "HKG",
+      "sector": "金融",
+      "cap": 5,
+      "pe": 38,
+      "quality": 49
+    },
+    {
+      "code": "7726",
+      "name": "医渡科技",
+      "exchange": "HKG",
+      "sector": "化工",
+      "cap": 77,
+      "pe": 16,
+      "quality": 74
+    },
+    {
+      "code": "3969",
+      "name": "中国民航",
+      "exchange": "HKG",
+      "sector": "半导体",
+      "cap": 97,
+      "pe": 38,
+      "quality": 72
+    },
+    {
+      "code": "8083",
+      "name": "中国金融",
+      "exchange": "HKG",
+      "sector": "AI",
+      "cap": 71,
+      "pe": 32,
+      "quality": 76
+    },
+    {
+      "code": "8277",
+      "name": "中国科技",
+      "exchange": "HKG",
+      "sector": "新材料",
+      "cap": 37,
+      "pe": 30,
+      "quality": 49
+    },
+    {
+      "code": "8606",
+      "name": "金融八卦",
+      "exchange": "HKG",
+      "sector": "家电",
+      "cap": 96,
+      "pe": 23,
+      "quality": 61
+    },
+    {
+      "code": "8848",
+      "name": "金山云",
+      "exchange": "HKG",
+      "sector": "制造",
+      "cap": 51,
+      "pe": 43,
+      "quality": 48
+    },
+    {
+      "code": "9055",
+      "name": "金山云",
+      "exchange": "HKG",
+      "sector": "通信",
+      "cap": 70,
+      "pe": 45,
+      "quality": 67
+    },
+    {
+      "code": "9106",
+      "name": "万物云",
+      "exchange": "HKG",
+      "sector": "地产",
+      "cap": 35,
+      "pe": 24,
+      "quality": 50
+    },
+    {
+      "code": "9126",
+      "name": " Tongcheng",
+      "exchange": "HKG",
+      "sector": "公用",
+      "cap": 31,
+      "pe": 24,
+      "quality": 43
+    },
+    {
+      "code": "9158",
+      "name": "社交",
+      "exchange": "HKG",
+      "sector": "军工",
+      "cap": 21,
+      "pe": 28,
+      "quality": 49
+    },
+    {
+      "code": "9206",
+      "name": "Keep",
+      "exchange": "HKG",
+      "sector": "环保",
+      "cap": 29,
+      "pe": 35,
+      "quality": 57
+    },
+    {
+      "code": "9225",
+      "name": "绿竹",
+      "exchange": "HKG",
+      "sector": "农业",
+      "cap": 95,
+      "pe": 38,
+      "quality": 61
+    },
+    {
+      "code": "9259",
+      "name": "OneConnect",
+      "exchange": "HKG",
+      "sector": "传媒",
+      "cap": 102,
+      "pe": 45,
+      "quality": 53
+    },
+    {
+      "code": "9288",
+      "name": "中国联通",
+      "exchange": "HKG",
+      "sector": "物流",
+      "cap": 58,
+      "pe": 10,
+      "quality": 73
+    },
+    {
+      "code": "9306",
+      "name": "华润",
+      "exchange": "HKG",
+      "sector": "建材",
+      "cap": 42,
+      "pe": 47,
+      "quality": 52
+    },
+    {
+      "code": "9312",
+      "name": "汽车之家",
+      "exchange": "HKG",
+      "sector": "钢铁",
+      "cap": 34,
+      "pe": 9,
+      "quality": 56
+    },
+    {
+      "code": "9349",
+      "name": "威高",
+      "exchange": "HKG",
+      "sector": "有色",
+      "cap": 10,
+      "pe": 35,
+      "quality": 75
+    },
+    {
+      "code": "9360",
+      "name": "诺诚",
+      "exchange": "HKG",
+      "sector": "矿业",
+      "cap": 71,
+      "pe": 41,
+      "quality": 72
+    },
+    {
+      "code": "9386",
+      "name": "贝壳",
+      "exchange": "HKG",
+      "sector": "电力",
+      "cap": 53,
+      "pe": 19,
+      "quality": 45
+    }
+  ],
+  "counts": {
+    "SH": 45,
+    "SZ": 45,
+    "CN": 45,
+    "BSE": 27,
+    "HK": 42,
+    "HKG": 24
+  },
+  "total": 228
+}</pre></body></html>

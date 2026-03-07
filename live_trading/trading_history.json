@@ -1,0 +1,23 @@
+{
+  "totalTrades": 0,
+  "wins": 0,
+  "losses": 0,
+  "totalPnl": 0,
+  "daily": [
+    {
+      "date": "2026-03-01",
+      "action": "OPEN",
+      "trades": [],
+      "capital": 328758.61867801915,
+      "positions": 5
+    },
+    {
+      "date": "2026-03-06",
+      "action": "OPEN",
+      "trades": [],
+      "capital": 128774,
+      "positions": 10
+    }
+  ],
+  "lastUpdate": "2026-03-06T00:30:52.854Z"
+}

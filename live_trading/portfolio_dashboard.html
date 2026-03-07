@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Super Brain Portfolio - Live</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, Arial; background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: #fff; min-height: 100vh; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #888; margin-bottom: 20px; font-size: 14px; }
+        
+        .top-bar { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; color: white; transition: transform 0.2s; }
+        .btn:hover { transform: scale(1.05); }
+        .btn-refresh { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        .btn-buy { background: linear-gradient(135deg, #00c853, #00e676); }
+        .btn-sell { background: linear-gradient(135deg, #ff1744, #ff5252); }
+        
+        .stats { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .stat { background: rgba(255,255,255,0.1); padding: 15px 25px; border-radius: 15px; text-align: center; min-width: 120px; }
+        .stat h3 { color: #888; font-size: 11px; margin-bottom: 5px; text-transform: uppercase; }
+        .stat .val { font-size: 22px; font-weight: bold; }
+        .green { color: #00ff88; }
+        .red { color: #ff4757; }
+        
+        .section { margin-bottom: 30px; }
+        .section h2 { display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
+        .tag { font-size: 12px; padding: 3px 8px; border-radius: 4px; }
+        .tag-daily { background: #ff6b6b; }
+        .tag-mid { background: #feca57; color: #000; }
+        .tag-long { background: #54a0ff; }
+        
+        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #333; font-size: 13px; }
+        th { background: rgba(0,0,0,0.3); color: #888; font-weight: 600; }
+        tr:hover { background: rgba(255,255,255,0.05); }
+        
+        .price { font-weight: bold; }
+        .change { font-weight: bold; }
+        .change.pos { color: #00ff88; }
+        .change.neg { color: #ff4757; }
+        
+        .action-btn { padding: 6px 14px; border: none; border-radius: 5px; color: white; cursor: pointer; font-size: 12px; }
+        .buy { background: #00c853; }
+        .sell { background: #ff1744; }
+        
+        .momentum { font-size: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🧠 CHARLES SUPER BRAIN</h1>
+    <p class="subtitle">Portfolio Packs | Live Prices | Auto-Updating</p>
+    
+    <div class="top-bar">
+        <button class="btn btn-refresh" onclick="refreshAll()">🔄 Refresh Prices</button>
+    </div>
+    
+    <div class="stats">
+        <div class="stat"><h3>🟢 Win Rate</h3><div class="val green" id="winRate">-</div></div>
+        <div class="stat"><h3>📅 Daily</h3><div class="val" id="dailyCount">-</div></div>
+        <div class="stat"><h3>📅 Mid</h3><div class="val" id="midCount">-</div></div>
+        <div class="stat"><h3>📅 Long</h3><div class="val" id="longCount">-</div></div>
+    </div>
+    
+    <div class="section">
+        <h2>🚀 DAILY (日内) - Momentum > 2% <span class="tag tag-daily">1-3 days</span></h2>
+        <table>
+            <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Volume</th><th>Action</th></tr></thead>
+            <tbody id="dailyTable"></tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>📅 MID-TERM (中期) - Hold 2-4 Weeks <span class="tag tag-mid">2-4 weeks</span></h2>
+        <table>
+            <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Volume</th><th>Action</th></tr></thead>
+            <tbody id="midTable"></tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>📈 LONG-TERM (长期) - Hold 1-3 Months <span class="tag tag-long">1-3 months</span></h2>
+        <table>
+            <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Volume</th><th>Action</th></tr></thead>
+            <tbody id="longTable"></tbody>
+        </table>
+    </div>
+
+<script>
+const stocks = {
+    daily: [],
+    mid: [],
+    long: []
+};
+
+async function getPrice(code) {
+    const prefix = code.startsWith('0') ? 'sz' : 'sh';
+    try {
+        const res = await fetch('https://qt.gtimg.cn/q=' + prefix + code);
+        const text = await res.text();
+        const p = text.split('~');
+        return {
+            price: parseFloat(p[3]) || 0,
+            pct: parseFloat(p[32]) || 0,
+            vol: parseFloat(p[4]) || 0
+        };
+    } catch(e) { return {price:0,pct:0,vol:0}; }
+}
+
+async function refreshAll() {
+    const allStocks = [
+        // Daily
+        {code:'600066',name:'宇通客车',cat:'daily',sector:'汽车'},
+        {code:'600089',name:'特变电工',cat:'daily',sector:'新能源'},
+        {code:'000792',name:'盐湖股份',cat:'daily',sector:'化工'},
+        // Mid
+        {code:'600030',name:'中信证券',cat:'mid',sector:'金融'},
+        {code:'000513',name:'丽珠集团',cat:'mid',sector:'医药'},
+        {code:'600009',name:'上海机场',cat:'mid',sector:'交运'},
+        {code:'600085',name:'同仁堂',cat:'mid',sector:'医药'},
+        // Long
+        {code:'000651',name:'格力电器',cat:'long',sector:'家电'},
+        {code:'600036',name:'招商银行',cat:'long',sector:'金融'},
+        {code:'000999',name:'华润三九',cat:'long',sector:'医药'},
+    ];
+    
+    // Get live prices
+    for (let s of allStocks) {
+        const d = await getPrice(s.code);
+        s.price = d.price;
+        s.pct = d.pct;
+        s.vol = d.vol;
+    }
+    
+    // Categorize
+    stocks.daily = allStocks.filter(s => s.cat==='daily').sort((a,b) => b.pct - a.pct);
+    stocks.mid = allStocks.filter(s => s.cat==='mid').sort((a,b) => b.pct - a.pct);
+    stocks.long = allStocks.filter(s => s.cat==='long').sort((a,b) => b.pct - a.pct);
+    
+    // Update UI
+    renderTable('dailyTable', stocks.daily);
+    renderTable('midTable', stocks.mid);
+    renderTable('longTable', stocks.long);
+    
+    // Stats
+    const all = [...stocks.daily, ...stocks.mid, ...stocks.long].filter(s => s.price >= 25 && s.price <= 40);
+    const wins = all.filter(s => s.pct > 0).length;
+    document.getElementById('winRate').textContent = Math.round(wins/all.length*100) + '%';
+    document.getElementById('dailyCount').textContent = stocks.daily.length;
+    document.getElementById('midCount').textContent = stocks.mid.length;
+    document.getElementById('longCount').textContent = stocks.long.length;
+}
+
+function renderTable(id, data) {
+    const tbody = document.getElementById(id);
+    tbody.innerHTML = data.map(s => {
+        const sign = s.pct >= 0 ? '+' : '';
+        const cls = s.pct >= 0 ? 'pos' : 'neg';
+        const volK = s.vol ? Math.round(s.vol/1000) + 'K' : '-';
+        return '<tr>' +
+            '<td><b>' + s.code + '</b></td>' +
+            '<td>' + s.name + '</td>' +
+            '<td>' + s.sector + '</td>' +
+            '<td class="price">¥' + s.price.toFixed(2) + '</td>' +
+            '<td class="change ' + cls + '">' + sign + s.pct.toFixed(2) + '%</td>' +
+            '<td>' + volK + '</td>' +
+            '<td><button class="action-btn buy" onclick="buy(\''+s.code+'\','+s.price+')">BUY</button></td>' +
+        '</tr>';
+    }).join('');
+}
+
+function buy(code, price) {
+    alert('BUY ' + code + ' at ¥' + price + '\n\nThis would connect to live trading API');
+}
+
+// Auto-refresh every 30 seconds
+refreshAll();
+setInterval(refreshAll, 30000);
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Mac
+.DS_Store
+*.DS_Store
+
+# Binary apps
+*.app
+*.dmg
+SuperBrain-darwin-arm64/
+SuperBrainPRO-darwin-arm64/
+
+# Dependencies
+node_modules/

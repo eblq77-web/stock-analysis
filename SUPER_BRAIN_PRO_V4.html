@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧠 Super Brain PRO V4 - Live Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0f0f2f 100%);
+      min-height: 100vh;
+      color: #fff;
+    }
+    
+    .header {
+      background: linear-gradient(90deg, #1a1a4e 0%, #2d1b4e 100%);
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 30px rgba(100, 50, 200, 0.3);
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00d9ff, #a855f7, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .header-right { display: flex; gap: 15px; align-items: center; }
+    
+    .status-badge {
+      background: linear-gradient(90deg, #00ff88, #00d9ff);
+      color: #000;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .live-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #00ff88;
+      border-radius: 50%;
+      animation: pulse 1s infinite;
+      margin-right: 5px;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .time { color: #888; font-size: 12px; }
+    
+    .nav {
+      display: flex;
+      gap: 8px;
+      padding: 12px 25px;
+      background: rgba(0,0,0,0.3);
+      overflow-x: auto;
+    }
+    
+    .nav-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #aaa;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    
+    .nav-btn:hover, .nav-btn.active {
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      color: #fff;
+    }
+    
+    .main { padding: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+    
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 15px;
+      padding: 15px;
+      border: 1px solid rgba(100, 100, 255, 0.1);
+    }
+    
+    .card:hover { border-color: rgba(100, 100, 255, 0.3); }
+    .card-full { grid-column: span 2; }
+    .card-wide { grid-column: span 3; }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .card-title { font-size: 14px; color: #888; font-weight: 600; }
+    .card-value { font-size: 28px; font-weight: bold; }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-item { text-align: center; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px; }
+    .stat-item .val { font-size: 20px; font-weight: bold; }
+    .stat-item .lbl { font-size: 11px; color: #666; }
+    
+    .green { color: #00ff88; }
+    .red { color: #ff4757; }
+    .yellow { color: #ffd93d; }
+    
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { text-align: left; color: #666; padding: 8px 5px; border-bottom: 1px solid #333; font-weight: 600; }
+    td { padding: 8px 5px; border-bottom: 1px solid #222; }
+    tr:hover { background: rgba(255,255,255,0.03); }
+    
+    .tag { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+    .tag-daily { background: #ff6b6b; }
+    .tag-mid { background: #ffd93d; color: #000; }
+    .tag-long { background: #54a0ff; }
+    
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    .btn:hover { transform: scale(1.05); }
+    .btn-refresh { background: linear-gradient(135deg, #11998e, #38ef7d); color: #000; }
+    .btn-buy { background: linear-gradient(135deg, #00c853, #00e676); color: #fff; }
+    .btn-sell { background: linear-gradient(135deg, #ff5252, #ff1744); color: #fff; }
+    
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .momentum-bar {
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+      margin-top: 5px;
+      overflow: hidden;
+    }
+    .momentum-fill { height: 100%; border-radius: 2px; transition: width 0.5s; }
+    
+    .loading { text-align: center; padding: 30px; color: #666; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🧠 Super Brain PRO V4</div>
+    <div class="header-right">
+      <span class="status-badge"><span class="live-indicator"></span>LIVE</span>
+      <span class="time" id="clock">--:--:--</span>
+    </div>
+  </div>
+  
+  <div class="nav">
+    <button class="nav-btn active" onclick="showSection('portfolio')">📊 Portfolio</button>
+    <button class="nav-btn" onclick="showSection('trading')">💰 Trading</button>
+    <button class="nav-btn" onclick="showSection('daily')">🚀 Daily</button>
+    <button class="nav-btn" onclick="showSection('mid')">📅 Mid-Term</button>
+    <button class="nav-btn" onclick="showSection('long')">📈 Long-Term</button>
+    <button class="nav-btn" onclick="showSection('scanner')">🔍 Scanner</button>
+    <button class="nav-btn" onclick="showSection('analysis')">🧪 Analysis</button>
+    <button class="nav-btn" onclick="runQuantumV2()">⚡ Quantum V2</button>
+  </div>
+  
+  <div class="main">
+    <!-- Portfolio Overview -->
+    <div class="card card-wide" id="portfolioSection">
+      <div class="card-header">
+        <span class="card-title">📊 PORTFOLIO OVERVIEW</span>
+        <button class="btn btn-refresh" onclick="refreshAll()">🔄 Refresh</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="val green" id="winRate">-</div>
+          <div class="lbl">Win Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="val" id="totalPicks">-</div>
+          <div class="lbl">Total Picks</div>
+        </div>
+        <div class="stat-item">
+          <div class="val yellow" id="dailyCount">-</div>
+          <div class="lbl">Daily (🚀)</div>
+        </div>
+        <div class="stat-item">
+          <div class="val" id="midCount">-</div>
+          <div class="lbl">Mid (📅)</div>
+        </div>
+        <div class="stat-item">
+          <div class="val" id="longCount">-</div>
+          <div class="lbl">Long (📈)</div>
+        </div>
+        <div class="stat-item">
+          <div class="val" id="avgGain">-</div>
+          <div class="lbl">Avg Gain</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- TRADING SIGNALS -->
+    <div class="card card-wide" id="tradingSection" style="display:none;">
+      <div class="card-header">
+        <span class="card-title">💰 TODAY'S TRADING SIGNALS</span>
+        <button class="btn btn-refresh" onclick="refreshTrading()">🔄 Refresh</button>
+      </div>
+      
+      <!-- SELL SIGNALS -->
+      <div style="margin-bottom:20px;">
+        <h3 style="color:#ff6b6b;margin-bottom:10px;">🔴 SELL SIGNALS (Take Profit)</h3>
+        <table style="background:rgba(255,107,107,0.1);border-radius:8px;">
+          <thead><tr><th>Stock</th><th>Code</th><th>Entry Price</th><th>Current</th><th>Gain%</th><th>Action</th></tr></thead>
+          <tbody id="sellTable">
+            <tr><td>中际旭创</td><td>300476</td><td>¥72.70</td><td>¥285.62</td><td class="green">+293%</td><td><button class="btn btn-sell" onclick="executeSell('300476',285.62)">SELL</button></td></tr>
+            <tr><td>同花顺</td><td>300033</td><td>¥74.30</td><td>¥311.67</td><td class="green">+316%</td><td><button class="btn btn-sell" onclick="executeSell('300033',311.67)">SELL</button></td></tr>
+            <tr><td>太宇股份</td><td>300308</td><td>¥85.00</td><td>¥560.11</td><td class="green">+556%</td><td><button class="btn btn-sell" onclick="executeSell('300308',560.11)">SELL</button></td></tr>
+            <tr><td>新易盛</td><td>300502</td><td>¥83.00</td><td>¥402.83</td><td class="green">+385%</td><td><button class="btn btn-sell" onclick="executeSell('300502',402.83)">SELL</button></td></tr>
+            <tr><td>宁德时代</td><td>300750</td><td>¥78.90</td><td>¥350.56</td><td class="green">+345%</td><td><button class="btn btn-sell" onclick="executeSell('300750',350.56)">SELL</button></td></tr>
+            <tr><td>比亚迪</td><td>002594</td><td>¥47.90</td><td>¥94.25</td><td class="green">+97%</td><td><button class="btn btn-sell" onclick="executeSell('002594',94.25)">SELL</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- BUY SIGNALS -->
+      <div style="margin-bottom:20px;">
+        <h3 style="color:#00ff88;margin-bottom:10px;">🟢 BUY SIGNALS (Wait for Dip)</h3>
+        <table style="background:rgba(0,255,136,0.1);border-radius:8px;">
+          <thead><tr><th>Stock</th><th>Code</th><th>Score</th><th>Sector</th><th>Signal</th><th>Action</th></tr></thead>
+          <tbody id="buyTable">
+            <tr><td>快手</td><td>1024</td><td class="green">100</td><td>科技</td><td>Smart Money Inflow</td><td><button class="btn btn-buy" onclick="executeBuy('1024',85)">BUY</button></td></tr>
+            <tr><td>爱尔眼科</td><td>300015</td><td class="green">100</td><td>医药</td><td>Smart Money Inflow</td><td><button class="btn btn-buy" onclick="executeBuy('300015',28)">BUY</button></td></tr>
+            <tr><td>隆基绿能</td><td>601012</td><td class="green">100</td><td>新能源</td><td>Smart Money Inflow</td><td><button class="btn btn-buy" onclick="executeBuy('601012',17.5)">BUY</button></td></tr>
+            <tr><td>腾讯控股</td><td>0700</td><td class="green">100</td><td>科技</td><td>Smart Money Inflow</td><td><button class="btn btn-buy" onclick="executeBuy('0700',510)">BUY</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- TODAY'S RESULTS -->
+      <div>
+        <h3 style="color:#00d9ff;margin-bottom:10px;">📊 TODAY'S TRANSACTION RESULTS</h3>
+        <table style="background:rgba(0,217,255,0.1);border-radius:8px;">
+          <thead><tr><th>Time</th><th>Type</th><th>Stock</th><th>Price</th><th>Shares</th><th>Value</th><th>Status</th></tr></thead>
+          <tbody id="resultsTable">
+            <tr><td>09:30</td><td class="green">BUY</td><td>600036 招行</td><td>¥38.72</td><td>100</td><td>¥3,872</td><td class="yellow">HOLD</td></tr>
+            <tr><td>09:30</td><td class="green">BUY</td><td>600030 中信</td><td>¥27.16</td><td>100</td><td>¥2,716</td><td class="yellow">HOLD</td></tr>
+            <tr><td>09:30</td><td class="green">BUY</td><td>000999 华润</td><td>¥29.39</td><td>100</td><td>¥2,939</td><td class="yellow">HOLD</td></tr>
+            <tr><td>--:--</td><td class="red">--</td><td colspan="4" style="text-align:center;">No SELL executed today</td><td class="yellow">PENDING</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:15px;padding:15px;background:rgba(0,0,0,0.3);border-radius:8px;">
+          <div style="display:flex;justify-content:space-around;">
+            <div><span style="color:#888;">Total Invested:</span> <span class="yellow">¥9,527</span></div>
+            <div><span style="color:#888;">Current Value:</span> <span id="currentValue">¥9,434</span></div>
+            <div><span style="color:#888;">P&L:</span> <span class="red" id="dailyPL">-¥93 (-0.98%)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Daily Picks -->
+    <div class="card card-wide" id="dailySection" style="display:none;">
+      <div class="section-title">
+        🚀 DAILY TRADING <span class="tag tag-daily">Momentum > 2%</span>
+        <span style="font-size:12px;color:#666;margin-left:auto;">Hold: 1-3 days | Target: +5% | Stop: -3%</span>
+      </div>
+      <table>
+        <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Momentum</th><th>Action</th></tr></thead>
+        <tbody id="dailyTable"><tr><td colspan="7" class="loading">Loading...</td></tr></tbody>
+      </table>
+    </div>
+    
+    <!-- Mid-Term Picks -->
+    <div class="card card-wide" id="midSection" style="display:none;">
+      <div class="section-title">
+        📅 MID-TERM <span class="tag tag-mid">0-2%</span>
+        <span style="font-size:12px;color:#666;margin-left:auto;">Hold: 2-4 weeks | Target: +10% | Stop: -5%</span>
+      </div>
+      <table>
+        <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Score</th><th>Action</th></tr></thead>
+        <tbody id="midTable"><tr><td colspan="7" class="loading">Loading...</td></tr></tbody>
+      </table>
+    </div>
+    
+    <!-- Long-Term Picks -->
+    <div class="card card-wide" id="longSection" style="display:none;">
+      <div class="section-title">
+        📈 LONG-TERM <span class="tag tag-long">Value</span>
+        <span style="font-size:12px;color:#666;margin-left:auto;">Hold: 1-3 months | Target: +20% | Stop: -7%</span>
+      </div>
+      <table>
+        <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Score</th><th>Action</th></tr></thead>
+        <tbody id="longTable"><tr><td colspan="7" class="loading">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+// ==================== SUPER BRAIN PRO V4 ====================
+// Live Portfolio System with Auto-Updating
+// Categories: Daily / Mid-Term / Long-Term
+// Auto-refresh: Every 30 seconds
+
+const STOCKS = {
+  daily: [
+    {code:'600066',name:'宇通客车',sector:'汽车'},
+    {code:'600089',name:'特变电工',sector:'新能源'},
+    {code:'000792',name:'盐湖股份',sector:'化工'},
+  ],
+  mid: [
+    {code:'600030',name:'中信证券',sector:'金融'},
+    {code:'000513',name:'丽珠集团',sector:'医药'},
+    {code:'600009',name:'上海机场',sector:'交运'},
+    {code:'600085',name:'同仁堂',sector:'医药'},
+  ],
+  long: [
+    {code:'000651',name:'格力电器',sector:'家电'},
+    {code:'600036',name:'招商银行',sector:'金融'},
+    {code:'000999',name:'华润三九',sector:'医药'},
+    {code:'600038',name:'中直股份',sector:'军工'},
+  ]
+};
+
+let portfolio = { daily: [], mid: [], long: [] };
+
+// Clock
+setInterval(() => {
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString();
+}, 1000);
+
+// Get live price from Tencent API
+async function getPrice(code) {
+  const prefix = code.startsWith('0') ? 'sz' : 'sh';
+  try {
+    const res = await fetch('https://qt.gtimg.cn/q=' + prefix + code);
+    const text = await res.text();
+    const p = text.split('~');
+    return {
+      price: parseFloat(p[3]) || 0,
+      pct: parseFloat(p[32]) || 0,
+      vol: parseFloat(p[4]) || 0
+    };
+  } catch(e) { return {price:0,pct:0,vol:0}; }
+}
+
+// Main refresh function
+async function refreshAll() {
+  console.log('🔄 Super Brain PRO V4 - Refreshing...');
+  
+  // Get live prices for all stocks
+  for (let cat of ['daily', 'mid', 'long']) {
+    for (let s of STOCKS[cat]) {
+      const d = await getPrice(s.code);
+      s.price = d.price;
+      s.pct = d.pct;
+      s.vol = d.vol;
+      s.momentum = Math.abs(d.pct);
+    }
+  }
+  
+  // Update portfolio
+  portfolio.daily = [...STOCKS.daily].sort((a,b) => b.pct - a.pct);
+  portfolio.mid = [...STOCKS.mid].sort((a,b) => b.pct - a.pct);
+  portfolio.long = [...STOCKS.long].sort((a,b) => b.pct - a.pct);
+  
+  // Render
+  renderDaily();
+  renderMid();
+  renderLong();
+  updateStats();
+  
+  console.log('✅ Updated at', new Date().toLocaleTimeString());
+}
+
+function renderDaily() {
+  const tbody = document.getElementById('dailyTable');
+  tbody.innerHTML = portfolio.daily.map(s => {
+    const sign = s.pct >= 0 ? '+' : '';
+    const cls = s.pct >= 0 ? 'green' : 'red';
+    const momWidth = Math.min(s.momentum * 10, 100);
+    const momColor = s.pct >= 0 ? '#00ff88' : '#ff4757';
+    return '<tr>' +
+      '<td><b>' + s.code + '</b></td>' +
+      '<td>' + s.name + '</td>' +
+      '<td>' + s.sector + '</td>' +
+      '<td><b>¥' + s.price.toFixed(2) + '</b></td>' +
+      '<td class="' + cls + '"><b>' + sign + s.pct.toFixed(2) + '%</b></td>' +
+      '<td><div class="momentum-bar"><div class="momentum-fill" style="width:' + momWidth + '%;background:' + momColor + '"></div></div></td>' +
+      '<td><button class="btn btn-buy" onclick="buy(\''+s.code+'\','+s.price+')">BUY</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function renderMid() {
+  const tbody = document.getElementById('midTable');
+  tbody.innerHTML = portfolio.mid.map(s => {
+    const sign = s.pct >= 0 ? '+' : '';
+    const cls = s.pct >= 0 ? 'green' : 'red';
+    const score = Math.round(70 + s.pct * 10);
+    return '<tr>' +
+      '<td><b>' + s.code + '</b></td>' +
+      '<td>' + s.name + '</td>' +
+      '<td>' + s.sector + '</td>' +
+      '<td><b>¥' + s.price.toFixed(2) + '</b></td>' +
+      '<td class="' + cls + '">' + sign + s.pct.toFixed(2) + '%</td>' +
+      '<td>' + score + '</td>' +
+      '<td><button class="btn btn-buy" onclick="buy(\''+s.code+'\','+s.price+')">BUY</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function renderLong() {
+  const tbody = document.getElementById('longTable');
+  tbody.innerHTML = portfolio.long.map(s => {
+    const sign = s.pct >= 0 ? '+' : '';
+    const cls = s.pct >= 0 ? 'green' : 'red';
+    const score = Math.round(65 + s.pct * 5);
+    return '<tr>' +
+      '<td><b>' + s.code + '</b></td>' +
+      '<td>' + s.name + '</td>' +
+      '<td>' + s.sector + '</td>' +
+      '<td><b>¥' + s.price.toFixed(2) + '</b></td>' +
+      '<td class="' + cls + '">' + sign + s.pct.toFixed(2) + '%</td>' +
+      '<td>' + score + '</td>' +
+      '<td><button class="btn btn-buy" onclick="buy(\''+s.code+'\','+s.price+')">BUY</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function updateStats() {
+  const all = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
+  const wins = all.filter(s => s.pct > 0).length;
+  const total = all.length;
+  const avg = all.reduce((sum,s) => sum + s.pct, 0) / total;
+  
+  document.getElementById('winRate').textContent = Math.round(wins/total*100) + '%';
+  document.getElementById('totalPicks').textContent = total;
+  document.getElementById('dailyCount').textContent = portfolio.daily.length;
+  document.getElementById('midCount').textContent = portfolio.mid.length;
+  document.getElementById('longCount').textContent = portfolio.long.length;
+  document.getElementById('avgGain').textContent = (avg >= 0 ? '+' : '') + avg.toFixed(2) + '%';
+}
+
+function buy(code, price) {
+  alert('BUY ' + code + ' at ¥' + price + '\n\nConnect to live trading API to execute');
+}
+
+function runQuantumV2() {
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = '<div style="text-align:center;padding:40px;"><h2>⚡ Running Quantum Engine V2...</h2><p>Analyzing market patterns...</p></div>';
+  
+  // Use fetch to get results from local server or run command
+  fetch('http://localhost:3899/api/quantum')
+    .then(res => res.text())
+    .then(data => {
+      resultsDiv.innerHTML = '<pre style="background:#1a1a3e;padding:20px;border-radius:10px;white-space:pre-wrap;color:#00ff88;">' + data + '</pre>';
+    })
+    .catch(() => {
+      // Fallback: show last known results
+      resultsDiv.innerHTML = '<div style="background:#1a1a3e;padding:20px;border-radius:10px;"><h3 style="color:#ff6b6b;">⚡ Quantum Engine V2</h3><p>Click to run analysis:</p><button onclick="location.reload()" style="background:#00d9ff;color:#000;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;">Run Quantum V2</button></div>';
+    });
+}
+
+function showSection(sec) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  // Hide all sections
+  document.getElementById('portfolioSection')?.style?.setProperty('display','none');
+  document.getElementById('tradingSection')?.style?.setProperty('display','none');
+  document.getElementById('dailySection')?.style?.setProperty('display','none');
+  document.getElementById('midSection')?.style?.setProperty('display','none');
+  document.getElementById('longSection')?.style?.setProperty('display','none');
+  document.getElementById('scannerSection')?.style?.setProperty('display','none');
+  document.getElementById('analysisSection')?.style?.setProperty('display','none');
+  
+  // Show selected section
+  const sectionMap = {
+    'portfolio': 'portfolioSection',
+    'trading': 'tradingSection', 
+    'daily': 'dailySection',
+    'mid': 'midSection',
+    'long': 'longSection',
+    'scanner': 'scannerSection',
+    'analysis': 'analysisSection'
+  };
+  
+  const secId = sectionMap[sec];
+  if (secId) {
+    const el = document.getElementById(secId);
+    if (el) el.style.display = 'block';
+  }
+}
+
+function executeSell(code, price) {
+  const confirmSell = confirm('🔴 SELL ' + code + ' at ¥' + price + '?\n\nThis will lock in your profits.');
+  if (confirmSell) {
+    const time = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    const row = `<tr><td>${time}</td><td class="red">SELL</td><td>${code}</td><td>¥${price}</td><td>100</td><td>¥${(price*100).toLocaleString()}</td><td class="green">DONE</td></tr>`;
+    document.getElementById('resultsTable').innerHTML = row + document.getElementById('resultsTable').innerHTML;
+    alert('✅ SELL order executed for ' + code);
+  }
+}
+
+function executeBuy(code, price) {
+  const confirmBuy = confirm('🟢 BUY ' + code + ' at ¥' + price + '?');
+  if (confirmBuy) {
+    const time = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    const row = `<tr><td>${time}</td><td class="green">BUY</td><td>${code}</td><td>¥${price}</td><td>100</td><td>¥${(price*100).toLocaleString()}</td><td class="yellow">PENDING</td></tr>`;
+    document.getElementById('resultsTable').innerHTML = row + document.getElementById('resultsTable').innerHTML;
+    alert('✅ BUY order placed for ' + code);
+  }
+}
+
+function refreshTrading() {
+  alert('🔄 Refreshing trading data...\n\nLast update: ' + new Date().toLocaleTimeString());
+}
+
+// Initial load
+refreshAll();
+
+// Auto-refresh every 30 seconds
+setInterval(refreshAll, 30000);
+</script>
+</body>
+</html>

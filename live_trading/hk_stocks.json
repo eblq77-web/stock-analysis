@@ -1,0 +1,24 @@
+{
+    "stocks": [
+        {"code": "0700", "name": "腾讯控股", "sector": "科技", "market": "HK"},
+        {"code": "9988", "name": "阿里巴巴", "sector": "电商", "market": "HK"},
+        {"code": "3690", "name": "美团", "sector": "消费", "market": "HK"},
+        {"code": "9618", "name": "京东集团", "sector": "电商", "market": "HK"},
+        {"code": "9888", "name": "百度集团", "sector": "科技", "market": "HK"},
+        {"code": "1024", "name": "快手", "sector": "科技", "market": "HK"},
+        {"code": "1810", "name": "小米集团", "sector": "科技", "market": "HK"},
+        {"code": "2282", "name": "蒙牛乳业", "sector": "消费", "market": "HK"},
+        {"code": "0005", "name": "汇丰控股", "sector": "金融", "market": "HK"},
+        {"code": "0939", "name": "建设银行", "sector": "金融", "market": "HK"},
+        {"code": "3988", "name": "中国银行", "sector": "金融", "market": "HK"},
+        {"code": "0941", "name": "中国移动", "sector": "通信", "market": "HK"},
+        {"code": "0001", "name": "长和", "sector": "综合", "market": "HK"},
+        {"code": "0011", "name": "恒生银行", "sector": "金融", "market": "HK"},
+        {"code": "6823", "name": "香港交易所", "sector": "金融", "market": "HK"},
+        {"code": "1177", "name": "中国生物制药", "sector": "医药", "market": "HK"},
+        {"code": "0185", "name": "众安在线", "sector": "科技", "market": "HK"},
+        {"code": "0669", "name": "创科实业", "sector": "科技", "market": "HK"},
+        {"code": "6060", "name": "众安保险", "sector": "金融", "market": "HK"},
+        {"code": "2251", "name": "百果园", "sector": "消费", "market": "HK"}
+    ]
+}

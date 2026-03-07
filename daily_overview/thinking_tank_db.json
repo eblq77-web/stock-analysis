@@ -1,0 +1,551 @@
+{
+  "updated": "2026-02-25",
+  "exchanges": {
+    "SH": {
+      "name": "上海主板",
+      "english": "Shanghai Main Board",
+      "code": "SH",
+      "market": "A-Share",
+      "prefix": "sh",
+      "listDate": "1990-12-19",
+      "stocks": 2200,
+      "characteristics": [
+        "Large cap",
+        "State-owned",
+        "Stable",
+        "Blue chip"
+      ],
+      "sectors": [
+        "金融",
+        "公用",
+        "消费",
+        "医药",
+        "地产"
+      ],
+      "avgPE": 15,
+      "avgCap": "500亿+"
+    },
+    "SZ": {
+      "name": "深圳主板",
+      "english": "Shenzhen Main Board",
+      "code": "SZ",
+      "market": "A-Share",
+      "prefix": "sz",
+      "listDate": "1991-04-03",
+      "stocks": 1500,
+      "characteristics": [
+        "Mid cap",
+        "Private",
+        "Growth",
+        "Manufacturing"
+      ],
+      "sectors": [
+        "制造",
+        "家电",
+        "科技",
+        "新能源",
+        "汽车"
+      ],
+      "avgPE": 20,
+      "avgCap": "100-500亿"
+    },
+    "CN": {
+      "name": "创业板",
+      "english": "ChiNext",
+      "code": "CN",
+      "market": "A-Share",
+      "prefix": "sz",
+      "listDate": "2009-10-23",
+      "stocks": 1300,
+      "characteristics": [
+        "High growth",
+        "Tech",
+        "Innovation",
+        "High volatility"
+      ],
+      "sectors": [
+        "科技",
+        "医药",
+        "新能源",
+        "AI",
+        "半导体"
+      ],
+      "avgPE": 40,
+      "avgCap": "50-300亿"
+    },
+    "BSE": {
+      "name": "北京交所",
+      "english": "Beijing Stock Exchange",
+      "code": "BSE",
+      "market": "A-Share",
+      "prefix": "bj",
+      "listDate": "2021-11-15",
+      "stocks": 250,
+      "characteristics": [
+        "New",
+        "Small cap",
+        "Hidden gems",
+        "High potential"
+      ],
+      "sectors": [
+        "新材料",
+        "新能源",
+        "AI教育",
+        "化工",
+        "设备"
+      ],
+      "avgPE": 25,
+      "avgCap": "10-100亿"
+    },
+    "HK": {
+      "name": "港股主板",
+      "english": "HK Main Board",
+      "code": "HK",
+      "market": "HK",
+      "prefix": "hk",
+      "listDate": "1986-04-02",
+      "stocks": 2200,
+      "characteristics": [
+        "International",
+        "H-share",
+        "Dividend",
+        "Liquidity"
+      ],
+      "sectors": [
+        "科技",
+        "金融",
+        "地产",
+        "消费",
+        "医药"
+      ],
+      "avgPE": 12,
+      "avgCap": "500亿+"
+    },
+    "HKG": {
+      "name": "港股创业板",
+      "english": "HK GEM",
+      "code": "HKG",
+      "market": "HK",
+      "prefix": "hk",
+      "listDate": "1999-11-25",
+      "stocks": 300,
+      "characteristics": [
+        "Small cap",
+        "Growth",
+        "Speculative",
+        "Low liquidity"
+      ],
+      "sectors": [
+        "科技",
+        "消费",
+        "医疗",
+        "新能源"
+      ],
+      "avgPE": 15,
+      "avgCap": "10-100亿"
+    }
+  },
+  "stocks": {
+    "1024": {
+      "name": "快手",
+      "exchange": "HK",
+      "sector": "科技",
+      "cap": "2500亿",
+      "pe": 40,
+      "quality": 75
+    },
+    "1810": {
+      "name": "小米集团",
+      "exchange": "HK",
+      "sector": "科技",
+      "cap": "3500亿",
+      "pe": 25,
+      "quality": 72
+    },
+    "2318": {
+      "name": "中国平安",
+      "exchange": "HK",
+      "sector": "金融",
+      "cap": "8000亿",
+      "pe": 10,
+      "quality": 75
+    },
+    "3638": {
+      "name": "泡泡玛特",
+      "exchange": "HKG",
+      "sector": "消费",
+      "cap": "700亿",
+      "pe": 45,
+      "quality": 70
+    },
+    "3690": {
+      "name": "美团",
+      "exchange": "HK",
+      "sector": "科技",
+      "cap": "1.2万亿",
+      "pe": 35,
+      "quality": 85
+    },
+    "6622": {
+      "name": "比亚迪股份",
+      "exchange": "HKG",
+      "sector": "新能源",
+      "cap": "2500亿",
+      "pe": 35,
+      "quality": 85
+    },
+    "9618": {
+      "name": "京东集团",
+      "exchange": "HK",
+      "sector": "科技",
+      "cap": "4000亿",
+      "pe": 18,
+      "quality": 80
+    },
+    "9888": {
+      "name": "百度集团",
+      "exchange": "HKG",
+      "sector": "科技",
+      "cap": "2500亿",
+      "pe": 20,
+      "quality": 78
+    },
+    "9961": {
+      "name": "携程集团",
+      "exchange": "HKG",
+      "sector": "消费",
+      "cap": "2800亿",
+      "pe": 25,
+      "quality": 82
+    },
+    "9988": {
+      "name": "阿里巴巴",
+      "exchange": "HK",
+      "sector": "科技",
+      "cap": "2.0万亿",
+      "pe": 20,
+      "quality": 90
+    },
+    "9991": {
+      "name": "宝洁",
+      "exchange": "HKG",
+      "sector": "消费",
+      "cap": "3500亿",
+      "pe": 25,
+      "quality": 80
+    },
+    "300014": {
+      "name": "亿纬锂能",
+      "exchange": "CN",
+      "sector": "新能源",
+      "cap": "1200亿",
+      "pe": 40,
+      "quality": 88
+    },
+    "300015": {
+      "name": "爱尔眼科",
+      "exchange": "CN",
+      "sector": "医药",
+      "cap": "2500亿",
+      "pe": 60,
+      "quality": 88
+    },
+    "300018": {
+      "name": "中科创达",
+      "exchange": "CN",
+      "sector": "科技",
+      "cap": "800亿",
+      "pe": 55,
+      "quality": 80
+    },
+    "300033": {
+      "name": "同花顺",
+      "exchange": "CN",
+      "sector": "科技",
+      "cap": "1500亿",
+      "pe": 50,
+      "quality": 80
+    },
+    "300059": {
+      "name": "东方财富",
+      "exchange": "CN",
+      "sector": "金融",
+      "cap": "3000亿",
+      "pe": 35,
+      "quality": 82
+    },
+    "300122": {
+      "name": "智飞生物",
+      "exchange": "CN",
+      "sector": "医药",
+      "cap": "1800亿",
+      "pe": 40,
+      "quality": 84
+    },
+    "300308": {
+      "name": "中际旭创",
+      "exchange": "CN",
+      "sector": "AI硬件",
+      "cap": "1500亿",
+      "pe": 60,
+      "quality": 85
+    },
+    "300476": {
+      "name": "中际旭创",
+      "exchange": "CN",
+      "sector": "AI硬件",
+      "cap": "1400亿",
+      "pe": 55,
+      "quality": 88
+    },
+    "300502": {
+      "name": "新易盛",
+      "exchange": "CN",
+      "sector": "科技",
+      "cap": "600亿",
+      "pe": 45,
+      "quality": 75
+    },
+    "300750": {
+      "name": "宁德时代",
+      "exchange": "CN",
+      "sector": "新能源",
+      "cap": "8500亿",
+      "pe": 45,
+      "quality": 94
+    },
+    "600036": {
+      "name": "招商银行",
+      "exchange": "SH",
+      "sector": "金融",
+      "cap": "1.2万亿",
+      "pe": 6,
+      "quality": 82
+    },
+    "600176": {
+      "name": "中国巨石",
+      "exchange": "SH",
+      "sector": "建材",
+      "cap": "600亿",
+      "pe": 12,
+      "quality": 70
+    },
+    "600196": {
+      "name": "复星医药",
+      "exchange": "SH",
+      "sector": "医药",
+      "cap": "1200亿",
+      "pe": 22,
+      "quality": 80
+    },
+    "600276": {
+      "name": "恒瑞医药",
+      "exchange": "SH",
+      "sector": "医药",
+      "cap": "3500亿",
+      "pe": 55,
+      "quality": 85
+    },
+    "600309": {
+      "name": "万华化学",
+      "exchange": "SH",
+      "sector": "化工",
+      "cap": "2800亿",
+      "pe": 14,
+      "quality": 82
+    },
+    "600519": {
+      "name": "贵州茅台",
+      "exchange": "SH",
+      "sector": "消费",
+      "cap": "4.5万亿",
+      "pe": 35,
+      "quality": 95
+    },
+    "600887": {
+      "name": "伊利股份",
+      "exchange": "SH",
+      "sector": "消费",
+      "cap": "1800亿",
+      "pe": 18,
+      "quality": 78
+    },
+    "600900": {
+      "name": "长江电力",
+      "exchange": "SH",
+      "sector": "公用",
+      "cap": "6000亿",
+      "pe": 18,
+      "quality": 88
+    },
+    "601012": {
+      "name": "隆基绿能",
+      "exchange": "SH",
+      "sector": "新能源",
+      "cap": "2000亿",
+      "pe": 15,
+      "quality": 72
+    },
+    "601318": {
+      "name": "中国平安",
+      "exchange": "SH",
+      "sector": "金融",
+      "cap": "8000亿",
+      "pe": 10,
+      "quality": 75
+    },
+    "835670": {
+      "name": "数字人",
+      "exchange": "BSE",
+      "sector": "AI教育",
+      "cap": "80亿",
+      "pe": 45,
+      "quality": 70
+    },
+    "835992": {
+      "name": "戈碧迦",
+      "exchange": "BSE",
+      "sector": "新材料",
+      "cap": "50亿",
+      "pe": 28,
+      "quality": 64
+    },
+    "870299": {
+      "name": "吉林碳谷",
+      "exchange": "BSE",
+      "sector": "新材料",
+      "cap": "180亿",
+      "pe": 20,
+      "quality": 74
+    },
+    "870864": {
+      "name": "红东方",
+      "exchange": "BSE",
+      "sector": "化工",
+      "cap": "120亿",
+      "pe": 15,
+      "quality": 72
+    },
+    "871212": {
+      "name": "安达科技",
+      "exchange": "BSE",
+      "sector": "新能源",
+      "cap": "60亿",
+      "pe": 22,
+      "quality": 68
+    },
+    "872374": {
+      "name": "科强股份",
+      "exchange": "BSE",
+      "sector": "材料",
+      "cap": "40亿",
+      "pe": 22,
+      "quality": 58
+    },
+    "872926": {
+      "name": "贝特瑞",
+      "exchange": "BSE",
+      "sector": "新能源",
+      "cap": "350亿",
+      "pe": 25,
+      "quality": 78
+    },
+    "873169": {
+      "name": "七丰精工",
+      "exchange": "BSE",
+      "sector": "制造",
+      "cap": "35亿",
+      "pe": 25,
+      "quality": 60
+    },
+    "000001": {
+      "name": "平安银行",
+      "exchange": "SZ",
+      "sector": "金融",
+      "cap": "2500亿",
+      "pe": 5,
+      "quality": 68
+    },
+    "000002": {
+      "name": "万科A",
+      "exchange": "SZ",
+      "sector": "地产",
+      "cap": "1500亿",
+      "pe": 6,
+      "quality": 52
+    },
+    "000333": {
+      "name": "美的集团",
+      "exchange": "SZ",
+      "sector": "家电",
+      "cap": "5000亿",
+      "pe": 14,
+      "quality": 84
+    },
+    "000651": {
+      "name": "格力电器",
+      "exchange": "SZ",
+      "sector": "家电",
+      "cap": "2200亿",
+      "pe": 10,
+      "quality": 78
+    },
+    "000858": {
+      "name": "五粮液",
+      "exchange": "SZ",
+      "sector": "消费",
+      "cap": "6000亿",
+      "pe": 28,
+      "quality": 90
+    },
+    "002415": {
+      "name": "海康威视",
+      "exchange": "SZ",
+      "sector": "科技",
+      "cap": "2800亿",
+      "pe": 25,
+      "quality": 80
+    },
+    "002594": {
+      "name": "比亚迪",
+      "exchange": "SZ",
+      "sector": "新能源",
+      "cap": "8000亿",
+      "pe": 55,
+      "quality": 92
+    },
+    "002475": {
+      "name": "立讯精密",
+      "exchange": "SZ",
+      "sector": "科技",
+      "cap": "2000亿",
+      "pe": 30,
+      "quality": 76
+    },
+    "0700": {
+      "name": "腾讯控股",
+      "exchange": "HK",
+      "sector": "科技",
+      "cap": "3.5万亿",
+      "pe": 22,
+      "quality": 95
+    },
+    "0941": {
+      "name": "中国移动",
+      "exchange": "HK",
+      "sector": "通信",
+      "cap": "1.5万亿",
+      "pe": 10,
+      "quality": 75
+    }
+  },
+  "counts": {
+    "HK": 8,
+    "HKG": 5,
+    "CN": 10,
+    "SH": 10,
+    "BSE": 8,
+    "SZ": 8
+  },
+  "total": 49
+}

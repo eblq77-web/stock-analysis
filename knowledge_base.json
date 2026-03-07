@@ -1,0 +1,113 @@
+{
+  "lastUpdate": "2026-03-02T02:39:16.843Z",
+  "topicsLearned": 8,
+  "keywords": [],
+  "insights": [],
+  "algorithmImprovements": [
+    {
+      "factor": "Volume Momentum",
+      "weight": 12,
+      "reason": "Volume is key indicator of institutional buying"
+    },
+    {
+      "factor": "RSI Divergence",
+      "weight": 10,
+      "reason": "RSI shows momentum strength"
+    },
+    {
+      "factor": "MACD Cross",
+      "weight": 10,
+      "reason": "MACD signals trend changes"
+    },
+    {
+      "factor": "Sector Rotation",
+      "weight": 15,
+      "reason": "Sector momentum matters"
+    },
+    {
+      "factor": "Price Action",
+      "weight": 8,
+      "reason": "Raw price movement shows strength"
+    },
+    {
+      "factor": "Volume Spike",
+      "weight": 10,
+      "reason": "Unusual volume = institutional interest"
+    },
+    {
+      "factor": "Market Sentiment",
+      "weight": 8,
+      "reason": "Overall market mood affects stock"
+    },
+    {
+      "factor": "News Catalyst",
+      "weight": 12,
+      "reason": "News drives short-term moves"
+    },
+    {
+      "factor": "Earnings Momentum",
+      "weight": 10,
+      "reason": "Earnings growth = fundamental strength"
+    },
+    {
+      "factor": "Relative Strength",
+      "weight": 10,
+      "reason": "Outperform vs market"
+    }
+  ],
+  "weightingCriteria": {
+    "total": 105,
+    "factors": [
+      {
+        "factor": "Volume Momentum",
+        "weight": 12,
+        "reason": "Volume is key indicator of institutional buying"
+      },
+      {
+        "factor": "RSI Divergence",
+        "weight": 10,
+        "reason": "RSI shows momentum strength"
+      },
+      {
+        "factor": "MACD Cross",
+        "weight": 10,
+        "reason": "MACD signals trend changes"
+      },
+      {
+        "factor": "Sector Rotation",
+        "weight": 15,
+        "reason": "Sector momentum matters"
+      },
+      {
+        "factor": "Price Action",
+        "weight": 8,
+        "reason": "Raw price movement shows strength"
+      },
+      {
+        "factor": "Volume Spike",
+        "weight": 10,
+        "reason": "Unusual volume = institutional interest"
+      },
+      {
+        "factor": "Market Sentiment",
+        "weight": 8,
+        "reason": "Overall market mood affects stock"
+      },
+      {
+        "factor": "News Catalyst",
+        "weight": 12,
+        "reason": "News drives short-term moves"
+      },
+      {
+        "factor": "Earnings Momentum",
+        "weight": 10,
+        "reason": "Earnings growth = fundamental strength"
+      },
+      {
+        "factor": "Relative Strength",
+        "weight": 10,
+        "reason": "Outperform vs market"
+      }
+    ]
+  }
+}

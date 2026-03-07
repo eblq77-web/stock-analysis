@@ -1,0 +1,109 @@
+# MODULE 1: PROPRIETARY SCORING ENGINE
+
+## THE CORE ALGORITHM
+
+```
+TOTAL SCORE = SmartMoney×0.40 + Quality×0.30 + Momentum×0.20 + Risk×0.10
+```
+
+---
+
+## SMART MONEY DETECTION (40%)
+
+### How We Detect Institutional Flow:
+
+1. **Order Flow Analysis**
+   - Large block orders
+   - Hidden liquidity
+   - Order routing patterns
+
+2. **Volume Analysis**
+   - Volume spike detection
+   - Volume/price divergence
+   - Unusual volume patterns
+
+3. **Sector Flow**
+   - Sector rotation tracking
+   - Industry funds flow
+   - Smart money positioning
+
+### Scoring:
+```
+Excellent: 90-100
+Good: 75-89
+Fair: 60-74
+Poor: <60
+```
+
+---
+
+## QUALITY ASSESSMENT (30%)
+
+### Factors:
+
+1. **Profitability**
+   - ROE > 20% = 90+
+   - Net margin > 15% = 90+
+   - Cash flow positive = 80+
+
+2. **Growth**
+   - Revenue growth > 20% = 85+
+   - Earnings growth > 15% = 85+
+
+3. **Market Position**
+   - #1 in sector = 95
+   - Top 3 = 85
+   - Niche player = 75
+
+4. **Balance Sheet**
+   - Low debt = 85
+   - Strong cash = 85
+
+---
+
+## MOMENTUM TRACKING (20%)
+
+### Sector Momentum:
+
+| Sector | Score |
+|-------|-------|
+| AI/Tech | 90 |
+| New Energy | 88 |
+| Healthcare | 80 |
+| Consumer | 75 |
+| Finance | 65 |
+| Real Estate | 40 |
+
+### Price Momentum:
+- Breaking resistance = +15
+- New high = +10
+- Volume confirmation = +10
+
+---
+
+## RISK EVALUATION (10%)
+
+### Risk Factors:
+- Volatility
+- Debt level
+- Policy risk
+- Market sentiment
+
+### Lower risk = Higher score
+
+---
+
+## SCORING RULES
+
+### Signal Generation:
+
+```
+Score >= 80: STRONG BUY
+Score 70-79: BUY
+Score 60-69: HOLD
+Score < 60: AVOID/SELL
+```
+
+---
+
+*Module 1 - Proprietary Scoring*

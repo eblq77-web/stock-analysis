@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Paper Trading Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; min-height: 100vh; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 20px; }
+        
+        .top-bar { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; color: white; }
+        .btn-refresh { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .btn-new { background: linear-gradient(135deg, #00c853, #00e676); }
+        
+        .stats { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .stat { background: rgba(255,255,255,0.1); padding: 20px 30px; border-radius: 15px; text-align: center; min-width: 150px; }
+        .stat h3 { color: #888; font-size: 14px; margin-bottom: 8px; }
+        .stat .val { font-size: 28px; font-weight: bold; }
+        .green { color: #00ff88; }
+        .red { color: #ff4757; }
+        
+        .section { margin-bottom: 30px; }
+        .section h2 { border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
+        
+        .positions { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .pos-card { background: rgba(255,255,255,0.08); padding: 20px; border-radius: 12px; border-left: 4px solid #667eea; }
+        .pos-card.profit { border-left-color: #00ff88; }
+        .pos-card.loss { border-left-color: #ff4757; }
+        .pos-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .pos-code { font-size: 20px; font-weight: bold; }
+        .pos-name { color: #888; font-size: 14px; }
+        .pos-pnl { font-size: 24px; font-weight: bold; }
+        .pos-info { color: #aaa; margin-bottom: 15px; font-size: 14px; }
+        .pos-info span { color: #fff; }
+        
+        .action-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; color: white; }
+        .btn-buy { background: linear-gradient(135deg, #00c853, #00e676); }
+        .btn-sell { background: linear-gradient(135deg, #ff1744, #ff5252); }
+        
+        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
+        th { color: #888; }
+        
+        .new-order { display: none; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .new-order input { padding: 10px; margin: 5px; border-radius: 5px; border: 1px solid #333; background: #0f0f1a; color: #fff; width: 150px; }
+        
+        .alert { padding: 15px; border-radius: 8px; margin-bottom: 20px; display: none; }
+        .alert.show { display: block; }
+        .alert-success { background: rgba(0,255,136,0.2); color: #00ff88; }
+        .alert-error { background: rgba(255,23,68,0.2); color: #ff4757; }
+        
+        .loading { text-align: center; padding: 50px; color: #888; }
+    </style>
+</head>
+<body>
+    <h1>📈 Paper Trading Dashboard</h1>
+    
+    <div class="top-bar">
+        <button class="btn btn-refresh" onclick="loadData()">🔄 Refresh</button>
+        <button class="btn btn-new" onclick="toggleNewOrder()">➕ New Order</button>
+    </div>
+    
+    <div id="alert" class="alert"></div>
+    
+    <div class="new-order" id="newOrder">
+        <h3>New Buy Order</h3>
+        <input type="text" id="buyCode" placeholder="Stock Code">
+        <input type="text" id="buyName" placeholder="Name">
+        <input type="number" id="buyPrice" placeholder="Price">
+        <input type="number" id="buyShares" placeholder="Shares">
+        <br><br>
+        <button class="btn btn-buy" onclick="submitBuy()">Buy</button>
+        <button class="btn" onclick="toggleNewOrder()">Cancel</button>
+    </div>
+    
+    <div class="stats">
+        <div class="stat"><h3>💰 Capital</h3><div class="val" id="capital">-</div></div>
+        <div class="stat"><h3>📊 Positions</h3><div class="val" id="positions">-</div></div>
+        <div class="stat"><h3>✅ Closed</h3><div class="val" id="closed">-</div></div>
+        <div class="stat"><h3>🎯 P&L</h3><div class="val" id="pnl">-</div></div>
+    </div>
+    
+    <div class="section">
+        <h2>📋 Open Positions (Click SELL to close)</h2>
+        <div class="positions" id="positionsList"></div>
+    </div>
+    
+    <div class="section">
+        <h2>🟢 Buy Signals (Click BUY to open)</h2>
+        <table>
+            <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Score</th><th>Price</th><th>Action</th></tr></thead>
+            <tbody id="buyList"></tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>📜 Trade History</h2>
+        <table>
+            <thead><tr><th>Date</th><th>Code</th><th>Name</th><th>Entry</th><th>Exit</th><th>P&L</th><th>%</th></tr></thead>
+            <tbody id="historyList"></tbody>
+        </table>
+    </div>
+    
+    <script>
+    let data = null;
+    const API_URL = 'http://localhost:3899';
+    
+    async function loadData() {
+        showAlert('Loading...', 'success');
+        try {
+            const res = await fetch(API_URL + '/api/data');
+            if (!res.ok) throw new Error('Server error');
+            data = await res.json();
+            
+            if (!data.success) {
+                showAlert(data.error || 'Error loading data', 'error');
+                return;
+            }
+            showAlert('', '');
+            render();
+        } catch(e) {
+            showAlert('Cannot connect to server: ' + e.message, 'error');
+            document.body.innerHTML += '<div class="loading">Please make sure server is running:<br><code>node paper_trading/server_debug.js</code></div>';
+        }
+    }
+    
+    function render() {
+        const log = data.log;
+        const sig = data.signals;
+        
+        document.getElementById('capital').textContent = '¥' + Math.round(log.capital).toLocaleString();
+        document.getElementById('capital').className = 'val';
+        document.getElementById('positions').textContent = log.positions.length;
+        document.getElementById('closed').textContent = log.closedTrades.length;
+        
+        const closedPnl = log.closedTrades.reduce((s, t) => s + t.pnl, 0);
+        const pnlEl = document.getElementById('pnl');
+        pnlEl.textContent = '¥' + Math.round(closedPnl).toLocaleString();
+        pnlEl.className = 'val ' + (closedPnl >= 0 ? 'green' : 'red');
+        
+        // Positions
+        document.getElementById('positionsList').innerHTML = log.positions.map(p => {
+            const pnl = ((p.currentPrice || p.entryPrice) - p.entryPrice) / p.entryPrice * 100;
+            const cls = pnl >= 0 ? 'profit' : 'loss';
+            const color = pnl >= 0 ? '#00ff88' : '#ff4757';
+            return '<div class="pos-card ' + cls + '">' +
+                '<div class="pos-header">' +
+                    '<div><div class="pos-code">' + p.code + '</div><div class="pos-name">' + p.name + '</div></div>' +
+                    '<div class="pos-pnl" style="color:' + color + '">' + (pnl>=0?'+':'') + pnl.toFixed(2) + '%</div>' +
+                '</div>' +
+                '<div class="pos-info">' +
+                    'Entry: <span>¥' + p.entryPrice.toFixed(2) + '</span> | ' +
+                    'Shares: <span>' + p.shares + '</span> | ' +
+                    'Value: <span>¥' + Math.round(p.entryPrice*p.shares).toLocaleString() + '</span>' +
+                '</div>' +
+                '<button class="action-btn btn-sell" onclick="sell(\'' + p.code + '\', ' + p.entryPrice + ')">🔴 SELL ¥' + p.entryPrice.toFixed(2) + '</button>' +
+            '</div>';
+        }).join('') || '<p style="color:#666">No positions</p>';
+        
+        // Buy signals - with better price handling
+        document.getElementById('buyList').innerHTML = sig.buy.slice(0,10).map(s => {
+            const price = s.currentPrice || s.price || 100;
+            return '<tr>' +
+                '<td><b>' + s.code + '</b></td>' +
+                '<td>' + s.name + '</td>' +
+                '<td>' + s.sector + '</td>' +
+                '<td>' + s.score + '</td>' +
+                '<td>¥' + price.toFixed(2) + '</td>' +
+                '<td><button class="action-btn btn-buy" style="padding:8px 16px;width:auto;" onclick="quickBuy(\'' + s.code + '\', \'' + s.name + '\', ' + price + ', \'' + s.sector + '\', ' + s.score + ')">🟢 BUY ¥' + price.toFixed(2) + '</button></td>' +
+            '</tr>';
+        }).join('');
+        
+        // History
+        document.getElementById('historyList').innerHTML = log.closedTrades.slice(-10).reverse().map(t => 
+            '<tr><td>' + t.exitDate + '</td><td><b>' + t.code + '</b></td><td>' + t.name + '</td><td>¥' + t.entryPrice.toFixed(2) + '</td><td>¥' + t.exitPrice.toFixed(2) + '</td><td class="' + (t.pnl>=0?'green':'red') + '">¥' + Math.round(t.pnl).toLocaleString() + '</td><td class="' + (t.pnlPct>=0?'green':'red') + '">' + (t.pnlPct>=0?'+':'') + t.pnlPct.toFixed(2) + '%</td></tr>'
+        ).join('') || '<tr><td colspan="7" style="text-align:center;color:#666">No trades yet</td></tr>';
+    }
+    
+    function toggleNewOrder() {
+        const el = document.getElementById('newOrder');
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    async function submitBuy() {
+        const code = document.getElementById('buyCode').value.trim();
+        const name = document.getElementById('buyName').value.trim();
+        const price = parseFloat(document.getElementById('buyPrice').value);
+        const shares = parseInt(document.getElementById('buyShares').value);
+        
+        if (!code || !price || !shares) {
+            showAlert('Please fill all fields', 'error');
+            return;
+        }
+        
+        showAlert('Processing buy order...', 'success');
+        
+        try {
+            const res = await fetch(API_URL + '/api/buy', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({code, name, price, shares, sector: 'N/A', score: 75})
+            });
+            const result = await res.json();
+            if (result.success) {
+                showAlert('✅ Bought ' + code + '! ' + shares + ' shares @ ¥' + price, 'success');
+                toggleNewOrder();
+                loadData();
+            } else {
+                showAlert('❌ ' + (result.error || 'Buy failed'), 'error');
+            }
+        } catch(e) {
+            showAlert('❌ Error: ' + e.message, 'error');
+        }
+    }
+    
+    async function quickBuy(code, name, price, sector, score) {
+        if (!price || price <= 0) {
+            showAlert('Invalid price: ' + price, 'error');
+            return;
+        }
+        
+        const maxShares = Math.floor(data.log.capital * 0.2 / price);
+        const shares = Math.floor(maxShares / 100) * 100;
+        
+        if (shares < 100) {
+            showAlert('❌ Insufficient capital. Need at least ¥' + (price * 100).toLocaleString(), 'error');
+            return;
+        }
+        
+        showAlert('Processing...', 'success');
+        
+        try {
+            const res = await fetch(API_URL + '/api/buy', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({code, name, price, shares, sector, score})
+            });
+            const result = await res.json();
+            if (result.success) {
+                showAlert('✅ Bought ' + code + '! ' + shares + ' shares @ ¥' + price + ' = ¥' + (price*shares).toLocaleString(), 'success');
+                loadData();
+            } else {
+                showAlert('❌ ' + (result.error || 'Buy failed'), 'error');
+            }
+        } catch(e) {
+            showAlert('❌ Error: ' + e.message, 'error');
+        }
+    }
+    
+    async function sell(code, price) {
+        if (!confirm('Sell ' + code + ' at ¥' + price + '?')) return;
+        
+        showAlert('Processing...', 'success');
+        
+        try {
+            const res = await fetch(API_URL + '/api/sell', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({code, exitPrice: price})
+            });
+            const result = await res.json();
+            if (result.success) {
+                showAlert('✅ Sold! P&L: ¥' + Math.round(result.pnl).toLocaleString() + ' (' + (result.pnlPct>=0?'+':'') + result.pnlPct.toFixed(2) + '%)', 'success');
+                loadData();
+            } else {
+                showAlert('❌ ' + (result.error || 'Sell failed'), 'error');
+            }
+        } catch(e) {
+            showAlert('❌ Error: ' + e.message, 'error');
+        }
+    }
+    
+    function showAlert(msg, type) {
+        const el = document.getElementById('alert');
+        if (!msg) {
+            el.style.display = 'none';
+            return;
+        }
+        el.textContent = msg;
+        el.className = 'alert show ' + (type === 'success' ? 'alert-success' : 'alert-error');
+    }
+    
+    // Start
+    loadData();
+    </script>
+</body>
+</html>

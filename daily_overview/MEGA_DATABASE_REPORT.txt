@@ -1,0 +1,10 @@
+# 🧠 MEGA DATABASE - 6 EXCHANGES
+## Total: 228 stocks
+
+## By Exchange
+- 上海主板 (SH): 45
+- 深圳主板 (SZ): 45
+- 创业板 (CN): 45
+- 北京交所 (BSE): 27
+- 港股主板 (HK): 42
+- 港股创业板 (HKG): 24

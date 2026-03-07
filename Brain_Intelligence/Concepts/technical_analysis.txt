@@ -1,0 +1,266 @@
+# TECHNICAL ANALYSIS & PATTERNS
+## Reading Charts Like Institutions
+
+---
+
+## WHY TECHNICAL ANALYSIS WORKS
+
+Institutions use charts:
+- Entry points
+- Stop loss levels
+- Profit targets
+- Momentum confirmation
+
+Patterns repeat because:
+- Human psychology is constant
+- Support/resistance works
+- Crowd behavior is predictable
+
+---
+
+## CHART PATTERNS
+
+### REVERSAL PATTERNS
+
+#### 1. Double Bottom (W)
+
+```
+      _________
+     /         \\
+____/           \\______
+      ^            ^
+   Support     Breakout
+```
+
+**What it means**: Sellers exhausted, buyers take over
+**My signal**: BULLISH
+**Target**: Height of pattern added to breakout
+
+#### 2. Head and Shoulders
+
+```
+    ^    ^
+   / \\  / \\
+  /   \\/   \\
+ /           \\
+/             \\
+     ^     ^
+  Left   Right
+   Shoulder Shoulder
+```
+
+**What it means**: Upward momentum failing
+**My signal**: BEARISH
+**Target**: Neckline to head
+
+#### 3. Inverse Head and Shoulders
+
+```
+       ^       ^
+      / \\     / \\
+     /   \\   /   \\
+    /     \\ /     \\
+   /               \\
+  ^                 ^
+Left             Right
+ Shoulder        Shoulder
+```
+
+**What it means**: Downtrend ending
+**My signal**: BULLISH
+
+---
+
+### CONTINUATION PATTERNS
+
+#### 4. Bull Flag
+
+```
+         |  |  |  |  |  |  (upward)
+________|  |  |  |  |  |  |
+        |__|__|__|__|__|___
+              ↓
+           Consolidation
+           (bull flag)
+```
+
+**What it means**: Pause before next move up
+**My signal**: BULLISH
+**Pattern direction**: Continuation
+
+#### 5. Pennant
+
+Similar to flag but converging lines
+
+---
+
+## CANDLESTICK PATTERNS
+
+### REVERSAL CANDLES
+
+#### Doji
+```
+   |  |
+---|  |---
+   |__|
+```
+**Meaning**: Indecision
+
+#### Hammer
+```
+   |
+---|
+   |
+---| (tail)
+```
+**Meaning**: Bullish reversal, rejected lower prices
+
+#### Shooting Star
+```
+| (tail)
+---|
+   |
+```
+**Meaning**: Bearish reversal
+
+#### Engulfing Bullish
+```
+    |  |
+----|  |----
+    |__|
+      ^
+```
+**Meaning**: Buyers overwhelmed sellers
+
+---
+
+## INDICATORS
+
+### MOVING AVERAGES
+
+| MA | What It Shows |
+|----|--------------|
+| MA20 | Short-term trend |
+| MA50 | Medium-term trend |
+| MA200 | Long-term trend |
+
+**Golden Cross**: MA50 crosses above MA200 = BULLISH
+**Death Cross**: MA50 crosses below MA200 = BEARISH
+
+### RSI (Relative Strength Index)
+
+```
+0-30:    Oversold (BUY)
+30-70:   Neutral
+70-100:  Overbought (SELL)
+```
+
+### MACD
+
+```
+MACD Line: 12 EMA - 26 EMA
+Signal Line: MACD's 9 EMA
+Histogram: MACD - Signal
+```
+
+**Bullish signal**: MACD crosses above signal
+**Bearish signal**: MACD crosses below signal
+
+### VOLUME
+
+```
+Volume confirms price:
+- Up + High Volume = BULLISH
+- Down + High Volume = BEARISH
+- Up + Low Volume = WEAK
+- Down + Low Volume = WEAK
+```
+
+---
+
+## SUPPORT & RESISTANCE
+
+### Support
+
+```
+Price level where buying historically exceeds selling
+Tested multiple times = stronger support
+Breaking support = more downside
+```
+
+### Resistance
+
+```
+Price level where selling historically exceeds buying
+Breaking resistance = upside momentum
+```
+
+### My Support/Resistance Rules:
+
+1. Test 3+ times = stronger
+2. Wider time frame = stronger
+3. Round numbers = magnet
+4. Gap = support/resistance
+
+---
+
+## MY TECHNICAL SETUP
+
+### Entry Criteria:
+
+```
+1. Price breaks resistance
+2. Volume confirms breakout
+3. RSI not overbought (<70)
+4. MACD turning bullish
+5. Price above 20 MA
+```
+
+### Stop Loss:
+
+```
+Below recent support
+-2% from entry
+Below breakout candle low
+```
+
+### Profit Target:
+
+```
+Risk:Reward = 1:2 minimum
+Example:
+Entry $100, Stop $95 (risk $5)
+Target $110 (reward $10)
+Ratio = 2:1
+```
+
+---
+
+## CHART TIMEFRAMES
+
+| Timeframe | Use |
+|-----------|-----|
+| 1-5 min | Day trading |
+| 15-60 min | Swing trading |
+| Daily | Position trading |
+| Weekly | Long-term |
+
+### My Preference:
+
+- Entry: 15-min / Hourly
+- Position: Daily / Weekly
+- Confirm: Multiple timeframes
+
+---
+
+## KEY PRINCIPLES
+
+1. **Trend is your friend** - Don't fight trend
+2. **Volume confirms** - Price + Volume = Truth
+3. **Let winners run** - Don't take profit too early
+4. **Cut losers quick** - Never average down losers
+5. **Wait for setup** - Don't force trades
+
+---
+
+*Technical Analysis Guide - Charles*

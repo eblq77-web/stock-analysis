@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Charles's Super Brain - Command Center</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0a0a15 0%, #1a1a2e 100%); min-height: 100vh; color: #fff; }
+        
+        .header { background: rgba(0,0,0,0.5); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
+        .header h1 { font-size: 18px; background: linear-gradient(90deg, #00ff88, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header .controls button { background: #00ff88; border: none; color: #000; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-left: 10px; }
+        
+        .container { max-width: 1800px; margin: 0 auto; padding: 20px; }
+        
+        /* Market Indices */
+        .indices-bar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px; }
+        .index-card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid #333; }
+        .index-card .name { font-size: 11px; color: #888; }
+        .index-card .value { font-size: 16px; font-weight: bold; margin: 5px 0; }
+        .index-card .change { font-size: 12px; }
+        .index-card.up .change { color: #00ff88; }
+        .index-card.down .change { color: #ff4444; }
+        
+        /* 4-Column Grid */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
+        
+        .panel { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 15px; border: 1px solid #333; }
+        .panel h3 { font-size: 14px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 8px; }
+        .panel h3 .icon { font-size: 18px; }
+        
+        .stock-list { font-size: 11px; }
+        .stock-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #222; }
+        .stock-item:last-child { border-bottom: none; }
+        .stock-item .code { color: #00d4ff; font-weight: bold; }
+        .stock-item .name { color: #888; flex: 1; margin: 0 8px; }
+        .stock-item .score { color: #00ff88; font-weight: bold; }
+        .stock-item .signal { padding: 2px 6px; border-radius: 4px; font-size: 9px; }
+        .signal.buy { background: rgba(0,255,136,0.2); color: #00ff88; }
+        
+        /* Smart Money Panel */
+        .money-flow { font-size: 11px; }
+        .flow-item { display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #222; }
+        .flow-item:last-child { border-bottom: none; }
+        .flow-sector { width: 80px; font-weight: bold; }
+        .flow-bar { flex: 1; height: 8px; background: #222; border-radius: 4px; margin: 0 10px; overflow: hidden; }
+        .flow-bar-fill { height: 100%; border-radius: 4px; }
+        .flow-bar-fill.positive { background: linear-gradient(90deg, #00ff88, #00d4ff); }
+        .flow-bar-fill.negative { background: linear-gradient(90deg, #ff4444, #ff8800); }
+        .flow-value { width: 60px; text-align: right; font-weight: bold; }
+        .flow-value.positive { color: #00ff88; }
+        .flow-value.negative { color: #ff4444; }
+        
+        /* Insider Panel */
+        .insider-item { padding: 8px 0; border-bottom: 1px solid #222; font-size: 11px; }
+        .insider-item:last-child { border-bottom: none; }
+        .insider-stock { color: #00d4ff; font-weight: bold; }
+        .insider-action { color: #00ff88; }
+        .insider-date { color: #666; font-size: 10px; }
+        
+        /* Hidden Gems */
+        .gem-item { padding: 10px 0; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+        .gem-item:last-child { border-bottom: none; }
+        .gem-info .name { font-weight: bold; font-size: 12px; }
+        .gem-info .reason { color: #888; font-size: 10px; }
+        .gem-target { text-align: right; }
+        .gem-target .price { color: #00ff88; font-weight: bold; }
+        .gem-target .upside { color: #00d4ff; font-size: 10px; }
+        
+        /* Bottom Section */
+        .bottom-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
+        
+        .action-panel { background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.3); }
+        .action-panel h3 { color: #00ff88; }
+        
+        .rules-list { font-size: 11px; }
+        .rule-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #222; }
+        .rule-item:last-child { border-bottom: none; }
+        .rule-item .rule { color: #fff; }
+        .rule-item .value { color: #00ff88; font-weight: bold; }
+        
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 11px; }
+        
+        @media (max-width: 1200px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .indices-bar { grid-template-columns: repeat(3, 1fr); }
+            .bottom-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 CHARLES'S SUPER BRAIN - COMMAND CENTER</h1>
+        <div class="controls">
+            <button onclick="refreshAll()">🔄 Refresh All</button>
+            <button onclick="runAnalysis()">🧠 Run Analysis</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Market Indices -->
+        <div class="indices-bar">
+            <div class="index-card up"><div class="name">Shanghai</div><div class="value">3,431</div><div class="change">+0.93%</div></div>
+            <div class="index-card up"><div class="name">Shenzhen</div><div class="value">11,185</div><div class="change">+1.69%</div></div>
+            <div class="index-card down"><div class="name">ChiNext</div><div class="value">2,183</div><div class="change">-0.58%</div></div>
+            <div class="index-card down"><div class="name">Beijing</div><div class="value">889</div><div class="change">-1.15%</div></div>
+            <div class="index-card down"><div class="name">HK</div><div class="value">18,964</div><div class="change">-0.18%</div></div>
+            <div class="index-card up"><div class="name">HK Tech</div><div class="value">4,262</div><div class="change">+1.50%</div></div>
+        </div>
+        
+        <!-- 4-Column Dashboard -->
+        <div class="dashboard-grid">
+            <!-- Panel 1: Top Picks -->
+            <div class="panel">
+                <h3><span class="icon">🎯</span> TOP PICKS</h3>
+                <div class="stock-list">
+                    <div class="stock-item"><span class="code">002594</span><span class="name">比亚迪</span><span class="score">87</span></div>
+                    <div class="stock-item"><span class="code">0700</span><span class="name">腾讯控股</span><span class="score">86</span></div>
+                    <div class="stock-item"><span class="code">300750</span><span class="name">宁德时代</span><span class="score">84</span></div>
+                    <div class="stock-item"><span class="code">300476</span><span class="name">中际旭创</span><span class="score">82</span></div>
+                    <div class="stock-item"><span class="code">835670</span><span class="name">数字人</span><span class="score">80</span></div>
+                    <div class="stock-item"><span class="code">002415</span><span class="name">海康威视</span><span class="score">78</span></div>
+                    <div class="stock-item"><span class="code">000858</span><span class="name">五粮液</span><span class="score">76</span></div>
+                    <div class="stock-item"><span class="code">3690</span><span class="name">美团</span><span class="score">74</span></div>
+                </div>
+            </div>
+            
+            <!-- Panel 2: Smart Money Flow -->
+            <div class="panel">
+                <h3><span class="icon">💰</span> SMART MONEY FLOW</h3>
+                <div class="money-flow">
+                    <div class="flow-item">
+                        <span class="flow-sector">Tech</span>
+                        <div class="flow-bar"><div class="flow-bar-fill positive" style="width:65%"></div></div>
+                        <span class="flow-value positive">+32.4B</span>
+                    </div>
+                    <div class="flow-item">
+                        <span class="flow-sector">NEV</span>
+                        <div class="flow-bar"><div class="flow-bar-fill positive" style="width:61%"></div></div>
+                        <span class="flow-value positive">+30.5B</span>
+                    </div>
+                    <div class="flow-item">
+                        <span class="flow-sector">AI Hardware</span>
+                        <div class="flow-bar"><div class="flow-bar-fill positive" style="width:57%"></div></div>
+                        <span class="flow-value positive">+28.5B</span>
+                    </div>
+                    <div class="flow-item">
+                        <span class="flow-sector">AI Edu</span>
+                        <div class="flow-bar"><div class="flow-bar-fill positive" style="width:50%"></div></div>
+                        <span class="flow-value positive">+25.2B</span>
+                    </div>
+                    <div class="flow-item">
+                        <span class="flow-sector">Finance</span>
+                        <div class="flow-bar"><div class="flow-bar-fill negative" style="width:29%"></div></div>
+                        <span class="flow-value negative">-14.3B</span>
+                    </div>
+                    <div class="flow-item">
+                        <span class="flow-sector">Real Est</span>
+                        <div class="flow-bar"><div class="flow-bar-fill negative" style="width:67%"></div></div>
+                        <span class="flow-value negative">-33.7B</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel 3: Insider Activity -->
+            <div class="panel">
+                <h3><span class="icon">🏦</span> INSIDER BUYING</h3>
+                <div class="stock-list">
+                    <div class="insider-item">
+                        <span class="insider-stock">002594 比亚迪</span>
+                        <span class="insider-action">BUY 500万股</span>
+                        <div class="insider-date">2026-02-20</div>
+                    </div>
+                    <div class="insider-item">
+                        <span class="insider-stock">300750 宁德时代</span>
+                        <span class="insider-action">BUY 200万股</span>
+                        <div class="insider-date">2026-02-18</div>
+                    </div>
+                    <div class="insider-item">
+                        <span class="insider-stock">002415 海康威视</span>
+                        <span class="insider-action">BUY 100万股</span>
+                        <div class="insider-date">2026-02-15</div>
+                    </div>
+                    <div class="insider-item">
+                        <span class="insider-stock">300476 中际旭创</span>
+                        <span class="insider-action">BUY 50万股</span>
+                        <div class="insider-date">2026-02-10</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel 4: Hidden Gems -->
+            <div class="panel">
+                <h3><span class="icon">💎</span> HIDDEN GEMS</h3>
+                <div class="stock-list">
+                    <div class="gem-item">
+                        <div class="gem-info">
+                            <div class="name">835670 数字人</div>
+                            <div class="reason">AI教育 - not on radar</div>
+                        </div>
+                        <div class="gem-target">
+                            <div class="price">Target: ¥80</div>
+                            <div class="upside">+150% upside</div>
+                        </div>
+                    </div>
+                    <div class="gem-item">
+                        <div class="gem-info">
+                            <div class="name">300476 中际旭创</div>
+                            <div class="reason">硬件不受关注</div>
+                        </div>
+                        <div class="gem-target">
+                            <div class="price">Target: ¥280</div>
+                            <div class="upside">+80% upside</div>
+                        </div>
+                    </div>
+                    <div class="gem-item">
+                        <div class="gem-info">
+                            <div class="name">872926 贝特瑞</div>
+                            <div class="reason">BSE小票</div>
+                        </div>
+                        <div class="gem-target">
+                            <div class="price">Target: ¥180</div>
+                            <div class="upside">+120% upside</div>
+                        </div>
+                    </div>
+                    <div class="gem-item">
+                        <div class="gem-info">
+                            <div class="name">870299 吉林碳谷</div>
+                            <div class="reason">碳纤维细分</div>
+                        </div>
+                        <div class="gem-target">
+                            <div class="price">Target: ¥120</div>
+                            <div class="upside">+90% upside</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Section -->
+        <div class="bottom-grid">
+            <div class="panel action-panel">
+                <h3><span class="icon">⚡</span> TODAY'S ACTION PLAN</h3>
+                <div class="stock-list">
+                    <div class="stock-item">
+                        <span class="code">1.</span>
+                        <span class="name">Start positions on 数字人 (835670) - 15% max</span>
+                        <span class="signal buy">¥45-50</span>
+                    </div>
+                    <div class="stock-item">
+                        <span class="code">2.</span>
+                        <span class="name">Add 中际旭创 (300476) - 12% max</span>
+                        <span class="signal buy">¥150-160</span>
+                    </div>
+                    <div class="stock-item">
+                        <span class="code">3.</span>
+                        <span class="name">Watch 贝特瑞 (872926) for entry</span>
+                        <span class="signal buy">¥85-90</span>
+                    </div>
+                    <div class="stock-item">
+                        <span class="code">4.</span>
+                        <span class="name">Avoid: 地产 (-33.7B), 金融 (-14.3B)</span>
+                        <span class="signal" style="background:rgba(255,68,68,0.2);color:#ff4444">🔴 AVOID</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <h3><span class="icon">⚠️</span> RISK RULES</h3>
+                <div class="rules-list">
+                    <div class="rule-item"><span class="rule">Stop Loss</span><span class="value">-7% HARD</span></div>
+                    <div class="rule-item"><span class="rule">Max Position</span><span class="value">20%</span></div>
+                    <div class="rule-item"><span class="rule">Take Partial</span><span class="value">+10%</span></div>
+                    <div class="rule-item"><span class="rule">Hold Until</span><span class="value">May 2026</span></div>
+                    <div class="rule-item"><span class="rule">Never</span><span class="value">Average Losers</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            🧠 Charles's Super Brain | Smart Money + Hidden Gems + Public Intelligence | Updated: <span id="lastUpdate"></span>
+        </div>
+    </div>
+    
+    <script>
+        function refreshAll() {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+            alert('Data refreshed! For live data, run: cd ~/Desktop/Stock_Analysis && node smart_money_flow.js');
+        }
+        
+        function runAnalysis() {
+            alert('Running analysis...\n\nCheck terminal or reports in:\n~/Desktop/Stock_Analysis/daily_overview/');
+        }
+        
+        document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+        
+        // Auto refresh every 5 minutes
+        setInterval(refreshAll, 5 * 60 * 1000);
+    </script>
+</body>
+</html>

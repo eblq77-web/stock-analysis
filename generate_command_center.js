@@ -1,0 +1,207 @@
+#!/usr/bin/env node
+
+/**
+ * CHARLES'S SUPER BRAIN - COMMAND CENTER GENERATOR v2
+ * With charts and working links
+ */
+
+const fs = require('fs');
+
+const OUTPUT_DIR = process.env.HOME + '/Desktop/Stock_Analysis/daily_overview';
+const BASE_DIR = 'file://' + process.env.HOME + '/Desktop/Stock_Analysis/daily_overview/';
+const TODAY = new Date().toISOString().split('T')[0];
+
+// Data
+const TOP_PICKS = [
+  { code: '835670', name: '数字人', score: 86, sector: 'AI教育' },
+  { code: '300476', name: '中际旭创', score: 85, sector: 'AI硬件' },
+  { code: '870299', name: '吉林碳谷', score: 84, sector: '新材料' },
+  { code: '872926', name: '贝特瑞', score: 83, sector: '新能源' },
+  { code: '872926', name: '贝特瑞', score: 82, sector: '新能源' },
+  { code: '002594', name: '比亚迪', score: 87, sector: '新能源' },
+  { code: '300750', name: '宁德时代', score: 84, sector: '新能源' },
+  { code: '0700', name: '腾讯控股', score: 86, sector: '科技' },
+];
+
+const SECTOR_FLOW = [
+  { sector: '科技', flow: 32.4 },
+  { sector: '新能源', flow: 30.5 },
+  { sector: 'AI硬件', flow: 28.5 },
+  { sector: 'AI教育', flow: 25.2 },
+  { sector: '金融', flow: -14.3 },
+  { sector: '地产', flow: -33.7 },
+];
+
+const REPORTS = [
+  { name: 'Comprehensive', file: `COMPREHENSIVE_SCAN_${TODAY}.txt`, icon: '📊', desc: '176 stocks scanned' },
+  { name: 'Smart Money', file: `SMART_MONEY_FLOW_${TODAY}.txt`, icon: '💰', desc: 'Institutional flows' },
+  { name: 'Intelligence', file: `PUBLIC_INTELLIGENCE_${TODAY}.txt`, icon: '🔍', desc: 'Insider + News' },
+  { name: 'Hidden Gems', file: `HIDDEN_GEMS_${TODAY}.txt`, icon: '💎', desc: 'Hidden gems' },
+  { name: 'Deep Intel', file: 'DEEP_INTELLIGENCE.txt', icon: '🧠', desc: 'Advanced analysis' },
+  { name: 'Prediction', file: 'TOMORROW_PREDICTION.txt', icon: '🔮', desc: 'Next day outlook' },
+];
+
+function generateDashboard() {
+  const picksHTML = TOP_PICKS.map(s => 
+    `<div class="stock-item"><span class="code">${s.code}</span><span class="name">${s.name}</span><span class="score">${s.score}</span></div>`
+  ).join('');
+  
+  // Chart bars for sector flow
+  const maxFlow = 35;
+  const flowHTML = SECTOR_FLOW.map(s => {
+    const width = Math.min(100, (Math.abs(s.flow) / maxFlow) * 100);
+    const cls = s.flow >= 0 ? 'positive' : 'negative';
+    return `<div class="flow-item">
+      <span class="flow-sector">${s.sector}</span>
+      <div class="flow-bar"><div class="flow-bar-fill ${cls}" style="width:${width}%"></div></div>
+      <span class="flow-value ${cls}">${s.flow > 0 ? '+' : ''}${s.flow}B</span>
+    </div>`;
+  }).join('');
+
+  // Links with full path
+  const linksHTML = REPORTS.map(r =>
+    `<a href="${BASE_DIR}${r.file}" class="report-link" target="_blank"><span class="icon">${r.icon}</span><span class="name">${r.name}</span><span class="desc">${r.desc}</span></a>`
+  ).join('');
+
+  // Chart data for JavaScript
+  const chartData = TOP_PICKS.map(s => `{label:"${s.name}",value:${s.score}}`).join(',');
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧠 Charles's Super Brain - Command Center</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0a0a15 0%, #1a1a2e 100%); min-height: 100vh; color: #fff; }
+.header { background: rgba(0,0,0,0.5); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+.header h1 { font-size: 18px; background: linear-gradient(90deg, #00ff88, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.header .controls button { background: #00ff88; border: none; color: #000; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+.container { max-width: 1800px; margin: 0 auto; padding: 20px; }
+.indices-bar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px; }
+.index-card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid #333; }
+.index-card .name { font-size: 11px; color: #888; }
+.index-card .value { font-size: 16px; font-weight: bold; margin: 5px 0; }
+.index-card .change { font-size: 12px; }
+.index-card.up .change { color: #00ff88; }
+.index-card.down .change { color: #ff4444; }
+.dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
+.panel { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 15px; border: 1px solid #333; }
+.panel h3 { font-size: 14px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #333; }
+.stock-list { font-size: 11px; }
+.stock-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #222; }
+.stock-item:last-child { border-bottom: none; }
+.stock-item .code { color: #00d4ff; font-weight: bold; }
+.stock-item .name { color: #888; flex: 1; margin: 0 8px; }
+.stock-item .score { color: #00ff88; font-weight: bold; }
+.flow-item { display: flex; align-items: center; padding: 8px 0; }
+.flow-sector { width: 70px; font-weight: bold; font-size: 10px; }
+.flow-bar { flex: 1; height: 12px; background: #222; border-radius: 6px; margin: 0 10px; overflow: hidden; }
+.flow-bar-fill { height: 100%; border-radius: 6px; }
+.flow-bar-fill.positive { background: linear-gradient(90deg, #00ff88, #00d4ff); }
+.flow-bar-fill.negative { background: linear-gradient(90deg, #ff4444, #ff8800); }
+.flow-value { width: 60px; text-align: right; font-weight: bold; }
+.flow-value.positive { color: #00ff88; }
+.flow-value.negative { color: #ff4444; }
+.bottom-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
+.action-panel { background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.3); }
+.rules-list { font-size: 11px; }
+.rule-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #222; }
+.rule-value { color: #00ff88; font-weight: bold; }
+.report-links { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 20px; }
+.report-link { background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none; display: block; }
+.report-link:hover { background: rgba(0,255,136,0.1); border-color: #00ff88; transform: translateY(-2px); }
+.report-link .icon { font-size: 24px; display: block; margin-bottom: 8px; }
+.report-link .name { color: #fff; font-size: 11px; font-weight: bold; }
+.report-link .desc { color: #888; font-size: 9px; margin-top: 4px; }
+.footer { text-align: center; padding: 20px; color: #666; font-size: 11px; }
+
+/* CHART STYLES */
+.chart-container { margin-top: 15px; }
+.chart-title { font-size: 12px; color: #888; margin-bottom: 10px; }
+.bar-chart { display: flex; flex-direction: column; gap: 8px; }
+.bar-row { display: flex; align-items: center; }
+.bar-label { width: 80px; font-size: 10px; color: #888; }
+.bar-container { flex: 1; height: 20px; background: #222; border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+.bar-fill.high { background: linear-gradient(90deg, #00ff88, #00d4ff); }
+.bar-fill.medium { background: linear-gradient(90deg, #ffd700, #ff8800); }
+.bar-fill.low { background: linear-gradient(90deg, #ff4444, #ff8800); }
+.bar-value { width: 40px; text-align: right; font-size: 10px; font-weight: bold; margin-left: 8px; }
+
+@media (max-width: 1200px) { .dashboard-grid { grid-template-columns: repeat(2, 1fr); } .indices-bar { grid-template-columns: repeat(3, 1fr); } .bottom-grid { grid-template-columns: 1fr; } .report-links { grid-template-columns: repeat(3, 1fr); } }
+</style>
+</head>
+<body>
+<div class="header">
+<h1>🧠 CHARLES'S SUPER BRAIN - COMMAND CENTER</h1>
+<div class="controls"><button onclick="location.reload()">🔄 Refresh</button></div>
+</div>
+<div class="container">
+<div class="indices-bar">
+<div class="index-card up"><div class="name">Shanghai</div><div class="value">3,431</div><div class="change">+0.93%</div></div>
+<div class="index-card up"><div class="name">Shenzhen</div><div class="value">11,185</div><div class="change">+1.69%</div></div>
+<div class="index-card down"><div class="name">ChiNext</div><div class="value">2,183</div><div class="change">-0.58%</div></div>
+<div class="index-card down"><div class="name">Beijing</div><div class="value">889</div><div class="change">-1.15%</div></div>
+<div class="index-card down"><div class="name">HK</div><div class="value">18,964</div><div class="change">-0.18%</div></div>
+<div class="index-card up"><div class="name">HK Tech</div><div class="value">4,262</div><div class="change">+1.50%</div></div>
+</div>
+<div class="dashboard-grid">
+<div class="panel"><h3>🎯 TOP PICKS</h3><div class="stock-list">${picksHTML}</div>
+<div class="chart-container"><div class="chart-title">📊 Score Chart</div><div class="bar-chart" id="scoreChart"></div></div>
+</div>
+<div class="panel"><h3>💰 SMART MONEY FLOW</h3><div class="money-flow">${flowHTML}</div></div>
+<div class="panel"><h3>💎 HIDDEN GEMS</h3><div class="stock-list">
+<div class="stock-item"><span class="code">835670</span><span class="name">数字人</span><span class="score">86</span></div>
+<div class="stock-item"><span class="code">300476</span><span class="name">中际旭创</span><span class="score">85</span></div>
+<div class="stock-item"><span class="code">870299</span><span class="name">吉林碳谷</span><span class="score">84</span></div>
+<div class="stock-item"><span class="code">872926</span><span class="name">贝特瑞</span><span class="score">83</span></div>
+</div></div>
+<div class="panel"><h3>🏆 RANKING</h3><div class="stock-list">
+<div class="stock-item"><span style="color:#ffd700">🥇</span><span class="code">835670</span><span class="name">数字人</span><span class="score">86</span></div>
+<div class="stock-item"><span style="color:#c0c0c0">🥈</span><span class="code">300476</span><span class="name">中际旭创</span><span class="score">85</span></div>
+<div class="stock-item"><span style="color:#cd7f32">🥉</span><span class="code">870299</span><span class="name">吉林碳谷</span><span class="score">84</span></div>
+</div></div>
+</div>
+<div class="bottom-grid">
+<div class="panel action-panel"><h3>⚡ TODAY'S ACTION</h3><div class="stock-list">
+<div class="stock-item"><span class="code">1.</span><span class="name">Start 数字人 (835670) - 15% max</span><span class="score" style="color:#00ff88">¥45-50</span></div>
+<div class="stock-item"><span class="code">2.</span><span class="name">Add 中际旭创 (300476) - 12%</span><span class="score" style="color:#00ff88">¥150-160</span></div>
+<div class="stock-item"><span class="code">3.</span><span class="name">Watch 贝特瑞 - 10%</span><span class="score" style="color:#00ff88">¥85-90</span></div>
+<div class="stock-item"><span class="code">4.</span><span class="name">Avoid 地产, 金融</span><span class="score" style="color:#ff4444">🔴 AVOID</span></div>
+</div></div>
+<div class="panel"><h3>⚠️ RISK RULES</h3><div class="rules-list">
+<div class="rule-item"><span>Stop Loss</span><span class="rule-value">-7% HARD</span></div>
+<div class="rule-item"><span>Max Position</span><span class="rule-value">20%</span></div>
+<div class="rule-item"><span>Take Partial</span><span class="rule-value">+10%</span></div>
+<div class="rule-item"><span>Hold Until</span><span class="rule-value">May 2026</span></div>
+</div></div>
+</div>
+<div class="panel"><h3>📁 DAILY RECAP - CLICK TO OPEN REPORTS</h3>
+<div class="report-links">${linksHTML}</div>
+</div>
+<div class="footer">🧠 Charles's Super Brain | Updated: ${new Date().toLocaleString()}</div>
+</div>
+<script>
+const chartData = [${chartData}];
+const chartContainer = document.getElementById('scoreChart');
+chartData.forEach((item, i) => {
+  const width = item.value;
+  let cls = 'high';
+  if (width < 70) cls = 'medium';
+  if (width < 60) cls = 'low';
+  const row = document.createElement('div');
+  row.className = 'bar-row';
+  row.innerHTML = '<span class="bar-label">' + item.label + '</span><div class="bar-container"><div class="bar-fill ' + cls + '" style="width:' + width + '%"></div></div><span class="bar-value">' + item.value + '</span>';
+  chartContainer.appendChild(row);
+});
+</script>
+</body>
+</html>`;
+
+  fs.writeFileSync(`${OUTPUT_DIR}/command_center.html`, html);
+  console.log(`✅ Command Center v2 generated`);
+}
+
+generateDashboard();

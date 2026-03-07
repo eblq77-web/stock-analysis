@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Super Brain Alert Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="60">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        h1 { text-align: center; color: #00ff88; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .time { color: #888; font-size: 14px; }
+        
+        .section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .stock {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        
+        .up { color: #00ff88; }
+        .down { color: #ff4444; }
+        
+        .alert {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 10px;
+            min-width: 150px;
+        }
+        
+        .stat-number { font-size: 32px; font-weight: bold; }
+        .stat-label { font-size: 12px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚨 SUPER BRAIN ALERT DASHBOARD</h1>
+        <p class="time" id="time"></p>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-number" style="color:#00ff88">3</div>
+            <div class="stat-label">Active Stocks</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" style="color:#ff6b6b">3</div>
+            <div class="stat-label">Today's Alerts</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">2</div>
+            <div class="stat-label">Breakouts</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Volume Spikes</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>📊 Monitored Stocks</h2>
+        <div class="stock">
+            <span>000999 华润三九</span>
+            <span class="up">¥29.55 (+1.50%)</span>
+        </div>
+        <div class="stock">
+            <span>600570 恒生电子</span>
+            <span class="up">¥28.58 (+2.80%)</span>
+        </div>
+        <div class="stock">
+            <span>601012 隆基绿能</span>
+            <span class="down">¥18.06 (-2.50%)</span>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>🚨 Active Alerts</h2>
+        <div class="alert">
+            <strong>🔔 VOLUME SPIKE:</strong> 恒生电子 - Volume 2.5x average!
+        </div>
+        <div class="alert">
+            <strong>🔔 VOLUME SPIKE:</strong> 隆基绿能 - Volume 3x average!
+        </div>
+        <div class="alert">
+            <strong>🚀 BREAKOUT:</strong> 宁德时代 +4.5%!
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>🎯 Today's Recommendations</h2>
+        <div class="stock">
+            <span>000999 华润三九</span>
+            <span style="color:#00ff88">✅ PASS - 医药 sector</span>
+        </div>
+        <div class="stock">
+            <span>600570 恒生电子</span>
+            <span style="color:#00ff88">✅ PASS - 科技 sector</span>
+        </div>
+        <div class="stock">
+            <span>601012 隆基绿能</span>
+            <span style="color:#ffaa00">⚠️ Below ¥25 but momentum</span>
+        </div>
+    </div>
+    
+    <div style="text-align:center; margin-top:30px; color:#666;">
+        Auto-refreshes every 60 seconds | Super Brain v2.0
+    </div>
+    
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>

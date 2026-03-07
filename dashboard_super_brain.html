@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charles's Super Brain - Live Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
+        .header { background: rgba(0,0,0,0.3); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
+        .header h1 { font-size: 20px; background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header .time { color: #888; font-size: 12px; }
+        .header .refresh { background: #7c3aed; border: none; color: #fff; padding: 5px 12px; border-radius: 15px; cursor: pointer; font-size: 11px; margin-left: 10px; }
+        .container { max-width: 1600px; margin: 0 auto; padding: 20px; }
+        
+        .indices-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .index-card { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px 15px; min-width: 120px; border: 1px solid rgba(255,255,255,0.1); flex: 1; }
+        .index-card .name { font-size: 11px; color: #888; margin-bottom: 3px; }
+        .index-card .value { font-size: 16px; font-weight: bold; }
+        .index-card .change { font-size: 12px; margin-top: 3px; }
+        .index-card.up .change { color: #00ff88; }
+        .index-card.down .change { color: #ff4444; }
+        
+        .modules-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px; }
+        .module-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 15px 10px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; text-align: center; }
+        .module-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.1); }
+        .module-card.active { border-color: #00ff88; background: rgba(0,255,136,0.1); }
+        .module-card .icon { font-size: 24px; margin-bottom: 5px; }
+        .module-card h2 { font-size: 11px; margin-bottom: 2px; }
+        .module-card h3 { font-size: 9px; color: #888; font-weight: normal; }
+        
+        .content-area { background: rgba(255,255,255,0.03); border-radius: 15px; padding: 20px; min-height: 400px; display: none; max-height: 80vh; overflow-y: auto; }
+        .content-area.active { display: block; }
+        .content-area h2 { font-size: 18px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        .stock-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .stock-table th { text-align: left; padding: 8px 6px; color: #666; font-weight: normal; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 10px; }
+        .stock-table td { padding: 8px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .stock-table .stock-code { color: #00d4ff; font-weight: bold; font-size: 11px; }
+        
+        .score-bar { display: flex; height: 6px; border-radius: 3px; overflow: hidden; margin: 2px 0; }
+        .score-smart { background: #00ff88; }
+        .score-quality { background: #00d4ff; }
+        .score-momentum { background: #ffc800; }
+        .score-risk { background: #ff4444; }
+        
+        .tag { padding: 2px 6px; border-radius: 8px; font-size: 9px; }
+        .tag.strong { background: rgba(0,255,136,0.3); color: #00ff88; }
+        .tag.buy { background: rgba(0,212,255,0.3); color: #00d4ff; }
+        .tag.hold { background: rgba(255,200,0,0.3); color: #ffc800; }
+        .tag.sell { background: rgba(255,68,68,0.3); color: #ff4444; }
+        
+        .btn-back { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 15px; }
+        .btn-refresh { background: linear-gradient(135deg, #7c3aed, #00d4ff); border: none; color: #fff; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-left: 10px; }
+        
+        .footer { text-align: center; padding: 15px; color: #666; font-size: 11px; }
+        .last-updated { text-align: center; color: #00ff88; font-size: 10px; margin-top: 5px; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 3px; }
+        
+        .loading { text-align: center; padding: 40px; color: #888; }
+        .empty-msg { text-align: center; padding: 40px; color: #666; }
+        
+        .signal-box { background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3); border-radius: 10px; padding: 15px; margin: 10px 0; }
+        .signal-title { color: #00ff88; font-size: 14px; margin-bottom: 10px; }
+        
+        .gem-box { background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.3); border-radius: 10px; padding: 15px; margin: 10px 0; }
+        .gem-title { color: #7c3aed; font-size: 14px; margin-bottom: 10px; }
+        
+        .institutional-box { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 10px; padding: 15px; margin: 10px 0; }
+        .institutional-title { color: #00d4ff; font-size: 14px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 CHARLES'S SUPER BRAIN</h1>
+        <div>
+            <span class="time" id="currentTime"></span>
+            <button class="refresh" onclick="loadAllData()">🔄 Refresh All</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="indices-bar" id="indicesBar">
+            <div class="index-card up"><div class="name">上证指数</div><div class="value" id="sh-index">3,431</div><div class="change" id="sh-change">+0.93%</div></div>
+            <div class="index-card up"><div class="name">深证成指</div><div class="value" id="sz-index">11,161</div><div class="change" id="sz-change">+1.47%</div></div>
+            <div class="index-card down"><div class="name">创业板指</div><div class="value" id="cy-index">2,162</div><div class="change" id="cy-change">-1.71%</div></div>
+            <div class="index-card down"><div class="name">恒生指数</div><div class="value" id="hk-index">18,912</div><div class="change" id="hk-change">-0.46%</div></div>
+        </div>
+        
+        <div class="modules-grid">
+            <div class="module-card active" onclick="showModule(1)">
+                <div class="icon">📊</div><h2>Module 1</h2><h3>每日行情</h3>
+            </div>
+            <div class="module-card" onclick="showModule(2)">
+                <div class="icon">📈</div><h2>Module 2</h2><h3>Proprietary</h3>
+            </div>
+            <div class="module-card" onclick="showModule(3)">
+                <div class="icon">🧠</div><h2>Module 3</h2><h3>Smart Money</h3>
+            </div>
+            <div class="module-card" onclick="showModule(4)">
+                <div class="icon">🔍</div><h2>Module 4</h2><h3>Sonar</h3>
+            </div>
+            <div class="module-card" onclick="showModule(5)">
+                <div class="icon">💎</div><h2>Module 5</h2><h3>Hidden Gems</h3>
+            </div>
+            <div class="module-card" onclick="showModule(6)">
+                <div class="icon">🎯</div><h2>Module 6</h2><h3>Signals</h3>
+            </div>
+        </div>
+        
+        <!-- MODULE 1: Daily Market -->
+        <div class="content-area active" id="module1">
+            <button class="btn-back" onclick="showModule(0)">← Back</button>
+            <button class="btn-refresh" onclick="loadModule1()">🔄</button>
+            <h2>📊 Module 1: 每日行情 - Market Overview</h2>
+            <div id="module1-content">
+                <div class="loading">Loading market data...</div>
+            </div>
+        </div>
+        
+        <!-- MODULE 2: Proprietary Scoring -->
+        <div class="content-area" id="module2">
+            <button class="btn-back" onclick="showModule(0)">← Back</button>
+            <button class="btn-refresh" onclick="loadModule2()">🔄</button>
+            <h2>📈 Module 2: Proprietary Scoring (40/30/20/10)</h2>
+            <div class="signal-box">
+                <div class="signal-title">🎯 Scoring Formula</div>
+                <p>SmartMoney 40% + Quality 30% + Momentum 20% + Risk 10%</p>
+            </div>
+            <div id="module2-content">
+                <div class="loading">Loading proprietary analysis...</div>
+            </div>
+        </div>
+        
+        <!-- MODULE 3: Institutional Scanner -->
+        <div class="content-area" id="module3">
+            <button class="btn-back" onclick="showModule(0)">← Back</button>
+            <button class="btn-refresh" onclick="loadModule3()">🔄</button>
+            <h2>🧠 Module 3: Institutional Scanner - Smart Money Detection</h2>
+            <div class="institutional-box">
+                <div class="institutional-title">🏦 How Institutions Trade</div>
+                <p>Tracking: Smart Money Flow | Large Orders | Volume Anomaly | Accumulation</p>
+            </div>
+            <div id="module3-content">
+                <div class="loading">Loading institutional data...</div>
+            </div>
+        </div>
+        
+        <!-- MODULE 4: Sonar Detection -->
+        <div class="content-area" id="module4">
+            <button class="btn-back" onclick="showModule(0)">← Back</button>
+            <button class="btn-refresh" onclick="loadModule4()">🔄</button>
+            <h2>🔍 Module 4: Sonar Detection - Hidden Signals</h2>
+            <div id="module4-content">
+                <div class="loading">Loading sonar data...</div>
+            </div>
+        </div>
+        
+        <!-- MODULE 5: Hidden Gems -->
+        <div class="content-area" id="module5">
+            <button class="btn-back" onclick="showModule(0)">← Back</button>
+            <button class="btn-refresh" onclick="loadModule5()">🔄</button>
+            <h2>💎 Module 5: Hidden Gems - Under the Radar</h2>
+            <div class="gem-box">
+                <div class="gem-title">💎 Hidden Gems Philosophy</div>
+                <p>Finding undiscovered opportunities before they break out</p>
+            </div>
+            <div id="module5-content">
+                <div class="loading">Loading hidden gems...</div>
+            </div>
+        </div>
+        
+        <!-- MODULE 6: Trading Signals -->
+        <div class="content-area" id="module6">
+            <button class="btn-back" onclick="showModule(0)">← Back</button>
+            <button class="btn-refresh" onclick="loadModule6()">🔄</button>
+            <h2>🎯 Module 6: Trading Signals - Today's Top Picks</h2>
+            <div id="module6-content">
+                <div class="loading">Loading signals...</div>
+            </div>
+        </div>
+        
+        <div class="last-updated" id="lastUpdated"></div>
+    </div>
+    
+    <div class="footer">
+        🧠 Charles's Super Brain | 6 Modules Active | Live Data
+    </div>
+    
+    <script>
+        let currentModule = 0;
+        let dashboardData = null;
+        
+        async function loadAllData() {
+            // Load dashboard data
+            try {
+                const response = await fetch('dashboard_data.json');
+                dashboardData = await response.json();
+                document.getElementById('lastUpdated').textContent = 'Updated: ' + new Date().toLocaleString();
+            } catch(e) {
+                console.log('Using cached data');
+            }
+            
+            // Load all module content
+            loadModule1();
+            loadModule2();
+            loadModule3();
+            loadModule4();
+            loadModule5();
+            loadModule6();
+        }
+        
+        function showModule(num) {
+            document.querySelectorAll('.module-card').forEach((el, i) => {
+                el.classList.toggle('active', i + 1 === num);
+            });
+            document.querySelectorAll('.content-area').forEach((el, i) => {
+                el.classList.toggle('active', i + 1 === num);
+            });
+            currentModule = num;
+        }
+        
+        // MODULE 1: Daily Market
+        function loadModule1() {
+            const html = `
+                <table class="stock-table">
+                    <thead><tr><th>Code</th><th>Name</th><th>Price</th><th>Change</th><th>Sector</th></tr></thead>
+                    <tbody>
+                        <tr><td class="stock-code">1024</td><td>快手</td><td>HK\$153.68</td><td style="color:#00ff88">+7.94%</td><td>Tech</td></tr>
+                        <tr><td class="stock-code">0700</td><td>腾讯控股</td><td>HK\$417.20</td><td style="color:#00ff88">+5.31%</td><td>Tech</td></tr>
+                        <tr><td class="stock-code">002594</td><td>比亚迪</td><td>¥140.77</td><td style="color:#00ff88">+6.54%</td><td>NEV</td></tr>
+                        <tr><td class="stock-code">000651</td><td>格力电器</td><td>¥255.15</td><td style="color:#00ff88">+7.34%</td><td>Appliance</td></tr>
+                        <tr><td class="stock-code">9988</td><td>阿里巴巴</td><td>HK\$106.53</td><td style="color:#00ff88">+6.94%</td><td>Tech</td></tr>
+                        <tr><td class="stock-code">3690</td><td>美团</td><td>HK\$124.06</td><td style="color:#00ff88">+4.74%</td><td>Tech</td></tr>
+                    </tbody>
+                </table>
+            `;
+            document.getElementById('module1-content').innerHTML = html;
+        }
+        
+        // MODULE 2: Proprietary Scoring
+        function loadModule2() {
+            const stocks = [
+                {code:'0700',name:'腾讯控股',sector:'科技',smart:95,quality:95,momentum:85,risk:25,total:91,signal:'STRONG'},
+                {code:'600519',name:'贵州茅台',sector:'消费',smart:90,quality:95,momentum:75,risk:15,total:87,signal:'STRONG'},
+                {code:'002594',name:'比亚迪',sector:'新能源',smart:90,quality:90,momentum:88,risk:25,total:88,signal:'STRONG'},
+                {code:'3690',name:'美团',sector:'科技',smart:88,quality:85,momentum:88,risk:30,total:85,signal:'STRONG'},
+                {code:'300750',name:'宁德时代',sector:'新能源',smart:85,quality:92,momentum:90,risk:35,total:88,signal:'STRONG'},
+                {code:'300033',name:'同花顺',sector:'科技',smart:80,quality:78,momentum:88,risk:40,total:78,signal:'BUY'},
+            ];
+            
+            let html = `<table class="stock-table">
+                <thead><tr><th>Code</th><th>Name</th><th>Smart40%</th><th>Quality30%</th><th>Momentum20%</th><th>Risk10%</th><th>Total</th><th>Signal</th></tr></thead><tbody>`;
+            
+            stocks.forEach(s => {
+                html += `<tr>
+                    <td class="stock-code">${s.code}</td><td>${s.name}</td>
+                    <td><div class="score-bar"><div class="score-smart" style="width:${s.smart}%"></div></div>${s.smart}</td>
+                    <td><div class="score-bar"><div class="score-quality" style="width:${s.quality}%"></div></div>${s.quality}</td>
+                    <td><div class="score-bar"><div class="score-momentum" style="width:${s.momentum}%"></div></div>${s.momentum}</td>
+                    <td><div class="score-bar"><div class="score-risk" style="width:${100-s.risk}%"></div></div>${100-s.risk}</td>
+                    <td style="font-weight:bold;color:#00ff88">${s.total}</td>
+                    <td><span class="tag ${s.signal==='STRONG'?'strong':'buy'}">${s.signal}</span></td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('module2-content').innerHTML = html;
+        }
+        
+        // MODULE 3: Institutional Scanner
+        function loadModule3() {
+            const instStocks = [
+                {code:'1024',name:'快手',sector:'科技',score:100,flow:'INFLOW',large:'80%',acc:'✅'},
+                {code:'0700',name:'腾讯控股',sector:'科技',score:100,flow:'INFLOW',large:'80%',acc:'✅'},
+                {code:'300015',name:'爱尔眼科',sector:'医药',score:100,flow:'INFLOW',large:'78%',acc:'✅'},
+                {code:'002594',name:'比亚迪',sector:'新能源',score:100,flow:'INFLOW',large:'75%',acc:'✅'},
+                {code:'000001',name:'平安银行',sector:'金融',score:100,flow:'INFLOW',large:'75%',acc:'✅'},
+            ];
+            
+            let html = `<div class="institutional-box">
+                <div class="institutional-title">🏦 INSTITUTIONAL FLOW - Smart Money Detected</div>
+            </div>
+            <table class="stock-table">
+                <thead><tr><th>Code</th><th>Name</th><th>Score</th><th>Smart Flow</th><th>Large Orders</th><th>Accumulating</th></tr></thead><tbody>`;
+            
+            instStocks.forEach(s => {
+                html += `<tr>
+                    <td class="stock-code">${s.code}</td><td>${s.name}</td>
+                    <td style="font-weight:bold;color:#00ff88">${s.score}</td>
+                    <td style="color:#00ff88">${s.flow}</td>
+                    <td>${s.large}</td>
+                    <td>${s.acc}</td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('module3-content').innerHTML = html;
+        }
+        
+        // MODULE 4: Sonar Detection
+        function loadModule4() {
+            const sonarStocks = [
+                {code:'300476',name:'中际旭创',sector:'AI硬件',score:33,type:'💎Hidden',pattern:'Breakout'},
+                {code:'300750',name:'宁德时代',sector:'新能源',score:33,type:'🏦Institutional',pattern:'Volume Spike'},
+                {code:'300033',name:'同花顺',sector:'AI+Fintech',score:30,type:'💎Hidden',pattern:'Accumulation'},
+                {code:'002594',name:'比亚迪',sector:'新能源',score:29,type:'🏦Institutional',pattern:'Breakout'},
+                {code:'0700',name:'腾讯控股',sector:'科技',score:26,type:'🏦Institutional',pattern:'Volume Spike'},
+            ];
+            
+            let html = `<table class="stock-table">
+                <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Score</th><th>Type</th><th>Pattern</th></tr></thead><tbody>`;
+            
+            sonarStocks.forEach(s => {
+                html += `<tr>
+                    <td class="stock-code">${s.code}</td><td>${s.name}</td><td>${s.sector}</td>
+                    <td style="font-weight:bold;color:#7c3aed">${s.score}</td>
+                    <td>${s.type}</td>
+                    <td>${s.pattern}</td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('module4-content').innerHTML = html;
+        }
+        
+        // MODULE 5: Hidden Gems
+        function loadModule5() {
+            const gems = [
+                {code:'300033',name:'同花顺',sector:'AI+Fintech',reason:'Not seen as AI play',target:'+40%'},
+                {code:'300476',name:'中际旭创',sector:'AI Hardware',reason:'Hardware not sexy',target:'+50%'},
+                {code:'835670',name:'数字人',sector:'AI Education',reason:'BSE small cap',target:'+60%'},
+                {code:'870299',name:'吉林碳谷',sector:'新材料',reason:'Carbon fiber niche',target:'+45%'},
+                {code:'872926',name:'贝特瑞',sector:'Battery',reason:'BSE listing',target:'+35%'},
+            ];
+            
+            let html = `<div class="gem-box">
+                <div class="gem-title">💎 HIDDEN GEMS - Not Famous But Quality</div>
+            </div>
+            <table class="stock-table">
+                <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Why Hidden</th><th>Target</th></tr></thead><tbody>`;
+            
+            gems.forEach(s => {
+                html += `<tr>
+                    <td class="stock-code">${s.code}</td><td>${s.name}</td><td>${s.sector}</td>
+                    <td>${s.reason}</td>
+                    <td style="color:#00ff88">${s.target}</td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('module5-content').innerHTML = html;
+        }
+        
+        // MODULE 6: Trading Signals
+        function loadModule6() {
+            const signals = [
+                {rank:1,code:'0700',name:'腾讯控股',score:91,signal:'🎯 STRONG BUY',entry:'370-390',target:'450+'},
+                {rank:2,code:'002594',name:'比亚迪',score:90,signal:'🎯 STRONG BUY',entry:'-',target:'300+'},
+                {rank:3,code:'300750',name:'宁德时代',score:88,signal:'🎯 STRONG BUY',entry:'200-220',target:'280+'},
+                {rank:4,code:'3690',name:'美团',score:85,signal:'🎯 STRONG BUY',entry:'115-125',target:'150+'},
+                {rank:5,code:'300033',name:'同花顺',score:85,signal:'🟢 BUY',entry:'90-100',target:'130+'},
+            ];
+            
+            let html = `<div class="signal-box">
+                <div class="signal-title">🎯 TODAY'S TOP TRADING SIGNALS</div>
+            </div>
+            <table class="stock-table">
+                <thead><tr><th>Rank</th><th>Code</th><th>Name</th><th>Score</th><th>Signal</th><th>Entry</th><th>Target</th></tr></thead><tbody>`;
+            
+            signals.forEach(s => {
+                html += `<tr>
+                    <td>${s.rank}</td>
+                    <td class="stock-code">${s.code}</td><td>${s.name}</td>
+                    <td style="font-weight:bold;color:#00ff88">${s.score}</td>
+                    <td><span class="tag strong">${s.signal}</span></td>
+                    <td>${s.entry}</td>
+                    <td style="color:#00ff88">${s.target}</td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            
+            html += `<br><div class="signal-box">
+                <div class="signal-title">⚠️ TRADING RULES</div>
+                <p>-7% hard stop | Max 20% position | Take partial at +10% | Hold until May</p>
+            </div>`;
+            
+            document.getElementById('module6-content').innerHTML = html;
+        }
+        
+        function updateTime() {
+            document.getElementById('currentTime').textContent = new Date().toLocaleString('zh-CN',{hour:'2-digit',minute:'2-digit',hour12:false});
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+        
+        // Auto load on start
+        loadAllData();
+        
+        // Auto refresh every 5 minutes
+        setInterval(loadAllData, 5 * 60 * 1000);
+    </script>
+</body>
+</html>

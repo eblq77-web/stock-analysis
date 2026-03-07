@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Super Brain ¥25-40 Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="30">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: #fff; padding: 15px; }
+        h1 { text-align: center; color: #00ff88; font-size: 22px; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #00ff88; font-size: 13px; margin-bottom: 10px; }
+        .time { text-align: center; color: #888; font-size: 11px; margin-bottom: 15px; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; }
+        .stat { background: linear-gradient(135deg, #667eea, #764ba2); padding: 10px; border-radius: 10px; text-align: center; }
+        .stat-num { font-size: 18px; font-weight: bold; }
+        .stat-label { font-size: 9px; opacity: 0.8; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; }
+        .exchange { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 10px; }
+        .exchange h3 { color: #00ff88; font-size: 13px; margin-bottom: 8px; }
+        .stock { display: flex; justify-content: space-between; padding: 5px 8px; margin: 3px 0; background: rgba(0,0,0,0.3); border-radius: 5px; font-size: 11px; }
+        .up { color: #00ff88; }
+        .down { color: #ff4444; }
+        .alert-box { background: rgba(255,107,107,0.2); border: 1px solid #ff6b6b; border-radius: 10px; padding: 10px; margin-bottom: 15px; }
+        .alert-box h2 { color: #ff6b6b; font-size: 13px; margin-bottom: 8px; }
+        .alert { background: #ff6b6b; color: white; padding: 6px 10px; border-radius: 5px; margin: 3px 0; font-size: 11px; }
+        .filters { background: rgba(0,255,136,0.1); border: 1px solid #00ff88; border-radius: 10px; padding: 10px; margin-bottom: 15px; }
+        .filters h2 { color: #00ff88; font-size: 13px; margin-bottom: 8px; }
+        .filter-tag { display: inline-block; background: rgba(0,255,136,0.2); color: #00ff88; padding: 3px 8px; border-radius: 10px; font-size: 9px; margin: 2px; }
+        .avoid-tag { background: rgba(255,68,68,0.2); color: #ff4444; }
+        .footer { text-align: center; color: #666; font-size: 10px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Super Brain ¥25-40 Dashboard</h1>
+    <p class="subtitle">Only Stocks in ¥25-40 Range | 6 Exchanges</p>
+    <p class="time" id="time"></p>
+    
+    <div class="stats">
+        <div class="stat"><div class="stat-num" id="totalCount">0</div><div class="stat-label">Total</div></div>
+        <div class="stat"><div class="stat-num" id="upCount">0</div><div class="stat-label">Up</div></div>
+        <div class="stat"><div class="stat-num" id="downCount">0</div><div class="stat-label">Down</div></div>
+        <div class="stat"><div class="stat-num" id="alertCount">0</div><div class="stat-label">Alerts</div></div>
+    </div>
+    
+    <div class="filters">
+        <h2>Algorithm: Only ¥25-40 | Sector: 科技/医药/新能源 | Avoid: 金融</h2>
+    </div>
+    
+    <div class="alert-box">
+        <h2>LIVE ALERTS</h2>
+        <div id="alerts"></div>
+    </div>
+    
+    <div class="grid">
+        <div class="exchange"><h3>SH Main</h3><div id="sh"></div></div>
+        <div class="exchange"><h3>SZ Main</h3><div id="sz"></div></div>
+        <div class="exchange"><h3>CY ChiNext</h3><div id="cy"></div></div>
+        <div class="exchange"><h3>BSE Beijing</h3><div id="bse"></div></div>
+        <div class="exchange"><h3>HK</h3><div id="hk"></div></div>
+        <div class="exchange"><h3>HS Tech</h3><div id="hs"></div></div>
+    </div>
+    
+    <div class="footer">Auto-refresh 30s | ¥25-40 Only | Super Brain v2.0</div>
+    
+    <script>
+    const stocks = {
+        sh: [{c:'600570',n:'恒生电子'},{c:'600009',n:'上海机场'},{c:'600085',n:'同仁堂'},{c:'600089',n:'特变电工'},{c:'600066',n:'宇通客车'},{c:'600038',n:'中直股份'}],
+        sz: [{c:'000999',n:'华润三九'},{c:'000792',n:'盐湖股份'},{c:'000513',n:'丽珠集团'},{c:'000938',n:'紫光股份'}],
+        cy: [{c:'300045',n:'奥普光电'},{c:'300046',n:'台基股份'},{c:'300699',n:'光威复材'},{c:'300696',n:'鸿远电子'},{c:'300678',n:'科华信息'},{c:'300001',n:'睿创微纳'}],
+        bse: [{c:'870299',n:'吉林碳谷'},{c:'872926',n:'贝特瑞'},{c:'870864',n:'红东方'}],
+        hk: [{c:'0700',n:'腾讯控股'},{c:'9988',n:'阿里巴巴'},{c:'3690',n:'美团'}],
+        hs: [{c:'1024',n:'快手'},{c:'3638',n:'泡泡玛特'},{c:'1810',n:'小米'}]
+    };
+    
+    async function fetchStock(code, exchange) {
+        try {
+            const prefix = exchange === 'hk' || exchange === 'hs' ? 'hk' : (code.startsWith('6') ? 'sh' : 'sz');
+            const res = await fetch('https://qt.gtimg.cn/q=' + prefix + code);
+            const text = await res.text();
+            const match = text.match(/"([^"]+)"/);
+            if (match) {
+                const f = match[1].split('~');
+                return { code: code, name: f[1]||code, price: parseFloat(f[3])||0, change: parseFloat(f[4])||0, volume: parseInt(f[5])||0 };
+            }
+        } catch(e) {}
+        return null;
+    }
+    
+    async function update() {
+        document.getElementById('time').textContent = new Date().toLocaleString();
+        let total=0, up=0, down=0, alertC=0, alerts=[];
+        
+        for (const [ex, list] of Object.entries(stocks)) {
+            document.getElementById(ex).innerHTML = '';
+            for (const s of list) {
+                const d = await fetchStock(s.c, ex);
+                if (d && d.price >= 25 && d.price <= 40) {
+                    total++;
+                    const isUp = d.change > 0;
+                    if(isUp) up++; else down++;
+                    if(Math.abs(d.change)>3 || d.volume>2000000) { alertC++; alerts.push(d); }
+                    document.getElementById(ex).innerHTML += '<div class="stock"><span>'+d.code+' '+d.name+'</span><span class="'+(isUp?'up':'down')+'">¥'+d.price.toFixed(2)+' ('+(d.change>=0?'+':'')+d.change.toFixed(2)+'%)</span></div>';
+                }
+            }
+        }
+        document.getElementById('totalCount').innerText = total;
+        document.getElementById('upCount').innerText = up;
+        document.getElementById('downCount').innerText = down;
+        document.getElementById('alertCount').innerText = alertC;
+        document.getElementById('alerts').innerHTML = alerts.length ? alerts.map(a=>'<div class="alert">'+a.name+' '+(a.change>0?'+':'')+a.change.toFixed(2)+'%</div>').join('') : '<div style="color:#888">No alerts</div>';
+    }
+    update(); setInterval(update,30000);
+    </script>
+</body>
+</html>

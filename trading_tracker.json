@@ -1,0 +1,101 @@
+{
+  "week_start": "2026-03-02",
+  "test_period": "1 week (ends 2026-03-09)",
+  "created": "2026-03-02 09:40",
+  "rules": {
+    "max_position_pct": 20,
+    "stop_loss_pct": -7,
+    "take_profit_partial": 10,
+    "hard_stop": -7
+  },
+  "real_trades": [
+    {
+      "id": 1,
+      "code": "sh0700",
+      "name": "腾讯控股",
+      "entry_price": 511.50,
+      "shares": 10,
+      "entry_date": "2026-03-02",
+      "position_pct": 5,
+      "stop_loss": 475.70,
+      "target_10pct": 562.65,
+      "signal": "Super Brain Top Pick",
+      "entry_time": "09:40"
+    },
+    {
+      "id": 2,
+      "code": "sz002594", 
+      "name": "比亚迪",
+      "entry_price": 92.89,
+      "shares": 50,
+      "entry_date": "2026-03-02",
+      "position_pct": 5,
+      "stop_loss": 86.39,
+      "target_10pct": 102.18,
+      "signal": "Super Brain Top Pick",
+      "entry_time": "09:40"
+    },
+    {
+      "id": 3,
+      "code": "sz300750",
+      "name": "宁德时代",
+      "entry_price": 341.82,
+      "shares": 15,
+      "entry_date": "2026-03-02",
+      "position_pct": 5,
+      "stop_loss": 317.89,
+      "target_10pct": 376.00,
+      "signal": "Next Day Surfer #7",
+      "entry_time": "09:40"
+    }
+  ],
+  "paper_trades": [
+    {
+      "id": 1,
+      "code": "sh300308",
+      "name": "中际旭创",
+      "entry_price": 300.14,
+      "shares": 17,
+      "entry_date": "2026-03-02",
+      "position_pct": 5,
+      "stop_loss": 279.13,
+      "target_10pct": 330.15,
+      "signal": "Next Day Surfer #1 (69% surge)",
+      "entry_time": "09:40"
+    },
+    {
+      "id": 2,
+      "code": "bj835670",
+      "name": "数字人",
+      "entry_price": 18.45,
+      "shares": 270,
+      "entry_date": "2026-03-02",
+      "position_pct": 5,
+      "stop_loss": 17.16,
+      "target_10pct": 20.30,
+      "signal": "Smart Scanner Gem (94.7)",
+      "entry_time": "09:40"
+    },
+    {
+      "id": 3,
+      "code": "bj872926",
+      "name": "贝特瑞",
+      "entry_price": 38.50,
+      "shares": 130,
+      "entry_date": "2026-03-02",
+      "position_pct": 5,
+      "stop_loss": 35.81,
+      "target_10pct": 42.35,
+      "signal": "BSE Hidden Gem",
+      "entry_time": "09:40"
+    }
+  ],
+  "results": {
+    "real_total_invested": 15320,
+    "paper_total_invested": 15300,
+    "real_pnl": 0,
+    "paper_pnl": 0,
+    "real_wins": 0,
+    "paper_wins": 0
+  }
+}

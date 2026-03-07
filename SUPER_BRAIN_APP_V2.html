@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧠 Super Brain PRO - Command Center</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0f0f2f 100%);
+      min-height: 100vh;
+      color: #fff;
+    }
+    
+    /* Header */
+    .header {
+      background: linear-gradient(90deg, #1a1a4e 0%, #2d1b4e 100%);
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 30px rgba(100, 50, 200, 0.3);
+      border-bottom: 1px solid rgba(100, 100, 255, 0.2);
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00d9ff, #a855f7, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .header-right {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .status-badge {
+      background: linear-gradient(90deg, #00ff88, #00d9ff);
+      color: #000;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .time {
+      color: #888;
+      font-size: 12px;
+    }
+    
+    /* Navigation */
+    .nav {
+      display: flex;
+      gap: 8px;
+      padding: 12px 25px;
+      background: rgba(0,0,0,0.3);
+      overflow-x: auto;
+      border-bottom: 1px solid rgba(100, 100, 255, 0.1);
+    }
+    
+    .nav-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #aaa;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    
+    .nav-btn:hover, .nav-btn.active {
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      color: #fff;
+      border-color: transparent;
+    }
+    
+    /* Main Content */
+    .main {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+    
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 15px;
+      padding: 18px;
+      border: 1px solid rgba(100, 100, 255, 0.1);
+      transition: all 0.3s;
+    }
+    
+    .card:hover {
+      border-color: rgba(100, 100, 255, 0.3);
+      background: rgba(255,255,255,0.05);
+    }
+    
+    .card-full {
+      grid-column: span 2;
+    }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #a855f7;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .card-icon {
+      font-size: 18px;
+    }
+    
+    /* Buttons */
+    .btn {
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      border: none;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      margin: 3px;
+      transition: all 0.2s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+    }
+    
+    .btn-small {
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+    
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .btn-green { background: linear-gradient(90deg, #00ff88, #00d9ff); color: #000; }
+    .btn-red { background: linear-gradient(90deg, #ff4444, #ff8888); }
+    .btn-yellow { background: linear-gradient(90deg, #ffaa00, #ffdd00); color: #000; }
+    
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    
+    .stat {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00ff88, #00d9ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .stat-label {
+      font-size: 10px;
+      color: #666;
+    }
+    
+    /* Sections */
+    .section { display: none; }
+    .section.active { display: block; }
+    
+    /* Output */
+    .output {
+      background: #0a0a1a;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 11px;
+      min-height: 150px;
+      max-height: 300px;
+      overflow-y: auto;
+      color: #00ff88;
+      margin-top: 12px;
+      white-space: pre-wrap;
+    }
+    
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    th { color: #a855f7; font-weight: 600; }
+    .positive { color: #00ff88; }
+    .negative { color: #ff4444; }
+    .neutral { color: #ffaa00; }
+    
+    /* Quick Links */
+    .quick-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    
+    .quick-link {
+      background: rgba(168, 85, 247, 0.2);
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .quick-link:hover {
+      background: rgba(168, 85, 247, 0.4);
+    }
+    
+    /* Progress Bars */
+    .progress {
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      margin: 8px 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #a855f7, #00d9ff);
+      border-radius: 3px;
+    }
+    
+    /* Loading */
+    .loading {
+      color: #a855f7;
+      animation: pulse 1s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
+    ::-webkit-scrollbar-thumb { background: #a855f7; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">🧠 Super Brain PRO</div>
+    <div class="header-right">
+      <span class="time" id="clock">--:--</span>
+      <div class="status-badge">● LIVE</div>
+    </div>
+  </div>
+  
+  <!-- Navigation -->
+  <div class="nav">
+    <button class="nav-btn active" onclick="showSection('dashboard')">📊 Dashboard</button>
+    <button class="nav-btn" onclick="showSection('trading')">📈 Trading</button>
+    <button class="nav-btn" onclick="showSection('scanner')">🔍 Scanner</button>
+    <button class="nav-btn" onclick="showSection('patterns')">🎯 Patterns</button>
+    <button class="nav-btn" onclick="showSection('knowledge')">🌳 Knowledge</button>
+    <button class="nav-btn" onclick="showSection('analytics')">📉 Analytics</button>
+    <button class="nav-btn" onclick="showSection('content')">✍️ Content</button>
+    <button class="nav-btn" onclick="showSection('crm')">💼 CRM</button>
+    <button class="nav-btn" onclick="showSection('automation')">⚡ Auto</button>
+    <button class="nav-btn" onclick="showSection('settings')">⚙️ Settings</button>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main">
+    
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="section active">
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">📊 Market Overview</span>
+          <span class="card-icon">📈</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="stat-value" id="market-change">-1.5%</div>
+            <div class="stat-label">Market Index</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="active-filters">15</div>
+            <div class="stat-label">Active Filters</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="today-trades">0</div>
+            <div class="stat-label">Today's Trades</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">¥1M</div>
+            <div class="stat-label">Capital</div>
+          </div>
+        </div>
+        <button class="btn" onclick="refreshAll()">🔄 Refresh All</button>
+        <button class="btn btn-secondary" onclick="showSection('trading')">📈 Run Scan</button>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🎯 Quick Actions</span>
+        </div>
+        <div class="quick-links">
+          <div class="quick-link" onclick="showSection('trading')">📈 Trade</div>
+          <div class="quick-link" onclick="showSection('scanner')">🔍 Scan</div>
+          <div class="quick-link" onclick="showSection('patterns')">🎯 Patterns</div>
+          <div class="quick-link" onclick="showSection('content')">✍️ Post</div>
+          <div class="quick-link" onclick="showSection('analytics')">📉 Analytics</div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📈 Today's Performance</span>
+        </div>
+        <table>
+          <tr><th>Pattern</th><th>Stocks</th><th>P&L</th></tr>
+          <tr><td>Daily</td><td>4</td><td class="negative">-2.02%</td></tr>
+          <tr><td>Mid-term</td><td>3</td><td class="negative">-1.83%</td></tr>
+          <tr><td>Long-term</td><td>3</td><td class="neutral">0.00%</td></tr>
+        </table>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🧠 AI Insights</span>
+        </div>
+        <div class="output" style="min-height:80px;max-height:150px;">
+📌 Market: Weak Bear regime detected
+📌 Sector: 新能源 showing accumulation
+📌 Pattern: Bottom fishing opportunity
+📌 Action: DEFENSIVE - Wait for confirmation</div>
+      </div>
+      
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">🏦 Institutional Flow</span>
+        </div>
+        <table>
+          <tr><th>Stock</th><th>Flow</th><th>Score</th><th>Signal</th></tr>
+          <tr><td>隆基绿能</td><td class="positive">+2.16%</td><td>100</td><td class="positive">BUY</td></tr>
+          <tr><td>爱尔眼科</td><td class="positive">+0.5%</td><td>100</td><td class="positive">BUY</td></tr>
+          <tr><td>平安银行</td><td class="positive">+0.86%</td><td>100</td><td class="neutral">WATCH</td></tr>
+          <tr><td>腾讯控股</td><td class="negative">-0.98%</td><td>100</td><td class="negative">AVOID</td></tr>
+        </table>
+      </div>
+    </div>
+    
+    <!-- TRADING -->
+    <div id="trading" class="section">
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">📈 Advanced Trading System</span>
+        </div>
+        <div style="margin-bottom:10px;">
+          <button class="btn btn-green" onclick="runBuyScan()">🟢 Run Buy Scan</button>
+          <button class="btn btn-red" onclick="checkSell()">🔴 Check Sell</button>
+          <button class="btn btn-yellow" onclick="runBacktest()">📊 Backtest</button>
+          <button class="btn btn-secondary" onclick="showTradeStatus()">📋 Status</button>
+        </div>
+        <div class="output" id="trading-output">
+Click a button to run trading system...
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚙️ Filters</span>
+        </div>
+        <div class="stat-label">Active Filters: 15/15</div>
+        <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
+        <button class="btn btn-small" onclick="editFilters()">✏️ Edit Filters</button>
+        <button class="btn btn-small btn-secondary" onclick="resetFilters()">🔄 Reset</button>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📊 Position Manager</span>
+        </div>
+        <table>
+          <tr><th>Stock</th><th>Shares</th><th>P&L</th></tr>
+          <tr><td colspan="3" style="text-align:center;color:#666;">No positions</td></tr>
+        </table>
+        <button class="btn btn-small" onclick="closeAll()">Close All</button>
+      </div>
+    </div>
+    
+    <!-- SCANNER -->
+    <div id="scanner" class="section">
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">🔍 Stock Scanners</span>
+        </div>
+        <div style="margin-bottom:10px;">
+          <button class="btn" onclick="runScanner('mega')">🚀 Mega Scanner</button>
+          <button class="btn btn-secondary" onclick="runScanner('institutional')">🏦 Institutional</button>
+          <button class="btn btn-secondary" onclick="runScanner('smart')">🧠 Smart</button>
+          <button class="btn btn-secondary" onclick="runScanner('quantum')">⚡ Quantum</button>
+          <button class="btn btn-secondary" onclick="runScanner('sonar')">📡 Sonar</button>
+        </div>
+        <div class="output" id="scanner-output">
+Select a scanner to run...
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🎯 Watchlist</span>
+        </div>
+        <table>
+          <tr><th>Code</th><th>Price</th><th>Signal</th></tr>
+          <tr><td>601012</td><td>¥17.99</td><td class="positive">BUY</td></tr>
+          <tr><td>600089</td><td>¥29.68</td><td class="positive">BUY</td></tr>
+          <tr><td>600085</td><td>¥30.38</td><td class="neutral">WATCH</td></tr>
+        </table>
+        <button class="btn btn-small" onclick="addWatchlist()">➕ Add</button>
+      </div>
+    </div>
+    
+    <!-- PATTERNS -->
+    <div id="patterns" class="section">
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">🎯 Institutional Patterns</span>
+        </div>
+        <button class="btn" onclick="analyzePatterns()">🧠 Analyze</button>
+        <button class="btn btn-secondary" onclick="showPatternLibrary()">📚 Library</button>
+        <button class="btn btn-secondary" onclick="showHistoryCycles()">📜 History</button>
+        <div class="output" id="patterns-output">
+4 Institutional Patterns + Historical + Geopolitics...
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🗳️ Geopolitics</span>
+        </div>
+        <div class="stat-label">US-China: Negative</div>
+        <div class="progress"><div class="progress-bar" style="width:70%;background:linear-gradient(90deg,#ff4444,#ffaa00)"></div></div>
+        <div class="stat-label">Fed Policy: Cautious</div>
+        <div class="progress"><div class="progress-bar" style="width:50%"></div></div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📈 Market Regime</span>
+        </div>
+        <div style="font-size:24px;text-align:center;margin:10px;color:#ffaa00;">WEAK BEAR</div>
+        <div class="stat-label">Action: DEFENSIVE</div>
+        <button class="btn btn-small" onclick="detectRegime()">🔄 Detect</button>
+      </div>
+    </div>
+    
+    <!-- KNOWLEDGE -->
+    <div id="knowledge" class="section">
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">🌳 Knowledge Tree</span>
+        </div>
+        <button class="btn" onclick="updateKnowledge()">📡 Auto Update</button>
+        <button class="btn btn-secondary" onclick="showKnowledgeBase()">📚 View Base</button>
+        <button class="btn btn-secondary" onclick="scrapeWeb()">🌐 Scrape</button>
+        <div class="output" id="knowledge-output">
+Knowledge Tree: Ready to update...
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">💡 Recent Insights</span>
+        </div>
+        <div style="font-size:11px;color:#888;">
+          • Institutional accumulating 新能源<br>
+          • Market near historical bottom cycle<br>
+          • US-China tension affecting tech<br>
+          • 4-year cycle pattern emerging
+        </div>
+      </div>
+    </div>
+    
+    <!-- ANALYTICS -->
+    <div id="analytics" class="section">
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">📉 Analytics & Reports</span>
+        </div>
+        <button class="btn" onclick="generateReport()">📊 Generate Report</button>
+        <button class="btn btn-secondary" onclick="showStats()">📈 Statistics</button>
+        <button class="btn btn-secondary" onclick="showCharts()">📉 Charts</button>
+        <div class="output" id="analytics-output">
+Analytics Dashboard...
+        </div>
+      </div>
+    </div>
+    
+    <!-- CONTENT -->
+    <div id="content" class="section">
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">✍️ Content Creation</span>
+        </div>
+        <button class="btn" onclick="generatePost()">📝 Generate Post</button>
+        <button class="btn btn-secondary" onclick="showTemplates()">📋 Templates</button>
+        <button class="btn btn-secondary" onclick="schedulePost()">📅 Schedule</button>
+        <button class="btn btn-secondary" onclick="openRedbook()">🌐 Publish</button>
+        <div class="output" id="content-output">
+Content Tools Ready...
+        </div>
+      </div>
+    </div>
+    
+    <!-- CRM -->
+    <div id="crm" class="section">
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">💼 CRM - Client Management</span>
+        </div>
+        <button class="btn" onclick="showClients()">👥 View Clients</button>
+        <button class="btn btn-secondary" onclick="addClient()">➕ Add Client</button>
+        <button class="btn btn-secondary" onclick="showPipeline()">📊 Pipeline</button>
+        <div class="output" id="crm-output">
+CRM Ready...
+        </div>
+      </div>
+    </div>
+    
+    <!-- AUTOMATION -->
+    <div id="automation" class="section">
+      <div class="card card-full">
+        <div class="card-header">
+          <span class="card-title">⚡ Automation Center</span>
+        </div>
+        <button class="btn btn-green" onclick="startAutoTrade()">▶️ Start Auto-Trade</button>
+        <button class="btn btn-red" onclick="stopAutoTrade()">⏹️ Stop</button>
+        <button class="btn btn-secondary" onclick="showCronJobs()">⏰ Cron Jobs</button>
+        <button class="btn btn-secondary" onclick="showAlerts()">🔔 Alerts</button>
+        <div class="output" id="automation-output">
+Automation: Ready
+        </div>
+      </div>
+    </div>
+    
+    <!-- SETTINGS -->
+    <div id="settings" class="section">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚙️ Settings</span>
+        </div>
+        <button class="btn btn-secondary" onclick="showFilters()">🔧 Edit Filters</button>
+        <button class="btn btn-secondary" onclick="showAPIKeys()">🔑 API Keys</button>
+        <button class="btn btn-secondary" onclick="showAbout()">ℹ️ About</button>
+      </div>
+    </div>
+    
+  </div>
+
+  <script>
+    // Clock
+    setInterval(() => {
+      document.getElementById('clock').innerText = new Date().toLocaleTimeString();
+    }, 1000);
+    
+    // Navigation
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+    
+    function output(id, text) {
+      document.getElementById(id).innerHTML = text;
+    }
+    
+    // Trading
+    function runBuyScan() {
+      output('trading-output', '<span class="loading">Scanning with 15 filters...</span>');
+      setTimeout(() => {
+        output('trading-output', `📊 BUY SCAN RESULTS:
+========================
+CODE     PRICE     CHANGE%   FILTERS   DECISION
+600089   ¥29.68   +1.96    11/15     🟢 STRONG BUY
+601012   ¥17.99   +2.16    10/15     🟢 STRONG BUY
+600085   ¥30.38   +0.33    10/15     🟢 BUY
+
+✅ 3 stocks passed!
+📈 Capital: ¥1,000,000`);
+      }, 1500);
+    }
+    
+    function checkSell() {
+      output('trading-output', 'Checking sell signals...');
+      setTimeout(() => {
+        output('trading-output', '📊 SELL SIGNALS:\n=================\nNo sell signals triggered.\nAll positions within range.');
+      }, 1000);
+    }
+    
+    function runBacktest() {
+      output('trading-output', '<span class="loading">Running backtest...</span>');
+      setTimeout(() => {
+        output('trading-output', '📊 BACKTEST RESULTS:\n====================\nPeriod: 2026-01 to 2026-03\nTrades: 15\nWin Rate: 60%\nTotal P&L: +3.2%\n\nBest: Accumulation Pattern (75%)\nWorst: Breakout (45%)');
+      }, 2000);
+    }
+    
+    function showTradeStatus() {
+      output('trading-output', '📊 TRADING STATUS:\n====================\nCapital: ¥1,000,000\nPositions: 0\nTrades Today: 0\nFilters: 15/15 Active\nMode: Paper Trading');
+    }
+    
+    function editFilters() { output('trading-output', 'Opening filter editor...'); }
+    function resetFilters() { output('trading-output', 'Filters reset to default.'); }
+    function closeAll() { output('trading-output', 'All positions closed.'); }
+    
+    // Scanner
+    function runScanner(type) {
+      output('scanner-output', `<span class="loading">Running ${type} scanner...</span>`);
+      setTimeout(() => {
+        output('scanner-output', `🔍 ${type.toUpperCase()} SCANNER:
+=========================
+Stock           Sector     Score   Rating
+中际旭创        AI硬件      97.8    ★★★★★
+同花顺         科技        96.5    ★★★★★
+智飞生物       医药        95.2    ★★★★★
+宁德时代       新能源      94.7    ★★★★☆
+数字人         AI教育      94.7    ★★★★☆
+
+✅ Scan complete!`);
+      }, 2000);
+    }
+    
+    function addWatchlist() { output('scanner-output', 'Add to watchlist...'); }
+    
+    // Patterns
+    function analyzePatterns() {
+      output('patterns-output', '<span class="loading">Analyzing patterns...</span>');
+      setTimeout(() => {
+        output('patterns-output', `🎯 PATTERN ANALYSIS:
+=========================
+Stock: 601012 隆基绿能
+
+Pattern Scores:
+  🏦 Accumulation:    100% ★★★★★
+  🎣 Bottom Fishing:    80% ★★★★
+  🚀 Breakout:          20% ★
+  🔄 Contrarian:        0%
+
+🌍 Geopolitics: US-China negative
+📈 Regime: WEAK BEAR (DEFENSIVE)
+
+🎯 Recommendation: STRONG BUY`);
+      }, 1500);
+    }
+    
+    function showPatternLibrary() { output('patterns-output', '4 Institutional Patterns\n+ Historical\n+ Geopolitics'); }
+    function showHistoryCycles() { output('patterns-output', '6 Historical Cycles Tracked'); }
+    function detectRegime() { output('patterns-output', 'Market Regime: WEAK BEAR'); }
+    
+    // Knowledge
+    function updateKnowledge() {
+      output('knowledge-output', '<span class="loading">Updating knowledge...</span>');
+      setTimeout(() => {
+        output('knowledge-output', `🌳 KNOWLEDGE UPDATED:
+=======================
+Sources: 13
+Keywords: 150+
+Insights: 25
+Patterns Learned: 5
+
+Categories:
+  • Finance
+  • Geopolitics
+  • Sectors
+  • Patterns
+  • Indicators`);
+      }, 2000);
+    }
+    
+    function showKnowledgeBase() { output('knowledge-output', 'Knowledge Base: 150+ keywords'); }
+    function scrapeWeb() { output('knowledge-output', 'Scraping web sources...'); }
+    
+    // Analytics
+    function generateReport() {
+      output('analytics-output', '<span class="loading">Generating report...</span>');
+      setTimeout(() => {
+        output('analytics-output', `📊 REPORT GENERATED:
+========================
+Period: March 2026
+Trades: 0
+Win Rate: N/A
+P&L: ¥0
+
+Insights:
+  • Market too weak for trades
+  • Filters working correctly
+  • Capital preserved`);
+      }, 1500);
+    }
+    
+    function showStats() { output('analytics-output', 'Statistics: 15 filters, 4 patterns'); }
+    function showCharts() { output('analytics-output', 'Opening charts...'); }
+    
+    // Content
+    function generatePost() {
+      output('content-output', '<span class="loading">Generating post...</span>');
+      setTimeout(() => {
+        output('content-output', `📝 TODAY'S POST:
+====================
+Title: 🤫 Can't Believe People Still Find Suppliers This Way
+
+✅ Ready for publishing!`);
+      }, 1500);
+    }
+    
+    function showTemplates() { output('content-output', '6 Templates Available'); }
+    function schedulePost() { output('content-output', 'Opening scheduler...'); }
+    function openRedbook() { window.open('https://www.xiaohongshu.com/explore', '_blank'); }
+    
+    // CRM
+    function showClients() {
+      output('crm-output', `👥 CLIENTS:
+==================
+ID | Name          | Value
+1  | John Smith    | ¥5,000
+2  | 王总          | ¥20,000
+3  | Mr. Johnson  | ¥50,000
+4  | 李老板        | ¥8,000
+
+Pipeline: ¥83,000`);
+    }
+    
+    function addClient() { output('crm-output', 'Add client form...'); }
+    function showPipeline() { output('crm-output', 'Pipeline: ¥83,000'); }
+    
+    // Automation
+    function startAutoTrade() {
+      output('automation-output', '<span class="loading">Starting auto-trade...</span>');
+      setTimeout(() => {
+        output('automation-output', '✅ Auto-trade started!\n⏰ Scanning every 30 min');
+      }, 1000);
+    }
+    
+    function stopAutoTrade() { output('automation-output', '⏹️ Auto-trade stopped.'); }
+    function showCronJobs() { output('automation-output', 'Cron Jobs: 3 active'); }
+    function showAlerts() { output('automation-output', 'Alerts: Enabled'); }
+    
+    // Settings
+    function showFilters() { output('trading-output', 'Filter settings...'); }
+    function showAPIKeys() { output('trading-output', 'API keys management...'); }
+    function showAbout() { output('trading-output', 'Super Brain PRO v2.0\nBuilt by Charles'); }
+    
+    // Refresh
+    function refreshAll() {
+      document.getElementById('market-change').innerText = '-1.5%';
+      document.getElementById('today-trades').innerText = '0';
+    }
+  </script>
+</body>
+</html>

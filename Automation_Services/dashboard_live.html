@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Super Brain Live Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="30">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            padding: 15px;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #00ff88;
+            font-size: 28px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 20px rgba(0,255,136,0.5);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .time { 
+            text-align: center; 
+            color: #00ff88; 
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .exchange {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .exchange h3 {
+            color: #00ff88;
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .exchange .badge {
+            font-size: 10px;
+            background: #667eea;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        
+        .stock {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin: 5px 0;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        
+        .stock-name { font-weight: 500; }
+        
+        .price { font-family: monospace; font-size: 14px; }
+        
+        .up { color: #00ff88; }
+        .down { color: #ff4444; }
+        
+        .alert-box {
+            background: rgba(255,107,107,0.2);
+            border: 1px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-box h2 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .alert {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 5px 0;
+            font-size: 13px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-num { font-size: 24px; font-weight: bold; }
+        .stat-label { font-size: 10px; opacity: 0.8; }
+        
+        .filters {
+            background: rgba(0,255,136,0.1);
+            border: 1px solid #00ff88;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .filters h2 { color: #00ff88; font-size: 16px; margin-bottom: 10px; }
+        
+        .filter-tag {
+            display: inline-block;
+            background: rgba(0,255,136,0.2);
+            color: #00ff88;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            margin: 3px;
+        }
+        
+        .avoid-tag {
+            background: rgba(255,68,68,0.2);
+            color: #ff4444;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #666;
+            font-size: 11px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧠 SUPER BRAIN LIVE DASHBOARD</h1>
+    <p class="subtitle">6 Exchanges × 3 Stocks = 18 Stocks Monitoring</p>
+    <p class="time" id="time"></p>
+    
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-num">18</div>
+            <div class="stat-label">Total Stocks</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num" id="upCount">0</div>
+            <div class="stat-label">Uptrend</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num" id="downCount">0</div>
+            <div class="stat-label">Downtrend</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num" id="alertCount">0</div>
+            <div class="stat-label">Alerts</div>
+        </div>
+    </div>
+    
+    <div class="filters">
+        <h2>🎯 Algorithm Filters (v2.0)</h2>
+        <span class="filter-tag">✅ Sector: 科技/新能源/医药</span>
+        <span class="filter-tag">✅ Timing: 9:45-10:00</span>
+        <span class="filter-tag">✅ Momentum: Change > 0</span>
+        <span class="filter-tag">✅ Volume: > 500K</span>
+        <span class="filter-tag">✅ Institutional: Score > 90</span>
+        <span class="filter-tag avoid-tag">❌ Avoid: 金融/地产</span>
+    </div>
+    
+    <div class="alert-box" id="alertBox">
+        <h2>🚨 LIVE ALERTS</h2>
+        <div id="alerts"></div>
+    </div>
+    
+    <div class="grid">
+        <div class="exchange">
+            <h3>📈 上海主板 (SH) <span class="badge">3</span></h3>
+            <div id="sh"></div>
+        </div>
+        <div class="exchange">
+            <h3>📊 深圳主板 (SZ) <span class="badge">3</span></h3>
+            <div id="sz"></div>
+        </div>
+        <div class="exchange">
+            <h3>🚀 创业板 (CY) <span class="badge">3</span></h3>
+            <div id="cy"></div>
+        </div>
+        <div class="exchange">
+            <h3>💎 北京交所 (BSE) <span class="badge">3</span></h3>
+            <div id="bse"></div>
+        </div>
+        <div class="exchange">
+            <h3>🌏 港股 (HK) <span class="badge">3</span></h3>
+            <div id="hk"></div>
+        </div>
+        <div class="exchange">
+            <h3>🔹 恒生科技 (HS) <span class="badge">3</span></h3>
+            <div id="hs"></div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Auto-refresh every 30 seconds | Super Brain v2.0 | Powered by Tencent API
+    </div>
+    
+    <script>
+        // 6 Exchanges × 3 Stocks = 18 Stocks
+        const stocks = {
+            sh: ['600519','601012','600036'],  // 贵州茅台, 隆基绿能, 招商银行
+            sz: ['000001','000333','000651'],  // 平安银行, 美的集团, 格力电器
+            cy: ['300750','300014','300502'],  // 宁德时代, 亿纬锂能, 新易盛
+            bse: ['870299','872926','870864'], // 吉林碳谷, 贝特瑞, 红东方
+            hk: ['0700','3690','9988'],        // 腾讯, 美团, 阿里
+            hs: ['1024','3638','1810']         // 快手, 泡泡玛特, 小米
+        };
+        
+        const names = {
+            '600519':'贵州茅台','601012':'隆基绿能','600036':'招商银行',
+            '000001':'平安银行','000333':'美的集团','000651':'格力电器',
+            '300750':'宁德时代','300014':'亿纬锂能','300502':'新易盛',
+            '870299':'吉林碳谷','872926':'贝特瑞','870864':'红东方',
+            '0700':'腾讯控股','3690':'美团','9988':'阿里巴巴',
+            '1024':'快手','3638':'泡泡玛特','1810':'小米'
+        };
+        
+        async function fetchStock(code, exchange) {
+            try {
+                const prefix = exchange === 'hk' || exchange === 'hs' ? 'hk' : (code.startsWith('6') ? 'sh' : 'sz');
+                const res = await fetch('https://qt.gtimg.cn/q=' + prefix + code);
+                const text = await res.text();
+                const match = text.match(/"([^"]+)"/);
+                if (match) {
+                    const fields = match[1].split('~');
+                    return {
+                        code: code,
+                        name: names[code] || code,
+                        price: parseFloat(fields[3]) || 0,
+                        change: parseFloat(fields[4]) || 0,
+                        volume: parseInt(fields[5]) || 0
+                    };
+                }
+            } catch(e) {}
+            return null;
+        }
+        
+        async function updateDashboard() {
+            document.getElementById('time').textContent = new Date().toLocaleString();
+            
+            let upCount = 0, downCount = 0, alertCount = 0;
+            const alerts = [];
+            
+            for (const [exchange, codes] of Object.entries(stocks)) {
+                const container = document.getElementById(exchange);
+                container.innerHTML = '';
+                
+                for (const code of codes) {
+                    const data = await fetchStock(code, exchange);
+                    if (data) {
+                        const isUp = data.change > 0;
+                        const isAlert = Math.abs(data.change) > 3 || data.volume > 2000000;
+                        
+                        if (isUp) upCount++; else downCount++;
+                        if (isAlert) {
+                            alertCount++;
+                            const alertType = data.change > 3 ? 'BREAKOUT' : 'VOLUME';
+                            alerts.push({name: data.name, change: data.change, type: alertType});
+                        }
+                        
+                        container.innerHTML += `
+                            <div class="stock">
+                                <span class="stock-name">${data.code} ${data.name}</span>
+                                <span class="price ${isUp?'up':'down'}">
+                                    ¥${data.price.toFixed(2)} (${data.change>=0?'+':''}${data.change.toFixed(2)}%)
+                                </span>
+                            </div>
+                        `;
+                    }
+                }
+            }
+            
+            document.getElementById('upCount').textContent = upCount;
+            document.getElementById('downCount').textContent = downCount;
+            document.getElementById('alertCount').textContent = alertCount;
+            
+            const alertDiv = document.getElementById('alerts');
+            if (alerts.length > 0) {
+                alertDiv.innerHTML = alerts.map(a => 
+                    `<div class="alert">🚨 ${a.type}: ${a.name} ${a.change>0?'+':''}${a.change.toFixed(2)}%</div>`
+                ).join('');
+            } else {
+                alertDiv.innerHTML = '<div style="color:#888;padding:10px;">No significant alerts</div>';
+            }
+        }
+        
+        updateDashboard();
+        setInterval(updateDashboard, 30000);
+    </script>
+</body>
+</html>

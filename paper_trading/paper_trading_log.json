@@ -1,0 +1,142 @@
+{
+  "capital": 159487.6676922554,
+  "positions": [
+    {
+      "code": "600085",
+      "name": "同仁堂",
+      "entryPrice": 30.4,
+      "shares": 423,
+      "entryDate": "2026-03-03",
+      "sector": "医药",
+      "period": "Mid",
+      "score": 85
+    },
+    {
+      "code": "000792",
+      "name": "盐湖股份",
+      "entryPrice": 37.94,
+      "shares": 339,
+      "entryDate": "2026-03-03",
+      "sector": "化工",
+      "period": "Mid",
+      "score": 85
+    },
+    {
+      "code": "600066",
+      "name": "宇通客车",
+      "entryPrice": 30.25,
+      "shares": 425,
+      "entryDate": "2026-03-03",
+      "sector": "汽车",
+      "period": "Mid",
+      "score": 85
+    },
+    {
+      "code": "000938",
+      "name": "紫光股份",
+      "entryPrice": 25.17,
+      "shares": 511,
+      "entryDate": "2026-03-03",
+      "sector": "科技",
+      "period": "Mid",
+      "score": 85
+    },
+    {
+      "code": "600038",
+      "name": "中直股份",
+      "entryPrice": 38.36,
+      "shares": 335,
+      "entryDate": "2026-03-03",
+      "sector": "军工",
+      "period": "Mid",
+      "score": 85
+    },
+    {
+      "code": "000651",
+      "name": "格力电器",
+      "entryPrice": 37.19,
+      "shares": 346,
+      "entryDate": "2026-03-03",
+      "sector": "家电",
+      "period": "Long",
+      "score": 85
+    },
+    {
+      "code": "300045",
+      "name": "奥普光电",
+      "entryPrice": 27.87,
+      "shares": 462,
+      "entryDate": "2026-03-03",
+      "sector": "科技",
+      "period": "Long",
+      "score": 85
+    },
+    {
+      "code": "300046",
+      "name": "台基股份",
+      "entryPrice": 35.18,
+      "shares": 366,
+      "entryDate": "2026-03-03",
+      "sector": "科技",
+      "period": "Long",
+      "score": 85
+    },
+    {
+      "code": "000513",
+      "name": "丽珠集团",
+      "entryPrice": 34.8,
+      "shares": 370,
+      "entryDate": "2026-03-03",
+      "sector": "医药",
+      "period": "Long",
+      "score": 85
+    },
+    {
+      "code": "600096",
+      "name": "云天化",
+      "entryPrice": 43.5,
+      "shares": 296,
+      "entryDate": "2026-03-03",
+      "sector": "化工",
+      "period": "Long",
+      "score": 85
+    },
+    {
+      "code": "300122",
+      "name": "智飞生物",
+      "entryPrice": 58.2,
+      "shares": 200,
+      "entryDate": "2026-03-06",
+      "sector": "医药",
+      "period": "Daily",
+      "score": 100
+    },
+    {
+      "code": "0700",
+      "name": "腾讯控股",
+      "entryPrice": 502,
+      "shares": 50,
+      "entryDate": "2026-03-06",
+      "sector": "科技",
+      "period": "Daily",
+      "score": 100
+    }
+  ],
+  "closedTrades": [
+    {
+      "code": "300033",
+      "name": "同花顺",
+      "entryPrice": 135.5,
+      "exitPrice": 810.036676922554,
+      "shares": 100,
+      "entryDate": "2026-03-06",
+      "exitDate": "2026-03-06",
+      "pnl": 67453.6676922554,
+      "pnlPct": 497.81304569930177,
+      "reason": "TAKE_PROFIT",
+      "holdingDays": 0
+    }
+  ],
+  "dailyLog": [],
+  "lastRun": "2026-03-03T02:20:38.469Z"
+}

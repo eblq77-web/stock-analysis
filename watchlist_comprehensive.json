@@ -1,0 +1,114 @@
+{
+  "1024": {
+    "name": "快手",
+    "sector": "科技",
+    "price": 72.5,
+    "change": 0.5,
+    "instScore": 100,
+    "reason": "Institutional strong buy"
+  },
+  "300015": {
+    "name": "爱尔眼科",
+    "sector": "医药",
+    "price": 28.5,
+    "change": 0.3,
+    "instScore": 100,
+    "reason": "Institutional strong buy"
+  },
+  "300033": {
+    "name": "同花顺",
+    "sector": "科技",
+    "price": 145,
+    "change": -0.5,
+    "instScore": 100,
+    "reason": "Institutional strong buy"
+  },
+  "300122": {
+    "name": "智飞生物",
+    "sector": "医药",
+    "price": 72,
+    "change": -1.2,
+    "instScore": 100,
+    "reason": "Institutional strong buy"
+  },
+  "300476": {
+    "name": "中际旭创",
+    "sector": "AI硬件",
+    "price": 284,
+    "change": -1.84,
+    "score": 97.8,
+    "reason": "Super Gem - AI硬件"
+  },
+  "600038": {
+    "name": "中直股份",
+    "sector": "军工",
+    "price": 37.07,
+    "change": 0.95,
+    "range": "¥25-40",
+    "reason": "Passes 4/5 filters"
+  },
+  "600066": {
+    "name": "宇通客车",
+    "sector": "汽车",
+    "price": 29.61,
+    "change": 0.17,
+    "range": "¥25-40",
+    "reason": "Passes 4/5 filters"
+  },
+  "600085": {
+    "name": "同仁堂",
+    "sector": "医药",
+    "price": 30.38,
+    "change": 0.33,
+    "range": "¥25-40",
+    "reason": "Passes 4/5 filters"
+  },
+  "600089": {
+    "name": "特变电工",
+    "sector": "新能源",
+    "price": 29.68,
+    "change": 1.96,
+    "range": "¥25-40",
+    "reason": "Passes 4/5 filters"
+  },
+  "601012": {
+    "name": "隆基绿能",
+    "sector": "新能源",
+    "price": 18,
+    "change": 2.16,
+    "instScore": 100,
+    "reason": "Institutional strong buy +逆势上涨"
+  },
+  "835670": {
+    "name": "数字人",
+    "sector": "AI教育",
+    "price": 45,
+    "change": -2,
+    "score": 94.7,
+    "reason": "Super Gem - AI教育"
+  },
+  "000333": {
+    "name": "美的集团",
+    "sector": "消费",
+    "price": 68,
+    "change": 0.2,
+    "instScore": 100,
+    "reason": "Institutional strong buy"
+  },
+  "0700": {
+    "name": "腾讯控股",
+    "sector": "科技",
+    "price": 512,
+    "change": -0.19,
+    "instScore": 100,
+    "reason": "Institutional strong buy"
+  },
+  "002594": {
+    "name": "比亚迪",
+    "sector": "新能源",
+    "price": 94.7,
+    "change": -2.17,
+    "score": 94.6,
+    "reason": "Super Gem - 新能源"
+  }
+}

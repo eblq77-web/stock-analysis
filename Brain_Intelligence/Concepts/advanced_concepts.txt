@@ -1,0 +1,228 @@
+# ADVANCED TRADING CONCEPTS
+## Level 2 - Professional Strategies
+
+---
+
+## ADVANCED CONCEPTS OVERVIEW
+
+### 1. OPTIONS & DERIVATIVES
+### 2. SECTOR ROTATION
+### 3. INTER-MARKET ANALYSIS
+### 4. SENTIMENT INDICATORS
+### 5. MONEY FLOW ANALYSIS
+### 6. MARKET MICROSTRUCTURE
+### 7. POSITION SIZING
+### 8. PSYCHOLOGY & TRADING
+
+---
+
+## 1. OPTIONS & DERIVATIVES
+
+### Why Institutions Use Options:
+
+| Strategy | Purpose | Risk |
+|---------|---------|------|
+| Covered Calls | Generate income | Limited upside |
+| Protective Puts | Insurance | Cost |
+| Bull Call Spreads | Leverage up | Defined risk |
+| Iron Condors | Profit from low volatility | Defined |
+
+### How We Use Options Thinking:
+
+```
+Even if we don't trade options:
+- Understand implied volatility
+- Know when options are expensive (high IV)
+- Understand market expectations
+- Use options to limit risk
+```
+
+---
+
+## 2. SECTOR ROTATION
+
+### Business Cycle & Rotation:
+
+```
+EXPANSION:     Consumer Discretionary → Technology → Financials
+PEAK:          Commodities → Energy
+CONTRACTION:   Utilities → Consumer Staples → Healthcare
+RECOVERY:      Financials → Real Estate → Tech
+```
+
+### Our Sector Score:
+
+| Sector | My Score | My View |
+|--------|---------|---------|
+| AI/Tech | 90 | Q1-Q2 top |
+| New Energy | 85 | Q3 top |
+| Healthcare | 75 | Q4 recovery |
+| Consumer | 70 | Q2-Q3 |
+| Financial | 65 | Value play |
+| Real Estate | 45 | Bottoming |
+
+---
+
+## 3. INTER-MARKET ANALYSIS
+
+### How Markets Connect:
+
+```
+US STOCKS → Affects HK/China
+↓
+US DOLLAR → Affects commodities
+↓
+GOLD → Safe haven indicator
+↓
+BONDS → Interest rate signal
+↓
+VIX → Fear indicator
+```
+
+### My Inter-Market Watch:
+
+| Indicator | Signal | My Action |
+|-----------|--------|---------|
+| US stocks up | Global risk on | More aggressive |
+| USD strong | Risk off | Be careful |
+| Gold up | Fear/uncertainty | Defensive |
+| VIX > 30 | High fear | Look for buys |
+| 10Y yield up | Rate concerns | Avoid rate-sensitive |
+
+---
+
+## 4. SENTIMENT INDICATORS
+
+### What I Watch:
+
+| Indicator | What It Tells Me |
+|-----------|------------------|
+| VIX | Fear level (low = greedy, high = fearful) |
+| Put/Call ratio | Too many puts = bullish |
+| AAII Survey | Retail sentiment |
+| Margin debt | Too high = danger |
+| IPO activity | Too many = top signal |
+| Insider buying | Management knows |
+
+### My Sentiment Scale:
+
+```
+VIX 10-15:  Extreme greed - CAUTION
+VIX 15-20:  Neutral - Observe
+VIX 20-30:  Fearful - Opportunity
+VIX 30+:    Panic - Big opportunity
+```
+
+---
+
+## 5. MONEY FLOW ANALYSIS
+
+### Types of Money:
+
+```
+RETAIL MONEY:   Follows news, emotional
+INSTITUTIONAL:  Smart, data-driven  
+FOREIGN:        Long-term, quality focus
+CENTRAL BANK:   Macro moves
+```
+
+### My Money Flow Tracking:
+
+| Flow | Indicator | My Signal |
+|------|----------|----------|
+| Foreign buying | HK Stock Connect | Positive |
+| Institutional | Large orders | Positive |
+| Retail | Margin debt up | Negative |
+| Central Bank | Rate cuts | Positive |
+
+---
+
+## 6. MARKET MICROSTRUCTURE
+
+### How Orders Work:
+
+```
+MARKET ORDER:    Buy/sell immediately at market price
+LIMIT ORDER:     Buy/sell at specific price
+STOP ORDER:      Trigger when price hits level
+```
+
+### Order Flow:
+
+```
+BUY LIMIT:     Weak hands expecting pullback
+SELL LIMIT:    Taking profit
+MARKET BUY:    Urgent, willing to pay up
+MARKET SELL:   Panic, must get out
+```
+
+### What I Look For:
+
+- Large market orders at support
+- Buying pressure at key levels
+- Absence of selling at support
+- Volume spike confirming move
+
+---
+
+## 7. POSITION SIZING
+
+### My Position Sizing Rules:
+
+| Confidence | Position Size |
+|-----------|---------------|
+| Very High (90%) | 20-25% |
+| High (80%) | 15-20% |
+| Medium (70%) | 10-15% |
+| Low (<70%) | 5-10% |
+
+### Position Sizing Formula:
+
+```
+POSITION SIZE = (Account × Risk %) / (Entry - Stop)
+
+Example:
+$100,000 account
+Risk 2% = $2,000
+Entry $100, Stop $95
+Position = $2,000 / ($100-$95) = 40 shares
+```
+
+---
+
+## 8. TRADING PSYCHOLOGY
+
+### Common Mistakes:
+
+| Mistake | Why It Happens | How To Fix |
+|---------|----------------|------------|
+| Revenge trading | Lost money, want it back | Walk away |
+| FOMO | Fear of missing out | Wait for entry |
+| Overtrading | Need to "do something" | Patience |
+| Averaging down | Hope stock recovers | Strict stops |
+| Taking profits early | Fear losing | Let winners run |
+
+### My Psychology Rules:
+
+1. NEVER trade after a loss
+2. Wait for setup, don't force
+3. Let winners run, cut losers
+4. One trade at a time
+5. Review every trade weekly
+
+---
+
+## KEY TAKEAWAYS
+
+1. **Understand options** - Even if don't trade
+2. **Sector rotation** - Follow the cycle
+3. **Inter-market** - See connections
+4. **Sentiment** - Be contrarian
+5. **Money flow** - Follow smart money
+6. **Microstructure** - Read the order flow
+7. **Position sizing** - Never risk too much
+8. **Psychology** - Control emotions
+
+---
+
+*Advanced Trading Concepts - Charles*

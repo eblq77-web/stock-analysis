@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charles's Super Brain - 6 Modules</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
+        .header { background: rgba(0,0,0,0.3); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; }
+        .header h1 { font-size: 18px; background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 15px; }
+        
+        .indices-bar { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+        .index-card { background: rgba(255,255,255,0.05); border-radius: 6px; padding: 8px 12px; min-width: 100px; border: 1px solid rgba(255,255,255,0.1); flex: 1; }
+        .index-card .name { font-size: 10px; color: #888; }
+        .index-card .value { font-size: 14px; font-weight: bold; }
+        .index-card .change { font-size: 11px; }
+        
+        .modules-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 15px; }
+        .module-card { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px 8px; cursor: pointer; border: 2px solid transparent; text-align: center; }
+        .module-card:hover { background: rgba(255,255,255,0.1); }
+        .module-card.active { border-color: #00ff88; background: rgba(0,255,136,0.15); }
+        .module-card .icon { font-size: 20px; }
+        .module-card h2 { font-size: 10px; margin-top: 4px; }
+        
+        .content-area { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; display: none; }
+        .content-area.active { display: block; }
+        .content-area h2 { font-size: 16px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        .stock-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .stock-table th { text-align: left; padding: 8px; color: #888; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 10px; }
+        .stock-table td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .stock-table .code { color: #00d4ff; font-weight: bold; }
+        
+        .tag { padding: 2px 6px; border-radius: 4px; font-size: 9px; }
+        .tag.strong { background: rgba(0,255,136,0.3); color: #00ff88; }
+        .tag.buy { background: rgba(0,212,255,0.3); color: #00d4ff; }
+        
+        .score-bar { height: 4px; border-radius: 2px; display: inline-block; vertical-align: middle; }
+        .bar-smart { background: #00ff88; }
+        .bar-quality { background: #00d4ff; }
+        .bar-momentum { background: #ffc800; }
+        .bar-risk { background: #ff4444; }
+        
+        .info-box { background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3); border-radius: 8px; padding: 12px; margin-bottom: 15px; }
+        .info-box .title { color: #00ff88; font-size: 13px; margin-bottom: 5px; }
+        
+        .footer { text-align: center; padding: 10px; color: #666; font-size: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 CHARLES'S SUPER BRAIN - 6 MODULES</h1>
+        <span id="time"></span>
+    </div>
+    
+    <div class="container">
+        <div class="indices-bar">
+            <div class="index-card"><div class="name">SSE</div><div class="value">3,431</div><div class="change" style="color:#00ff88">+0.93%</div></div>
+            <div class="index-card"><div class="name">SZSE</div><div class="value">11,161</div><div class="change" style="color:#00ff88">+1.47%</div></div>
+            <div class="index-card"><div class="name">ChiNext</div><div class="value">2,162</div><div class="change" style="color:#ff4444">-1.71%</div></div>
+            <div class="index-card"><div class="name">HSI</div><div class="value">18,912</div><div class="change" style="color:#ff4444">-0.46%</div></div>
+        </div>
+        
+        <div class="modules-grid">
+            <div class="module-card active" onclick="showModule(1)"><div class="icon">📊</div><h2>Market</h2></div>
+            <div class="module-card" onclick="showModule(2)"><div class="icon">📈</div><h2>Portfolio</h2></div>
+            <div class="module-card" onclick="showModule(3)"><div class="icon">🧠</div><h2>Smart$</h2></div>
+            <div class="module-card" onclick="showModule(4)"><div class="icon">📅</div><h2>Weekly</h2></div>
+            <div class="module-card" onclick="showModule(5)"><div class="icon">💎</div><h2>Gems</h2></div>
+            <div class="module-card" onclick="showModule(6)"><div class="icon">🎯</div><h2>Brain</h2></div>
+        </div>
+        
+        <!-- MODULE 1: Market -->
+        <div class="content-area active" id="m1">
+            <h2>📊 Module 1: Daily Market Overview</h2>
+            <div class="info-box"><div class="title">🔥 Top Movers Today</div></div>
+            <table class="stock-table">
+                <tr><th>Code</th><th>Name</th><th>Price</th><th>Change</th><th>Sector</th></tr>
+                <tr><td class="code">1024</td><td>Kuaishou</td><td>HK$153.68</td><td style="color:#00ff88">+7.94%</td><td>Tech</td></tr>
+                <tr><td class="code">0700</td><td>Tencent</td><td>HK$417.20</td><td style="color:#00ff88">+5.31%</td><td>Tech</td></tr>
+                <tr><td class="code">002594</td><td>BYD</td><td>¥140.77</td><td style="color:#00ff88">+6.54%</td><td>NEV</td></tr>
+                <tr><td class="code">000651</td><td>Gree</td><td>¥255.15</td><td style="color:#00ff88">+7.34%</td><td>Appliance</td></tr>
+                <tr><td class="code">9988</td><td>Alibaba</td><td>HK$106.53</td><td style="color:#00ff88">+6.94%</td><td>Tech</td></tr>
+                <tr><td class="code">3690</td><td>Meituan</td><td>HK$124.06</td><td style="color:#00ff88">+4.74%</td><td>Tech</td></tr>
+            </table>
+        </div>
+        
+        <!-- MODULE 2: Portfolio -->
+        <div class="content-area" id="m2">
+            <h2>📈 Module 2: Portfolio Management</h2>
+            <div class="info-box"><div class="title">💼 Your Watchlist</div></div>
+            <table class="stock-table">
+                <tr><th>Code</th><th>Name</th><th>Entry</th><th>Target</th><th>Stop</th><th>Status</th></tr>
+                <tr><td class="code">0700</td><td>Tencent</td><td>370-390</td><td style="color:#00ff88">450+</td><td>370</td><td>✅ Above</td></tr>
+                <tr><td class="code">300750</td><td>CALT</td><td>200-220</td><td style="color:#00ff88">280+</td><td>205</td><td>⚠️ Near</td></tr>
+                <tr><td class="code">3690</td><td>Meituan</td><td>115-125</td><td style="color:#00ff88">150+</td><td>115</td><td>✅ Above</td></tr>
+                <tr><td class="code">300033</td><td>TonghuaShun</td><td>90-100</td><td style="color:#00ff88">130+</td><td>90</td><td>❌ Above target</td></tr>
+            </table>
+        </div>
+        
+        <!-- MODULE 3: Smart Money -->
+        <div class="content-area" id="m3">
+            <h2>🧠 Module 3: Smart Money Tracking</h2>
+            <div class="info-box"><div class="title">🏦 Institutional Flow - Smart Money Detected</div></div>
+            <table class="stock-table">
+                <tr><th>Code</th><th>Name</th><th>Score</th><th>Flow</th><th>Large Orders</th><th>Accumulating</th></tr>
+                <tr><td class="code">1024</td><td>Kuaishou</td><td style="color:#00ff88;font-weight:bold">100</td><td style="color:#00ff88">INFLOW</td><td>80%</td><td>✅</td></tr>
+                <tr><td class="code">0700</td><td>Tencent</td><td style="color:#00ff88;font-weight:bold">100</td><td style="color:#00ff88">INFLOW</td><td>80%</td><td>✅</td></tr>
+                <tr><td class="code">300015</td><td>Aier</td><td style="color:#00ff88;font-weight:bold">100</td><td style="color:#00ff88">INFLOW</td><td>78%</td><td>✅</td></tr>
+                <tr><td class="code">002594</td><td>BYD</td><td style="color:#00ff88;font-weight:bold">100</td><td style="color:#00ff88">INFLOW</td><td>75%</td><td>✅</td></tr>
+                <tr><td class="code">000001</td><td>PingAn Bank</td><td style="color:#00ff88;font-weight:bold">100</td><td style="color:#00ff88">INFLOW</td><td>75%</td><td>✅</td></tr>
+            </table>
+        </div>
+        
+        <!-- MODULE 4: Weekly -->
+        <div class="content-area" id="m4">
+            <h2>📅 Module 4: Weekly Report</h2>
+            <div class="info-box"><div class="title">📊 This Week's Performance</div></div>
+            <p><strong>Market:</strong> Mixed signals - Shanghai +0.93%, ChiNext -1.71%</p>
+            <p><strong>Best Sector:</strong> Tech +6.5% avg</p>
+            <p><strong>Strategy:</strong> Hold winners, -7% stop loss</p>
+            <p><strong>Next Week:</strong> Watch for AI sector rotation</p>
+            <br>
+            <div class="info-box"><div class="title">📅 Weekly Outlook</div></div>
+            <p><strong>Theme:</strong> "Fresh Start" - New money flowing</p>
+            <p><strong>AI Sector:</strong> Still has momentum until Q2</p>
+            <p><strong>Watch:</strong> Hidden gems breaking out</p>
+        </div>
+        
+        <!-- MODULE 5: Hidden Gems -->
+        <div class="content-area" id="m5">
+            <h2>💎 Module 5: Hidden Gems</h2>
+            <div class="info-box"><div class="title">💎 Under the Radar - High Potential</div></div>
+            <table class="stock-table">
+                <tr><th>Code</th><th>Name</th><th>Sector</th><th>Why Hidden</th><th>Target</th></tr>
+                <tr><td class="code">300033</td><td>TonghuaShun</td><td>AI+Fintech</td><td>Not seen as AI</td><td style="color:#00ff88">+40%</td></tr>
+                <tr><td class="code">300476</td><td>Zhongji Xuchuang</td><td>AI Hardware</td><td>Hardware not sexy</td><td style="color:#00ff88">+50%</td></tr>
+                <tr><td class="code">835670</td><td>Digital Human</td><td>AI Education</td><td>BSE small cap</td><td style="color:#00ff88">+60%</td></tr>
+                <tr><td class="code">870299</td><td>Jilin Tanggu</td><td>Materials</td><td>Carbon fiber niche</td><td style="color:#00ff88">+45%</td></tr>
+            </table>
+        </div>
+        
+        <!-- MODULE 6: Brain -->
+        <div class="content-area" id="m6">
+            <h2>🎯 Module 6: My Proprietary Brain</h2>
+            <div class="info-box"><div class="title">🎯 Scoring: SmartMoney 40% + Quality 30% + Momentum 20% + Risk 10%</div></div>
+            <table class="stock-table">
+                <tr><th>Code</th><th>Name</th><th>Smart</th><th>Quality</th><th>Momentum</th><th>Risk</th><th>Total</th><th>Signal</th></tr>
+                <tr><td class="code">0700</td><td>Tencent</td><td><span class="score-bar bar-smart" style="width:95px"></span>95</td><td><span class="score-bar bar-quality" style="width:95px"></span>95</td><td><span class="score-bar bar-momentum" style="width:85px"></span>85</td><td><span class="score-bar bar-risk" style="width:75px"></span>75</td><td style="color:#00ff88;font-weight:bold">91</td><td class="tag strong">STRONG</td></tr>
+                <tr><td class="code">002594</td><td>BYD</td><td><span class="score-bar bar-smart" style="width:90px"></span>90</td><td><span class="score-bar bar-quality" style="width:90px"></span>90</td><td><span class="score-bar bar-momentum" style="width:88px"></span>88</td><td><span class="score-bar bar-risk" style="width:75px"></span>75</td><td style="color:#00ff88;font-weight:bold">88</td><td class="tag strong">STRONG</td></tr>
+                <tr><td class="code">300750</td><td>CALT</td><td><span class="score-bar bar-smart" style="width:85px"></span>85</td><td><span class="score-bar bar-quality" style="width:92px"></span>92</td><td><span class="score-bar bar-momentum" style="width:90px"></span>90</td><td><span class="score-bar bar-risk" style="width:65px"></span>65</td><td style="color:#00ff88;font-weight:bold">88</td><td class="tag strong">STRONG</td></tr>
+                <tr><td class="code">3690</td><td>Meituan</td><td><span class="score-bar bar-smart" style="width:88px"></span>88</td><td><span class="score-bar bar-quality" style="width:85px"></span>85</td><td><span class="score-bar bar-momentum" style="width:88px"></span>88</td><td><span class="score-bar bar-risk" style="width:70px"></span>70</td><td style="color:#00ff88;font-weight:bold">85</td><td class="tag strong">STRONG</td></tr>
+                <tr><td class="code">300033</td><td>TonghuaShun</td><td><span class="score-bar bar-smart" style="width:80px"></span>80</td><td><span class="score-bar bar-quality" style="width:78px"></span>78</td><td><span class="score-bar bar-momentum" style="width:88px"></span>88</td><td><span class="score-bar bar-risk" style="width:60px"></span>60</td><td style="color:#00d4ff;font-weight:bold">78</td><td class="tag buy">BUY</td></tr>
+            </table>
+        </div>
+        
+        <div class="footer">🧠 Charles's Super Brain | 6 Modules Active</div>
+    </div>
+    
+    <script>
+        function showModule(num) {
+            // Update buttons
+            document.querySelectorAll('.module-card').forEach((el, i) => {
+                el.classList.toggle('active', i + 1 === num);
+            });
+            // Update content
+            document.querySelectorAll('.content-area').forEach((el, i) => {
+                el.classList.toggle('active', i + 1 === num);
+            });
+        }
+        
+        setInterval(() => {
+            document.getElementById('time').textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false});
+        }, 1000);
+    </script>
+</body>
+</html>

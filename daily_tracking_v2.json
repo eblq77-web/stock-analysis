@@ -1,0 +1,26 @@
+{
+  "version": "Quantum Advanced V4",
+  "algorithm": "5-Factor Quantum Model",
+  "factors": {
+    "base_score": "30%",
+    "alpha_factor": "25%",
+    "rd_innovation": "20%",
+    "risk_score": "15%",
+    "sector_momentum": "10%"
+  },
+  "date": "2026-03-02",
+  "top_picks": [
+    {"rank": 1, "code": "sz300476", "name": "中际旭创", "quantum": 99.1, "sector": "AI硬件", "entry": 300.31, "stop": 279.29, "target": 330.34},
+    {"rank": 2, "code": "bj835670", "name": "数字人", "quantum": 98.2, "sector": "AI教育", "entry": 18.45, "stop": 17.16, "target": 20.30},
+    {"rank": 3, "code": "sz300033", "name": "同花顺", "quantum": 96.7, "sector": "科技", "entry": 325.00, "stop": 302.25, "target": 357.50},
+    {"rank": 4, "code": "sh0700", "name": "腾讯控股", "quantum": 94.8, "sector": "科技", "entry": 510.50, "stop": 474.77, "target": 561.55},
+    {"rank": 5, "code": "bj872926", "name": "贝特瑞", "quantum": 93.5, "sector": "新能源", "entry": 38.50, "stop": 35.81, "target": 42.35},
+    {"rank": 6, "code": "sz002594", "name": "比亚迪", "quantum": 91.9, "sector": "新能源", "entry": 93.47, "stop": 86.93, "target": 102.82},
+    {"rank": 7, "code": "sz300750", "name": "宁德时代", "quantum": 90.5, "sector": "新能源", "entry": 339.12, "stop": 315.38, "target": 373.03},
+    {"rank": 8, "code": "sh9988", "name": "阿里巴巴", "quantum": 91.9, "sector": "科技", "entry": 105.00, "stop": 97.65, "target": 115.50}
+  ],
+  "summary": {
+    "total_stocks": 8,
+    "invested_estimate": 25000
+  }
+}

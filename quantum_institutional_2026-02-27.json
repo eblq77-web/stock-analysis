@@ -1,0 +1,2396 @@
+{
+  "time": "2026-02-27T13:36:37.485Z",
+  "portfolio": [
+    {
+      "stock": {
+        "code": "688185",
+        "name": "康希诺",
+        "sector": "医药",
+        "market": "sh"
+      },
+      "data": {
+        "code": "1",
+        "name": "��ϣŵ",
+        "price": 72,
+        "change": 67.78,
+        "changePct": 68,
+        "volume": 5029426,
+        "amount": 3092695,
+        "open": 71.92,
+        "high": 3,
+        "low": 71.88,
+        "bid1": 72,
+        "ask1": 72.05,
+        "bids": [
+          {
+            "price": 72,
+            "vol": 52
+          },
+          {
+            "price": 71.98,
+            "vol": 21
+          },
+          {
+            "price": 71.92,
+            "vol": 3
+          },
+          {
+            "price": 71.88,
+            "vol": 8
+          },
+          {
+            "price": 71.83,
+            "vol": 8
+          },
+          {
+            "price": 72.05,
+            "vol": 2
+          },
+          {
+            "price": 72.06,
+            "vol": 4
+          },
+          {
+            "price": 72.08,
+            "vol": 27
+          },
+          {
+            "price": 72.09,
+            "vol": 30
+          },
+          {
+            "price": 72.1,
+            "vol": 121
+          }
+        ],
+        "asks": [
+          {
+            "price": 72.05,
+            "vol": 2
+          },
+          {
+            "price": 72.06,
+            "vol": 4
+          },
+          {
+            "price": 72.08,
+            "vol": 27
+          },
+          {
+            "price": 72.09,
+            "vol": 30
+          },
+          {
+            "price": 72.1,
+            "vol": 121
+          },
+          {
+            "price": 0,
+            "vol": 20260227161448
+          },
+          {
+            "price": 4.22,
+            "vol": 6
+          },
+          {
+            "price": 72.4,
+            "vol": 67
+          },
+          {
+            "price": 72,
+            "vol": 5029426
+          },
+          {
+            "price": 35585,
+            "vol": 4
+          }
+        ],
+        "turnover": 35585,
+        "pe": 638.16,
+        "high52": 72.4,
+        "low52": 67.7
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 276,
+        "askVol": 20260232191135
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.04999999999999716,
+        "spreadPct": "0.069",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "402633238.15"
+      },
+      "slope": {
+        "slope": "1.88",
+        "pattern": "DISTRIBUTED"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 8,
+          "price": 72.08,
+          "volume": 27
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 9,
+          "price": 72.09,
+          "volume": 30
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 10,
+          "price": 72.1,
+          "volume": 121
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 4,
+          "price": 72.09,
+          "volume": 30
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 5,
+          "price": 72.1,
+          "volume": 121
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161448
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 7,
+          "price": 4.22,
+          "volume": 6
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 8,
+          "price": 72.4,
+          "volume": 67
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 72,
+          "volume": 5029426
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 10,
+          "price": 35585,
+          "volume": 4
+        }
+      ],
+      "instScore": {
+        "score": -29,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "SELL"
+    }
+  ],
+  "hiddenGems": [
+    {
+      "stock": {
+        "code": "835670",
+        "name": "数字人",
+        "sector": "AI教育",
+        "market": "bj"
+      },
+      "data": {
+        "code": "62",
+        "name": "������",
+        "price": 18.45,
+        "change": 18.45,
+        "changePct": 0,
+        "volume": 0,
+        "amount": 0,
+        "open": 0,
+        "high": 0,
+        "low": 0,
+        "bid1": 0,
+        "ask1": 0,
+        "bids": [
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 20260227090000
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 18.45,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          }
+        ],
+        "turnover": 0,
+        "pe": 239.38,
+        "high52": 0,
+        "low52": 0
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 0,
+        "askVol": 20260227090000
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0,
+        "spreadPct": "0.000",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "Infinity"
+      },
+      "slope": {
+        "slope": "Infinity",
+        "pattern": "STRONG_ACCUMULATION"
+      },
+      "hidden": [
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227090000
+        }
+      ],
+      "instScore": {
+        "score": -19,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "WEAK"
+    },
+    {
+      "stock": {
+        "code": "300122",
+        "name": "智飞生物",
+        "sector": "医药",
+        "market": "sz"
+      },
+      "data": {
+        "code": "51",
+        "name": "�Ƿ�����",
+        "price": 17.29,
+        "change": 17.23,
+        "changePct": 17.23,
+        "volume": 105143,
+        "amount": 48882,
+        "open": 17.26,
+        "high": 876,
+        "low": 17.25,
+        "bid1": 17.28,
+        "ask1": 17.29,
+        "bids": [
+          {
+            "price": 17.28,
+            "vol": 553
+          },
+          {
+            "price": 17.27,
+            "vol": 466
+          },
+          {
+            "price": 17.26,
+            "vol": 876
+          },
+          {
+            "price": 17.25,
+            "vol": 1125
+          },
+          {
+            "price": 17.24,
+            "vol": 706
+          },
+          {
+            "price": 17.29,
+            "vol": 443
+          },
+          {
+            "price": 17.3,
+            "vol": 1238
+          },
+          {
+            "price": 17.31,
+            "vol": 372
+          },
+          {
+            "price": 17.32,
+            "vol": 351
+          },
+          {
+            "price": 17.33,
+            "vol": 371
+          }
+        ],
+        "asks": [
+          {
+            "price": 17.29,
+            "vol": 443
+          },
+          {
+            "price": 17.3,
+            "vol": 1238
+          },
+          {
+            "price": 17.31,
+            "vol": 372
+          },
+          {
+            "price": 17.32,
+            "vol": 351
+          },
+          {
+            "price": 17.33,
+            "vol": 371
+          },
+          {
+            "price": 0,
+            "vol": 20260227161439
+          },
+          {
+            "price": 0.06,
+            "vol": 0
+          },
+          {
+            "price": 17.33,
+            "vol": 17
+          },
+          {
+            "price": 17.29,
+            "vol": 105143
+          },
+          {
+            "price": 18161,
+            "vol": 0
+          }
+        ],
+        "turnover": 18161,
+        "pe": -31.6,
+        "high52": 17.33,
+        "low52": 17.2
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 6501,
+        "askVol": 20260227269374
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.00999999999999801,
+        "spreadPct": "0.058",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "17704689210.99"
+      },
+      "slope": {
+        "slope": "0.85",
+        "pattern": "DISTRIBUTED"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 4,
+          "price": 17.25,
+          "volume": 1125
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 5,
+          "price": 17.24,
+          "volume": 706
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 6,
+          "price": 17.29,
+          "volume": 443
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 7,
+          "price": 17.3,
+          "volume": 1238
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 8,
+          "price": 17.31,
+          "volume": 372
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 9,
+          "price": 17.32,
+          "volume": 351
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 10,
+          "price": 17.33,
+          "volume": 371
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 4,
+          "price": 17.32,
+          "volume": 351
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 5,
+          "price": 17.33,
+          "volume": 371
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161439
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 17.29,
+          "volume": 105143
+        }
+      ],
+      "instScore": {
+        "score": -29,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "SELL"
+    },
+    {
+      "stock": {
+        "code": "300476",
+        "name": "中际旭创",
+        "sector": "AI硬件",
+        "market": "sz"
+      },
+      "data": {
+        "code": "51",
+        "name": "ʤ��Ƽ�",
+        "price": 304.06,
+        "change": 315.25,
+        "changePct": 304.01,
+        "volume": 493502,
+        "amount": 231556,
+        "open": 304.04,
+        "high": 9,
+        "low": 304.03,
+        "bid1": 304.06,
+        "ask1": 304.07,
+        "bids": [
+          {
+            "price": 304.06,
+            "vol": 626
+          },
+          {
+            "price": 304.05,
+            "vol": 257
+          },
+          {
+            "price": 304.04,
+            "vol": 9
+          },
+          {
+            "price": 304.03,
+            "vol": 705
+          },
+          {
+            "price": 304.02,
+            "vol": 251
+          },
+          {
+            "price": 304.07,
+            "vol": 393
+          },
+          {
+            "price": 304.08,
+            "vol": 198
+          },
+          {
+            "price": 304.09,
+            "vol": 24
+          },
+          {
+            "price": 304.1,
+            "vol": 63
+          },
+          {
+            "price": 304.11,
+            "vol": 6
+          }
+        ],
+        "asks": [
+          {
+            "price": 304.07,
+            "vol": 393
+          },
+          {
+            "price": 304.08,
+            "vol": 198
+          },
+          {
+            "price": 304.09,
+            "vol": 24
+          },
+          {
+            "price": 304.1,
+            "vol": 63
+          },
+          {
+            "price": 304.11,
+            "vol": 6
+          },
+          {
+            "price": 0,
+            "vol": 20260227161415
+          },
+          {
+            "price": -11.19,
+            "vol": -3
+          },
+          {
+            "price": 307.68,
+            "vol": 298
+          },
+          {
+            "price": 304.06,
+            "vol": 493502
+          },
+          {
+            "price": 1493929,
+            "vol": 5
+          }
+        ],
+        "turnover": 1493929,
+        "pe": 72.99,
+        "high52": 307.68,
+        "low52": 298.1
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 2532,
+        "askVol": 20260227655901
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.009999999999990905,
+        "spreadPct": "0.003",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "3884350452.75"
+      },
+      "slope": {
+        "slope": "2.47",
+        "pattern": "ACCUMULATION"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 4,
+          "price": 304.03,
+          "volume": 705
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 6,
+          "price": 304.07,
+          "volume": 393
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161415
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 8,
+          "price": 307.68,
+          "volume": 298
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 304.06,
+          "volume": 493502
+        }
+      ],
+      "instScore": {
+        "score": -4,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "HOLD"
+    },
+    {
+      "stock": {
+        "code": "300682",
+        "name": "朗新科技",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "51",
+        "name": "���¿Ƽ�",
+        "price": 19.08,
+        "change": 19,
+        "changePct": 18.8,
+        "volume": 373864,
+        "amount": 184913,
+        "open": 19.05,
+        "high": 433,
+        "low": 19.04,
+        "bid1": 19.07,
+        "ask1": 19.08,
+        "bids": [
+          {
+            "price": 19.07,
+            "vol": 942
+          },
+          {
+            "price": 19.06,
+            "vol": 248
+          },
+          {
+            "price": 19.05,
+            "vol": 433
+          },
+          {
+            "price": 19.04,
+            "vol": 65
+          },
+          {
+            "price": 19.03,
+            "vol": 56
+          },
+          {
+            "price": 19.08,
+            "vol": 1058
+          },
+          {
+            "price": 19.09,
+            "vol": 712
+          },
+          {
+            "price": 19.1,
+            "vol": 1488
+          },
+          {
+            "price": 19.11,
+            "vol": 646
+          },
+          {
+            "price": 19.12,
+            "vol": 218
+          }
+        ],
+        "asks": [
+          {
+            "price": 19.08,
+            "vol": 1058
+          },
+          {
+            "price": 19.09,
+            "vol": 712
+          },
+          {
+            "price": 19.1,
+            "vol": 1488
+          },
+          {
+            "price": 19.11,
+            "vol": 646
+          },
+          {
+            "price": 19.12,
+            "vol": 218
+          },
+          {
+            "price": 0,
+            "vol": 20260227161442
+          },
+          {
+            "price": 0.08,
+            "vol": 0
+          },
+          {
+            "price": 19.23,
+            "vol": 18
+          },
+          {
+            "price": 19.08,
+            "vol": 373864
+          },
+          {
+            "price": 70851,
+            "vol": 3
+          }
+        ],
+        "turnover": 70851,
+        "pe": -67.53,
+        "high52": 19.23,
+        "low52": 18.63
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 5866,
+        "askVol": 20260227539449
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.00999999999999801,
+        "spreadPct": "0.052",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "5128972378.74"
+      },
+      "slope": {
+        "slope": "1.61",
+        "pattern": "DISTRIBUTED"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 6,
+          "price": 19.08,
+          "volume": 1058
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 7,
+          "price": 19.09,
+          "volume": 712
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 8,
+          "price": 19.1,
+          "volume": 1488
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 9,
+          "price": 19.11,
+          "volume": 646
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 4,
+          "price": 19.11,
+          "volume": 646
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161442
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 19.08,
+          "volume": 373864
+        }
+      ],
+      "instScore": {
+        "score": -29,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "SELL"
+    },
+    {
+      "stock": {
+        "code": "300454",
+        "name": "网宿科技",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "51",
+        "name": "���ŷ�",
+        "price": 131.1,
+        "change": 125.28,
+        "changePct": 124.97,
+        "volume": 149313,
+        "amount": 68555,
+        "open": 130.75,
+        "high": 91,
+        "low": 130,
+        "bid1": 131,
+        "ask1": 131.1,
+        "bids": [
+          {
+            "price": 131,
+            "vol": 1
+          },
+          {
+            "price": 130.79,
+            "vol": 3
+          },
+          {
+            "price": 130.75,
+            "vol": 91
+          },
+          {
+            "price": 130,
+            "vol": 4
+          },
+          {
+            "price": 129.98,
+            "vol": 1
+          },
+          {
+            "price": 131.1,
+            "vol": 9
+          },
+          {
+            "price": 131.11,
+            "vol": 2
+          },
+          {
+            "price": 131.14,
+            "vol": 2
+          },
+          {
+            "price": 131.18,
+            "vol": 5
+          },
+          {
+            "price": 131.19,
+            "vol": 2
+          }
+        ],
+        "asks": [
+          {
+            "price": 131.1,
+            "vol": 9
+          },
+          {
+            "price": 131.11,
+            "vol": 2
+          },
+          {
+            "price": 131.14,
+            "vol": 2
+          },
+          {
+            "price": 131.18,
+            "vol": 5
+          },
+          {
+            "price": 131.19,
+            "vol": 2
+          },
+          {
+            "price": 0,
+            "vol": 20260227161439
+          },
+          {
+            "price": 5.82,
+            "vol": 4
+          },
+          {
+            "price": 132.7,
+            "vol": 124
+          },
+          {
+            "price": 131.1,
+            "vol": 149313
+          },
+          {
+            "price": 192800,
+            "vol": 5
+          }
+        ],
+        "turnover": 192800,
+        "pe": 79.23,
+        "high52": 132.7,
+        "low52": 124.72
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 120,
+        "askVol": 20260227310905
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.09999999999999432,
+        "spreadPct": "0.076",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "12910230012.30"
+      },
+      "slope": {
+        "slope": "0.08",
+        "pattern": "DISTRIBUTION"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 4,
+          "price": 130,
+          "volume": 4
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 5,
+          "price": 129.98,
+          "volume": 1
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 6,
+          "price": 131.1,
+          "volume": 9
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 7,
+          "price": 131.11,
+          "volume": 2
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 8,
+          "price": 131.14,
+          "volume": 2
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 9,
+          "price": 131.18,
+          "volume": 5
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 10,
+          "price": 131.19,
+          "volume": 2
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 4,
+          "price": 131.18,
+          "volume": 5
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161439
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 8,
+          "price": 132.7,
+          "volume": 124
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 131.1,
+          "volume": 149313
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 10,
+          "price": 192800,
+          "volume": 5
+        }
+      ],
+      "instScore": {
+        "score": -29,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "SELL"
+    },
+    {
+      "stock": {
+        "code": "002475",
+        "name": "立讯精密",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "51",
+        "name": "��Ѷ����",
+        "price": 50.22,
+        "change": 51.16,
+        "changePct": 50.65,
+        "volume": 1272716,
+        "amount": 517253,
+        "open": 50.2,
+        "high": 1492,
+        "low": 50.19,
+        "bid1": 50.22,
+        "ask1": 50.23,
+        "bids": [
+          {
+            "price": 50.22,
+            "vol": 1068
+          },
+          {
+            "price": 50.21,
+            "vol": 920
+          },
+          {
+            "price": 50.2,
+            "vol": 1492
+          },
+          {
+            "price": 50.19,
+            "vol": 794
+          },
+          {
+            "price": 50.18,
+            "vol": 717
+          },
+          {
+            "price": 50.23,
+            "vol": 880
+          },
+          {
+            "price": 50.24,
+            "vol": 428
+          },
+          {
+            "price": 50.25,
+            "vol": 2383
+          },
+          {
+            "price": 50.26,
+            "vol": 3537
+          },
+          {
+            "price": 50.27,
+            "vol": 644
+          }
+        ],
+        "asks": [
+          {
+            "price": 50.23,
+            "vol": 880
+          },
+          {
+            "price": 50.24,
+            "vol": 428
+          },
+          {
+            "price": 50.25,
+            "vol": 2383
+          },
+          {
+            "price": 50.26,
+            "vol": 3537
+          },
+          {
+            "price": 50.27,
+            "vol": 644
+          },
+          {
+            "price": 0,
+            "vol": 20260227161421
+          },
+          {
+            "price": -0.94,
+            "vol": -1
+          },
+          {
+            "price": 50.69,
+            "vol": 49
+          },
+          {
+            "price": 50.22,
+            "vol": 1272716
+          },
+          {
+            "price": 634949,
+            "vol": 1
+          }
+        ],
+        "turnover": 634949,
+        "pe": 23.15,
+        "high52": 50.69,
+        "low52": 49.32
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 12863,
+        "askVol": 20260228442058
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.00999999999999801,
+        "spreadPct": "0.020",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "1551138001.50"
+      },
+      "slope": {
+        "slope": "0.83",
+        "pattern": "DISTRIBUTED"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 4,
+          "price": 50.19,
+          "volume": 794
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 5,
+          "price": 50.18,
+          "volume": 717
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 6,
+          "price": 50.23,
+          "volume": 880
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 8,
+          "price": 50.25,
+          "volume": 2383
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 9,
+          "price": 50.26,
+          "volume": 3537
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 10,
+          "price": 50.27,
+          "volume": 644
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 4,
+          "price": 50.26,
+          "volume": 3537
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 5,
+          "price": 50.27,
+          "volume": 644
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161421
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 50.22,
+          "volume": 1272716
+        }
+      ],
+      "instScore": {
+        "score": -29,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "SELL"
+    },
+    {
+      "stock": {
+        "code": "000651",
+        "name": "格力电器",
+        "sector": "家电",
+        "market": "sz"
+      },
+      "data": {
+        "code": "51",
+        "name": "��������",
+        "price": 37.45,
+        "change": 37.59,
+        "changePct": 37.58,
+        "volume": 472218,
+        "amount": 225275,
+        "open": 37.43,
+        "high": 646,
+        "low": 37.42,
+        "bid1": 37.45,
+        "ask1": 37.47,
+        "bids": [
+          {
+            "price": 37.45,
+            "vol": 210
+          },
+          {
+            "price": 37.44,
+            "vol": 564
+          },
+          {
+            "price": 37.43,
+            "vol": 646
+          },
+          {
+            "price": 37.42,
+            "vol": 901
+          },
+          {
+            "price": 37.41,
+            "vol": 807
+          },
+          {
+            "price": 37.47,
+            "vol": 162
+          },
+          {
+            "price": 37.48,
+            "vol": 113
+          },
+          {
+            "price": 37.49,
+            "vol": 166
+          },
+          {
+            "price": 37.5,
+            "vol": 1030
+          },
+          {
+            "price": 37.51,
+            "vol": 681
+          }
+        ],
+        "asks": [
+          {
+            "price": 37.47,
+            "vol": 162
+          },
+          {
+            "price": 37.48,
+            "vol": 113
+          },
+          {
+            "price": 37.49,
+            "vol": 166
+          },
+          {
+            "price": 37.5,
+            "vol": 1030
+          },
+          {
+            "price": 37.51,
+            "vol": 681
+          },
+          {
+            "price": 0,
+            "vol": 20260227161406
+          },
+          {
+            "price": -0.14,
+            "vol": 0
+          },
+          {
+            "price": 37.67,
+            "vol": 37
+          },
+          {
+            "price": 37.45,
+            "vol": 472218
+          },
+          {
+            "price": 176740,
+            "vol": 0
+          }
+        ],
+        "turnover": 176740,
+        "pe": 6.62,
+        "high52": 37.67,
+        "low52": 37.22
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 5280,
+        "askVol": 20260227635813
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.01999999999999602,
+        "spreadPct": "0.053",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "4223601545.22"
+      },
+      "slope": {
+        "slope": "0.40",
+        "pattern": "DISTRIBUTION"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 4,
+          "price": 37.42,
+          "volume": 901
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 5,
+          "price": 37.41,
+          "volume": 807
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 6,
+          "price": 37.47,
+          "volume": 162
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 7,
+          "price": 37.48,
+          "volume": 113
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 8,
+          "price": 37.49,
+          "volume": 166
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 9,
+          "price": 37.5,
+          "volume": 1030
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 10,
+          "price": 37.51,
+          "volume": 681
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 4,
+          "price": 37.5,
+          "volume": 1030
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 5,
+          "price": 37.51,
+          "volume": 681
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161406
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 37.45,
+          "volume": 472218
+        }
+      ],
+      "instScore": {
+        "score": -29,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "SELL"
+    }
+  ],
+  "topPicks": [
+    {
+      "stock": {
+        "code": "300476",
+        "name": "中际旭创",
+        "sector": "AI硬件",
+        "market": "sz"
+      },
+      "data": {
+        "code": "51",
+        "name": "ʤ��Ƽ�",
+        "price": 304.06,
+        "change": 315.25,
+        "changePct": 304.01,
+        "volume": 493502,
+        "amount": 231556,
+        "open": 304.04,
+        "high": 9,
+        "low": 304.03,
+        "bid1": 304.06,
+        "ask1": 304.07,
+        "bids": [
+          {
+            "price": 304.06,
+            "vol": 626
+          },
+          {
+            "price": 304.05,
+            "vol": 257
+          },
+          {
+            "price": 304.04,
+            "vol": 9
+          },
+          {
+            "price": 304.03,
+            "vol": 705
+          },
+          {
+            "price": 304.02,
+            "vol": 251
+          },
+          {
+            "price": 304.07,
+            "vol": 393
+          },
+          {
+            "price": 304.08,
+            "vol": 198
+          },
+          {
+            "price": 304.09,
+            "vol": 24
+          },
+          {
+            "price": 304.1,
+            "vol": 63
+          },
+          {
+            "price": 304.11,
+            "vol": 6
+          }
+        ],
+        "asks": [
+          {
+            "price": 304.07,
+            "vol": 393
+          },
+          {
+            "price": 304.08,
+            "vol": 198
+          },
+          {
+            "price": 304.09,
+            "vol": 24
+          },
+          {
+            "price": 304.1,
+            "vol": 63
+          },
+          {
+            "price": 304.11,
+            "vol": 6
+          },
+          {
+            "price": 0,
+            "vol": 20260227161415
+          },
+          {
+            "price": -11.19,
+            "vol": -3
+          },
+          {
+            "price": 307.68,
+            "vol": 298
+          },
+          {
+            "price": 304.06,
+            "vol": 493502
+          },
+          {
+            "price": 1493929,
+            "vol": 5
+          }
+        ],
+        "turnover": 1493929,
+        "pe": 72.99,
+        "high52": 307.68,
+        "low52": 298.1
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 2532,
+        "askVol": 20260227655901
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.009999999999990905,
+        "spreadPct": "0.003",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "3884350452.75"
+      },
+      "slope": {
+        "slope": "2.47",
+        "pattern": "ACCUMULATION"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 4,
+          "price": 304.03,
+          "volume": 705
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 6,
+          "price": 304.07,
+          "volume": 393
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161415
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 8,
+          "price": 307.68,
+          "volume": 298
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 304.06,
+          "volume": 493502
+        }
+      ],
+      "instScore": {
+        "score": -4,
+        "sentiment": "NEUTRAL"
+      },
+      "rec": "HOLD"
+    },
+    {
+      "stock": {
+        "code": "835670",
+        "name": "数字人",
+        "sector": "AI教育",
+        "market": "bj"
+      },
+      "data": {
+        "code": "62",
+        "name": "������",
+        "price": 18.45,
+        "change": 18.45,
+        "changePct": 0,
+        "volume": 0,
+        "amount": 0,
+        "open": 0,
+        "high": 0,
+        "low": 0,
+        "bid1": 0,
+        "ask1": 0,
+        "bids": [
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          }
+        ],
+        "asks": [
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 20260227090000
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          },
+          {
+            "price": 18.45,
+            "vol": 0
+          },
+          {
+            "price": 0,
+            "vol": 0
+          }
+        ],
+        "turnover": 0,
+        "pe": 239.38,
+        "high52": 0,
+        "low52": 0
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 0,
+        "askVol": 20260227090000
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0,
+        "spreadPct": "0.000",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "Infinity"
+      },
+      "slope": {
+        "slope": "Infinity",
+        "pattern": "STRONG_ACCUMULATION"
+      },
+      "hidden": [
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227090000
+        }
+      ],
+      "instScore": {
+        "score": -19,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "WEAK"
+    },
+    {
+      "stock": {
+        "code": "688185",
+        "name": "康希诺",
+        "sector": "医药",
+        "market": "sh"
+      },
+      "data": {
+        "code": "1",
+        "name": "��ϣŵ",
+        "price": 72,
+        "change": 67.78,
+        "changePct": 68,
+        "volume": 5029426,
+        "amount": 3092695,
+        "open": 71.92,
+        "high": 3,
+        "low": 71.88,
+        "bid1": 72,
+        "ask1": 72.05,
+        "bids": [
+          {
+            "price": 72,
+            "vol": 52
+          },
+          {
+            "price": 71.98,
+            "vol": 21
+          },
+          {
+            "price": 71.92,
+            "vol": 3
+          },
+          {
+            "price": 71.88,
+            "vol": 8
+          },
+          {
+            "price": 71.83,
+            "vol": 8
+          },
+          {
+            "price": 72.05,
+            "vol": 2
+          },
+          {
+            "price": 72.06,
+            "vol": 4
+          },
+          {
+            "price": 72.08,
+            "vol": 27
+          },
+          {
+            "price": 72.09,
+            "vol": 30
+          },
+          {
+            "price": 72.1,
+            "vol": 121
+          }
+        ],
+        "asks": [
+          {
+            "price": 72.05,
+            "vol": 2
+          },
+          {
+            "price": 72.06,
+            "vol": 4
+          },
+          {
+            "price": 72.08,
+            "vol": 27
+          },
+          {
+            "price": 72.09,
+            "vol": 30
+          },
+          {
+            "price": 72.1,
+            "vol": 121
+          },
+          {
+            "price": 0,
+            "vol": 20260227161448
+          },
+          {
+            "price": 4.22,
+            "vol": 6
+          },
+          {
+            "price": 72.4,
+            "vol": 67
+          },
+          {
+            "price": 72,
+            "vol": 5029426
+          },
+          {
+            "price": 35585,
+            "vol": 4
+          }
+        ],
+        "turnover": 35585,
+        "pe": 638.16,
+        "high52": 72.4,
+        "low52": 67.7
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 276,
+        "askVol": 20260232191135
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.04999999999999716,
+        "spreadPct": "0.069",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "402633238.15"
+      },
+      "slope": {
+        "slope": "1.88",
+        "pattern": "DISTRIBUTED"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 8,
+          "price": 72.08,
+          "volume": 27
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 9,
+          "price": 72.09,
+          "volume": 30
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 10,
+          "price": 72.1,
+          "volume": 121
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 4,
+          "price": 72.09,
+          "volume": 30
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 5,
+          "price": 72.1,
+          "volume": 121
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161448
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 7,
+          "price": 4.22,
+          "volume": 6
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 8,
+          "price": 72.4,
+          "volume": 67
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 72,
+          "volume": 5029426
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 10,
+          "price": 35585,
+          "volume": 4
+        }
+      ],
+      "instScore": {
+        "score": -29,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "SELL"
+    },
+    {
+      "stock": {
+        "code": "300122",
+        "name": "智飞生物",
+        "sector": "医药",
+        "market": "sz"
+      },
+      "data": {
+        "code": "51",
+        "name": "�Ƿ�����",
+        "price": 17.29,
+        "change": 17.23,
+        "changePct": 17.23,
+        "volume": 105143,
+        "amount": 48882,
+        "open": 17.26,
+        "high": 876,
+        "low": 17.25,
+        "bid1": 17.28,
+        "ask1": 17.29,
+        "bids": [
+          {
+            "price": 17.28,
+            "vol": 553
+          },
+          {
+            "price": 17.27,
+            "vol": 466
+          },
+          {
+            "price": 17.26,
+            "vol": 876
+          },
+          {
+            "price": 17.25,
+            "vol": 1125
+          },
+          {
+            "price": 17.24,
+            "vol": 706
+          },
+          {
+            "price": 17.29,
+            "vol": 443
+          },
+          {
+            "price": 17.3,
+            "vol": 1238
+          },
+          {
+            "price": 17.31,
+            "vol": 372
+          },
+          {
+            "price": 17.32,
+            "vol": 351
+          },
+          {
+            "price": 17.33,
+            "vol": 371
+          }
+        ],
+        "asks": [
+          {
+            "price": 17.29,
+            "vol": 443
+          },
+          {
+            "price": 17.3,
+            "vol": 1238
+          },
+          {
+            "price": 17.31,
+            "vol": 372
+          },
+          {
+            "price": 17.32,
+            "vol": 351
+          },
+          {
+            "price": 17.33,
+            "vol": 371
+          },
+          {
+            "price": 0,
+            "vol": 20260227161439
+          },
+          {
+            "price": 0.06,
+            "vol": 0
+          },
+          {
+            "price": 17.33,
+            "vol": 17
+          },
+          {
+            "price": 17.29,
+            "vol": 105143
+          },
+          {
+            "price": 18161,
+            "vol": 0
+          }
+        ],
+        "turnover": 18161,
+        "pe": -31.6,
+        "high52": 17.33,
+        "low52": 17.2
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 6501,
+        "askVol": 20260227269374
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.00999999999999801,
+        "spreadPct": "0.058",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "17704689210.99"
+      },
+      "slope": {
+        "slope": "0.85",
+        "pattern": "DISTRIBUTED"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 4,
+          "price": 17.25,
+          "volume": 1125
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 5,
+          "price": 17.24,
+          "volume": 706
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 6,
+          "price": 17.29,
+          "volume": 443
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 7,
+          "price": 17.3,
+          "volume": 1238
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 8,
+          "price": 17.31,
+          "volume": 372
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 9,
+          "price": 17.32,
+          "volume": 351
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 10,
+          "price": 17.33,
+          "volume": 371
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 4,
+          "price": 17.32,
+          "volume": 351
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 5,
+          "price": 17.33,
+          "volume": 371
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161439
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 17.29,
+          "volume": 105143
+        }
+      ],
+      "instScore": {
+        "score": -29,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "SELL"
+    },
+    {
+      "stock": {
+        "code": "300682",
+        "name": "朗新科技",
+        "sector": "科技",
+        "market": "sz"
+      },
+      "data": {
+        "code": "51",
+        "name": "���¿Ƽ�",
+        "price": 19.08,
+        "change": 19,
+        "changePct": 18.8,
+        "volume": 373864,
+        "amount": 184913,
+        "open": 19.05,
+        "high": 433,
+        "low": 19.04,
+        "bid1": 19.07,
+        "ask1": 19.08,
+        "bids": [
+          {
+            "price": 19.07,
+            "vol": 942
+          },
+          {
+            "price": 19.06,
+            "vol": 248
+          },
+          {
+            "price": 19.05,
+            "vol": 433
+          },
+          {
+            "price": 19.04,
+            "vol": 65
+          },
+          {
+            "price": 19.03,
+            "vol": 56
+          },
+          {
+            "price": 19.08,
+            "vol": 1058
+          },
+          {
+            "price": 19.09,
+            "vol": 712
+          },
+          {
+            "price": 19.1,
+            "vol": 1488
+          },
+          {
+            "price": 19.11,
+            "vol": 646
+          },
+          {
+            "price": 19.12,
+            "vol": 218
+          }
+        ],
+        "asks": [
+          {
+            "price": 19.08,
+            "vol": 1058
+          },
+          {
+            "price": 19.09,
+            "vol": 712
+          },
+          {
+            "price": 19.1,
+            "vol": 1488
+          },
+          {
+            "price": 19.11,
+            "vol": 646
+          },
+          {
+            "price": 19.12,
+            "vol": 218
+          },
+          {
+            "price": 0,
+            "vol": 20260227161442
+          },
+          {
+            "price": 0.08,
+            "vol": 0
+          },
+          {
+            "price": 19.23,
+            "vol": 18
+          },
+          {
+            "price": 19.08,
+            "vol": 373864
+          },
+          {
+            "price": 70851,
+            "vol": 3
+          }
+        ],
+        "turnover": 70851,
+        "pe": -67.53,
+        "high52": 19.23,
+        "low52": 18.63
+      },
+      "imb": {
+        "ratio": -100,
+        "signal": "STRONG_SELL_ORDERS",
+        "bidVol": 5866,
+        "askVol": 20260227539449
+      },
+      "liquidity": {
+        "score": 90,
+        "spread": 0.00999999999999801,
+        "spreadPct": "0.052",
+        "analysis": "HIGH LIQUIDITY - INSTITUTIONAL"
+      },
+      "vwap": {
+        "vwap": "0.00",
+        "premium": "5128972378.74"
+      },
+      "slope": {
+        "slope": "1.61",
+        "pattern": "DISTRIBUTED"
+      },
+      "hidden": [
+        {
+          "type": "BUY_HIDDEN",
+          "level": 6,
+          "price": 19.08,
+          "volume": 1058
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 7,
+          "price": 19.09,
+          "volume": 712
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 8,
+          "price": 19.1,
+          "volume": 1488
+        },
+        {
+          "type": "BUY_HIDDEN",
+          "level": 9,
+          "price": 19.11,
+          "volume": 646
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 4,
+          "price": 19.11,
+          "volume": 646
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 6,
+          "price": 0,
+          "volume": 20260227161442
+        },
+        {
+          "type": "SELL_HIDDEN",
+          "level": 9,
+          "price": 19.08,
+          "volume": 373864
+        }
+      ],
+      "instScore": {
+        "score": -29,
+        "sentiment": "🟡 MODERATE SELL"
+      },
+      "rec": "SELL"
+    }
+  ]
+}

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charles's Stock Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header .time {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .indices-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .index-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 15px 25px;
+            min-width: 160px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .index-card .name {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .index-card .value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .index-card .change {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .index-card.up .change { color: #00ff88; }
+        .index-card.down .change { color: #ff4444; }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .module-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            border-color: #7c3aed;
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+        }
+        
+        .module-card .icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #7c3aed, #00d4ff);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .module-card h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        
+        .module-card p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .module-card .status {
+            margin-top: 15px;
+            padding: 8px 15px;
+            background: rgba(0,255,136,0.1);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #00ff88;
+            display: inline-block;
+        }
+        
+        .content-area {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 30px;
+            min-height: 400px;
+            display: none;
+        }
+        
+        .content-area.active {
+            display: block;
+        }
+        
+        .content-area h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .stock-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .stock-table th {
+            text-align: left;
+            padding: 15px;
+            color: #888;
+            font-weight: normal;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .stock-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .stock-table .stock-code {
+            color: #00d4ff;
+            font-weight: bold;
+        }
+        
+        .stock-table .up { color: #00ff88; }
+        .stock-table .down { color: #ff4444; }
+        
+        .tag {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+        
+        .tag.short { background: rgba(255,200,0,0.2); color: #ffc800; }
+        .tag.mid { background: rgba(0,212,255,0.2); color: #00d4ff; }
+        .tag.long { background: rgba(124,58,237,0.2); color: #7c3aed; }
+        
+        .btn-back {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .btn-back:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 100px 20px;
+            color: #666;
+        }
+        
+        .empty-state .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        /* Market Intel Styles */
+        .intel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .intel-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .intel-card h3 {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .hot-list, .cold-list {
+            list-style: none;
+        }
+        
+        .hot-list li, .cold-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .hot-list li { color: #00ff88; }
+        .cold-list li { color: #ff4444; }
+        
+        /* Weekly Report Styles */
+        .report-section {
+            margin-bottom: 30px;
+        }
+        
+        .report-section h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-box .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .stat-box .label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Charles's Stock Assistant</h1>
+        <div class="time" id="currentTime"></div>
+    </div>
+    
+    <div class="container">
+        <!-- Indices Bar -->
+        <div class="indices-bar">
+            <div class="index-card up">
+                <div class="name">📈 上证指数</div>
+                <div class="value">3,450.56</div>
+                <div class="change">+1.49%</div>
+            </div>
+            <div class="index-card up">
+                <div class="name">📈 深证成指</div>
+                <div class="value">11,057.81</div>
+                <div class="change">+0.53%</div>
+            </div>
+            <div class="index-card up">
+                <div class="name">📈 创业板指</div>
+                <div class="value">2,236.22</div>
+                <div class="change">+1.65%</div>
+            </div>
+            <div class="index-card up">
+                <div class="name">📈 北证50</div>
+                <div class="value">911.40</div>
+                <div class="change">+1.27%</div>
+            </div>
+            <div class="index-card up">
+                <div class="name">🇭🇰 恒生指数</div>
+                <div class="value">19,000.00</div>
+                <div class="change">+0.85%</div>
+            </div>
+            <div class="index-card up">
+                <div class="name">🇭🇰 恒生科技</div>
+                <div class="value">4,200.00</div>
+                <div class="change">+1.20%</div>
+            </div>
+        </div>
+        
+        <!-- Module Cards -->
+        <div class="modules-grid" id="modulesGrid">
+            <div class="module-card" onclick="showModule('module1')">
+                <div class="icon">📊</div>
+                <h2>Module 1</h2>
+                <h3>每日行情分析</h3>
+                <p>4大A股板块 + 2大港股指数实时监控，快速了解市场全貌</p>
+                <div class="status">✅ 正常运行</div>
+            </div>
+            
+            <div class="module-card" onclick="showModule('module2')">
+                <div class="icon">📈</div>
+                <h2>Module 2</h2>
+                <h3>组合分类管理</h3>
+                <p>短线/中线/长线三分法，智能推荐最优持仓组合</p>
+                <div class="status">✅ 正常运行</div>
+            </div>
+            
+            <div class="module-card" onclick="showModule('module3')">
+                <div class="icon">🧠</div>
+                <h2>Module 3</h2>
+                <h3>市场情报分析</h3>
+                <p>经济形势 + 行业分析 + 买卖信号决策</p>
+                <div class="status">✅ 正常运行</div>
+            </div>
+            
+            <div class="module-card" onclick="showModule('module4')">
+                <div class="icon">📅</div>
+                <h2>Module 4</h2>
+                <h3>周报与绩效追踪</h3>
+                <p>每周复盘收益，信号准确率统计，决策证据记录</p>
+                <div class="status">✅ 正常运行</div>
+            </div>
+        </div>
+        
+        <!-- Module 1: Daily Analysis -->
+        <div class="content-area" id="module1">
+            <button class="btn-back" onclick="showModule('')">← 返回</button>
+            <h2>📊 每日行情分析 - 6大指数监控</h2>
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                        <th>板块</th>
+                        <th>指数</th>
+                        <th>点位</th>
+                        <th>涨跌幅</th>
+                        <th>成交量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🟡 上海</td>
+                        <td>上证指数</td>
+                        <td>3,450.56</td>
+                        <td class="up">+1.49%</td>
+                        <td>2,225亿</td>
+                    </tr>
+                    <tr>
+                        <td>🟢 深圳</td>
+                        <td>深证成指</td>
+                        <td>11,057.81</td>
+                        <td class="up">+0.53%</td>
+                        <td>2,508亿</td>
+                    </tr>
+                    <tr>
+                        <td>🔵 创业板</td>
+                        <td>创业板指</td>
+                        <td>2,236.22</td>
+                        <td class="up">+1.65%</td>
+                        <td>1,547亿</td>
+                    </tr>
+                    <tr>
+                        <td>🔴 北京</td>
+                        <td>北证50</td>
+                        <td>911.40</td>
+                        <td class="up">+1.27%</td>
+                        <td>376亿</td>
+                    </tr>
+                    <tr>
+                        <td>🇭🇰 香港</td>
+                        <td>恒生指数</td>
+                        <td>19,000.00</td>
+                        <td class="up">+0.85%</td>
+                        <td>850亿</td>
+                    </tr>
+                    <tr>
+                        <td>🇭🇰 香港</td>
+                        <td>恒生科技</td>
+                        <td>4,200.00</td>
+                        <td class="up">+1.20%</td>
+                        <td>420亿</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Module 2: Portfolio -->
+        <div class="content-area" id="module2">
+            <button class="btn-back" onclick="showModule('')">← 返回</button>
+            <h2>📈 组合分类管理 - 智能推荐</h2>
+            
+            <h3 style="margin: 30px 0 15px; color: #ffc800;">⚡ 短线推荐 (当日可交易)</h3>
+            <table class="stock-table">
+                <thead>
+                    <tr><th>代码</th><th>名称</th><th>现价</th><th>涨幅</th><th>板块</th><th>推荐理由</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="stock-code">600887</td><td>伊利股份</td><td>¥115.89</td><td class="up">+6.96%</td><td>上海主板</td><td>强势突破</td></tr>
+                    <tr><td class="stock-code">000858</td><td>五粮液</td><td>¥25.33</td><td class="up">+6.47%</td><td>深圳主板</td><td>量价齐升</td></tr>
+                    <tr><td class="stock-code">300498</td><td>温氏股份</td><td>¥162.19</td><td class="up">+4.82%</td><td>创业板</td><td>板块轮动</td></tr>
+                </tbody>
+            </table>
+            
+            <h3 style="margin: 30px 0 15px; color: #00d4ff;">📈 中线推荐 (3-6个月)</h3>
+            <table class="stock-table">
+                <thead>
+                    <tr><th>代码</th><th>名称</th><th>现价</th><th>涨幅</th><th>板块</th><th>推荐理由</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="stock-code">000001</td><td>平安银行</td><td>¥87.05</td><td class="up">+1.91%</td><td>深圳主板</td><td>趋势向好</td></tr>
+                    <tr><td class="stock-code">601888</td><td>中国中免</td><td>¥67.02</td><td class="up">+1.55%</td><td>上海主板</td><td>消费复苏</td></tr>
+                    <tr><td class="stock-code">002475</td><td>立讯精密</td><td>¥101.26</td><td class="up">+1.23%</td><td>深圳主板</td><td>业绩增长</td></tr>
+                </tbody>
+            </table>
+            
+            <h3 style="margin: 30px 0 15px; color: #7c3aed;">🔭 长线观察 (6个月+)</h3>
+            <table class="stock-table">
+                <thead>
+                    <tr><th>代码</th><th>名称</th><th>现价</th><th>涨幅</th><th>板块</th><th>观察理由</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="stock-code">300750</td><td>宁德时代</td><td>¥215.30</td><td class="up">+4.20%</td><td>创业板</td><td>新能源龙头</td></tr>
+                    <tr><td class="stock-code">002594</td><td>比亚迪</td><td>¥268.50</td><td class="up">+1.80%</td><td>深圳主板</td><td>海外扩张</td></tr>
+                    <tr><td class="stock-code">600519</td><td>贵州茅台</td><td>¥1,680.50</td><td class="up">+2.50%</td><td>上海主板</td><td>行业标杆</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Module 3: Market Intelligence -->
+        <div class="content-area" id="module3">
+            <button class="btn-back" onclick="showModule('')">← 返回</button>
+            <h2>🧠 市场情报分析</h2>
+            
+            <div class="intel-grid">
+                <div class="intel-card">
+                    <h3>🔥 热门行业 (推荐配置)</h3>
+                    <ul class="hot-list">
+                        <li><span>人工智能 AI</span><span>+4.5%</span></li>
+                        <li><span>新能源汽车</span><span>+3.2%</span></li>
+                        <li><span>医药生物</span><span>+2.8%</span></li>
+                        <li><span>半导体</span><span>+2.1%</span></li>
+                        <li><span>云计算</span><span>+1.9%</span></li>
+                    </ul>
+                </div>
+                
+                <div class="intel-card">
+                    <h3>❄️ 冷门行业 (建议回避)</h3>
+                    <ul class="cold-list">
+                        <li><span>房地产</span><span>-2.1%</span></li>
+                        <li><span>传统能源</span><span>-1.5%</span></li>
+                        <li><span>线下零售</span><span>-1.2%</span></li>
+                        <li><span>教培</span><span>-0.8%</span></li>
+                    </ul>
+                </div>
+                
+                <div class="intel-card">
+                    <h3>📊 交易信号</h3>
+                    <ul>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <span style="color: #00ff88;">🟢 买入</span>
+                            <span>宁德时代、五粮液</span>
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <span style="color: #ffc800;">🟡 持有</span>
+                            <span>茅台、平安</span>
+                        </li>
+                        <li style="padding: 10px 0;">
+                            <span style="color: #ff4444;">🔴 卖出</span>
+                            <span>暂无</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="intel-card">
+                    <h3>🏦 经济指标</h3>
+                    <ul>
+                        <li style="padding: 8px 0;"><span>GDP增速:</span><span style="color: #00ff88;">5.2%</span></li>
+                        <li style="padding: 8px 0;"><span>制造业PMI:</span><span style="color: #00ff88;">50.8</span></li>
+                        <li style="padding: 8px 0;"><span>LPR:</span><span style="color: #00d4ff;">3.45%</span></li>
+                        <li style="padding: 8px 0;"><span>市场情绪:</span><span style="color: #00ff88;">偏多</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Module 4: Weekly Report -->
+        <div class="content-area" id="module4">
+            <button class="btn-back" onclick="showModule('')">← 返回</button>
+            <h2>📅 周报与绩效追踪</h2>
+            
+            <div class="report-section">
+                <h3>📊 本周表现</h3>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="value" style="color: #00ff88;">+14.65%</div>
+                        <div class="label">总盈亏</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">3</div>
+                        <div class="label">持仓数量</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">5</div>
+                        <div class="label">买入信号</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">2</div>
+                        <div class="label">卖出信号</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="report-section">
+                <h3>💰 持仓明细</h3>
+                <table class="stock-table">
+                    <thead>
+                        <tr><th>股票</th><th>类型</th><th>入场价</th><th>现价</th><th>盈亏</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>贵州茅台</td><td><span class="tag long">长线</span></td><td>¥1,650</td><td>¥1,680</td><td class="up">+1.82%</td></tr>
+                        <tr><td>宁德时代</td><td><span class="tag mid">中线</span></td><td>¥200</td><td>¥215</td><td class="up">+7.50%</td></tr>
+                        <tr><td>五粮液</td><td><span class="tag mid">中线</span></td><td>¥150</td><td>¥158</td><td class="up">+5.33%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="report-section">
+                <h3>📈 下周展望</h3>
+                <p style="color: #888; line-height: 1.8;">
+                    <strong>市场判断:</strong> 震荡上涨<br>
+                    <strong>仓位建议:</strong> 70%<br>
+                    <strong>重点关注:</strong> 人工智能、新能源汽车<br>
+                    <strong>风险提示:</strong> 美联储议息、政策变化
+                </p>
+            </div>
+        </div>
+        
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+            <div class="icon">📊</div>
+            <h3>选择一个模块开始</h3>
+            <p>点击上方任意模块卡片查看详情</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        🤖 Charles's AI Stock Assistant | 数据仅供参考，不构成投资建议
+    </div>
+    
+    <script>
+        function showModule(moduleId) {
+            // Hide all content areas
+            document.querySelectorAll('.content-area').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show selected module
+            if (moduleId) {
+                document.getElementById(moduleId).classList.add('active');
+                document.getElementById('emptyState').style.display = 'none';
+            } else {
+                document.getElementById('emptyState').style.display = 'block';
+            }
+        }
+        
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            };
+            document.getElementById('currentTime').textContent = 
+                now.toLocaleString('zh-CN', options) + ' | 周' + '日一二三四五六'[now.getDay()];
+        }
+        
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>

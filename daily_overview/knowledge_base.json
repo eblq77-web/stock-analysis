@@ -1,0 +1,249 @@
+{
+  "updated": "2026-03-04",
+  "knowledge": {
+    "strategies": 12,
+    "riskMetrics": 12,
+    "sources": 17,
+    "criteria": 11,
+    "alphaFactors": 12,
+    "regimes": 5,
+    "sectors": 4
+  },
+  "currentRegime": "sideways",
+  "sectorPhase": "phase_1_recovery",
+  "recommendations": [
+    "Monitor insider buying as conviction signal",
+    "Check sector rotation weekly",
+    "Review VaR and position sizing daily"
+  ],
+  "strategies": {
+    "动量突破": {
+      "risk": "MEDIUM",
+      "horizon": "SHORT",
+      "alpha": 0.12
+    },
+    "趋势跟踪": {
+      "risk": "MEDIUM",
+      "horizon": "MEDIUM",
+      "alpha": 0.08
+    },
+    "均值回归": {
+      "risk": "LOW",
+      "horizon": "SHORT",
+      "alpha": 0.05
+    },
+    "价值投资": {
+      "risk": "LOW",
+      "horizon": "LONG",
+      "alpha": 0.1
+    },
+    "深度价值": {
+      "risk": "MEDIUM",
+      "horizon": "LONG",
+      "alpha": 0.15
+    },
+    "困境反转": {
+      "risk": "HIGH",
+      "horizon": "MEDIUM",
+      "alpha": 0.2
+    },
+    "成长股": {
+      "risk": "HIGH",
+      "horizon": "MEDIUM",
+      "alpha": 0.18
+    },
+    "赛道投资": {
+      "risk": "HIGH",
+      "horizon": "LONG",
+      "alpha": 0.22
+    },
+    "渗透率模型": {
+      "risk": "MEDIUM",
+      "horizon": "LONG",
+      "alpha": 0.25
+    },
+    "多因子": {
+      "risk": "MEDIUM",
+      "horizon": "MEDIUM",
+      "alpha": 0.1
+    },
+    "套利": {
+      "risk": "LOW",
+      "horizon": "SHORT",
+      "alpha": 0.03
+    },
+    "统计套利": {
+      "risk": "MEDIUM",
+      "horizon": "SHORT",
+      "alpha": 0.06
+    }
+  },
+  "alphaFactors": {
+    "value": {
+      "weight": 0.15,
+      "sources": [
+        "PE",
+        "PB",
+        "PCF",
+        "EV/EBITDA"
+      ]
+    },
+    "momentum": {
+      "weight": 0.15,
+      "sources": [
+        "6M Return",
+        "3M Return",
+        "RS"
+      ]
+    },
+    "quality": {
+      "weight": 0.2,
+      "sources": [
+        "ROE",
+        "ROA",
+        "Gross Margin"
+      ]
+    },
+    "size": {
+      "weight": 0.05,
+      "sources": [
+        "Market Cap",
+        "Log Market Cap"
+      ]
+    },
+    "sentiment": {
+      "weight": 0.1,
+      "sources": [
+        "Analyst Ratings",
+        "Short Interest",
+        "News Flow"
+      ]
+    },
+    "macro": {
+      "weight": 0.1,
+      "sources": [
+        "Interest Rates",
+        "GDP",
+        "Inflation"
+      ]
+    },
+    "sector": {
+      "weight": 0.1,
+      "sources": [
+        "Sector Rotation",
+        "Industry Momentum"
+      ]
+    },
+    "insider": {
+      "weight": 0.1,
+      "sources": [
+        "Insider Buying",
+        "Insider Net"
+      ]
+    },
+    "technical": {
+      "weight": 0.05,
+      "sources": [
+        "Trend",
+        "Support/Resistance",
+        "Patterns"
+      ]
+    },
+    "regime_adaptive": {
+      "weight": 0.1,
+      "sources": [
+        "Market Regime",
+        "Cycle Position"
+      ]
+    },
+    "liquidity": {
+      "weight": 0.05,
+      "sources": [
+        "Trading Volume",
+        "Bid-Ask",
+        "Market Depth"
+      ]
+    },
+    "catalyst": {
+      "weight": 0.1,
+      "sources": [
+        "Earnings",
+        "M&A",
+        "New Products",
+        "Policy"
+      ]
+    }
+  },
+  "screeningCriteria": {
+    "盈利能力": [
+      "ROE > 15%",
+      "ROA > 5%",
+      "Gross Margin > 30%"
+    ],
+    "偿债能力": [
+      "Debt/Equity < 1",
+      "Current Ratio > 1.5",
+      "Interest Coverage > 3"
+    ],
+    "运营效率": [
+      "Asset Turnover > 0.8",
+      "Inventory Turnover > 4",
+      "Receivables < 30 days"
+    ],
+    "收入增长": [
+      "Revenue Growth > 20%",
+      "Quarterly Acceleration",
+      "3-Year CAGR > 15%"
+    ],
+    "盈利增长": [
+      "EPS Growth > 15%",
+      "Earnings Momentum",
+      "Sustainable"
+    ],
+    "估值合理": [
+      "PE < 30",
+      "PEG < 1",
+      "PB < 5"
+    ],
+    "估值偏低": [
+      "PE < 20",
+      "Deep Value",
+      "Net Net"
+    ],
+    "技术面": [
+      "MA50 > MA200",
+      "RSI < 70",
+      "Volume > Average"
+    ],
+    "动量": [
+      "Price > 20DMA",
+      "Breaking out",
+      "Volume surge"
+    ],
+    "护城河": [
+      "High Market Share",
+      "Brand Power",
+      "Network Effect",
+      "Switching Cost"
+    ],
+    "管理层": [
+      "Insider Buying",
+      "Compensation Aligned",
+      "Track Record"
+    ]
+  },
+  "riskMetrics": {
+    "VaR_95": "Value at Risk 95%",
+    "CVaR": "Conditional VaR",
+    "Beta": "Market Sensitivity",
+    "Sharpe": "Risk-Adjusted Return",
+    "Sortino": "Downside Risk-Adjusted",
+    "Calmar": "Max Drawdown Adjusted",
+    "Omega": "Probability Weighted",
+    "Information Ratio": "Active Return/Tracking Error",
+    "Max Drawdown": "Peak to Trough",
+    "Win Rate": "Profitability",
+    "Profit Factor": "Gross Profit/Loss",
+    "Trade Frequency": "Activity Level"
+  }
+}
