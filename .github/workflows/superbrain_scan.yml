@@ -1,0 +1,80 @@
+name: SuperBrain Pro Daily Scan
+
+on:
+  schedule:
+    # Run at 9:00 AM China time (before market opens) - Mon-Fri
+    - cron: '0 1 * * 1-5'
+    # Run at 2:30 PM China time (before market closes) - Mon-Fri  
+    - cron: '30 6 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      scan_type:
+        description: 'Scan Type'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - quick
+          - quantum
+          - institutional
+
+jobs:
+  superbrain-scan:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: develop
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - name: Run Full SuperBrain Scan
+        if: github.event.inputs.scan_type == 'full' || github.event.schedule
+        run: |
+          cd $HOME/Desktop/Stock_Analysis
+          echo "=== Running SuperBrain Pro Full Scan ===" 
+          node comprehensive_scanner.js >> logs/superbrain_scan.log
+          node institutional_scanner.js >> logs/superbrain_scan.log
+          node quantum_super_brain.js >> logs/superbrain_scan.log
+          echo "=== Scan Complete ==="
+      
+      - name: Run Quick Scan
+        if: github.event.inputs.scan_type == 'quick'
+        run: |
+          cd $HOME/Desktop/Stock_Analysis
+          node mega_scanner.js >> logs/quick_scan.log
+      
+      - name: Run Quantum Analysis
+        if: github.event.inputs.scan_type == 'quantum'
+        run: |
+          cd $HOME/Desktop/Stock_Analysis
+          node quantum_engine_v2.js >> logs/quantum_scan.log
+      
+      - name: Run Institutional Scanner
+        if: github.event.inputs.scan_type == 'institutional'
+        run: |
+          cd $HOME/Desktop/Stock_Analysis
+          node institutional_scanner.js >> logs/institutional_scan.log
+      
+      - name: Send Results to GitHub
+        run: |
+          cd $HOME/Desktop/Stock_Analysis
+          git config --global user.name "SuperBrain Pro"
+          git config --global user.email "bot@superbrain.ai"
+          git add daily_overview/
+          git commit -m "Auto-update scan results $(date '+%Y-%m-%d %H:%M')" || true
+          git push || true
+      
+      - name: Upload Scan Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: scan-results
+          path: |
+            $HOME/Desktop/Stock_Analysis/logs/
+            $HOME/Desktop/Stock_Analysis/daily_overview/
