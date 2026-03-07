@@ -1,0 +1,41 @@
+name: Daily Trading Bot
+
+on:
+  schedule:
+    # Run at 9:25 AM China time (before market opens)
+    - cron: '25 1 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Trading action'
+        required: true
+        default: 'scan'
+        type: choice
+        options:
+          - scan
+          - buy
+          - sell
+          - status
+
+jobs:
+  trading:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Run Trading Scanner
+        run: |
+          cd ~/Desktop/Stock_Analysis
+          node mega_scanner.js >> trading_log.txt
+      
+      - name: Check Positions
+        run: |
+          cd ~/Desktop/Stock_Analysis/live_trading
+          node eod_trader.js STATUS
+
+      - name: Execute Trade (if triggered)
+        if: github.event.inputs.action == 'buy' || github.event.inputs.action == 'sell'
+        run: |
+          cd ~/Desktop/Stock_Analysis/live_trading
+          node eod_trader.js ${{ github.event.inputs.action }}
