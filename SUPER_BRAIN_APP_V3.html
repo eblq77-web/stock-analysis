@@ -1452,6 +1452,103 @@ Click "Run" to generate adaptive scores based on current weights...
     
     <!-- AUTOMATION -->
     <div id="automation" class="section">
+      <!-- 🤖 AUTO-TRADING ENGINE -->
+      <div class="card" style="border:2px solid rgba(168,85,247,0.5);background:linear-gradient(135deg,#1a1a2e,#0f0f1a);">
+        <div class="card-header">
+          <span class="card-title">🤖 Auto-Trading Engine</span>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-green" id="auto-trade-start" onclick="toggleAutoTrade()">▶️ Start</button>
+            <button class="btn btn-red" onclick="resetAutoTrade()">🔄 Reset</button>
+          </div>
+        </div>
+        
+        <!-- Mode Selection -->
+        <div style="display:flex;gap:15px;margin-bottom:15px;">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px;background:rgba(0,255,0,0.1);border-radius:8px;border:1px solid #00ff00;">
+            <input type="radio" name="tradeMode" value="paper" checked onchange="setTradeMode(this.value)">
+            <span style="color:#00ff88;">📝 Paper Trading</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px;background:rgba(255,0,0,0.1);border-radius:8px;border:1px solid #ff4444;">
+            <input type="radio" name="tradeMode" value="live" onchange="setTradeMode(this.value)">
+            <span style="color:#ff4444;">💰 Live Trading</span>
+          </label>
+        </div>
+        
+        <!-- Status Dashboard -->
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="at-status" style="color:#ff4444;">STOPPED</div>
+            <div class="stat-label">Engine Status</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="at-mode" style="color:#00d9ff;">PAPER</div>
+            <div class="stat-label">Trading Mode</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="at-trades" style="color:#a855f7;">0</div>
+            <div class="stat-label">Today's Trades</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="at-positions" style="color:#ff9900;">0</div>
+            <div class="stat-label">Open Positions</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="at-pnl" style="color:#00ff88;">¥0</div>
+            <div class="stat-label">Total P&L</div>
+          </div>
+        </div>
+        
+        <!-- Risk Settings -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;font-size:11px;">
+          <div style="background:rgba(255,0,0,0.1);padding:10px;border-radius:6px;border:1px solid #ff4444;">
+            <b style="color:#ff4444;">🛑 Stop Loss</b>
+            <div style="font-size:18px;">-7%</div>
+          </div>
+          <div style="background:rgba(0,255,0,0.1);padding:10px;border-radius:6px;border:1px solid #00ff00;">
+            <b style="color:#00ff88;">🎯 Take Profit</b>
+            <div style="font-size:18px;">+10%</div>
+          </div>
+          <div style="background:rgba(255,170,0,0.1);padding:10px;border-radius:6px;border:1px solid #ffaa00;">
+            <b style="color:#ffaa00;">📈 Trailing Stop</b>
+            <div style="font-size:18px;">+3%</div>
+          </div>
+          <div style="background:rgba(168,85,247,0.1);padding:10px;border-radius:6px;border:1px solid #a855f7;">
+            <b style="color:#a855f7;">🎓 Min Confidence</b>
+            <div style="font-size:18px;">70%</div>
+          </div>
+        </div>
+        
+        <!-- Auto-Trade Positions -->
+        <div style="margin-top:15px;">
+          <div class="card-header"><span class="card-title">📦 Open Positions</span></div>
+          <table style="width:100%;font-size:12px;margin-top:10px;">
+            <thead>
+              <tr style="background:rgba(0,0,0,0.3);">
+                <th style="padding:8px;">Stock</th>
+                <th style="padding:8px;">Entry</th>
+                <th style="padding:8px;">Current</th>
+                <th style="padding:8px;">P&L</th>
+                <th style="padding:8px;">Stop Loss</th>
+                <th style="padding:8px;">Take Profit</th>
+                <th style="padding:8px;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="at-positions-table">
+              <tr><td colspan="7" style="padding:20px;text-align:center;color:#666;">No open positions</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Trade History -->
+        <div style="margin-top:15px;">
+          <div class="card-header"><span class="card-title">📜 Trade History</span></div>
+          <div id="at-history" style="max-height:200px;overflow-y:auto;font-size:11px;color:#888;">
+            No trades yet
+          </div>
+        </div>
+      </div>
+      
+      <!-- Other Automation Cards Below... -->
       <div class="card" style="border:2px solid rgba(255,170,0,0.3);">
         <div class="card-header">
           <span class="card-title">⚡ Automation Center</span>
@@ -4318,6 +4415,215 @@ function showSector(sectorName) {
     alert(`Showing ${sectorName} sector stocks...`);
 }
 
+// ============================================
+// 🤖 AUTO-TRADING ENGINE UI FUNCTIONS
+// ============================================
+
+const AUTO_TRADE_CONFIG = {
+    mode: 'paper',
+    maxPosition: 200000,
+    maxTotalPosition: 1000000,
+    stopLoss: -7,
+    takeProfit: 10,
+    trailingStop: 3,
+    minSignalConfidence: 70,
+    maxTradesPerDay: 5
+};
+
+let autoTradeState = {
+    enabled: false,
+    mode: 'paper',
+    trades: [],
+    todayTrades: 0,
+    positions: []
+};
+
+function setTradeMode(mode) {
+    AUTO_TRADE_CONFIG.mode = mode;
+    document.getElementById('at-mode').innerText = mode.toUpperCase();
+    autoTradeState.mode = mode;
+    console.log('Trading mode set to:', mode);
+}
+
+function toggleAutoTrade() {
+    const btn = document.getElementById('auto-trade-start');
+    const statusEl = document.getElementById('at-status');
+    
+    if (autoTradeState.enabled) {
+        // Stop
+        autoTradeState.enabled = false;
+        btn.innerText = '▶️ Start';
+        btn.className = 'btn btn-green';
+        statusEl.innerText = 'STOPPED';
+        statusEl.style.color = '#ff4444';
+    } else {
+        // Start
+        autoTradeState.enabled = true;
+        btn.innerText = '⏹️ Stop';
+        btn.className = 'btn btn-red';
+        statusEl.innerText = 'RUNNING';
+        statusEl.style.color = '#00ff00';
+        
+        // Start auto-scan interval
+        if (autoTradeState.interval) clearInterval(autoTradeState.interval);
+        autoTradeState.interval = setInterval(runAutoTradeScan, 30000);
+    }
+    
+    updateAutoTradeUI();
+}
+
+function resetAutoTrade() {
+    autoTradeState = {
+        enabled: false,
+        mode: AUTO_TRADE_CONFIG.mode,
+        trades: [],
+        todayTrades: 0,
+        positions: []
+    };
+    
+    document.getElementById('auto-trade-start').innerText = '▶️ Start';
+    document.getElementById('auto-trade-start').className = 'btn btn-green';
+    document.getElementById('at-status').innerText = 'STOPPED';
+    document.getElementById('at-status').style.color = '#ff4444';
+    
+    updateAutoTradeUI();
+    alert('Auto-trade engine reset!');
+}
+
+async function runAutoTradeScan() {
+    if (!autoTradeState.enabled) return;
+    
+    console.log('🤖 Running auto-trade scan...');
+    
+    // Simulate signal scan
+    const signals = [
+        { code: '300750', name: '宁德时代', score: 85, price: 182.5 },
+        { code: '002340', name: '格林美', score: 78, price: 9.08 },
+        { code: '870864', name: '灿能电力', score: 82, price: 8.99 }
+    ];
+    
+    for (let sig of signals) {
+        if (autoTradeState.todayTrades >= AUTO_TRADE_CONFIG.maxTradesPerDay) break;
+        
+        // Check if already have position
+        if (autoTradeState.positions.find(p => p.code === sig.code)) continue;
+        
+        // Check confidence
+        if (sig.score >= AUTO_TRADE_CONFIG.minSignalConfidence) {
+            await executeAutoTrade(sig);
+        }
+    }
+    
+    updateAutoTradeUI();
+}
+
+async function executeAutoTrade(signal) {
+    const { code, name, score, price } = signal;
+    
+    const position = {
+        code,
+        name,
+        entryPrice: price,
+        currentPrice: price,
+        shares: Math.floor(10000 / price),
+        score,
+        entryTime: new Date().toISOString(),
+        stopLoss: price * 0.93,
+        takeProfit: price * 1.10
+    };
+    
+    autoTradeState.positions.push(position);
+    autoTradeState.todayTrades++;
+    
+    // Log trade
+    const trade = {
+        type: 'BUY',
+        code,
+        name,
+        price,
+        shares: position.shares,
+        timestamp: new Date().toISOString(),
+        mode: autoTradeState.mode
+    };
+    autoTradeState.trades.push(trade);
+    
+    console.log(`🤖 Auto-trade: Bought ${code} at ¥${price}`);
+    
+    updateAutoTradeUI();
+}
+
+async function closeAutoPosition(code) {
+    const idx = autoTradeState.positions.findIndex(p => p.code === code);
+    if (idx === -1) return;
+    
+    const pos = autoTradeState.positions[idx];
+    const exitPrice = pos.currentPrice * 0.99; // Simulate slippage
+    const pnl = (exitPrice - pos.entryPrice) * pos.shares;
+    
+    autoTradeState.trades.push({
+        type: 'SELL',
+        code: pos.code,
+        name: pos.name,
+        price: exitPrice,
+        shares: pos.shares,
+        pnl,
+        timestamp: new Date().toISOString()
+    });
+    
+    autoTradeState.positions.splice(idx, 1);
+    
+    updateAutoTradeUI();
+}
+
+function updateAutoTradeUI() {
+    // Update stats
+    document.getElementById('at-trades').innerText = autoTradeState.todayTrades;
+    document.getElementById('at-positions').innerText = autoTradeState.positions.length;
+    
+    // Calculate total P&L
+    const totalPnL = autoTradeState.trades
+        .filter(t => t.type === 'SELL')
+        .reduce((sum, t) => sum + (t.pnl || 0), 0);
+    document.getElementById('at-pnl').innerText = (totalPnL >= 0 ? '+' : '') + '¥' + totalPnL.toFixed(0);
+    document.getElementById('at-pnl').style.color = totalPnL >= 0 ? '#00ff00' : '#ff0000';
+    
+    // Update positions table
+    const tbody = document.getElementById('at-positions-table');
+    if (autoTradeState.positions.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#666;">No open positions</td></tr>';
+    } else {
+        tbody.innerHTML = autoTradeState.positions.map(p => {
+            const pnl = (p.currentPrice - p.entryPrice) * p.shares;
+            const pnlPct = ((p.currentPrice - p.entryPrice) / p.entryPrice * 100);
+            return `
+                <tr style="border-bottom:1px solid #333;">
+                    <td style="padding:8px;"><strong>${p.code}</strong><br><span style="color:#888;font-size:10px;">${p.name}</span></td>
+                    <td style="padding:8px;">¥${p.entryPrice.toFixed(2)}</td>
+                    <td style="padding:8px;">¥${p.currentPrice.toFixed(2)}</td>
+                    <td style="padding:8px;color:${pnl >= 0 ? '#00ff00' : '#ff0000'}">¥${pnl.toFixed(0)}<br>${pnlPct.toFixed(1)}%</td>
+                    <td style="padding:8px;color:#ff4444;">¥${p.stopLoss.toFixed(2)}</td>
+                    <td style="padding:8px;color:#00ff00;">¥${p.takeProfit.toFixed(2)}</td>
+                    <td style="padding:8px;"><button class="btn" style="padding:4px 8px;font-size:10px;" onclick="closeAutoPosition('${p.code}')">🛑 Close</button></td>
+                </tr>
+            `;
+        }).join('');
+    }
+    
+    // Update history
+    const historyEl = document.getElementById('at-history');
+    if (autoTradeState.trades.length === 0) {
+        historyEl.innerHTML = '<div style="padding:10px;text-align:center;color:#666;">No trades yet</div>';
+    } else {
+        historyEl.innerHTML = autoTradeState.trades.slice().reverse().slice(0, 20).map(t => `
+            <div style="padding:8px;border-bottom:1px solid #333;display:flex;justify-content:space-between;">
+                <span>${t.type === 'BUY' ? '🟢' : '🔴'} ${t.code} ${t.name}</span>
+                <span>¥${t.price?.toFixed(2)} ${t.pnl ? '| P&L: ' + (t.pnl >= 0 ? '+' : '') + '¥' + t.pnl.toFixed(0) : ''}</span>
+                <span style="color:#888;">${new Date(t.timestamp).toLocaleTimeString()}</span>
+            </div>
+        `).join('');
+    }
+}
+
 // Initialize gallery on load
 setTimeout(() => {
     renderSectorHeatmap();
@@ -4326,6 +4632,7 @@ setTimeout(() => {
     if (document.getElementById('gallery').style.display !== 'none') {
         renderStockChart();
     }
+    updateAutoTradeUI();
 }, 1000);
 
 // Initial load
