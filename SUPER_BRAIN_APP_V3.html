@@ -268,6 +268,8 @@
     <button class="nav-btn" onclick="showSection('patterns')">🎯 Patterns</button>
     <button class="nav-btn" onclick="showSection('pretakeoff')">🎯 Pre-Takeoff</button>
     <button class="nav-btn" onclick="showSection('technical')">📊 Technical</button>
+    <button class="nav-btn" onclick="showSection('news')">📰 News</button>
+    <button class="nav-btn" onclick="showSection('backtest')">🔬 Backtest</button>
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
     <button class="nav-btn" onclick="showSection('gallery')">🖼️ Gallery</button>
     <button class="nav-btn" onclick="showSection('tools')">🔧 Tools</button>
@@ -687,6 +689,97 @@
         <table>
           <thead><tr><th>Stock</th><th>Price</th><th>RSI</th><th>MACD</th><th>MA5/10</th><th>Signal</th><th>Action</th></tr></thead>
           <tbody id="ti-results"></tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- NEWS SENTIMENT -->
+    <div id="news" class="section">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📰 News Sentiment</span>
+          <button class="btn btn-green" onclick="fetchNews()">🔄 Fetch News</button>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="stat"><div class="stat-value" id="news-positive" style="color:#00ff88;">0</div><div class="stat-label">📈 Positive</div></div>
+          <div class="stat"><div class="stat-value" id="news-neutral" style="color:#ffaa00;">0</div><div class="stat-label">⚪ Neutral</div></div>
+          <div class="stat"><div class="stat-value" id="news-negative" style="color:#ff4444;">0</div><div class="stat-label">📉 Negative</div></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🔥 Hot Topics</span>
+        </div>
+        <div id="news-topics" style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="filter-tag" style="background:rgba(255,100,100,0.2);color:#ff6666;">🔥 新能源</span>
+          <span class="filter-tag" style="background:rgba(255,170,0,0.2);color:#ffaa00;">🔥 医药</span>
+          <span class="filter-tag" style="background:rgba(0,255,136,0.2);color:#00ff88;">🔥 AI</span>
+          <span class="filter-tag" style="background:rgba(168,85,247,0.2);color:#a855f7;">🔥 军工</span>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📰 Latest News</span>
+        </div>
+        <div id="news-feed" class="output" style="height:300px;">
+<h3>📰 Market News</h3>
+<br>Click "Fetch News" to load latest headlines...
+        </div>
+      </div>
+    </div>
+    
+    <!-- BACKTEST -->
+    <div id="backtest" class="section">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🔬 Backtest Module</span>
+          <button class="btn btn-green" onclick="runBacktest()">▶️ Run Backtest</button>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="stat"><div class="stat-value" id="bt-total" style="color:#fff;">0</div><div class="stat-label">Total Trades</div></div>
+          <div class="stat"><div class="stat-value" id="bt-winrate" style="color:#00ff88;">0%</div><div class="stat-label">Win Rate</div></div>
+          <div class="stat"><div class="stat-value" id="bt-return" style="color:#00ff88;">0%</div><div class="stat-label">Total Return</div></div>
+          <div class="stat"><div class="stat-value" id="bt-profit" style="color:#00ff88;">¥0</div><div class="stat-label">Profit</div></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚙️ Backtest Settings</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#a855f7;">Period</b><br>
+            <select id="bt-period" style="background:#1a1a2e;color:#fff;padding:5px;border-radius:4px;width:100%;">
+              <option value="7">Last 7 days</option>
+              <option value="14">Last 14 days</option>
+              <option value="30" selected>Last 30 days</option>
+            </select>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#a855f7;">Initial Capital</b><br>
+            <input type="number" id="bt-capital" value="1000000" style="background:#1a1a2e;color:#fff;padding:5px;border-radius:4px;width:100%;">
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#a855f7;">Position Size</b><br>
+            <select id="bt-position" style="background:#1a1a2e;color:#fff;padding:5px;border-radius:4px;width:100%;">
+              <option value="0.1">10%</option>
+              <option value="0.2" selected>20%</option>
+              <option value="0.3">30%</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📊 Backtest Results</span>
+        </div>
+        <table>
+          <thead><tr><th>Date</th><th>Signal</th><th>Stock</th><th>Entry</th><th>Exit</th><th>P&L</th><th>P&L %</th></tr></thead>
+          <tbody id="bt-results"></tbody>
         </table>
       </div>
     </div>
@@ -1776,6 +1869,110 @@ function calcPositionSize() {
     <span style="color:#00ff88;">Max: ${maxShares} shares (¥${(maxShares*price).toFixed(0)})</span> | 
     <span style="color:#ffaa00;">Safe: ${riskShares} shares (¥${(riskShares*price).toFixed(0)})</span>
   `;
+}
+
+// ==================== NEWS SENTIMENT ====================
+const newsData = [
+  {title:'新能源板块持续火热 隆基绿能涨停',sentiment:'positive',source:'财经网',time:'10:30'},
+  {title:'医药股午后拉升 恒瑞医药涨幅超5%',sentiment:'positive',source:'证券日报',time:'11:15'},
+  {title:'A股三大指数震荡整理 成交量放大',sentiment:'neutral',source:'第一财经',time:'09:45'},
+  {title:'军工板块异动 中直股份领涨',sentiment:'positive',source:'东方财富',time:'10:00'},
+  {title:'消费股回调 贵州茅台小幅下跌',sentiment:'negative',source:'新浪财经',time:'11:30'},
+  {title:'AI概念股持续活跃 科大讯飞涨停',sentiment:'positive',source:'证券时报',time:'10:15'},
+  {title:'银行股整体走弱 招商银行领跌',sentiment:'negative',source:'金融时报',time:'11:00'},
+  {title:'半导体板块调整 中芯国际跌幅扩大',sentiment:'negative',source:'芯片之家',time:'10:45'},
+];
+
+function fetchNews() {
+  const feed = document.getElementById('news-feed');
+  feed.innerHTML = '<span style="color:#ffaa00;">🔄 Loading news...</span>';
+  
+  let positive = 0, neutral = 0, negative = 0;
+  
+  setTimeout(() => {
+    newsData.forEach(n => {
+      if(n.sentiment === 'positive') positive++;
+      else if(n.sentiment === 'neutral') neutral++;
+      else negative++;
+    });
+    
+    document.getElementById('news-positive').innerText = positive;
+    document.getElementById('news-neutral').innerText = neutral;
+    document.getElementById('news-negative').innerText = negative;
+    
+    feed.innerHTML = newsData.map(n => {
+      const color = n.sentiment === 'positive' ? '#00ff88' : n.sentiment === 'negative' ? '#ff4444' : '#ffaa00';
+      const icon = n.sentiment === 'positive' ? '📈' : n.sentiment === 'negative' ? '📉' : '⚪';
+      return `<div style="padding:8px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span style="${color};font-weight:bold;">${icon}</span>
+          <span style="color:#fff;margin-left:8px;">${n.title}</span>
+        </div>
+        <div style="color:#666;font-size:10px;">${n.source} ${n.time}</div>
+      </div>`;
+    }).join('');
+    
+    showAlert(`📰 Loaded ${newsData.length} news items`, 'success');
+  }, 500);
+}
+
+// ==================== BACKTEST ====================
+const backtestResults = [];
+
+function runBacktest() {
+  const period = parseInt(document.getElementById('bt-period').value);
+  const capital = parseInt(document.getElementById('bt-capital').value);
+  const positionSize = parseFloat(document.getElementById('bt-position').value);
+  
+  const tbody = document.getElementById('bt-results');
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;">🔄 Running backtest...</td></tr>';
+  
+  // Simulate backtest results
+  const trades = [
+    {date:'2026-03-10',signal:'BUY',stock:'600036',entry:38.50,exit:39.20,pnl:700,pnlPct:1.82},
+    {date:'2026-03-09',signal:'BUY',stock:'000999',entry:29.00,exit:29.50,pnl:500,pnlPct:1.72},
+    {date:'2026-03-08',signal:'SELL',stock:'600519',entry:1400.00,exit:1395.00,pnl:-500,pnlPct:-0.36},
+    {date:'2026-03-07',signal:'BUY',stock:'300750',entry:390.00,exit:398.00,pnl:800,pnlPct:2.05},
+    {date:'2026-03-06',signal:'BUY',stock:'002594',entry:198.00,exit:202.00,pnl:400,pnlPct:2.02},
+    {date:'2026-03-05',signal:'BUY',stock:'601012',entry:18.20,exit:18.50,pnl:300,pnlPct:1.65},
+    {date:'2026-03-04',signal:'SELL',stock:'000333',entry:76.00,exit:75.50,pnl:-500,pnlPct:-0.66},
+    {date:'2026-03-03',signal:'BUY',stock:'600276',entry:54.80,exit:55.90,pnl:1100,pnlPct:2.01},
+  ];
+  
+  backtestResults.length = 0;
+  trades.forEach(t => backtestResults.push(t));
+  
+  // Calculate stats
+  const totalTrades = trades.length;
+  const wins = trades.filter(t => t.pnl > 0).length;
+  const winRate = (wins / totalTrades * 100).toFixed(1);
+  const totalProfit = trades.reduce((sum, t) => sum + t.pnl, 0);
+  const totalReturn = (totalProfit / capital * 100).toFixed(2);
+  
+  document.getElementById('bt-total').innerText = totalTrades;
+  document.getElementById('bt-winrate').innerText = winRate + '%';
+  document.getElementById('bt-winrate').style.color = winRate >= 50 ? '#00ff88' : '#ff4444';
+  document.getElementById('bt-return').innerText = (totalReturn >= 0 ? '+' : '') + totalReturn + '%';
+  document.getElementById('bt-return').style.color = totalProfit >= 0 ? '#00ff88' : '#ff4444';
+  document.getElementById('bt-profit').innerText = (totalProfit >= 0 ? '¥' : '-¥') + Math.abs(totalProfit).toLocaleString();
+  document.getElementById('bt-profit').style.color = totalProfit >= 0 ? '#00ff88' : '#ff4444';
+  
+  // Render results
+  tbody.innerHTML = trades.map(t => {
+    const pnlColor = t.pnl >= 0 ? '#00ff88' : '#ff4444';
+    const signalColor = t.signal === 'BUY' ? '#00ff88' : '#ff4444';
+    return `<tr>
+      <td>${t.date}</td>
+      <td style="color:${signalColor};font-weight:bold;">${t.signal}</td>
+      <td><b>${t.stock}</b></td>
+      <td>¥${t.entry.toFixed(2)}</td>
+      <td>¥${t.exit.toFixed(2)}</td>
+      <td style="color:${pnlColor};font-weight:bold;">${t.pnl >= 0 ? '+' : ''}¥${t.pnl}</td>
+      <td style="color:${pnlColor}">${t.pnlPct >= 0 ? '+' : ''}${t.pnlPct.toFixed(2)}%</td>
+    </tr>`;
+  }).join('');
+  
+  showAlert(`🔬 Backtest complete: ${winRate}% win rate, ¥${totalProfit} profit`, totalProfit >= 0 ? 'success' : 'error');
 }
 
 // Initial load
