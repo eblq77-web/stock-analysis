@@ -1,0 +1,32 @@
+{
+  "date": "2026-03-12T03:37:36.569Z",
+  "scores": {
+    "patternRecognition": 8,
+    "speed": 6,
+    "depth": 7,
+    "perspectives": 8,
+    "creativity": 9,
+    "critical": 8,
+    "wisdom": 9,
+    "actionable": 8
+  },
+  "total": 63,
+  "maxTotal": 80,
+  "percentage": 79,
+  "grade": "B",
+  "strengths": [
+    "patternRecognition",
+    "perspectives",
+    "creativity",
+    "critical",
+    "wisdom",
+    "actionable"
+  ],
+  "weaknesses": [
+    "speed"
+  ],
+  "recommendations": [
+    "Optimize data fetching for faster analysis",
+    "Spend more time on second/third-order thinking"
+  ]
+}

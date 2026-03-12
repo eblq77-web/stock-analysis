@@ -1,0 +1,12 @@
+{
+  "date": "20260311",
+  "predictions": [],
+  "calibration": {
+    "dailyMultiplier": 0.25,
+    "minConfidence": 60,
+    "maxPredictions": 5,
+    "oversoldMin": 30,
+    "oversoldMax": 50,
+    "minVolumeSurge": 1.5
+  }
+}

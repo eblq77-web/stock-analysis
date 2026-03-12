@@ -1,0 +1,199 @@
+{
+  "date": "2026-03-11",
+  "generated": "2026-03-11T08:29:48.005Z",
+  "market": {
+    "status": "BULL",
+    "closeTime": "15:00",
+    "topGainers": [
+      {
+        "code": "688256",
+        "name": "寒锐钴业",
+        "change": "+1155%"
+      },
+      {
+        "code": "600309",
+        "name": "万华化学",
+        "change": "+88%"
+      },
+      {
+        "code": "601888",
+        "name": "中国中免",
+        "change": "+75%"
+      },
+      {
+        "code": "000333",
+        "name": "美的集团",
+        "change": "+76%"
+      },
+      {
+        "code": "002812",
+        "name": "恩捷股份",
+        "change": "+66%"
+      }
+    ]
+  },
+  "predictions": {
+    "total": 5,
+    "hits": 2,
+    "accuracy": "40%",
+    "details": [
+      {
+        "code": "002594",
+        "name": "比亚迪",
+        "predicted": "+8%",
+        "actual": "+3.17%",
+        "result": "HIT"
+      },
+      {
+        "code": "300750",
+        "name": "宁德时代",
+        "predicted": "+8%",
+        "actual": "+5.97%",
+        "result": "HIT"
+      },
+      {
+        "code": "300476",
+        "name": "胜宏科技",
+        "predicted": "+2%",
+        "actual": "-1.12%",
+        "result": "MISS"
+      },
+      {
+        "code": "300308",
+        "name": "中际旭创",
+        "predicted": "+3%",
+        "actual": "+1.92%",
+        "result": "PENDING"
+      },
+      {
+        "code": "601012",
+        "name": "隆基绿能",
+        "predicted": "+13%",
+        "actual": "+1.40%",
+        "result": "PENDING"
+      }
+    ]
+  },
+  "strategy": {
+    "improvements": [
+      "Reduced prediction multiplier from 100% to 25% for more realistic targets",
+      "Added volume + momentum combination filter",
+      "Minimum confidence threshold: 60%",
+      "Top 5 picks only per day",
+      "Avoid stocks with low momentum (<2%)"
+    ],
+    "lessons": [
+      "High volume alone not enough - need momentum confirmation",
+      "Conservative predictions (2-5%) more accurate than aggressive (60%+)",
+      "Focus on stocks with 3-8% daily change for best results"
+    ]
+  },
+  "portfolio": {
+    "openPositions": 12,
+    "totalPnL": "+¥67,454",
+    "return": "+6.75%",
+    "positions": [
+      {
+        "code": "600085",
+        "name": "同仁堂",
+        "shares": 423,
+        "entry": 30.4
+      },
+      {
+        "code": "000792",
+        "name": "盐湖股份",
+        "shares": 339,
+        "entry": 37.94
+      },
+      {
+        "code": "600066",
+        "name": "宇通客车",
+        "shares": 425,
+        "entry": 30.25
+      },
+      {
+        "code": "000938",
+        "name": "紫光股份",
+        "shares": 511,
+        "entry": 25.17
+      },
+      {
+        "code": "600038",
+        "name": "中直股份",
+        "shares": 335,
+        "entry": 38.36
+      },
+      {
+        "code": "000651",
+        "name": "格力电器",
+        "shares": 346,
+        "entry": 37.19
+      },
+      {
+        "code": "300045",
+        "name": "奥普光电",
+        "shares": 462,
+        "entry": 27.87
+      },
+      {
+        "code": "300046",
+        "name": "台基股份",
+        "shares": 366,
+        "entry": 35.18
+      },
+      {
+        "code": "000513",
+        "name": "丽珠集团",
+        "shares": 370,
+        "entry": 34.8
+      },
+      {
+        "code": "600096",
+        "name": "云天化",
+        "shares": 296,
+        "entry": 43.5
+      },
+      {
+        "code": "300122",
+        "name": "智飞生物",
+        "shares": 200,
+        "entry": 58.2
+      },
+      {
+        "code": "0700",
+        "name": "腾讯控股",
+        "shares": 50,
+        "entry": 502
+      }
+    ]
+  },
+  "alerts": {
+    "institutional": [
+      {
+        "code": "601012",
+        "name": "隆基绿能",
+        "volume": "129万",
+        "signal": "BUY"
+      }
+    ],
+    "breakout": [
+      {
+        "code": "688256",
+        "name": "寒锐钴业",
+        "change": "+1155%"
+      },
+      {
+        "code": "600309",
+        "name": "万华化学",
+        "change": "+88%"
+      }
+    ]
+  },
+  "recommendations": [
+    "Continue using momentum + volume filter",
+    "Focus on stocks with 3-8% daily change",
+    "Set stop-loss at -7% hard rule",
+    "Take partial profits at +10%",
+    "Monitor institutional buying signals"
+  ]
+}

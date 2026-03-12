@@ -1271,3 +1271,632 @@ Next step: Open dashboard_live.html to view results
    1. 9988 阿里巴巴 | Score: 65
 
 ✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/institutional_scanner.md
+🇨🇳 Charles Stock Assistant - V3 Extended
+========================================
+📅 Date: 2026-03-09
+📊 6 Plates x 20 Stocks = 120 Total
+
+📊 Generating extended portfolio data...
+
+📈 6大指数:
+   🟡 上证指数: 3354.87 (-1.33%)
+   🟢 深证成指: 11052.25 (+0.48%)
+   🔵 创业板指: 2200.87 (+0.04%)
+   🔴 北证50: 914.99 (+1.67%)
+   🇭🇰 恒生指数: 18744.82 (-1.34%)
+   🇭🇰 恒生科技: 4149.63 (-1.20%)
+
+📈 股票总数: 120只
+
+📝 Generating report...
+✅ Saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/2026-03-09_extended.md
+
+================================
+✅ V3 Extended Complete!
+================================
+
+📊 6 plates x 20 stocks = 120 total
+📈 Short-term: 10 stocks
+📈 Mid-term: 10 stocks
+📈 Long-term: 20 stocks
+🧠 CHARLES'S SUPER BRAIN - MASTER ORCHESTRATOR
+================================================
+📅 Date: 2026-03-09
+⏰ Time: 8:45:00 AM
+
+▶ Running: Daily Analyzer...
+   ⚠️ Daily Analyzer: Command failed: node daily_analyzer_v3_extended.js
+/bin/sh: node: command not found
+
+▶ Running: Proprietary Scoring...
+   ⚠️ Proprietary Scoring: Command failed: node proprietary_analyzer.js
+/bin/sh: node: command not found
+
+▶ Running: Institutional Scanner...
+   ⚠️ Institutional Scanner: Command failed: node institutional_scanner.js
+/bin/sh: node: command not found
+
+▶ Running: Sonar Detection...
+   ⚠️ Sonar Detection: Command failed: node sonar_detection.js
+/bin/sh: node: command not found
+
+▶ Running: Dashboard Data...
+   ⚠️ Dashboard Data: Command failed: node create_dashboard_data.js
+/bin/sh: node: command not found
+
+
+📊 MODULE RESULTS:
+------------------
+⚠️ Daily Analyzer
+⚠️ Proprietary Scoring
+⚠️ Institutional Scanner
+⚠️ Sonar Detection
+⚠️ Dashboard Data
+
+📝 Generating SUPER REPORT...
+✅ Super report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/super_brain_report.md
+
+🎉 SUPER BRAIN COMPLETE!
+========================
+
+Next step: Open dashboard_live.html to view results
+🏦 CHARLES'S INSTITUTIONAL MOMENTUM SCANNER
+============================================
+
+📊 SCAN RESULTS:
+----------------
+🎯 STRONG BUY: 8
+🟢 BUY: 1
+👀 WATCH: 2
+🔴 AVOID: 20
+
+🎯 TOP INSTITUTIONAL PICKS:
+   1. 1024 快手 | Score: 100 | Smart Money: INFLOW | ✅
+   2. 300015 爱尔眼科 | Score: 100 | Smart Money: INFLOW | ✅
+   3. 300033 同花顺 | Score: 100 | Smart Money: INFLOW | ✅
+   4. 300122 智飞生物 | Score: 100 | Smart Money: INFLOW | ✅
+   5. 601012 隆基绿能 | Score: 100 | Smart Money: INFLOW | ✅
+   6. 000001 平安银行 | Score: 100 | Smart Money: INFLOW | ✅
+   7. 000333 美的集团 | Score: 100 | Smart Money: INFLOW | ✅
+   8. 0700 腾讯控股 | Score: 100 | Smart Money: INFLOW | ✅
+
+🟡 INSTITUTIONAL BUYS:
+   1. 9988 阿里巴巴 | Score: 65
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/institutional_scanner.md
+🔍 CHARLES'S SONAR DETECTION SYSTEM
+====================================
+
+🎯 Scanning for hidden signals...
+
+📡 SONAR RESULTS:
+----------------
+🎯 Hidden Gems: 5
+🔄 Contrarian: 3
+🏦 Institutional: 5
+⚡ Early Signals: 10
+
+🎯 TOP SONAR HITS:
+   1. 💎 300476 中际旭创 | Score: 33 | Breakout
+   2. 🏦 300750 宁德时代 | Score: 33 | Volume spike
+   3. 💎 300033 同花顺 | Score: 30 | Accumulation
+   4. 🏦 002594 比亚迪 | Score: 29 | Breakout
+   5. 🏦 0700 腾讯控股 | Score: 26 | Volume spike
+   6. 💎 835670 数字人 | Score: 23 | Accumulation
+   7. 💎 870299 吉林碳谷 | Score: 22 | Volume spike
+   8. 🏦 600519 贵州茅台 | Score: 21 | Accumulation
+   9. 🔄 601857 中国石油 | Score: 20 | Volume spike
+   10. 🔄 000002 万科A | Score: 19 | Base forming
+
+💎 HIDDEN GEMS DETECTED:
+   💎 300476 中际旭创 | Score: 33
+   💎 300033 同花顺 | Score: 30
+   💎 835670 数字人 | Score: 23
+   💎 870299 吉林碳谷 | Score: 22
+   💎 872926 贝特瑞 | Score: 17
+
+⚡ EARLY SIGNALS:
+   3690 美团: 🌡️ Temperature rising 🎯 On radar ⚡ Early movement
+   300033 同花顺: 🌡️ Temperature rising
+   300476 中际旭创: 📡 Signal detected ⚡ Early movement
+   300750 宁德时代: 🌡️ Temperature rising
+   600519 贵州茅台: 🌡️ Temperature rising
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/sonar_detection.md
+/bin/bash: /Users/liu/Desktop/Stock_Analysis/master_watchdog.sh: Operation not permitted
+✅ Dashboard data saved: 23 stocks
+🏦 CHARLES'S INSTITUTIONAL MOMENTUM SCANNER
+============================================
+
+📊 SCAN RESULTS:
+----------------
+🎯 STRONG BUY: 8
+🟢 BUY: 1
+👀 WATCH: 2
+🔴 AVOID: 20
+
+🎯 TOP INSTITUTIONAL PICKS:
+   1. 1024 快手 | Score: 100 | Smart Money: INFLOW | ✅
+   2. 300015 爱尔眼科 | Score: 100 | Smart Money: INFLOW | ✅
+   3. 300033 同花顺 | Score: 100 | Smart Money: INFLOW | ✅
+   4. 300122 智飞生物 | Score: 100 | Smart Money: INFLOW | ✅
+   5. 601012 隆基绿能 | Score: 100 | Smart Money: INFLOW | ✅
+   6. 000001 平安银行 | Score: 100 | Smart Money: INFLOW | ✅
+   7. 000333 美的集团 | Score: 100 | Smart Money: INFLOW | ✅
+   8. 0700 腾讯控股 | Score: 100 | Smart Money: INFLOW | ✅
+
+🟡 INSTITUTIONAL BUYS:
+   1. 9988 阿里巴巴 | Score: 65
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/institutional_scanner.md
+🇨🇳 Charles Stock Assistant - V3 Extended
+========================================
+📅 Date: 2026-03-10
+📊 6 Plates x 20 Stocks = 120 Total
+
+📊 Generating extended portfolio data...
+
+📈 6大指数:
+   🟡 上证指数: 3425.92 (+0.76%)
+   🟢 深证成指: 11172.99 (+1.57%)
+   🔵 创业板指: 2183.48 (-0.75%)
+   🔴 北证50: 899.48 (-0.06%)
+   🇭🇰 恒生指数: 19104.04 (+0.55%)
+   🇭🇰 恒生科技: 4210.98 (+0.26%)
+
+📈 股票总数: 120只
+
+📝 Generating report...
+✅ Saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/2026-03-10_extended.md
+
+================================
+✅ V3 Extended Complete!
+================================
+
+📊 6 plates x 20 stocks = 120 total
+📈 Short-term: 10 stocks
+📈 Mid-term: 10 stocks
+📈 Long-term: 20 stocks
+🧠 CHARLES'S SUPER BRAIN - MASTER ORCHESTRATOR
+================================================
+📅 Date: 2026-03-10
+⏰ Time: 8:45:00 AM
+
+▶ Running: Daily Analyzer...
+   ⚠️ Daily Analyzer: Command failed: node daily_analyzer_v3_extended.js
+/bin/sh: node: command not found
+
+▶ Running: Proprietary Scoring...
+   ⚠️ Proprietary Scoring: Command failed: node proprietary_analyzer.js
+/bin/sh: node: command not found
+
+▶ Running: Institutional Scanner...
+   ⚠️ Institutional Scanner: Command failed: node institutional_scanner.js
+/bin/sh: node: command not found
+
+▶ Running: Sonar Detection...
+   ⚠️ Sonar Detection: Command failed: node sonar_detection.js
+/bin/sh: node: command not found
+
+▶ Running: Dashboard Data...
+   ⚠️ Dashboard Data: Command failed: node create_dashboard_data.js
+/bin/sh: node: command not found
+
+
+📊 MODULE RESULTS:
+------------------
+⚠️ Daily Analyzer
+⚠️ Proprietary Scoring
+⚠️ Institutional Scanner
+⚠️ Sonar Detection
+⚠️ Dashboard Data
+
+📝 Generating SUPER REPORT...
+✅ Super report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/super_brain_report.md
+
+🎉 SUPER BRAIN COMPLETE!
+========================
+
+Next step: Open dashboard_live.html to view results
+🏦 CHARLES'S INSTITUTIONAL MOMENTUM SCANNER
+============================================
+
+📊 SCAN RESULTS:
+----------------
+🎯 STRONG BUY: 8
+🟢 BUY: 1
+👀 WATCH: 2
+🔴 AVOID: 20
+
+🎯 TOP INSTITUTIONAL PICKS:
+   1. 1024 快手 | Score: 100 | Smart Money: INFLOW | ✅
+   2. 300015 爱尔眼科 | Score: 100 | Smart Money: INFLOW | ✅
+   3. 300033 同花顺 | Score: 100 | Smart Money: INFLOW | ✅
+   4. 300122 智飞生物 | Score: 100 | Smart Money: INFLOW | ✅
+   5. 601012 隆基绿能 | Score: 100 | Smart Money: INFLOW | ✅
+   6. 000001 平安银行 | Score: 100 | Smart Money: INFLOW | ✅
+   7. 000333 美的集团 | Score: 100 | Smart Money: INFLOW | ✅
+   8. 0700 腾讯控股 | Score: 100 | Smart Money: INFLOW | ✅
+
+🟡 INSTITUTIONAL BUYS:
+   1. 9988 阿里巴巴 | Score: 65
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/institutional_scanner.md
+🔍 CHARLES'S SONAR DETECTION SYSTEM
+====================================
+
+🎯 Scanning for hidden signals...
+
+📡 SONAR RESULTS:
+----------------
+🎯 Hidden Gems: 5
+🔄 Contrarian: 3
+🏦 Institutional: 5
+⚡ Early Signals: 10
+
+🎯 TOP SONAR HITS:
+   1. 💎 300476 中际旭创 | Score: 33 | Breakout
+   2. 🏦 300750 宁德时代 | Score: 33 | Volume spike
+   3. 💎 300033 同花顺 | Score: 30 | Accumulation
+   4. 🏦 002594 比亚迪 | Score: 29 | Breakout
+   5. 🏦 0700 腾讯控股 | Score: 26 | Volume spike
+   6. 💎 835670 数字人 | Score: 23 | Accumulation
+   7. 💎 870299 吉林碳谷 | Score: 22 | Volume spike
+   8. 🏦 600519 贵州茅台 | Score: 21 | Accumulation
+   9. 🔄 601857 中国石油 | Score: 20 | Volume spike
+   10. 🔄 000002 万科A | Score: 19 | Base forming
+
+💎 HIDDEN GEMS DETECTED:
+   💎 300476 中际旭创 | Score: 33
+   💎 300033 同花顺 | Score: 30
+   💎 835670 数字人 | Score: 23
+   💎 870299 吉林碳谷 | Score: 22
+   💎 872926 贝特瑞 | Score: 17
+
+⚡ EARLY SIGNALS:
+   3690 美团: 🌡️ Temperature rising 🎯 On radar ⚡ Early movement
+   300033 同花顺: 🌡️ Temperature rising
+   300476 中际旭创: 📡 Signal detected ⚡ Early movement
+   300750 宁德时代: 🌡️ Temperature rising
+   600519 贵州茅台: 🌡️ Temperature rising
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/sonar_detection.md
+✅ Dashboard data saved: 23 stocks
+🏦 CHARLES'S INSTITUTIONAL MOMENTUM SCANNER
+============================================
+
+📊 SCAN RESULTS:
+----------------
+🎯 STRONG BUY: 8
+🟢 BUY: 1
+👀 WATCH: 2
+🔴 AVOID: 20
+
+🎯 TOP INSTITUTIONAL PICKS:
+   1. 1024 快手 | Score: 100 | Smart Money: INFLOW | ✅
+   2. 300015 爱尔眼科 | Score: 100 | Smart Money: INFLOW | ✅
+   3. 300033 同花顺 | Score: 100 | Smart Money: INFLOW | ✅
+   4. 300122 智飞生物 | Score: 100 | Smart Money: INFLOW | ✅
+   5. 601012 隆基绿能 | Score: 100 | Smart Money: INFLOW | ✅
+   6. 000001 平安银行 | Score: 100 | Smart Money: INFLOW | ✅
+   7. 000333 美的集团 | Score: 100 | Smart Money: INFLOW | ✅
+   8. 0700 腾讯控股 | Score: 100 | Smart Money: INFLOW | ✅
+
+🟡 INSTITUTIONAL BUYS:
+   1. 9988 阿里巴巴 | Score: 65
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/institutional_scanner.md
+🇨🇳 Charles Stock Assistant - V3 Extended
+========================================
+📅 Date: 2026-03-11
+📊 6 Plates x 20 Stocks = 120 Total
+
+📊 Generating extended portfolio data...
+
+📈 6大指数:
+   🟡 上证指数: 3451.61 (+1.52%)
+   🟢 深证成指: 10798.75 (-1.83%)
+   🔵 创业板指: 2225.39 (+1.15%)
+   🔴 北证50: 889.81 (-1.13%)
+   🇭🇰 恒生指数: 19028.82 (+0.15%)
+   🇭🇰 恒生科技: 4258.78 (+1.40%)
+
+📈 股票总数: 120只
+
+📝 Generating report...
+✅ Saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/2026-03-11_extended.md
+
+================================
+✅ V3 Extended Complete!
+================================
+
+📊 6 plates x 20 stocks = 120 total
+📈 Short-term: 10 stocks
+📈 Mid-term: 10 stocks
+📈 Long-term: 20 stocks
+🧠 CHARLES'S SUPER BRAIN - MASTER ORCHESTRATOR
+================================================
+📅 Date: 2026-03-11
+⏰ Time: 8:45:00 AM
+
+▶ Running: Daily Analyzer...
+   ⚠️ Daily Analyzer: Command failed: node daily_analyzer_v3_extended.js
+/bin/sh: node: command not found
+
+▶ Running: Proprietary Scoring...
+   ⚠️ Proprietary Scoring: Command failed: node proprietary_analyzer.js
+/bin/sh: node: command not found
+
+▶ Running: Institutional Scanner...
+   ⚠️ Institutional Scanner: Command failed: node institutional_scanner.js
+/bin/sh: node: command not found
+
+▶ Running: Sonar Detection...
+   ⚠️ Sonar Detection: Command failed: node sonar_detection.js
+/bin/sh: node: command not found
+
+▶ Running: Dashboard Data...
+   ⚠️ Dashboard Data: Command failed: node create_dashboard_data.js
+/bin/sh: node: command not found
+
+
+📊 MODULE RESULTS:
+------------------
+⚠️ Daily Analyzer
+⚠️ Proprietary Scoring
+⚠️ Institutional Scanner
+⚠️ Sonar Detection
+⚠️ Dashboard Data
+
+📝 Generating SUPER REPORT...
+✅ Super report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/super_brain_report.md
+
+🎉 SUPER BRAIN COMPLETE!
+========================
+
+Next step: Open dashboard_live.html to view results
+🏦 CHARLES'S INSTITUTIONAL MOMENTUM SCANNER
+============================================
+
+📊 SCAN RESULTS:
+----------------
+🎯 STRONG BUY: 8
+🟢 BUY: 1
+👀 WATCH: 2
+🔴 AVOID: 20
+
+🎯 TOP INSTITUTIONAL PICKS:
+   1. 1024 快手 | Score: 100 | Smart Money: INFLOW | ✅
+   2. 300015 爱尔眼科 | Score: 100 | Smart Money: INFLOW | ✅
+   3. 300033 同花顺 | Score: 100 | Smart Money: INFLOW | ✅
+   4. 300122 智飞生物 | Score: 100 | Smart Money: INFLOW | ✅
+   5. 601012 隆基绿能 | Score: 100 | Smart Money: INFLOW | ✅
+   6. 000001 平安银行 | Score: 100 | Smart Money: INFLOW | ✅
+   7. 000333 美的集团 | Score: 100 | Smart Money: INFLOW | ✅
+   8. 0700 腾讯控股 | Score: 100 | Smart Money: INFLOW | ✅
+
+🟡 INSTITUTIONAL BUYS:
+   1. 9988 阿里巴巴 | Score: 65
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/institutional_scanner.md
+🔍 CHARLES'S SONAR DETECTION SYSTEM
+====================================
+
+🎯 Scanning for hidden signals...
+
+📡 SONAR RESULTS:
+----------------
+🎯 Hidden Gems: 5
+🔄 Contrarian: 3
+🏦 Institutional: 5
+⚡ Early Signals: 10
+
+🎯 TOP SONAR HITS:
+   1. 💎 300476 中际旭创 | Score: 33 | Breakout
+   2. 🏦 300750 宁德时代 | Score: 33 | Volume spike
+   3. 💎 300033 同花顺 | Score: 30 | Accumulation
+   4. 🏦 002594 比亚迪 | Score: 29 | Breakout
+   5. 🏦 0700 腾讯控股 | Score: 26 | Volume spike
+   6. 💎 835670 数字人 | Score: 23 | Accumulation
+   7. 💎 870299 吉林碳谷 | Score: 22 | Volume spike
+   8. 🏦 600519 贵州茅台 | Score: 21 | Accumulation
+   9. 🔄 601857 中国石油 | Score: 20 | Volume spike
+   10. 🔄 000002 万科A | Score: 19 | Base forming
+
+💎 HIDDEN GEMS DETECTED:
+   💎 300476 中际旭创 | Score: 33
+   💎 300033 同花顺 | Score: 30
+   💎 835670 数字人 | Score: 23
+   💎 870299 吉林碳谷 | Score: 22
+   💎 872926 贝特瑞 | Score: 17
+
+⚡ EARLY SIGNALS:
+   3690 美团: 🌡️ Temperature rising 🎯 On radar ⚡ Early movement
+   300033 同花顺: 🌡️ Temperature rising
+   300476 中际旭创: 📡 Signal detected ⚡ Early movement
+   300750 宁德时代: 🌡️ Temperature rising
+   600519 贵州茅台: 🌡️ Temperature rising
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/sonar_detection.md
+✅ Dashboard data saved: 23 stocks
+🏦 CHARLES'S INSTITUTIONAL MOMENTUM SCANNER
+============================================
+
+📊 SCAN RESULTS:
+----------------
+🎯 STRONG BUY: 8
+🟢 BUY: 1
+👀 WATCH: 2
+🔴 AVOID: 20
+
+🎯 TOP INSTITUTIONAL PICKS:
+   1. 1024 快手 | Score: 100 | Smart Money: INFLOW | ✅
+   2. 300015 爱尔眼科 | Score: 100 | Smart Money: INFLOW | ✅
+   3. 300033 同花顺 | Score: 100 | Smart Money: INFLOW | ✅
+   4. 300122 智飞生物 | Score: 100 | Smart Money: INFLOW | ✅
+   5. 601012 隆基绿能 | Score: 100 | Smart Money: INFLOW | ✅
+   6. 000001 平安银行 | Score: 100 | Smart Money: INFLOW | ✅
+   7. 000333 美的集团 | Score: 100 | Smart Money: INFLOW | ✅
+   8. 0700 腾讯控股 | Score: 100 | Smart Money: INFLOW | ✅
+
+🟡 INSTITUTIONAL BUYS:
+   1. 9988 阿里巴巴 | Score: 65
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/institutional_scanner.md
+🇨🇳 Charles Stock Assistant - V3 Extended
+========================================
+📅 Date: 2026-03-12
+📊 6 Plates x 20 Stocks = 120 Total
+
+📊 Generating extended portfolio data...
+
+📈 6大指数:
+   🟡 上证指数: 3337.43 (-1.84%)
+   🟢 深证成指: 10925.68 (-0.68%)
+   🔵 创业板指: 2235.79 (+1.63%)
+   🔴 北证50: 886.30 (-1.52%)
+   🇭🇰 恒生指数: 18855.53 (-0.76%)
+   🇭🇰 恒生科技: 4212.38 (+0.29%)
+
+📈 股票总数: 120只
+
+📝 Generating report...
+✅ Saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/2026-03-12_extended.md
+
+================================
+✅ V3 Extended Complete!
+================================
+
+📊 6 plates x 20 stocks = 120 total
+📈 Short-term: 10 stocks
+📈 Mid-term: 10 stocks
+📈 Long-term: 20 stocks
+🧠 CHARLES'S SUPER BRAIN - MASTER ORCHESTRATOR
+================================================
+📅 Date: 2026-03-12
+⏰ Time: 8:45:01 AM
+
+▶ Running: Daily Analyzer...
+   ⚠️ Daily Analyzer: Command failed: node daily_analyzer_v3_extended.js
+/bin/sh: node: command not found
+
+▶ Running: Proprietary Scoring...
+   ⚠️ Proprietary Scoring: Command failed: node proprietary_analyzer.js
+/bin/sh: node: command not found
+
+▶ Running: Institutional Scanner...
+   ⚠️ Institutional Scanner: Command failed: node institutional_scanner.js
+/bin/sh: node: command not found
+
+▶ Running: Sonar Detection...
+   ⚠️ Sonar Detection: Command failed: node sonar_detection.js
+/bin/sh: node: command not found
+
+▶ Running: Dashboard Data...
+   ⚠️ Dashboard Data: Command failed: node create_dashboard_data.js
+/bin/sh: node: command not found
+
+
+📊 MODULE RESULTS:
+------------------
+⚠️ Daily Analyzer
+⚠️ Proprietary Scoring
+⚠️ Institutional Scanner
+⚠️ Sonar Detection
+⚠️ Dashboard Data
+
+📝 Generating SUPER REPORT...
+✅ Super report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/super_brain_report.md
+
+🎉 SUPER BRAIN COMPLETE!
+========================
+
+Next step: Open dashboard_live.html to view results
+🏦 CHARLES'S INSTITUTIONAL MOMENTUM SCANNER
+============================================
+
+📊 SCAN RESULTS:
+----------------
+🎯 STRONG BUY: 8
+🟢 BUY: 1
+👀 WATCH: 2
+🔴 AVOID: 20
+
+🎯 TOP INSTITUTIONAL PICKS:
+   1. 1024 快手 | Score: 100 | Smart Money: INFLOW | ✅
+   2. 300015 爱尔眼科 | Score: 100 | Smart Money: INFLOW | ✅
+   3. 300033 同花顺 | Score: 100 | Smart Money: INFLOW | ✅
+   4. 300122 智飞生物 | Score: 100 | Smart Money: INFLOW | ✅
+   5. 601012 隆基绿能 | Score: 100 | Smart Money: INFLOW | ✅
+   6. 000001 平安银行 | Score: 100 | Smart Money: INFLOW | ✅
+   7. 000333 美的集团 | Score: 100 | Smart Money: INFLOW | ✅
+   8. 0700 腾讯控股 | Score: 100 | Smart Money: INFLOW | ✅
+
+🟡 INSTITUTIONAL BUYS:
+   1. 9988 阿里巴巴 | Score: 65
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/institutional_scanner.md
+🔍 CHARLES'S SONAR DETECTION SYSTEM
+====================================
+
+🎯 Scanning for hidden signals...
+
+📡 SONAR RESULTS:
+----------------
+🎯 Hidden Gems: 5
+🔄 Contrarian: 3
+🏦 Institutional: 5
+⚡ Early Signals: 10
+
+🎯 TOP SONAR HITS:
+   1. 💎 300476 中际旭创 | Score: 33 | Breakout
+   2. 🏦 300750 宁德时代 | Score: 33 | Volume spike
+   3. 💎 300033 同花顺 | Score: 30 | Accumulation
+   4. 🏦 002594 比亚迪 | Score: 29 | Breakout
+   5. 🏦 0700 腾讯控股 | Score: 26 | Volume spike
+   6. 💎 835670 数字人 | Score: 23 | Accumulation
+   7. 💎 870299 吉林碳谷 | Score: 22 | Volume spike
+   8. 🏦 600519 贵州茅台 | Score: 21 | Accumulation
+   9. 🔄 601857 中国石油 | Score: 20 | Volume spike
+   10. 🔄 000002 万科A | Score: 19 | Base forming
+
+💎 HIDDEN GEMS DETECTED:
+   💎 300476 中际旭创 | Score: 33
+   💎 300033 同花顺 | Score: 30
+   💎 835670 数字人 | Score: 23
+   💎 870299 吉林碳谷 | Score: 22
+   💎 872926 贝特瑞 | Score: 17
+
+⚡ EARLY SIGNALS:
+   3690 美团: 🌡️ Temperature rising 🎯 On radar ⚡ Early movement
+   300033 同花顺: 🌡️ Temperature rising
+   300476 中际旭创: 📡 Signal detected ⚡ Early movement
+   300750 宁德时代: 🌡️ Temperature rising
+   600519 贵州茅台: 🌡️ Temperature rising
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/sonar_detection.md
+✅ Dashboard data saved: 23 stocks
+🏦 CHARLES'S INSTITUTIONAL MOMENTUM SCANNER
+============================================
+
+📊 SCAN RESULTS:
+----------------
+🎯 STRONG BUY: 8
+🟢 BUY: 1
+👀 WATCH: 2
+🔴 AVOID: 20
+
+🎯 TOP INSTITUTIONAL PICKS:
+   1. 1024 快手 | Score: 100 | Smart Money: INFLOW | ✅
+   2. 300015 爱尔眼科 | Score: 100 | Smart Money: INFLOW | ✅
+   3. 300033 同花顺 | Score: 100 | Smart Money: INFLOW | ✅
+   4. 300122 智飞生物 | Score: 100 | Smart Money: INFLOW | ✅
+   5. 601012 隆基绿能 | Score: 100 | Smart Money: INFLOW | ✅
+   6. 000001 平安银行 | Score: 100 | Smart Money: INFLOW | ✅
+   7. 000333 美的集团 | Score: 100 | Smart Money: INFLOW | ✅
+   8. 0700 腾讯控股 | Score: 100 | Smart Money: INFLOW | ✅
+
+🟡 INSTITUTIONAL BUYS:
+   1. 9988 阿里巴巴 | Score: 65
+
+✅ Report saved: /Users/liu/Desktop/Stock_Analysis/daily_overview/institutional_scanner.md

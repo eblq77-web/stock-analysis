@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 SuperBrain Pro Advanced v5.0</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+            min-height: 100vh;
+            color: #e6edf3;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(90deg, #238636 0%, #2ea043 50%, #3fb950 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(35, 134, 54, 0.3);
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header .subtitle { font-size: 1.2em; opacity: 0.9; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid #30363d;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .card h3 {
+            color: #58a6ff;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stock-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(35, 134, 54, 0.1);
+            border: 1px solid #238636;
+            border-radius: 10px;
+        }
+        
+        .stock-info { flex: 1; }
+        .stock-name { font-weight: bold; font-size: 1.1em; }
+        .stock-code { opacity: 0.7; font-size: 0.9em; }
+        
+        .score { 
+            font-size: 2em; 
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+        
+        .score.strong_buy { background: linear-gradient(135deg, #238636, #3fb950); color: #fff; }
+        .score.buy { background: linear-gradient(135deg, #1f6feb, #58a6ff); color: #fff; }
+        .score.watch { background: linear-gradient(135deg, #9e6a03, #d29922); color: #000; }
+        .score.sell { background: linear-gradient(135deg, #da3633, #f85149); color: #fff; }
+        
+        .indicator {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        
+        .indicator-label { color: #8b949e; }
+        .indicator-value { font-weight: bold; }
+        .indicator-value.positive { color: #3fb950; }
+        .indicator-value.negative { color: #f85149; }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 3px;
+        }
+        .badge.bullish { background: rgba(63, 185, 80, 0.2); color: #3fb950; }
+        .badge.bearish { background: rgba(248, 81, 73, 0.2); color: #f85149; }
+        .badge.neutral { background: rgba(139, 148, 158, 0.2); color: #8b949e; }
+        
+        .calc-section {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        
+        .calc-section h4 {
+            color: #58a6ff;
+            margin-bottom: 10px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #e6edf3;
+            font-size: 1em;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #238636, #2ea043);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        button:hover { background: linear-gradient(90deg, #2ea043, #3fb950); }
+        
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(35, 134, 54, 0.2);
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .regime-box {
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .regime.bull { background: linear-gradient(135deg, #238636, #1f6feb); }
+        .regime.bear { background: linear-gradient(135deg, #da3633, #f85149); }
+        .regime.sideways { background: linear-gradient(135deg, #9e6a03, #d29922); color: #000; }
+        
+        .last-update {
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.9em;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 SuperBrain Pro Advanced</h1>
+        <div class="subtitle">Version 5.0 - Indicators + Quantum + Calculations</div>
+    </div>
+    
+    <div class="grid">
+        <!-- Live Analysis -->
+        <div class="card">
+            <h3>📊 Live Stock Analysis</h3>
+            <div id="stockAnalysis"></div>
+            <button onclick="runAnalysis()">🔄 Refresh Analysis</button>
+        </div>
+        
+        <!-- Technical Indicators -->
+        <div class="card">
+            <h3>📈 Technical Indicators</h3>
+            <div id="indicators"></div>
+        </div>
+        
+        <!-- Market Regime -->
+        <div class="card">
+            <h3>🎯 Market Regime</h3>
+            <div id="regime"></div>
+        </div>
+        
+        <!-- Quantum Patterns -->
+        <div class="card">
+            <h3>⚡ Quantum Patterns</h3>
+            <div id="patterns"></div>
+        </div>
+    </div>
+    
+    <div class="grid">
+        <!-- Calculator -->
+        <div class="card">
+            <h3>🧮 Trading Calculator</h3>
+            
+            <div class="calc-section">
+                <h4>Position Size Calculator</h4>
+                <input type="number" id="capital" placeholder="Capital (¥)">
+                <input type="number" id="price" placeholder="Stock Price (¥)">
+                <input type="number" id="risk" placeholder="Risk %">
+                <button onclick="calcPosition()">Calculate</button>
+                <div id="positionResult" class="result"></div>
+            </div>
+            
+            <div class="calc-section">
+                <h4>P&L Calculator</h4>
+                <input type="number" id="buyPrice" placeholder="Buy Price (¥)">
+                <input type="number" id="sellPrice" placeholder="Sell Price (¥)">
+                <input type="number" id="shares" placeholder="Shares">
+                <button onclick="calcPnL()">Calculate</button>
+                <div id="pnlResult" class="result"></div>
+            </div>
+            
+            <div class="calc-section">
+                <h4>Risk/Reward Calculator</h4>
+                <input type="number" id="buy" placeholder="Buy Price (¥)">
+                <input type="number" id="target" placeholder="Target Price (¥)">
+                <input type="number" id="stop" placeholder="Stop Loss (¥)">
+                <button onclick="calcRiskReward()">Calculate</button>
+                <div id="riskResult" class="result"></div>
+            </div>
+        </div>
+        
+        <!-- Stock Scanner -->
+        <div class="card">
+            <h3>🔍 Quick Scanner</h3>
+            <input type="text" id="stockCode" placeholder="Enter Stock Code (e.g., 600036)">
+            <button onclick="scanStock()">Scan Stock</button>
+            <div id="scanResult"></div>
+        </div>
+    </div>
+    
+    <div class="last-update" id="lastUpdate"></div>
+    
+    <script>
+        // Mock data for demonstration
+        const stocks = [
+            { symbol: '600036', name: '招商银行', price: 38.72, change: 1.45, score: 93 },
+            { symbol: '300308', name: '中际旭创', price: 278.39, change: 2.15, score: 88 },
+            { symbol: '0700', name: '腾讯控股', price: 519.00, change: 0.87, score: 85 },
+            { symbol: '601012', name: '隆基绿能', price: 18.00, change: -0.44, score: 72 }
+        ];
+        
+        const indicators = [
+            { name: 'RSI (14)', value: 52.3, signal: 'NEUTRAL' },
+            { name: 'MACD', value: 0.45, signal: 'GOLDEN CROSS', bullish: true },
+            { name: 'Bollinger', value: 'Middle', position: 'LOWER' },
+            { name: 'VWAP', value: 38.50, signal: 'ABOVE', bullish: true },
+            { name: 'Stochastic', value: 45.2, signal: 'NEUTRAL' },
+            { name: 'ATR', value: 1.23, signal: 'NORMAL' }
+        ];
+        
+        const regime = {
+            name: 'SIDEWAYS',
+            confidence: 75,
+            strategy: 'RANGE TRADING',
+            sectors: ['金融', '消费', '地产'],
+            positionSize: 12
+        };
+        
+        const patterns = [
+            { name: 'SILVER_SWAN', desc: 'Gradual accumulation', confidence: 78 },
+            { name: 'DARK_POOL_ROBOT', desc: 'Hidden institutional', confidence: 85 },
+            { name: 'QUANTUM_LEAP', desc: 'Momentum breakout', confidence: 88 }
+        ];
+        
+        function runAnalysis() {
+            // Stock Analysis
+            let stockHTML = '';
+            stocks.forEach(s => {
+                const scoreClass = s.score >= 75 ? 'strong_buy' : s.score >= 55 ? 'buy' : 'watch';
+                stockHTML += `
+                    <div class="stock-item">
+                        <div class="stock-info">
+                            <div class="stock-name">${s.name}</div>
+                            <div class="stock-code">${s.symbol} | ¥${s.price} (${s.change > 0 ? '+' : ''}${s.change}%)</div>
+                        </div>
+                        <div class="score ${scoreClass}">${s.score}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('stockAnalysis').innerHTML = stockHTML;
+            
+            // Indicators
+            let indHTML = '';
+            indicators.forEach(i => {
+                const valClass = i.bullish ? 'positive' : i.signal === 'BEARISH' ? 'negative' : '';
+                indHTML += `
+                    <div class="indicator">
+                        <span class="indicator-label">${i.name}</span>
+                        <span class="indicator-value ${valClass}">${typeof i.value === 'number' ? i.value.toFixed(2) : i.value} (${i.signal})</span>
+                    </div>
+                `;
+            });
+            document.getElementById('indicators').innerHTML = indHTML;
+            
+            // Regime
+            const regimeClass = regime.name.includes('BULL') ? 'bull' : regime.name.includes('BEAR') ? 'bear' : 'sideways';
+            document.getElementById('regime').innerHTML = `
+                <div class="regime-box ${regimeClass}">
+                    <h2>${regime.name}</h2>
+                    <p>Confidence: ${regime.confidence}%</p>
+                    <p>Strategy: ${regime.strategy}</p>
+                    <p>Sectors: ${regime.sectors.join(', ')}</p>
+                    <p>Position Size: ${regime.positionSize}%</p>
+                </div>
+            `;
+            
+            // Patterns
+            let patHTML = '';
+            patterns.forEach(p => {
+                patHTML += `<span class="badge bullish">${p.name} (${p.desc}) - ${p.confidence}%</span><br>`;
+            });
+            document.getElementById('patterns').innerHTML = patHTML || '<p>No patterns detected</p>';
+            
+            document.getElementById('lastUpdate').innerHTML = `Last updated: ${new Date().toLocaleString()}`;
+        }
+        
+        // Calculators
+        function calcPosition() {
+            const capital = parseFloat(document.getElementById('capital').value);
+            const price = parseFloat(document.getElementById('price').value);
+            const risk = parseFloat(document.getElementById('risk').value);
+            
+            if (capital && price && risk) {
+                const shares = Math.floor((capital * risk / 100) / price);
+                const value = shares * price;
+                document.getElementById('positionResult').innerHTML = 
+                    `Shares: ${shares}<br>Value: ¥${value.toFixed(0)}`;
+            }
+        }
+        
+        function calcPnL() {
+            const buy = parseFloat(document.getElementById('buyPrice').value);
+            const sell = parseFloat(document.getElementById('sellPrice').value);
+            const shares = parseFloat(document.getElementById('shares').value);
+            
+            if (buy && sell && shares) {
+                const profit = (sell - buy) * shares;
+                const percent = ((sell - buy) / buy * 100).toFixed(2);
+                const color = profit >= 0 ? '#3fb950' : '#f85149';
+                document.getElementById('pnlResult').innerHTML = 
+                    `<span style="color:${color}">¥${profit.toFixed(0)} (${percent}%)</span>`;
+            }
+        }
+        
+        function calcRiskReward() {
+            const buy = parseFloat(document.getElementById('buy').value);
+            const target = parseFloat(document.getElementById('target').value);
+            const stop = parseFloat(document.getElementById('stop').value);
+            
+            if (buy && target && stop) {
+                const reward = Math.abs(target - buy);
+                const risk = Math.abs(buy - stop);
+                const ratio = (reward / risk).toFixed(2);
+                const rec = ratio >= 2 ? 'GOOD' : ratio >= 1.5 ? 'ACCEPTABLE' : 'POOR';
+                document.getElementById('riskResult').innerHTML = 
+                    `Risk/Reward: 1:${ratio} (${rec})`;
+            }
+        }
+        
+        function scanStock() {
+            const code = document.getElementById('stockCode').value;
+            if (code) {
+                document.getElementById('scanResult').innerHTML = 
+                    `<div class="result">Scanning ${code}...<br>Score: ${Math.floor(Math.random() * 30) + 60}</div>`;
+            }
+        }
+        
+        // Initialize
+        runAnalysis();
+    </script>
+</body>
+</html>

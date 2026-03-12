@@ -1,0 +1,46 @@
+{
+  "date": "2026-03-11",
+  "generated": "2026-03-11T07:14:53.971Z",
+  "picks": [
+    {
+      "code": "601012",
+      "name": "隆基绿能",
+      "predicted": "+13%",
+      "reason": "High volume (1.58M), momentum building",
+      "actual": "+1.40%",
+      "status": "pending"
+    },
+    {
+      "code": "002594",
+      "name": "比亚迪",
+      "predicted": "+8%",
+      "reason": "Strong volume (680K), momentum +3%",
+      "actual": "+3.17%",
+      "status": "hit"
+    },
+    {
+      "code": "300750",
+      "name": "宁德时代",
+      "predicted": "+8%",
+      "reason": "Strong volume (395K), momentum +6%",
+      "actual": "+5.97%",
+      "status": "hit"
+    },
+    {
+      "code": "300308",
+      "name": "中际旭创",
+      "predicted": "+3%",
+      "reason": "Moderate momentum",
+      "actual": "+1.92%",
+      "status": "pending"
+    },
+    {
+      "code": "300476",
+      "name": "胜宏科技",
+      "predicted": "+2%",
+      "reason": "Low momentum, volume check",
+      "actual": "-1.12%",
+      "status": "miss"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "date": "2026-03-12",
+  "exercises": [
+    {
+      "name": "Sector Rotation",
+      "score": 85,
+      "rotation": {
+        "NOW": "电力/有色金属",
+        "NEXT": "化工/军工",
+        "LATER": "消费",
+        "FADING": "科技"
+      }
+    },
+    {
+      "name": "Institutional Flow",
+      "score": 100,
+      "stocks": [
+        {
+          "code": "0700",
+          "name": "腾讯控股",
+          "flow": "INFLOW"
+        },
+        {
+          "code": "000333",
+          "name": "美的集团",
+          "flow": "INFLOW"
+        },
+        {
+          "code": "601012",
+          "name": "隆基绿能",
+          "flow": "INFLOW"
+        },
+        {
+          "code": "300015",
+          "name": "爱尔眼科",
+          "flow": "INFLOW"
+        },
+        {
+          "code": "300033",
+          "name": "同花顺",
+          "flow": "ACCUMULATING"
+        }
+      ]
+    }
+  ],
+  "totalScore": 185,
+  "averageScore": 37
+}

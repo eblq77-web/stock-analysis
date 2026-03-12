@@ -1,0 +1,29 @@
+# 🧠 CHARLES'S SUPER BRAIN - KNOWLEDGE BASE
+## 2026-03-09 | Self-Learning Engine
+
+## 📊 Knowledge Expansion
+- strategies: 12
+- riskMetrics: 12
+- sources: 17
+- criteria: 11
+- alphaFactors: 12
+- regimes: 5
+- sectors: 4
+
+## 🎯 Current Regime: bull_strong
+- Action: Aggressive growth
+- Position: MAX
+
+## 🔄 Sector Phase: phase_1_recovery
+- Sectors: 地产, 金融, 消费
+- Strategy: Value + Cyclical
+
+## 💡 Recommendations
+- Focus on momentum and growth stocks
+- Increase position sizing on breakout signals
+- Monitor insider buying as conviction signal
+- Check sector rotation weekly
+- Review VaR and position sizing daily
+
+---
+*🧠 Self-Learning Engine - Continuously Expanding*
