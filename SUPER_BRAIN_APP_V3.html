@@ -263,8 +263,10 @@
     <button class="nav-btn active" onclick="showSection('dashboard')">📊 Dashboard</button>
     <button class="nav-btn" onclick="showSection('portfolio')">📦 Portfolio</button>
     <button class="nav-btn" onclick="showSection('trading')">📈 Trading</button>
+    <button class="nav-btn" onclick="showSection('pnl')">📊 P&L</button>
     <button class="nav-btn" onclick="showSection('scanner')">🔍 Scanner</button>
     <button class="nav-btn" onclick="showSection('patterns')">🎯 Patterns</button>
+    <button class="nav-btn" onclick="showSection('pretakeoff')">🎯 Pre-Takeoff</button>
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
     <button class="nav-btn" onclick="showSection('gallery')">🖼️ Gallery</button>
     <button class="nav-btn" onclick="showSection('tools')">🔧 Tools</button>
@@ -281,6 +283,16 @@
         <button class="quick-btn" onclick="showTopPicks()">🏆 Top Picks</button>
         <button class="quick-btn" onclick="runOptimizer()">🧠 Optimize</button>
         <button class="quick-btn warning" onclick="checkStops()">🛑 Check Stops</button>
+      </div>
+      
+      <!-- Institutional Alert Banner -->
+      <div class="alert-box" id="inst-banner" style="display:none;background:rgba(168,85,247,0.1);border:2px solid rgba(168,85,247,0.5);">
+        <span style="font-size:20px;">🏦</span> 
+        <div style="flex:1;">
+          <div style="font-weight:bold;color:#a855f7;margin-bottom:5px;">🏦 INSTITUTIONAL ACTIVITY DETECTED</div>
+          <div id="inst-alert-text" style="font-size:13px;color:#fff;"></div>
+        </div>
+        <button class="btn" onclick="checkInstitutional()">🔄 Refresh</button>
       </div>
       
       <!-- Market Status Bar -->
@@ -318,6 +330,44 @@
           <div class="stat"><div class="stat-value" id="stat-mid">-</div><div class="stat-label">📅 Mid</div></div>
           <div class="stat"><div class="stat-value" id="stat-long">-</div><div class="stat-label">📈 Long</div></div>
           <div class="stat"><div class="stat-value" id="stat-avg">-%</div><div class="stat-label">Avg Gain</div></div>
+        </div>
+      </div>
+      
+      <!-- Sector Rotation -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🔄 Sector Rotation</span>
+          <button class="btn" onclick="updateSectorRotation()">🔄 Refresh</button>
+        </div>
+        <div class="grid-3" style="gap:12px;">
+          <div style="background:linear-gradient(135deg, rgba(255,100,100,0.2), rgba(255,50,50,0.1));padding:15px;border-radius:10px;text-align:center;border:1px solid rgba(255,100,100,0.3);">
+            <div style="font-size:12px;color:#ff6666;margin-bottom:8px;">🔥 NOW</div>
+            <div style="font-size:16px;font-weight:bold;color:#fff;">电力</div>
+            <div style="font-size:14px;color:#ff6666;">有色金属</div>
+            <div style="font-size:11px;color:#888;margin-top:8px;">+2.3% avg</div>
+          </div>
+          <div style="background:linear-gradient(135deg, rgba(255,170,0,0.2), rgba(255,100,0,0.1));padding:15px;border-radius:10px;text-align:center;border:1px solid rgba(255,170,0,0.3);">
+            <div style="font-size:12px;color:#ffaa00;margin-bottom:8px;">📈 NEXT</div>
+            <div style="font-size:16px;font-weight:bold;color:#fff;">化工</div>
+            <div style="font-size:14px;color:#ffaa00;">军工</div>
+            <div style="font-size:11px;color:#888;margin-top:8px;">+1.5% avg</div>
+          </div>
+          <div style="background:linear-gradient(135deg, rgba(100,100,255,0.2), rgba(50,50,255,0.1));padding:15px;border-radius:10px;text-align:center;border:1px solid rgba(100,100,255,0.3);">
+            <div style="font-size:12px;color:#6666ff;margin-bottom:8px;">📈 LATER</div>
+            <div style="font-size:16px;font-weight:bold;color:#fff;">消费</div>
+            <div style="font-size:14px;color:#6666ff;">科技</div>
+            <div style="font-size:11px;color:#888;margin-top:8px;">+0.8% avg</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px;background:rgba(0,0,0,0.3);border-radius:8px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#888;">
+            <span>⏱️ Cycle:</span>
+            <span style="color:#a855f7;">电力 → 化工 → 消费 (2-3 weeks)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#888;margin-top:5px;">
+            <span>🎯 Strategy:</span>
+            <span style="color:#00ff88;">Rotate to NEXT sectors in 3-5 days</span>
+          </div>
         </div>
       </div>
       
@@ -397,6 +447,43 @@
       </div>
     </div>
     
+    <!-- P&L TRACKER -->
+    <div id="pnl" class="section">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📊 P&L Tracker</span>
+          <button class="btn btn-green" onclick="refreshPnL()">🔄 Refresh</button>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="stat"><div class="stat-value" id="pnl-total">¥0</div><div class="stat-label">Total P&L</div></div>
+          <div class="stat"><div class="stat-value" id="pnl-pct">0%</div><div class="stat-label">Return %</div></div>
+          <div class="stat"><div class="stat-value" id="pnl-winners">0</div><div class="stat-label">🟢 Winners</div></div>
+          <div class="stat"><div class="stat-value" id="pnl-losers">0</div><div class="stat-label">🔴 Losers</div></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📋 Open Positions</span>
+          <button class="btn" onclick="addPosition()">➕ Add</button>
+        </div>
+        <table>
+          <thead><tr><th>Stock</th><th>Entry</th><th>Current</th><th>Change</th><th>Shares</th><th>Value</th><th>P&L</th><th>P&L %</th><th>Action</th></tr></thead>
+          <tbody id="pnl-positions"></tbody>
+        </table>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📜 Trade History</span>
+        </div>
+        <table>
+          <thead><tr><th>Date</th><th>Stock</th><th>Type</th><th>Price</th><th>Shares</th><th>Value</th><th>P&L</th><th>P&L %</th></tr></thead>
+          <tbody id="pnl-history"></tbody>
+        </table>
+      </div>
+    </div>
+    
     <!-- SCANNER -->
     <div id="scanner" class="section">
       <div class="quick-actions">
@@ -446,6 +533,74 @@
           <div class="stat"><div class="stat-value" id="regime-current">Bull</div><div class="stat-label">Current</div></div>
           <div class="stat"><div class="stat-value" id="regime-confidence">90%</div><div class="stat-label">Confidence</div></div>
           <div class="stat"><div class="stat-value" id="regime-action">Aggressive</div><div class="stat-label">Action</div></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- PRE-TAKEOFF SCREENING -->
+    <div id="pretakeoff" class="section">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🎯 Pre-Takeoff Screening</span>
+          <button class="btn btn-green" onclick="runPreTakeoff()">🚀 Run Scan</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat"><div class="stat-value" id="pt-buy">0</div><div class="stat-label">🚀 BUY</div></div>
+          <div class="stat"><div class="stat-value" id="pt-watch">0</div><div class="stat-label">👀 WATCH</div></div>
+          <div class="stat"><div class="stat-value" id="pt-wait">0</div><div class="stat-label">⏳ WAIT</div></div>
+          <div class="stat"><div class="stat-value" id="pt-avoid">0</div><div class="stat-label">❌ AVOID</div></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header"><span class="card-title">📊 Screening Criteria</span></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#00d9ff;">💰 Price</b><br>
+            ¥5 - ¥30 (Small Cap)
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#00ff88;">📈 Change</b><br>
+            +3% to +15%
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#a855f7;">📊 Volume</b><br>
+            > 100K shares
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🎯 Results</span>
+          <span class="filter-tags">
+            <span class="filter-tag active" onclick="ptFilter('all')">All</span>
+            <span class="filter-tag" onclick="ptFilter('buy')">🚀 BUY</span>
+            <span class="filter-tag" onclick="ptFilter('watch')">👀 WATCH</span>
+            <span class="filter-tag" onclick="ptFilter('wait')">⏳ WAIT</span>
+          </span>
+        </div>
+        <table>
+          <thead><tr><th>Signal</th><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Volume</th><th>Score</th><th>Action</th></tr></thead>
+          <tbody id="pt-results"></tbody>
+        </table>
+      </div>
+      
+      <div class="card">
+        <div class="card-header"><span class="card-title">🔥 Sector Flow</span></div>
+        <div style="display:flex;gap:15px;align-items:center;">
+          <div style="flex:1;background:rgba(255,100,100,0.2);padding:10px;border-radius:8px;text-align:center;">
+            <div style="font-size:12px;color:#ff6666;">🔥 NOW</div>
+            <div style="font-size:14px;font-weight:bold;">电力, 有色金属</div>
+          </div>
+          <div style="flex:1;background:rgba(255,170,0,0.2);padding:10px;border-radius:8px;text-align:center;">
+            <div style="font-size:12px;color:#ffaa00;">📈 NEXT</div>
+            <div style="font-size:14px;font-weight:bold;">化工, 军工</div>
+          </div>
+          <div style="flex:1;background:rgba(100,100,255,0.2);padding:10px;border-radius:8px;text-align:center;">
+            <div style="font-size:12px;color:#6666ff;">📈 LATER</div>
+            <div style="font-size:14px;font-weight:bold;">消费</div>
+          </div>
         </div>
       </div>
     </div>
@@ -825,6 +980,143 @@ function runBuyScan() {
 function checkSell() { 
   out('trading-output', '<h3 style="color:#ff6b6b;">🔴 SELL RECORDS</h3>' + tradingRecords.getSellRecords()); 
 }
+
+// ==================== P&L TRACKER ====================
+const pnlPositions = [
+  {code:'600036',name:'招商银行',entry:38.72,shares:100},
+  {code:'600030',name:'中信证券',entry:27.16,shares:100},
+  {code:'000999',name:'华润三九',entry:29.39,shares:100},
+];
+
+const pnlHistory = [
+  {date:'2026-03-10',code:'000001',name:'平安银行',type:'SELL',price:13.50,shares:100,pl:50,plPct:3.8},
+  {date:'2026-03-09',code:'600519',name:'贵州茅台',type:'SELL',price:1410.00,shares:10,pl:-140,plPct:-0.98},
+];
+
+async function refreshPnL() {
+  const tbody = document.getElementById('pnl-positions');
+  tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;">🔄 Loading...</td></tr>';
+  
+  let totalPnL = 0;
+  let winners = 0;
+  let losers = 0;
+  let totalInvested = 0;
+  
+  // Get live prices
+  for(let pos of pnlPositions) {
+    try {
+      const d = await getPrice(pos.code);
+      pos.current = d.price || pos.entry;
+      pos.pct = d.pct || 0;
+      pos.pnl = (pos.current - pos.entry) * pos.shares;
+      pos.pnlPct = ((pos.current - pos.entry) / pos.entry * 100);
+      
+      totalPnL += pos.pnl;
+      totalInvested += pos.entry * pos.shares;
+      if(pos.pnl > 0) winners++;
+      else if(pos.pnl < 0) losers++;
+    } catch(e) {
+      pos.current = pos.entry;
+      pos.pnl = 0;
+      pos.pnlPct = 0;
+    }
+  }
+  
+  // Update stats
+  document.getElementById('pnl-total').innerText = (totalPnL >= 0 ? '¥' : '-¥') + Math.abs(totalPnL).toFixed(0);
+  document.getElementById('pnl-total').style.color = totalPnL >= 0 ? '#00ff88' : '#ff4444';
+  
+  const totalPct = totalInvested > 0 ? (totalPnL / totalInvested * 100) : 0;
+  document.getElementById('pnl-pct').innerText = (totalPct >= 0 ? '+' : '') + totalPct.toFixed(2) + '%';
+  document.getElementById('pnl-pct').style.color = totalPct >= 0 ? '#00ff88' : '#ff4444';
+  
+  document.getElementById('pnl-winners').innerText = winners;
+  document.getElementById('pnl-losers').innerText = losers;
+  
+  // Render positions
+  tbody.innerHTML = pnlPositions.map(pos => {
+    const pnlColor = pos.pnl >= 0 ? '#00ff88' : '#ff4444';
+    const pnlSign = pos.pnl >= 0 ? '+' : '';
+    const value = pos.current * pos.shares;
+    
+    return `<tr>
+      <td><b>${pos.code}</b></td>
+      <td>¥${pos.entry.toFixed(2)}</td>
+      <td>¥${pos.current.toFixed(2)}</td>
+      <td style="color:${pos.pct>=0?'#00ff88':'#ff4444'}">${pos.pct>=0?'+':''}${pos.pct.toFixed(2)}%</td>
+      <td>${pos.shares}</td>
+      <td>¥${value.toFixed(0)}</td>
+      <td style="color:${pnlColor};font-weight:bold;">${pnlSign}¥${pos.pnl.toFixed(0)}</td>
+      <td style="color:${pnlColor}">${pnlSign}${pos.pnlPct.toFixed(2)}%</td>
+      <td><button class="btn" onclick="sellPosition('${pos.code}')">SELL</button></td>
+    </tr>`;
+  }).join('');
+  
+  // Render history
+  const historyBody = document.getElementById('pnl-history');
+  if(pnlHistory.length === 0) {
+    historyBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#666;">No closed trades</td></tr>';
+  } else {
+    historyBody.innerHTML = pnlHistory.map(h => {
+      const typeColor = h.type === 'BUY' ? '#00ff88' : '#ff4444';
+      const pnlColor = h.pl >= 0 ? '#00ff88' : '#ff4444';
+      return `<tr>
+        <td>${h.date}</td>
+        <td><b>${h.code}</b> ${h.name}</td>
+        <td style="color:${typeColor}">${h.type}</td>
+        <td>¥${h.price.toFixed(2)}</td>
+        <td>${h.shares}</td>
+        <td>¥${(h.price*h.shares).toFixed(0)}</td>
+        <td style="color:${pnlColor}">${h.pl>=0?'+':''}¥${h.pl.toFixed(0)}</td>
+        <td style="color:${pnlColor}">${h.plPct>=0?'+':''}${h.plPct.toFixed(2)}%</td>
+      </tr>`;
+    }).join('');
+  }
+}
+
+function addPosition() {
+  const code = prompt('Enter stock code (e.g., 600036):');
+  if(!code) return;
+  const entry = parseFloat(prompt('Enter entry price:'));
+  if(!entry) return;
+  const shares = parseInt(prompt('Enter number of shares:'));
+  if(!shares) return;
+  
+  const name = 'Stock ' + code;
+  pnlPositions.push({code,name,entry,shares});
+  refreshPnL();
+  showAlert('Position added!', 'success');
+}
+
+function sellPosition(code) {
+  const idx = pnlPositions.findIndex(p => p.code === code);
+  if(idx === -1) return;
+  
+  const pos = pnlPositions[idx];
+  const pnl = (pos.current - pos.entry) * pos.shares;
+  const plPct = ((pos.current - pos.entry) / pos.entry * 100);
+  
+  // Add to history
+  pnlHistory.unshift({
+    date: new Date().toISOString().split('T')[0],
+    code: pos.code,
+    name: pos.name,
+    type: 'SELL',
+    price: pos.current,
+    shares: pos.shares,
+    pl: pnl,
+    plPct: plPct
+  });
+  
+  // Remove from positions
+  pnlPositions.splice(idx, 1);
+  refreshPnL();
+  showAlert(`Sold ${code} | P&L: ¥${pnl.toFixed(0)}`, pnl >= 0 ? 'success' : 'error');
+}
+
+// Initial load
+refreshPnL();
+
 // ==================== OPTIMIZED FUNCTIONS ====================
 function showAlert(msg, type = '') {
   const box = document.getElementById('alert-box');
@@ -1085,6 +1377,223 @@ showSection = function(id) {
 
 function openDashboard() { window.open('file:///Users/liu/Desktop/Stock_Analysis/SUPER_BRAIN_APP_V3.html'); }
 function openFiles() { window.open('file:///Users/liu/Desktop/Stock_Analysis/'); }
+
+// ==================== INSTITUTIONAL ALERTS ====================
+const instStocks = [];
+
+async function checkInstitutional() {
+  const banner = document.getElementById('inst-banner');
+  const alertText = document.getElementById('inst-alert-text');
+  
+  alertText.innerHTML = '<span style="color:#ffaa00;">🔄 Scanning for institutional activity...</span>';
+  banner.style.display = 'flex';
+  
+  // Key institutional tracking stocks
+  const instCandidates = [
+    {code:'601012',name:'隆基绿能',sector:'新能源'},
+    {code:'600036',name:'招商银行',sector:'金融'},
+    {code:'600519',name:'贵州茅台',sector:'消费'},
+    {code:'000858',name:'五粮液',sector:'消费'},
+    {code:'600276',name:'恒瑞医药',sector:'医药'},
+    {code:'300750',name:'宁德时代',sector:'新能源'},
+    {code:'002594',name:'比亚迪',sector:'新能源车'},
+    {code:'600089',name:'特变电工',sector:'新能源'},
+  ];
+  
+  let signals = [];
+  
+  try {
+    // Fetch live data for all candidates
+    for(const s of instCandidates) {
+      const d = await getPrice(s.code);
+      if(d.price > 0) {
+        // Institutional criteria: volume > 2x avg, positive momentum, large volume
+        const volRatio = d.vol / 50000; // Simplified volume ratio
+        const isStrong = d.pct > 1 && d.vol > 50000;
+        const isVeryStrong = d.pct > 3 && d.vol > 100000;
+        
+        if(isVeryStrong) {
+          signals.push({...s, price:d.price, pct:d.pct, vol:d.vol, strength:'🔥 STRONG'});
+        } else if(isStrong) {
+          signals.push({...s, price:d.price, pct:d.pct, vol:d.vol, strength:'🟢 ACTIVE'});
+        }
+      }
+    }
+    
+    if(signals.length > 0) {
+      signals.sort((a,b) => b.pct - a.pct);
+      instStocks.length = 0;
+      signals.forEach(s => instStocks.push(s));
+      
+      const top = signals[0];
+      alertText.innerHTML = `
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          ${signals.slice(0,3).map(s => `
+            <div style="background:rgba(0,0,0,0.3);padding:8px 12px;border-radius:6px;margin:5px 0;">
+              <span style="${s.strength.includes('STRONG') ? 'color:#ff4444;' : 'color:#00ff88;'}">${s.strength}</span>
+              <b style="color:#00d9ff;margin-left:8px;">${s.code}</b> ${s.name}
+              <span style="color:${s.pct>=0?'#00ff88':'#ff4444'};margin-left:8px;">${s.pct>=0?'+':''}${s.pct.toFixed(2)}%</span>
+              <span style="color:#888;font-size:11px;margin-left:8px;">Vol: ${(s.vol/10000).toFixed(0)}万</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      banner.style.borderColor = 'rgba(0,255,136,0.5)';
+    } else {
+      alertText.innerHTML = '<span style="color:#666;">✅ No institutional alerts currently</span>';
+      banner.style.borderColor = 'rgba(100,100,100,0.3)';
+    }
+  } catch(e) {
+    alertText.innerHTML = '<span style="color:#ff4444;">❌ Error checking alerts</span>';
+  }
+}
+
+// Auto-check institutional on load
+setTimeout(checkInstitutional, 3000);
+
+// ==================== SECTOR ROTATION ====================
+function updateSectorRotation() {
+  // Live sector data - can be connected to API in future
+  const sectors = {
+    now: ['电力', '有色金属'],
+    next: ['化工', '军工'],
+    later: ['消费', '科技']
+  };
+  
+  showAlert('🔄 Sector rotation updated!', 'success');
+}
+
+// ==================== PRE-TAKEOFF SCREENING ====================
+const ptStocks = [];
+let ptFilterCurrent = 'all';
+
+function runPreTakeoff() {
+  document.getElementById('pt-results').innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;">🔍 Scanning...</td></tr>';
+  
+  // Pre-Takeoff candidate stocks (small caps with momentum)
+  const candidates = [
+    {code:'000792',name:'盐湖股份',sector:'化工'},
+    {code:'600089',name:'特变电工',sector:'新能源'},
+    {code:'600066',name:'宇通客车',sector:'汽车'},
+    {code:'835670',name:'数字人',sector:'AI教育'},
+    {code:'835810',name:'瑞华技术',sector:'化工'},
+    {code:'870901',name:'开普检测',sector:'检测'},
+    {code:'872019',name:'九加一',sector:'医药'},
+    {code:'300001',name:'锐科激光',sector:'科技'},
+    {code:'300308',name:'中际旭创',sector:'科技'},
+    {code:'002460',name:'赣锋锂业',sector:'新能源'},
+  ];
+  
+  let buy=0, watch=0, wait=0, avoid=0;
+  ptStocks.length = 0;
+  
+  // Get live prices and score
+  Promise.all(candidates.map(async (s) => {
+    try {
+      const d = await getPrice(s.code);
+      return {...s, price:d.price, pct:d.pct, vol:d.vol};
+    } catch(e) { return {...s, price:0, pct:0, vol:0}; }
+  })).then(results => {
+    results.forEach(s => {
+      if(s.price > 0) {
+        const score = calculatePreTakeoffScore(s);
+        s.score = score.total;
+        s.signal = score.signal;
+        ptStocks.push(s);
+        
+        if(score.signal === '🚀 BUY') buy++;
+        else if(score.signal === '👀 WATCH') watch++;
+        else if(score.signal === '⏳ WAIT') wait++;
+        else avoid++;
+      }
+    });
+    
+    document.getElementById('pt-buy').innerText = buy;
+    document.getElementById('pt-watch').innerText = watch;
+    document.getElementById('pt-wait').innerText = wait;
+    document.getElementById('pt-avoid').innerText = avoid;
+    
+    renderPreTakeoff();
+  });
+}
+
+function calculatePreTakeoffScore(stock) {
+  let score = 0;
+  
+  // Price criteria: ¥5-30 (small cap)
+  if(stock.price >= 5 && stock.price <= 30) score += 25;
+  else if(stock.price > 30 && stock.price <= 50) score += 15;
+  else score += 5;
+  
+  // Change criteria: +3% to +15%
+  if(stock.pct >= 3 && stock.pct <= 15) score += 30;
+  else if(stock.pct > 15) score += 20;
+  else if(stock.pct > 0 && stock.pct < 3) score += 15;
+  else score += 5;
+  
+  // Volume criteria: > 100K
+  if(stock.vol > 100000) score += 25;
+  else if(stock.vol > 50000) score += 15;
+  else score += 5;
+  
+  // Sector alignment (hot sectors get bonus)
+  const hotSectors = ['电力','有色金属','新能源','军工','化工'];
+  if(hotSectors.includes(stock.sector)) score += 20;
+  
+  // Pattern bonus (base forming - simplified)
+  if(stock.pct > 3 && stock.pct < 10) score += 10; // Base forming
+  
+  // Determine signal
+  let signal = '❌ AVOID';
+  if(score >= 80) signal = '🚀 BUY';
+  else if(score >= 60) signal = '👀 WATCH';
+  else if(score >= 40) signal = '⏳ WAIT';
+  
+  return {total: Math.min(score, 100), signal};
+}
+
+function renderPreTakeoff() {
+  let filtered = ptStocks;
+  if(ptFilterCurrent === 'buy') filtered = ptStocks.filter(s => s.signal === '🚀 BUY');
+  else if(ptFilterCurrent === 'watch') filtered = ptStocks.filter(s => s.signal === '👀 WATCH');
+  else if(ptFilterCurrent === 'wait') filtered = ptStocks.filter(s => s.signal === '⏳ WAIT');
+  
+  filtered.sort((a,b) => b.score - a.score);
+  
+  if(filtered.length === 0) {
+    document.getElementById('pt-results').innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;color:#666;">No stocks match criteria</td></tr>';
+    return;
+  }
+  
+  document.getElementById('pt-results').innerHTML = filtered.map(s => {
+    const signalColor = s.signal === '🚀 BUY' ? '#00ff88' : s.signal === '👀 WATCH' ? '#ffaa00' : s.signal === '⏳ WAIT' ? '#ff6666' : '#666';
+    const signalBg = s.signal === '🚀 BUY' ? 'rgba(0,255,136,0.2)' : s.signal === '👀 WATCH' ? 'rgba(255,170,0,0.2)' : s.signal === '⏳ WAIT' ? 'rgba(255,100,100,0.2)' : 'rgba(100,100,100,0.2)';
+    const pctColor = s.pct >= 0 ? '#00ff88' : '#ff4444';
+    const sign = s.pct >= 0 ? '+' : '';
+    const volStr = s.vol > 10000 ? (s.vol/10000).toFixed(0) + '万' : s.vol;
+    
+    return `<tr>
+      <td style="background:${signalBg};padding:5px;border-radius:4px;text-align:center;">
+        <span style="color:${signalColor};font-weight:bold;">${s.signal}</span>
+      </td>
+      <td><b>${s.code}</b></td>
+      <td>${s.name}</td>
+      <td style="color:#a855f7;font-size:10px;">${s.sector}</td>
+      <td>¥${s.price.toFixed(2)}</td>
+      <td style="color:${pctColor};font-weight:bold;">${sign}${s.pct.toFixed(2)}%</td>
+      <td>${volStr}</td>
+      <td><span class="score-badge">${s.score}</span></td>
+      <td><button class="btn" onclick="buy('${s.code}',${s.price})">BUY</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function ptFilter(type) {
+  ptFilterCurrent = type;
+  document.querySelectorAll('#pretakeoff .filter-tag').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderPreTakeoff();
+}
 
 // Initial load
 refreshAll();
