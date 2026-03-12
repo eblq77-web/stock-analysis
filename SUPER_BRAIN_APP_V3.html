@@ -271,6 +271,7 @@
     <button class="nav-btn" onclick="showSection('probabilistic')">🎲 Probabilistic</button>
     <button class="nav-btn" onclick="showSection('multitimeframe')">🔗 Multi-TF</button>
     <button class="nav-btn" onclick="showSection('selflearning')">🧠 Self-Learning</button>
+    <button class="nav-btn" onclick="showSection('optionsflow')">🎯 Options</button>
     <button class="nav-btn" onclick="showSection('news')">📰 News</button>
     <button class="nav-btn" onclick="showSection('backtest')">🔬 Backtest</button>
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
@@ -2426,6 +2427,87 @@ async function runAdaptiveScoring() {
   
   output.innerHTML = html;
   showAlert('🧠 Adaptive scoring complete!', 'success');
+}
+
+// ==================== OPTIONS FLOW ====================
+function scanOptionsFlow() {
+  const tbody = document.getElementById('of-results');
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;">🔄 Scanning options flow...</td></tr>';
+  
+  // Simulated options flow data (in production, would fetch from options API)
+  const optionsData = [
+    {code:'600519',name:'贵州茅台',callVol:85000,putVol:32000,normalVol:25000},
+    {code:'002594',name:'比亚迪',callVol:120000,putVol:15000,normalVol:30000},
+    {code:'300750',name:'宁德时代',callVol:45000,putVol:68000,normalVol:35000},
+    {code:'601012',name:'隆基绿能',callVol:15000,putVol:8000,normalVol:8000},
+    {code:'600036',name:'招商银行',callVol:22000,putVol:35000,normalVol:20000},
+    {code:'000999',name:'华润三九',callVol:12000,putVol:5000,normalVol:6000},
+  ];
+  
+  let callSignals = 0, putSignals = 0, unusual = 0;
+  
+  const results = optionsData.map(s => {
+    const ratio = s.callVol / (s.putVol || 1);
+    const volRatio = (s.callVol + s.putVol) / s.normalVol;
+    
+    // Determine flow type
+    let flow = '⚪ NEUTRAL';
+    let signal = '🟡 WATCH';
+    
+    if(ratio > 2 && s.callVol > 50000) {
+      flow = '🐂 BULLISH';
+      signal = '🚀 STRONG BUY';
+      callSignals++;
+    } else if(ratio > 1.5) {
+      flow = '🐂 BULLISH';
+      signal = '🟢 BUY';
+      callSignals++;
+    } else if(ratio < 0.5 && s.putVol > 50000) {
+      flow = '🐻 BEARISH';
+      signal = '🔴 SELL';
+      putSignals++;
+    } else if(ratio < 0.7) {
+      flow = '🐻 BEARISH';
+      signal = '🟠 CAUTION';
+      putSignals++;
+    }
+    
+    if(volRatio > 3) {
+      unusual++;
+      signal = '⚠️ ' + signal;
+    }
+    
+    return {...s, ratio, volRatio, flow, signal};
+  });
+  
+  // Update stats
+  document.getElementById('of-call').innerText = callSignals;
+  document.getElementById('of-put').innerText = putSignals;
+  document.getElementById('of-unusual').innerText = unusual;
+  
+  const total = callSignals + putSignals;
+  const bullishPct = total > 0 ? Math.round(callSignals / total * 100) : 50;
+  document.getElementById('of-bullish').innerText = bullishPct + '%';
+  document.getElementById('of-bullish').style.color = bullishPct > 50 ? '#00ff88' : '#ff4444';
+  
+  // Render results
+  tbody.innerHTML = results.map(s => {
+    const flowColor = s.flow.includes('BULLISH') ? '#00ff88' : s.flow.includes('BEARISH') ? '#ff4444' : '#ffaa00';
+    const signalColor = s.signal.includes('STRONG') ? '#00ff88' : s.signal.includes('BUY') ? '#00ff88' : s.signal.includes('SELL') ? '#ff4444' : '#ffaa00';
+    const volColor = s.volRatio > 3 ? '#ffaa00' : '#888';
+    
+    return `<tr>
+      <td><b>${s.code}</b> ${s.name}</td>
+      <td style="color:#00ff88;">${(s.callVol/1000).toFixed(0)}K</td>
+      <td style="color:#ff4444;">${(s.putVol/1000).toFixed(0)}K</td>
+      <td>${s.ratio.toFixed(1)}</td>
+      <td style="color:${flowColor};font-weight:bold;">${s.flow}</td>
+      <td style="color:${signalColor};font-weight:bold;">${s.signal}</td>
+      <td><button class="btn" onclick="buy('${s.code}',0)">TRADE</button></td>
+    </tr>`;
+  }).join('');
+  
+  showAlert(`🎯 Options flow: ${callSignals} bullish, ${putSignals} bearish signals`, 'success');
 }
 
 // Initial load
