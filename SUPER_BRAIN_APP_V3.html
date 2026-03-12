@@ -1203,18 +1203,126 @@ Select a stock to see Level 2 analysis...
     
     <!-- NEWS SENTIMENT -->
     <div id="news" class="section">
-      <div class="card">
+      <!-- Sentiment Dashboard -->
+      <div class="card" style="border:2px solid rgba(0,217,255,0.3);background:linear-gradient(135deg,#1a1a2e,#0a0a15);">
         <div class="card-header">
-          <span class="card-title">📰 News Sentiment</span>
-          <button class="btn btn-green" onclick="fetchNews()">🔄 Fetch News</button>
+          <span class="card-title">📰 Social Sentiment Scanner</span>
+          <button class="btn btn-green" onclick="runSentimentScan()">🔄 Scan Sentiment</button>
         </div>
-        <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">
-          <div class="stat"><div class="stat-value" id="news-positive" style="color:#00ff88;">0</div><div class="stat-label">📈 Positive</div></div>
-          <div class="stat"><div class="stat-value" id="news-neutral" style="color:#ffaa00;">0</div><div class="stat-label">⚪ Neutral</div></div>
-          <div class="stat"><div class="stat-value" id="news-negative" style="color:#ff4444;">0</div><div class="stat-label">📉 Negative</div></div>
+        
+        <!-- Overall Sentiment -->
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="sentiment-score" style="color:#00ff88;">72</div>
+            <div class="stat-label">Sentiment Score</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="news-positive" style="color:#00ff88;">15</div>
+            <div class="stat-label">📈 Positive</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="news-neutral" style="color:#ffaa00;">8</div>
+            <div class="stat-label">⚪ Neutral</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="news-negative" style="color:#ff4444;">3</div>
+            <div class="stat-label">📉 Negative</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="news-buzz" style="color:#a855f7;">HIGH</div>
+            <div class="stat-label">🔥 Buzz Level</div>
+          </div>
+        </div>
+        
+        <!-- Sentiment Gauge -->
+        <div style="background:rgba(0,0,0,0.3);padding:15px;border-radius:8px;margin-bottom:15px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <span style="color:#ff4444;">📉 Bearish</span>
+            <span style="color:#ffaa00;">⚪ Neutral</span>
+            <span style="color:#00ff88;">📈 Bullish</span>
+          </div>
+          <div style="height:20px;background:linear-gradient(90deg,#ff4444,#ffaa00,#00ff88);border-radius:10px;position:relative;">
+            <div id="sentiment-indicator" style="position:absolute;top:-5px;width:4px;height:30px;background:#fff;border-radius:2px;left:72%;"></div>
+          </div>
+          <div style="text-align:center;margin-top:10px;font-size:14px;color:#00ff88;font-weight:bold;" id="sentiment-label">BULLISH</div>
         </div>
       </div>
       
+      <!-- Social Mentions -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">💬 Social Media Mentions</span>
+          <button class="btn" onclick="refreshMentions()">🔄 Refresh</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;font-size:11px;">
+          <div style="background:rgba(0,217,255,0.1);padding:10px;border-radius:6px;border:1px solid #00d9ff;">
+            <b style="color:#00d9ff;">🐦 Weibo</b>
+            <div style="font-size:18px;">2.4K</div>
+            <div style="color:#00ff88;">+15% vs yesterday</div>
+          </div>
+          <div style="background:rgba(168,85,247,0.1);padding:10px;border-radius:6px;border:1px solid #a855f7;">
+            <b style="color:#a855f7;">💬 Xueqiu</b>
+            <div style="font-size:18px;">856</div>
+            <div style="color:#00ff88;">+8% vs yesterday</div>
+          </div>
+          <div style="background:rgba(255,170,0,0.1);padding:10px;border-radius:6px;border:1px solid #ffaa00;">
+            <b style="color:#ffaa00;">📱 Dongchi</b>
+            <div style="font-size:18px;">423</div>
+            <div style="color:#ff4444;">-3% vs yesterday</div>
+          </div>
+          <div style="background:rgba(0,255,136,0.1);padding:10px;border-radius:6px;border:1px solid #00ff88;">
+            <b style="color:#00ff88;">📰 News</b>
+            <div style="font-size:18px;">156</div>
+            <div style="color:#00ff88;">+22% vs yesterday</div>
+          </div>
+        </div>
+        
+        <!-- Top Mentioned Stocks -->
+        <div style="margin-top:15px;">
+          <div class="card-header"><span class="card-title">📊 Top Mentioned Stocks</span></div>
+          <table style="width:100%;font-size:12px;margin-top:10px;">
+            <thead>
+              <tr style="background:rgba(0,0,0,0.3);">
+                <th style="padding:8px;">Stock</th>
+                <th style="padding:8px;">Mentions</th>
+                <th style="padding:8px;">Sentiment</th>
+                <th style="padding:8px;">Trend</th>
+                <th style="padding:8px;">Alert</th>
+              </tr>
+            </thead>
+            <tbody id="mentions-table">
+              <tr><td colspan="5" style="padding:20px;text-align:center;color:#666;">Click "Scan Sentiment" to load data</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Rumor Detection -->
+      <div class="card" style="border:2px solid rgba(255,68,68,0.3);background:linear-gradient(135deg,#1a0a0a,#0a0a0a);">
+        <div class="card-header">
+          <span class="card-title">🚨 Rumor Detection</span>
+          <button class="btn" onclick="scanRumors()">🔍 Scan</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat" style="background:rgba(255,0,0,0.1);border:1px solid #ff4444;">
+            <div class="stat-value" id="rumor-high" style="color:#ff4444;">2</div>
+            <div class="stat-label">🔴 High Risk</div>
+          </div>
+          <div class="stat" style="background:rgba(255,170,0,0.1);border:1px solid #ffaa00;">
+            <div class="stat-value" id="rumor-medium" style="color:#ffaa00;">3</div>
+            <div class="stat-label">🟡 Medium</div>
+          </div>
+          <div class="stat" style="background:rgba(0,255,0,0.1);border:1px solid #00ff88;">
+            <div class="stat-value" id="rumor-clear" style="color:#00ff88;">15</div>
+            <div class="stat-label">🟢 Clear</div>
+          </div>
+        </div>
+        <div id="rumor-feed" style="max-height:200px;overflow-y:auto;font-size:11px;">
+          <div style="padding:10px;text-align:center;color:#666;">Click "Scan" to detect rumors</div>
+        </div>
+      </div>
+      
+      <!-- Hot Topics -->
       <div class="card">
         <div class="card-header">
           <span class="card-title">🔥 Hot Topics</span>
@@ -1227,13 +1335,14 @@ Select a stock to see Level 2 analysis...
         </div>
       </div>
       
+      <!-- Latest News -->
       <div class="card">
         <div class="card-header">
           <span class="card-title">📰 Latest News</span>
         </div>
-        <div id="news-feed" class="output" style="height:300px;">
+        <div id="news-feed" class="output" style="height:250px;">
 <h3>📰 Market News</h3>
-<br>Click "Fetch News" to load latest headlines...
+<br>Click "Scan Sentiment" to load latest...
         </div>
       </div>
     </div>
@@ -5086,6 +5195,143 @@ function calculatePositionSize(totalCapital, riskPerTrade, entryPrice, stopLossP
         riskAmount,
         riskPct: riskPerTrade
     };
+}
+
+// ============================================
+// 📰 SOCIAL SENTIMENT SCANNER
+// ============================================
+
+const SENTIMENT_STOCKS = [
+    { code: '300750', name: '宁德时代', mentions: 2450, sentiment: 75, trend: 'up' },
+    { code: '002340', name: '格林美', mentions: 1230, sentiment: 68, trend: 'up' },
+    { code: '870864', name: '灿能电力', mentions: 890, sentiment: 82, trend: 'stable' },
+    { code: '0700', name: '腾讯控股', mentions: 5620, sentiment: 71, trend: 'up' },
+    { code: '9988', name: '阿里巴巴', mentions: 4200, sentiment: 65, trend: 'down' },
+    { code: '600522', name: '隆基绿能', mentions: 1890, sentiment: 78, trend: 'up' },
+    { code: '000333', name: '美的集团', mentions: 1560, sentiment: 72, trend: 'stable' },
+    { code: '601012', name: '隆基绿能', mentions: 2100, sentiment: 80, trend: 'up' }
+];
+
+const RUMORS = [
+    { stock: '300750', title: '宁德时代将大规模裁员', risk: 'high', source: 'Weibo' },
+    { stock: '9988', title: '阿里巴巴被监管调查', risk: 'medium', source: 'Xueqiu' },
+    { stock: '0700', title: '腾讯游戏版号获批', risk: 'clear', source: 'News' }
+];
+
+async function runSentimentScan() {
+    // Simulate sentiment analysis
+    const positive = Math.floor(Math.random() * 10) + 10;
+    const neutral = Math.floor(Math.random() * 8) + 5;
+    const negative = Math.floor(Math.random() * 5) + 1;
+    const total = positive + neutral + negative;
+    
+    const sentimentScore = Math.round((positive / total) * 100);
+    
+    // Update dashboard
+    document.getElementById('sentiment-score').innerText = sentimentScore;
+    document.getElementById('sentiment-score').style.color = sentimentScore >= 60 ? '#00ff88' : (sentimentScore >= 40 ? '#ffaa00' : '#ff4444');
+    
+    document.getElementById('news-positive').innerText = positive;
+    document.getElementById('news-neutral').innerText = neutral;
+    document.getElementById('news-negative').innerText = negative;
+    
+    // Sentiment gauge
+    const indicator = document.getElementById('sentiment-indicator');
+    const label = document.getElementById('sentiment-label');
+    indicator.style.left = sentimentScore + '%';
+    
+    if (sentimentScore >= 60) {
+        label.innerText = 'BULLISH 🐂';
+        label.style.color = '#00ff88';
+    } else if (sentimentScore >= 40) {
+        label.innerText = 'NEUTRAL ⚪';
+        label.style.color = '#ffaa00';
+    } else {
+        label.innerText = 'BEARISH 🐻';
+        label.style.color = '#ff4444';
+    }
+    
+    // Buzz level
+    const buzz = positive + neutral + negative;
+    let buzzLevel = 'LOW';
+    if (buzz > 20) buzzLevel = 'HIGH';
+    else if (buzz > 12) buzzLevel = 'MEDIUM';
+    document.getElementById('news-buzz').innerText = buzzLevel;
+    document.getElementById('news-buzz').style.color = buzzLevel === 'HIGH' ? '#a855f7' : (buzzLevel === 'MEDIUM' ? '#ffaa00' : '#666');
+    
+    // Update mentions table
+    const mentionsEl = document.getElementById('mentions-table');
+    mentionsEl.innerHTML = SENTIMENT_STOCKS.map(s => {
+        const trendIcon = s.trend === 'up' ? '📈' : (s.trend === 'down' ? '📉' : '➡️');
+        const sentColor = s.sentiment >= 70 ? '#00ff88' : (s.sentiment >= 50 ? '#ffaa00' : '#ff4444');
+        const alert = s.sentiment >= 75 ? '🔥 HOT' : (s.mentions > 2000 ? '⚡ TRENDING' : '✅');
+        
+        return `<tr style="border-bottom:1px solid #333;">
+            <td style="padding:8px;"><strong>${s.code}</strong><br><span style="color:#888;font-size:10px;">${s.name}</span></td>
+            <td style="padding:8px;">${s.mentions.toLocaleString()}</td>
+            <td style="padding:8px;color:${sentColor};font-weight:bold;">${s.sentiment}%</td>
+            <td style="padding:8px;">${trendIcon} ${s.trend}</td>
+            <td style="padding:8px;">${alert}</td>
+        </tr>`;
+    }).join('');
+    
+    // Update news feed
+    const newsEl = document.getElementById('news-feed');
+    newsEl.innerHTML = `
+        <div style="padding:10px;border-bottom:1px solid #333;">
+            <span style="color:#00ff88;">📈</span> <b>新能源板块持续看好</b>
+            <div style="font-size:10px;color:#888;margin-top:3px;">宁德时代、比亚迪领涨 | 机构看多</div>
+        </div>
+        <div style="padding:10px;border-bottom:1px solid #333;">
+            <span style="color:#00d9ff;">📰</span> <b>AI算力需求爆发</b>
+            <div style="font-size:10px;color:#888;margin-top:3px;">寒武纪、海光信息涨停 | 分析师看好</div>
+        </div>
+        <div style="padding:10px;border-bottom:1px solid #333;">
+            <span style="color:#ffaa00;">⚠️</span> <b>医药集采影响持续</b>
+            <div style="font-size:10px;color:#888;margin-top:3px;">板块分化严重 | 关注创新药</div>
+        </div>
+        <div style="padding:10px;border-bottom:1px solid #333;">
+            <span style="color:#00ff88;">📈</span> <b>电力板块强势</b>
+            <div style="font-size:10px;color:#888;margin-top:3px;">煤电、核电表现亮眼</div>
+        </div>
+    `;
+    
+    showAlert(`📰 Sentiment scan complete: ${sentimentScore}% bullish`, 'success');
+}
+
+function refreshMentions() {
+    runSentimentScan();
+}
+
+function scanRumors() {
+    const rumorEl = document.getElementById('rumor-feed');
+    
+    // Update counts
+    const high = RUMORS.filter(r => r.risk === 'high').length;
+    const medium = RUMORS.filter(r => r.risk === 'medium').length;
+    const clear = RUMORS.filter(r => r.risk === 'clear').length;
+    
+    document.getElementById('rumor-high').innerText = high;
+    document.getElementById('rumor-medium').innerText = medium;
+    document.getElementById('rumor-clear').innerText = clear;
+    
+    // Render rumor feed
+    rumorEl.innerHTML = RUMORS.map(r => {
+        const color = r.risk === 'high' ? '#ff4444' : (r.risk === 'medium' ? '#ffaa00' : '#00ff88');
+        const icon = r.risk === 'high' ? '🔴' : (r.risk === 'medium' ? '🟡' : '🟢');
+        
+        return `<div style="padding:10px;border-bottom:1px solid #333;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:16px;">${icon}</span>
+            <div style="flex:1;">
+                <div style="font-weight:bold;">${r.stock}</div>
+                <div style="font-size:11px;color:#888;">${r.title}</div>
+                <div style="font-size:10px;color:${color};">Source: ${r.source}</div>
+            </div>
+            <button class="btn" style="padding:4px 8px;font-size:10px;" onclick="alert('Investigation requested for ${r.stock}')">🔍 Verify</button>
+        </div>`;
+    }).join('');
+    
+    showAlert(`🚨 Rumor scan complete: ${high} high risk, ${medium} medium`, high > 0 ? 'error' : 'success');
 }
 
 // Initial load
