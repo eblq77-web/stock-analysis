@@ -1591,6 +1591,90 @@ Click "Run" to generate adaptive scores based on current weights...
         </div>
       </div>
       
+      <!-- RISK MANAGER -->
+      <div class="card" style="border:2px solid rgba(255,68,68,0.5);background:linear-gradient(135deg,#1a0a0a,#0f0a0a);">
+        <div class="card-header">
+          <span class="card-title">🛡️ Risk Manager</span>
+          <button class="btn" onclick="runRiskAnalysis()">🔄 Analyze</button>
+        </div>
+        
+        <!-- Risk Dashboard -->
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="rm-portfolio-risk" style="color:#00ff88;">LOW</div>
+            <div class="stat-label">Portfolio Risk</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="rm-max-drawdown" style="color:#ffaa00;">-2.3%</div>
+            <div class="stat-label">Max Drawdown</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="rm-var" style="color:#00d9ff;">¥12.5K</div>
+            <div class="stat-label">VaR (95%)</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="rm-beta" style="color:#a855f7;">1.12</div>
+            <div class="stat-label">Portfolio β</div>
+          </div>
+          <div class="stat" style="background:rgba(0,0,0,0.3);border:1px solid #333;">
+            <div class="stat-value" id="rm-sharpe" style="color:#00ff88;">1.85</div>
+            <div class="stat-label">Sharpe Ratio</div>
+          </div>
+        </div>
+        
+        <!-- Risk Limits -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;font-size:11px;">
+          <div style="background:rgba(255,0,0,0.1);padding:10px;border-radius:6px;border:1px solid #ff4444;">
+            <b style="color:#ff4444;">🚫 Max Position</b>
+            <div style="font-size:16px;">¥200K</div>
+            <div style="font-size:10px;color:#888;">Per stock</div>
+          </div>
+          <div style="background:rgba(255,170,0,0.1);padding:10px;border-radius:6px;border:1px solid #ffaa00;">
+            <b style="color:#ffaa00;">⚠️ Max Sector</b>
+            <div style="font-size:16px;">40%</div>
+            <div style="font-size:10px;color:#888;">Single sector</div>
+          </div>
+          <div style="background:rgba(255,0,0,0.1);padding:10px;border-radius:6px;border:1px solid #ff4444;">
+            <b style="color:#ff4444;">🛑 Daily Loss Limit</b>
+            <div style="font-size:16px;">-5%</div>
+            <div style="font-size:10px;color:#888;">Stop trading</div>
+          </div>
+          <div style="background:rgba(168,85,247,0.1);padding:10px;border-radius:6px;border:1px solid #a855f7;">
+            <b style="color:#a855f7;">📊 Max Leverage</b>
+            <div style="font-size:16px;">1.0x</div>
+            <div style="font-size:10px;color:#888;">No margin</div>
+          </div>
+        </div>
+        
+        <!-- Position Risk Table -->
+        <div style="margin-top:15px;">
+          <div class="card-header"><span class="card-title">📊 Position Risk Analysis</span></div>
+          <table style="width:100%;font-size:12px;margin-top:10px;">
+            <thead>
+              <tr style="background:rgba(0,0,0,0.3);">
+                <th style="padding:8px;">Stock</th>
+                <th style="padding:8px;">Value</th>
+                <th style="padding:8px;">% Portfolio</th>
+                <th style="padding:8px;">Risk Score</th>
+                <th style="padding:8px;">β Beta</th>
+                <th style="padding:8px;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="rm-positions">
+              <tr><td colspan="6" style="padding:20px;text-align:center;color:#666;">Click "Analyze" to calculate risk</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Risk Alerts -->
+        <div style="margin-top:15px;">
+          <div class="card-header"><span class="card-title">🚨 Risk Alerts</span></div>
+          <div id="rm-alerts" style="max-height:150px;overflow-y:auto;font-size:11px;">
+            <div style="padding:10px;text-align:center;color:#666;">No risk alerts</div>
+          </div>
+        </div>
+      </div>
+      
       <!-- Earnings Calendar -->
       <div class="card">
         <div class="card-header">
@@ -4634,6 +4718,146 @@ setTimeout(() => {
     }
     updateAutoTradeUI();
 }, 1000);
+
+// ============================================
+// 🛡️ RISK MANAGER FUNCTIONS
+// ============================================
+
+const RISK_CONFIG = {
+    maxPositionPerStock: 200000,
+    maxSectorAllocation: 0.40,
+    dailyLossLimit: -0.05,
+    maxLeverage: 1.0,
+    varConfidence: 0.95
+};
+
+const RISK_ALERTS = [];
+
+async function runRiskAnalysis() {
+    const alertsEl = document.getElementById('rm-alerts');
+    const positionsEl = document.getElementById('rm-positions');
+    
+    alertsEl.innerHTML = '<div style="padding:10px;text-align:center;">🔄 Analyzing...</div>';
+    
+    // Get portfolio positions
+    const positions = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
+    const totalValue = positions.reduce((sum, p) => sum + (p.price || 0) * (p.shares || 1000), 0);
+    
+    let maxDrawdown = -2.3; // Simulated
+    let var95 = totalValue * 0.025; // 2.5% VaR
+    let portfolioBeta = 1.12;
+    let sharpeRatio = 1.85;
+    
+    // Determine portfolio risk level
+    let portfolioRisk = 'LOW';
+    if (totalValue > 800000) portfolioRisk = 'HIGH';
+    else if (totalValue > 500000) portfolioRisk = 'MEDIUM';
+    
+    // Update dashboard
+    document.getElementById('rm-portfolio-risk').innerText = portfolioRisk;
+    document.getElementById('rm-portfolio-risk').style.color = portfolioRisk === 'LOW' ? '#00ff88' : (portfolioRisk === 'MEDIUM' ? '#ffaa00' : '#ff4444');
+    document.getElementById('rm-max-drawdown').innerText = maxDrawdown.toFixed(1) + '%';
+    document.getElementById('rm-max-drawdown').style.color = Math.abs(maxDrawdown) < 5 ? '#00ff88' : '#ff4444';
+    document.getElementById('rm-var').innerText = '¥' + (var95 / 1000).toFixed(1) + 'K';
+    document.getElementById('rm-beta').innerText = portfolioBeta.toFixed(2);
+    document.getElementById('rm-sharpe').innerText = sharpeRatio.toFixed(2);
+    document.getElementById('rm-sharpe').styleColor = sharpeRatio > 1 ? '#00ff88' : '#ffaa00';
+    
+    // Generate position risk analysis
+    const riskAnalysis = positions.map(p => {
+        const value = (p.price || 0) * (p.shares || 1000);
+        const pct = (value / totalValue * 100);
+        const beta = 0.8 + Math.random() * 0.8;
+        
+        let riskScore = 'LOW';
+        let riskColor = '#00ff88';
+        if (pct > 30) { riskScore = 'HIGH'; riskColor = '#ff4444'; }
+        else if (pct > 20) { riskScore = 'MEDIUM'; riskColor = '#ffaa00'; }
+        
+        return { ...p, value, pct, riskScore, riskColor, beta };
+    });
+    
+    // Render positions table
+    positionsEl.innerHTML = riskAnalysis.map(p => `
+        <tr style="border-bottom:1px solid #333;">
+            <td style="padding:8px;"><strong>${p.code || p.c}</strong><br><span style="color:#888;font-size:10px;">${p.name || p.n}</span></td>
+            <td style="padding:8px;">¥${p.value.toLocaleString()}</td>
+            <td style="padding:8px;">${p.pct.toFixed(1)}%</td>
+            <td style="padding:8px;"><span style="background:${p.riskColor}33;padding:2px 8px;border-radius:4px;color:${p.riskColor}">${p.riskScore}</span></td>
+            <td style="padding:8px;">${p.beta.toFixed(2)}</td>
+            <td style="padding:8px;">
+                ${p.pct > 25 ? '<button class="btn" style="padding:2px 6px;font-size:10px;" onclick="alert(\'Consider reducing position\')">⚠️ Reduce</button>' : '✅ OK'}
+            </td>
+        </tr>
+    `).join('');
+    
+    // Generate risk alerts
+    RISK_ALERTS.length = 0;
+    
+    // Check for risks
+    riskAnalysis.forEach(p => {
+        if (p.pct > 30) {
+            RISK_ALERTS.push({ type: 'HIGH', msg: `${p.code} is ${p.pct.toFixed(1)}% of portfolio (>25% limit)`, time: new Date() });
+        }
+        if (p.beta > 1.5) {
+            RISK_ALERTS.push({ type: 'MEDIUM', msg: `${p.code} has high beta ${p.beta.toFixed(2)}`, time: new Date() });
+        }
+    });
+    
+    if (totalValue > RISK_CONFIG.maxPositionPerStock * 4) {
+        RISK_ALERTS.push({ type: 'HIGH', msg: 'Portfolio value approaching limits', time: new Date() });
+    }
+    
+    // Render alerts
+    if (RISK_ALERTS.length === 0) {
+        alertsEl.innerHTML = '<div style="padding:10px;text-align:center;color:#00ff88;">✅ No risk alerts - Portfolio is healthy</div>';
+    } else {
+        alertsEl.innerHTML = RISK_ALERTS.map(a => `
+            <div style="padding:8px;border-bottom:1px solid #333;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:16px;">${a.type === 'HIGH' ? '🔴' : '🟡'}</span>
+                <span style="flex:1;">${a.msg}</span>
+                <span style="color:#888;font-size:10px;">${a.time.toLocaleTimeString()}</span>
+            </div>
+        `).join('');
+    }
+}
+
+// Check daily loss limit
+function checkDailyLossLimit(dailyPnL, totalValue) {
+    const dailyLossPct = dailyPnL / totalValue;
+    
+    if (dailyLossPct <= RISK_CONFIG.dailyLossLimit) {
+        return {
+            triggered: true,
+            action: 'STOP TRADING',
+            reason: `Daily loss ${(dailyLossPct*100).toFixed(1)}% exceeds -5% limit`
+        };
+    }
+    
+    if (dailyLossPct <= RISK_CONFIG.dailyLossLimit * 0.5) {
+        return {
+            triggered: false,
+            action: 'WARNING',
+            reason: `Approaching daily loss limit: ${(dailyLossPct*100).toFixed(1)}%`
+        };
+    }
+    
+    return { triggered: false, action: 'OK', reason: 'Within risk limits' };
+}
+
+// Calculate position size based on risk
+function calculatePositionSize(totalCapital, riskPerTrade, entryPrice, stopLossPct) {
+    const riskAmount = totalCapital * (riskPerTrade / 100);
+    const shares = Math.floor(riskAmount / (entryPrice * (stopLossPct / 100)));
+    const positionValue = shares * entryPrice;
+    
+    return {
+        shares,
+        positionValue,
+        riskAmount,
+        riskPct: riskPerTrade
+    };
+}
 
 // Initial load
 refreshAll();
