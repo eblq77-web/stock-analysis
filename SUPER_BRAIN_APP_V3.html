@@ -276,6 +276,7 @@
     <button class="nav-btn" onclick="showSection('automation')">⚡ Auto</button>
     <button class="nav-btn" onclick="showSection('predictions')">🔮 Predict</button>
     <button class="nav-btn" onclick="showSection('export')">📤 Export</button>
+    <button class="nav-btn" onclick="showSection('live')">📡 Live</button>
     <button class="nav-btn" onclick="showSection('news')">📰 News</button>
     <button class="nav-btn" onclick="showSection('backtest')">🔬 Backtest</button>
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
@@ -840,6 +841,56 @@
             <tr><td>2026-03-11</td><td>Weekly Report</td><td>PDF</td><td>weekly_2026-03-11.pdf</td><td style="color:#00ff88;">✅ Done</td></tr>
           </tbody>
         </table>
+      </div>
+    </div>
+    
+    <!-- LIVE WEBSOCKET -->
+    <div id="live" class="section">
+      <div class="card" style="border:2px solid rgba(0,255,136,0.3);">
+        <div class="card-header">
+          <span class="card-title">📡 Live WebSocket</span>
+          <button class="btn btn-green" id="ws-connect-btn" onclick="toggleWebSocket()">🔌 Connect</button>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat"><div class="stat-value" id="ws-status" style="color:#ff4444;">OFFLINE</div><div class="stat-label">Status</div></div>
+          <div class="stat"><div class="stat-value" id="ws-updates" style="color:#fff;">0</div><div class="stat-label">Updates</div></div>
+          <div class="stat"><div class="stat-value" id="ws-latency" style="color:#00ff88;">--ms</div><div class="stat-label">Latency</div></div>
+          <div class="stat"><div class="stat-value" id="ws-stocks" style="color:#a855f7;">0</div><div class="stat-label">Watching</div></div>
+        </div>
+      </div>
+      
+      <!-- Watchlist -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">👀 Live Watchlist</span>
+          <button class="btn" onclick="addToWatchlist()">➕ Add</button>
+        </div>
+        <table>
+          <thead><tr><th>Stock</th><th>Price</th><th>Change</th><th>Volume</th><th>Bid</th><th>Ask</th><th>Status</th></tr></thead>
+          <tbody id="ws-watchlist"></tbody>
+        </table>
+      </div>
+      
+      <!-- Live Feed -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📺 Live Feed</span>
+          <button class="btn" onclick="clearLiveFeed()">🗑️ Clear</button>
+        </div>
+        <div id="live-feed" class="output" style="height:200px;max-height:200px;overflow-y:auto;font-size:11px;">
+          <div style="color:#666;">📡 Waiting for live data...</div>
+        </div>
+      </div>
+      
+      <!-- Connection Log -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📜 Connection Log</span>
+        </div>
+        <div id="ws-log" style="font-size:11px;color:#888;max-height:100px;overflow-y:auto;">
+          <div>[17:00] WebSocket ready - Click Connect to start</div>
+        </div>
       </div>
     </div>
     
@@ -3055,6 +3106,126 @@ function exportAll() {
   exportJSON('signals');
   exportJSON('portfolio');
   showAlert('📦 All data exported!', 'success');
+}
+
+// ==================== LIVE WEBSOCKET ====================
+let wsConnected = false;
+let wsUpdateCount = 0;
+let wsInterval = null;
+
+const wsWatchlist = [
+  {code:'601012',name:'隆基绿能'},
+  {code:'600036',name:'招商银行'},
+  {code:'002594',name:'比亚迪'},
+  {code:'300750',name:'宁德时代'},
+  {code:'600519',name:'贵州茅台'},
+];
+
+function toggleWebSocket() {
+  const btn = document.getElementById('ws-connect-btn');
+  
+  if(wsConnected) {
+    // Disconnect
+    wsConnected = false;
+    clearInterval(wsInterval);
+    btn.innerText = '🔌 Connect';
+    btn.className = 'btn';
+    document.getElementById('ws-status').innerText = 'OFFLINE';
+    document.getElementById('ws-status').style.color = '#ff4444';
+    addWsLog('WebSocket disconnected');
+    showAlert('📡 WebSocket disconnected', '');
+  } else {
+    // Connect
+    wsConnected = true;
+    btn.innerText = '⏹️ Disconnect';
+    btn.className = 'btn btn-red';
+    document.getElementById('ws-status').innerText = 'LIVE';
+    document.getElementById('ws-status').style.color = '#00ff88';
+    document.getElementById('ws-stocks').innerText = wsWatchlist.length;
+    addWsLog('WebSocket connected - streaming live data');
+    showAlert('📡 WebSocket connected!', 'success');
+    
+    // Simulate live updates (in production, would use real WebSocket)
+    wsInterval = setInterval(simulateLiveUpdate, 2000);
+    renderWsWatchlist();
+  }
+}
+
+function simulateLiveUpdate() {
+  if(!wsConnected) return;
+  
+  wsUpdateCount++;
+  document.getElementById('ws-updates').innerText = wsUpdateCount;
+  document.getElementById('ws-latency').innerText = Math.floor(Math.random() * 50 + 20) + 'ms';
+  
+  // Update random stock in watchlist
+  const idx = Math.floor(Math.random() * wsWatchlist.length);
+  const stock = wsWatchlist[idx];
+  
+  // Simulate price change
+  const change = (Math.random() * 2 - 1).toFixed(2);
+  const price = 20 + Math.random() * 50;
+  const vol = Math.floor(Math.random() * 100000);
+  
+  // Add to live feed
+  const time = new Date().toLocaleTimeString();
+  const color = change >= 0 ? '#00ff88' : '#ff4444';
+  addLiveFeed(`<div><span style="color:#888;">[${time}]</span> <b>${stock.code}</b> ${stock.name}: <span style="color:${color};">¥${price.toFixed(2)} (${change >= 0 ? '+' : ''}${change}%)</span> Vol: ${(vol/1000).toFixed(0)}K</div>`);
+  
+  // Update watchlist
+  renderWsWatchlist();
+}
+
+function renderWsWatchlist() {
+  const tbody = document.getElementById('ws-watchlist');
+  
+  tbody.innerHTML = wsWatchlist.map(s => {
+    const price = (20 + Math.random() * 50).toFixed(2);
+    const change = (Math.random() * 4 - 2).toFixed(2);
+    const vol = Math.floor(Math.random() * 100000);
+    const bid = (parseFloat(price) - 0.02).toFixed(2);
+    const ask = (parseFloat(price) + 0.02).toFixed(2);
+    const changeColor = parseFloat(change) >= 0 ? '#00ff88' : '#ff4444';
+    
+    return `<tr>
+      <td><b>${s.code}</b> ${s.name}</td>
+      <td style="font-weight:bold;">¥${price}</td>
+      <td style="color:${changeColor};font-weight:bold;">${parseFloat(change) >= 0 ? '+' : ''}${change}%</td>
+      <td>${(vol/1000).toFixed(0)}K</td>
+      <td style="color:#00ff88;">¥${bid}</td>
+      <td style="color:#ff4444;">¥${ask}</td>
+      <td><span style="color:#00ff88;">● LIVE</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function addToWatchlist() {
+  const code = prompt('Enter stock code:');
+  if(!code) return;
+  
+  const name = 'Stock ' + code;
+  wsWatchlist.push({code, name});
+  document.getElementById('ws-stocks').innerText = wsWatchlist.length;
+  renderWsWatchlist();
+  showAlert(`👀 Added ${code} to watchlist`, 'success');
+}
+
+function addLiveFeed(html) {
+  const feed = document.getElementById('live-feed');
+  feed.innerHTML = html + feed.innerHTML;
+  // Keep only last 20 entries
+  const entries = feed.innerHTML.split('<div>').slice(0, 20);
+  feed.innerHTML = entries.join('<div>');
+}
+
+function clearLiveFeed() {
+  document.getElementById('live-feed').innerHTML = '<div style="color:#666;">📡 Feed cleared</div>';
+}
+
+function addWsLog(msg) {
+  const log = document.getElementById('ws-log');
+  const time = new Date().toLocaleTimeString();
+  log.innerHTML = `<div>[${time}] ${msg}</div>` + log.innerHTML;
 }
 
 // Initial load
