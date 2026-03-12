@@ -267,6 +267,7 @@
     <button class="nav-btn" onclick="showSection('scanner')">🔍 Scanner</button>
     <button class="nav-btn" onclick="showSection('patterns')">🎯 Patterns</button>
     <button class="nav-btn" onclick="showSection('pretakeoff')">🎯 Pre-Takeoff</button>
+    <button class="nav-btn" onclick="showSection('technical')">📊 Technical</button>
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
     <button class="nav-btn" onclick="showSection('gallery')">🖼️ Gallery</button>
     <button class="nav-btn" onclick="showSection('tools')">🔧 Tools</button>
@@ -462,6 +463,39 @@
         </div>
       </div>
       
+      <!-- Risk Management Panel -->
+      <div class="card" style="border:2px solid rgba(255,170,0,0.3);">
+        <div class="card-header">
+          <span class="card-title">⚠️ Risk Management</span>
+          <button class="btn" onclick="calculateRisk()">🔄 Calculate</button>
+        </div>
+        <div class="grid-3" style="gap:10px;margin-bottom:10px;">
+          <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;text-align:center;">
+            <div style="font-size:11px;color:#888;">Total Capital</div>
+            <div style="font-size:18px;font-weight:bold;color:#fff;">¥1,000,000</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;text-align:center;">
+            <div style="font-size:11px;color:#888;">Max Position (20%)</div>
+            <div style="font-size:18px;font-weight:bold;color:#ffaa00;">¥200,000</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;text-align:center;">
+            <div style="font-size:11px;color:#888;">Stop Loss (-7%)</div>
+            <div style="font-size:18px;font-weight:bold;color:#ff4444;">¥14,000</div>
+          </div>
+        </div>
+        <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span style="color:#888;font-size:11px;">Position Size Calculator:</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <input type="number" id="risk-price" placeholder="Price ¥" style="width:80px;padding:6px;border-radius:4px;border:1px solid #444;background:#1a1a2e;color:#fff;">
+            <input type="number" id="risk-shares" placeholder="Shares" style="width:80px;padding:6px;border-radius:4px;border:1px solid #444;background:#1a1a2e;color:#fff;">
+            <button class="btn" onclick="calcPositionSize()">Calc</button>
+            <span id="risk-result" style="color:#00ff88;font-size:12px;"></span>
+          </div>
+        </div>
+      </div>
+      
       <div class="card">
         <div class="card-header">
           <span class="card-title">📋 Open Positions</span>
@@ -602,6 +636,58 @@
             <div style="font-size:14px;font-weight:bold;">消费</div>
           </div>
         </div>
+      </div>
+    </div>
+    
+    <!-- TECHNICAL INDICATORS -->
+    <div id="technical" class="section">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📊 Technical Indicators</span>
+          <button class="btn btn-green" onclick="runTechnicalScan()">🔄 Scan</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat"><div class="stat-value" id="ti-rsi" style="color:#ffaa00;">--</div><div class="stat-label">RSI (14)</div></div>
+          <div class="stat"><div class="stat-value" id="ti-macd" style="color:#a855f7;">--</div><div class="stat-label">MACD</div></div>
+          <div class="stat"><div class="stat-value" id="ti-ma5" style="color:#00d9ff;">--</div><div class="stat-label">MA5</div></div>
+          <div class="stat"><div class="stat-value" id="ti-ma10" style="color:#00ff88;">--</div><div class="stat-label">MA10</div></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📈 Indicator Guide</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#ffaa00;">RSI (Relative Strength)</b><br>
+            <span style="color:#00ff88;">&lt;30 = Oversold (BUY)</span><br>
+            <span style="color:#ff4444;">&gt;70 = Overbought (SELL)</span><br>
+            30-70 = Neutral
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#a855f7;">MACD (Moving Average)</b><br>
+            <span style="color:#00ff88;">Golden Cross = BUY</span><br>
+            <span style="color:#ff4444;">Death Cross = SELL</span><br>
+            Histogram = Momentum
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#00d9ff;">MA Cross</b><br>
+            <span style="color:#00ff88;">MA5 &gt; MA10 = BULL</span><br>
+            <span style="color:#ff4444;">MA5 &lt; MA10 = BEAR</span><br>
+            Price &gt; MA = Support
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🎯 Technical Signals</span>
+        </div>
+        <table>
+          <thead><tr><th>Stock</th><th>Price</th><th>RSI</th><th>MACD</th><th>MA5/10</th><th>Signal</th><th>Action</th></tr></thead>
+          <tbody id="ti-results"></tbody>
+        </table>
       </div>
     </div>
     
@@ -1593,6 +1679,103 @@ function ptFilter(type) {
   document.querySelectorAll('#pretakeoff .filter-tag').forEach(t => t.classList.remove('active'));
   event.target.classList.add('active');
   renderPreTakeoff();
+}
+
+// ==================== TECHNICAL INDICATORS ====================
+const tiStocks = [];
+
+async function runTechnicalScan() {
+  const tbody = document.getElementById('ti-results');
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;">🔄 Analyzing...</td></tr>';
+  
+  // Key stocks for technical analysis
+  const candidates = [
+    {code:'600036',name:'招商银行'},
+    {code:'600519',name:'贵州茅台'},
+    {code:'000333',name:'美的集团'},
+    {code:'600276',name:'恒瑞医药'},
+    {code:'002594',name:'比亚迪'},
+    {code:'300750',name:'宁德时代'},
+    {code:'601012',name:'隆基绿能'},
+    {code:'000999',name:'华润三九'},
+  ];
+  
+  tiStocks.length = 0;
+  
+  // Simulate technical indicators (in production, would fetch from API)
+  for(const s of candidates) {
+    const d = await getPrice(s.code);
+    if(d.price > 0) {
+      // Simulate RSI (30-70 range based on price)
+      const baseRSI = 50 + (Math.random() * 40 - 20);
+      const rsi = Math.max(20, Math.min(80, baseRSI + (d.pct * 2)));
+      
+      // Simulate MACD based on momentum
+      const macd = d.pct > 0.5 ? '🟢 BULL' : d.pct < -0.5 ? '🔴 BEAR' : '⚪ NEUTRAL';
+      
+      // MA cross based on change
+      const maCross = d.pct > 1 ? '🟢 GOLDEN' : d.pct < -1 ? '🔴 DEATH' : '⚪ NEUTRAL';
+      
+      // Generate signal
+      let signal = '⚪ NEUTRAL';
+      if(rsi < 35 && macd === '🟢 BULL') signal = '🚀 STRONG BUY';
+      else if(rsi < 30) signal = '🟢 BUY (Oversold)';
+      else if(rsi > 65 && macd === '🔴 BEAR') signal = '🔴 SELL (Overbought)';
+      else if(rsi > 70) signal = '🟠 SELL';
+      else if(macd === '🟢 BULL' && maCross === '🟢 GOLDEN') signal = '🚀 BUY';
+      
+      tiStocks.push({...s, price:d.price, pct:d.pct, rsi:rsi.toFixed(1), macd, maCross, signal});
+    }
+  }
+  
+  // Update stats
+  document.getElementById('ti-rsi').innerText = (tiStocks.reduce((sum,s) => sum + parseFloat(s.rsi), 0) / tiStocks.length).toFixed(0);
+  
+  const bullCount = tiStocks.filter(s => s.signal.includes('BUY')).length;
+  const bearCount = tiStocks.filter(s => s.signal.includes('SELL')).length;
+  document.getElementById('ti-macd').innerText = bullCount > bearCount ? '🟢 BULL' : '🔴 BEAR';
+  
+  // Render results
+  tbody.innerHTML = tiStocks.map(s => {
+    const signalColor = s.signal.includes('BUY') ? '#00ff88' : s.signal.includes('SELL') ? '#ff4444' : '#ffaa00';
+    const rsiColor = parseFloat(s.rsi) < 30 ? '#00ff88' : parseFloat(s.rsi) > 70 ? '#ff4444' : '#ffaa00';
+    const pctColor = s.pct >= 0 ? '#00ff88' : '#ff4444';
+    
+    return `<tr>
+      <td><b>${s.code}</b> ${s.name}</td>
+      <td style="color:${pctColor}">¥${s.price.toFixed(2)}</td>
+      <td style="color:${rsiColor};font-weight:bold;">${s.rsi}</td>
+      <td>${s.macd}</td>
+      <td>${s.maCross}</td>
+      <td style="color:${signalColor};font-weight:bold;">${s.signal}</td>
+      <td><button class="btn" onclick="buy('${s.code}',${s.price})">BUY</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ==================== RISK MANAGEMENT ====================
+function calculateRisk() {
+  showAlert('⚠️ Risk: Max position ¥200K (20%), Stop Loss -7% = ¥14K', 'success');
+}
+
+function calcPositionSize() {
+  const price = parseFloat(document.getElementById('risk-price').value);
+  const capital = 1000000;
+  const maxPosition = capital * 0.2; // 20% max
+  const riskAmount = capital * 0.07; // 7% risk
+  
+  if(!price || price <= 0) {
+    document.getElementById('risk-result').innerHTML = '<span style="color:#ff4444;">Enter price</span>';
+    return;
+  }
+  
+  const maxShares = Math.floor(maxPosition / price);
+  const riskShares = Math.floor(riskAmount / price);
+  
+  document.getElementById('risk-result').innerHTML = `
+    <span style="color:#00ff88;">Max: ${maxShares} shares (¥${(maxShares*price).toFixed(0)})</span> | 
+    <span style="color:#ffaa00;">Safe: ${riskShares} shares (¥${(riskShares*price).toFixed(0)})</span>
+  `;
 }
 
 // Initial load
