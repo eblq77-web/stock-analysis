@@ -273,6 +273,7 @@
     <button class="nav-btn" onclick="showSection('selflearning')">🧠 Self-Learning</button>
     <button class="nav-btn" onclick="showSection('optionsflow')">🎯 Options</button>
     <button class="nav-btn" onclick="showSection('analytics')">📊 Analytics</button>
+    <button class="nav-btn" onclick="showSection('automation')">⚡ Auto</button>
     <button class="nav-btn" onclick="showSection('news')">📰 News</button>
     <button class="nav-btn" onclick="showSection('backtest')">🔬 Backtest</button>
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
@@ -943,6 +944,100 @@
         </div>
         <div id="sl-adaptive" class="output" style="min-height:100px;">
 Click "Run" to generate adaptive scores based on current weights...
+        </div>
+      </div>
+    </div>
+    
+    <!-- AUTOMATION -->
+    <div id="automation" class="section">
+      <div class="card" style="border:2px solid rgba(255,170,0,0.3);">
+        <div class="card-header">
+          <span class="card-title">⚡ Automation Center</span>
+          <button class="btn btn-green" onclick="toggleAutomation()">🔄 Enable All</button>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat"><div class="stat-value" id="auto-notif" style="color:#00ff88;">ON</div><div class="stat-label">🔔 Notifications</div></div>
+          <div class="stat"><div class="stat-value" id="auto-calendar" style="color:#00ff88;">ON</div><div class="stat-label">📅 Earnings</div></div>
+          <div class="stat"><div class="stat-value" id="auto-rebal" style="color:#ffaa00;">OFF</div><div class="stat-label">⚖️ Rebalance</div></div>
+          <div class="stat"><div class="stat-value" id="auto-status" style="color:#00ff88;">ACTIVE</div><div class="stat-label">Status</div></div>
+        </div>
+      </div>
+      
+      <!-- Push Notifications -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🔔 Push Notifications</span>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+            <input type="checkbox" id="notif-toggle" checked onchange="toggleNotif()">
+            <span style="color:#00ff88;">Enabled</span>
+          </label>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#00ff88;">✅ Alert Types</b><br>
+            <span style="color:#888;">• Institutional buy signals</span><br>
+            <span style="color:#888;">• Stop loss triggers</span><br>
+            <span style="color:#888;">• Target price reached</span><br>
+            <span style="color:#888;">• News sentiment shifts</span>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#a855f7;">📱 Notification Log</b><br>
+            <div id="notif-log" style="color:#888;max-height:80px;overflow-y:auto;">
+              <div>16:20 - 隆基绿能 institutional alert</div>
+              <div>14:50 - 隆基绿能 institutional alert</div>
+              <div>11:30 - News: 新能源 positive</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Earnings Calendar -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📅 Earnings Calendar</span>
+          <button class="btn" onclick="checkEarnings()">🔄 Refresh</button>
+        </div>
+        <table style="font-size:11px;">
+          <thead><tr><th>Stock</th><th>Date</th><th>Estimate</th><th>Risk</th><th>Action</th></tr></thead>
+          <tbody id="earnings-table">
+            <tr><td><b>600519</b> 贵州茅台</td><td>2026-03-15</td><td>+12%</td><td style="color:#ff4444;">🔴 HIGH</td><td><button class="btn">AVOID</button></td></tr>
+            <tr><td><b>002594</b> 比亚迪</td><td>2026-03-18</td><td>+8%</td><td style="color:#ffaa00;">🟡 MED</td><td><button class="btn">WATCH</button></td></tr>
+            <tr><td><b>600036</b> 招商银行</td><td>2026-03-20</td><td>+5%</td><td style="color:#00ff88;">🟢 LOW</td><td><button class="btn">OK</button></td></tr>
+            <tr><td><b>000333</b> 美的集团</td><td>2026-03-22</td><td>+6%</td><td style="color:#ffaa00;">🟡 MED</td><td><button class="btn">WATCH</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Auto-Rebalance -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚖️ Auto-Rebalance</span>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+            <input type="checkbox" id="rebal-toggle" onchange="toggleRebal()">
+            <span style="color:#888;">Disabled</span>
+          </label>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#a855f7;">📊 Current Allocation</b><br>
+            <div style="display:flex;justify-content:space-between;margin-top:5px;"><span>🔥 电力</span><span style="color:#00ff88;">35%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>⚡ 新能源</span><span style="color:#00ff88;">25%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>💊 医药</span><span style="color:#ffaa00;">20%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>🏦 金融</span><span style="color:#ff4444;">15%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>Other</span><span style="color:#888;">5%</span></div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#00ff88;">🎯 Target Allocation</b><br>
+            <div style="display:flex;justify-content:space-between;margin-top:5px;"><span>🔥 电力</span><span>30%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>⚡ 新能源</span><span>25%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>💊 医药</span><span>20%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>🏦 金融</span><span>20%</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>Other</span><span>5%</span></div>
+          </div>
+        </div>
+        <div style="margin-top:10px;padding:10px;background:rgba(255,170,0,0.1);border-radius:6px;border:1px solid rgba(255,170,0,0.3);">
+          <div style="display:flex;justify-content:space-between;"><span>⚠️ Rebalance Needed:</span><span style="color:#ffaa00;font-weight:bold;">-5% 金融 → +5% 电力</span></div>
         </div>
       </div>
     </div>
@@ -2632,6 +2727,61 @@ function runAnalytics() {
   document.getElementById('an-score').innerText = score;
   
   showAlert(`📊 Analytics refreshed: ${winRate}% win rate, +${profit}% return`, 'success');
+}
+
+// ==================== AUTOMATION ====================
+function toggleAutomation() {
+  const btn = event.target;
+  if(btn.innerText.includes('Enable')) {
+    btn.innerText = '⏸️ Pause All';
+    document.getElementById('auto-status').innerText = 'ACTIVE';
+    document.getElementById('auto-status').style.color = '#00ff88';
+    showAlert('⚡ All automation enabled!', 'success');
+  } else {
+    btn.innerText = '🔄 Enable All';
+    document.getElementById('auto-status').innerText = 'PAUSED';
+    document.getElementById('auto-status').style.color = '#ffaa00';
+    showAlert('⏸️ Automation paused', '');
+  }
+}
+
+function toggleNotif() {
+  const enabled = document.getElementById('notif-toggle').checked;
+  document.getElementById('auto-notif').innerText = enabled ? 'ON' : 'OFF';
+  document.getElementById('auto-notif').style.color = enabled ? '#00ff88' : '#ff4444';
+  showAlert(enabled ? '🔔 Notifications enabled' : '🔕 Notifications disabled', '');
+}
+
+function toggleRebal() {
+  const enabled = document.getElementById('rebal-toggle').checked;
+  document.getElementById('auto-rebal').innerText = enabled ? 'ON' : 'OFF';
+  document.getElementById('auto-rebal').style.color = enabled ? '#00ff88' : '#ffaa00';
+  showAlert(enabled ? '⚖️ Auto-rebalance enabled' : '⚖️ Auto-rebalance disabled', '');
+}
+
+function checkEarnings() {
+  const tbody = document.getElementById('earnings-table');
+  const stocks = [
+    {code:'600519',name:'贵州茅台',date:'2026-03-15',est:'+12%',risk:'HIGH'},
+    {code:'002594',name:'比亚迪',date:'2026-03-18',est:'+8%',risk:'MED'},
+    {code:'600036',name:'招商银行',date:'2026-03-20',est:'+5%',risk:'LOW'},
+    {code:'000333',name:'美的集团',date:'2026-03-22',est:'+6%',risk:'MED'},
+    {code:'300750',name:'宁德时代',date:'2026-03-25',est:'+10%',risk:'HIGH'},
+  ];
+  
+  tbody.innerHTML = stocks.map(s => {
+    const riskColor = s.risk === 'HIGH' ? '#ff4444' : s.risk === 'MED' ? '#ffaa00' : '#00ff88';
+    const riskIcon = s.risk === 'HIGH' ? '🔴' : s.risk === 'MED' ? '🟡' : '🟢';
+    return `<tr>
+      <td><b>${s.code}</b> ${s.name}</td>
+      <td>${s.date}</td>
+      <td>${s.est}</td>
+      <td style="color:${riskColor};">${riskIcon} ${s.risk}</td>
+      <td><button class="btn">${s.risk === 'HIGH' ? 'AVOID' : 'WATCH'}</button></td>
+    </tr>`;
+  }).join('');
+  
+  showAlert(`📅 Earnings calendar updated: ${stocks.length} upcoming`, 'success');
 }
 
 // Initial load
