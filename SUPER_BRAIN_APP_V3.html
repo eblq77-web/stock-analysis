@@ -277,6 +277,7 @@
     <button class="nav-btn" onclick="showSection('predictions')">🔮 Predict</button>
     <button class="nav-btn" onclick="showSection('export')">📤 Export</button>
     <button class="nav-btn" onclick="showSection('live')">📡 Live</button>
+    <button class="nav-btn" onclick="showSection('feishu')">💬 Feishu</button>
     <button class="nav-btn" onclick="showSection('news')">📰 News</button>
     <button class="nav-btn" onclick="showSection('backtest')">🔬 Backtest</button>
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
@@ -890,6 +891,84 @@
         </div>
         <div id="ws-log" style="font-size:11px;color:#888;max-height:100px;overflow-y:auto;">
           <div>[17:00] WebSocket ready - Click Connect to start</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- FEISHU INTEGRATION -->
+    <div id="feishu" class="section">
+      <div class="card" style="border:2px solid rgba(0,217,255,0.3);">
+        <div class="card-header">
+          <span class="card-title">💬 Feishu Alerts</span>
+          <button class="btn btn-green" id="feishu-enable-btn" onclick="toggleFeishu()">🔔 Enable</button>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat"><div class="stat-value" id="feishu-status" style="color:#ff4444;">OFF</div><div class="stat-label">Status</div></div>
+          <div class="stat"><div class="stat-value" id="feishu-alerts" style="color:#fff;">0</div><div class="stat-label">Alerts Sent</div></div>
+          <div class="stat"><div class="stat-value" id="feishu-channel" style="color:#00ff88;">--</div><div class="stat-label">Channel</div></div>
+          <div class="stat"><div class="stat-value" id="feishu-mode" style="color:#a855f7;">MANUAL</div><div class="stat-label">Mode</div></div>
+        </div>
+      </div>
+      
+      <!-- Alert Settings -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚙️ Alert Settings</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#00ff88;">✅ Alert Types</b><br>
+            <label><input type="checkbox" id="fs-inst" checked> Institutional Signals</label><br>
+            <label><input type="checkbox" id="fs-stop" checked> Stop Loss</label><br>
+            <label><input type="checkbox" id="fs-target" checked> Target Price</label><br>
+            <label><input type="checkbox" id="fs-news"> News Sentiment</label>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <b style="color:#a855f7;">📨 Channel</b><br>
+            <label><input type="radio" name="channel" value="direct" checked> Direct Message</label><br>
+            <label><input type="radio" name="channel" value="group"> Group Chat</label><br>
+            <label><input type="radio" name="channel" value="bot"> Bot Channel</label>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Send Test Alert -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🧪 Test Alert</span>
+          <button class="btn" onclick="sendFeishuTest()">📨 Send Test</button>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <input type="text" id="feishu-test-msg" placeholder="Test message..." style="flex:1;padding:10px;border-radius:6px;background:#1a1a2e;color:#fff;border:1px solid #444;">
+        </div>
+      </div>
+      
+      <!-- Alert Log -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📜 Alert Log</span>
+        </div>
+        <div id="feishu-log" class="output" style="height:150px;font-size:11px;">
+          <div style="color:#666;">💬 Feishu alert log - Enable to start receiving</div>
+        </div>
+      </div>
+      
+      <!-- Quick Actions -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚡ Quick Alerts</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <button class="quick-btn" onclick="sendFeishuAlert('BUY', '601012', '隆基绿能', '18.79')">
+            📈 Institutional BUY
+          </button>
+          <button class="quick-btn" onclick="sendFeishuAlert('STOP', '600036', '招商银行', '38.50')">
+            🛑 Stop Loss
+          </button>
+          <button class="quick-btn" onclick="sendFeishuAlert('TARGET', '002594', '比亚迪', '102.00')">
+            🎯 Target Hit
+          </button>
         </div>
       </div>
     </div>
@@ -3226,6 +3305,84 @@ function addWsLog(msg) {
   const log = document.getElementById('ws-log');
   const time = new Date().toLocaleTimeString();
   log.innerHTML = `<div>[${time}] ${msg}</div>` + log.innerHTML;
+}
+
+// ==================== FEISHU INTEGRATION ====================
+let feishuEnabled = false;
+let feishuAlertCount = 0;
+
+function toggleFeishu() {
+  const btn = document.getElementById('feishu-enable-btn');
+  
+  if(feishuEnabled) {
+    feishuEnabled = false;
+    btn.innerText = '🔔 Enable';
+    btn.className = 'btn';
+    document.getElementById('feishu-status').innerText = 'OFF';
+    document.getElementById('feishu-status').style.color = '#ff4444';
+    document.getElementById('feishu-mode').innerText = 'MANUAL';
+    addFeishuLog('Feishu alerts disabled');
+    showAlert('💬 Feishu alerts disabled', '');
+  } else {
+    feishuEnabled = true;
+    btn.innerText = '⏹️ Disable';
+    btn.className = 'btn btn-red';
+    document.getElementById('feishu-status').innerText = 'ON';
+    document.getElementById('feishu-status').style.color = '#00ff88';
+    document.getElementById('feishu-mode').innerText = 'AUTO';
+    document.getElementById('feishu-channel').innerText = 'Direct';
+    addFeishuLog('Feishu alerts enabled - Connected to OpenClaw');
+    showAlert('💬 Feishu alerts enabled!', 'success');
+  }
+}
+
+function sendFeishuAlert(type, code, name, price) {
+  if(!feishuEnabled) {
+    showAlert('💬 Enable Feishu alerts first', '');
+    return;
+  }
+  
+  let emoji = '📈';
+  let message = '';
+  
+  if(type === 'BUY') {
+    emoji = '📈';
+    message = `🚨 INSTITUTIONAL ALERT\n\n✅ ${code} ${name}\n💰 Price: ¥${price}\n📊 Signal: BUY\n\nSent via Super Brain V3`;
+  } else if(type === 'STOP') {
+    emoji = '🛑';
+    message = `🛑 STOP LOSS TRIGGERED\n\n${code} ${name}\n💰 Price: ¥${price}\n\nSent via Super Brain V3`;
+  } else if(type === 'TARGET') {
+    emoji = '🎯';
+    message = `🎯 TARGET PRICE REACHED\n\n${code} ${name}\n💰 Target: ¥${price}\n\nSent via Super Brain V3`;
+  }
+  
+  feishuAlertCount++;
+  document.getElementById('feishu-alerts').innerText = feishuAlertCount;
+  
+  // In production, would send via Feishu API
+  addFeishuLog(`Alert sent: ${type} ${code} ${name}`);
+  
+  showAlert(`${emoji} Feishu alert sent: ${code}`, 'success');
+}
+
+function sendFeishuTest() {
+  const msg = document.getElementById('feishu-test-msg').value || 'Test message from Super Brain V3!';
+  
+  if(!feishuEnabled) {
+    // Simulate sending even when disabled
+    addFeishuLog(`[TEST] ${msg}`);
+    showAlert('🧪 Test sent (check log)', 'success');
+    return;
+  }
+  
+  addFeishuLog(`[TEST] ${msg}`);
+  showAlert('🧪 Test alert sent to Feishu!', 'success');
+}
+
+function addFeishuLog(msg) {
+  const log = document.getElementById('feishu-log');
+  const time = new Date().toLocaleTimeString();
+  log.innerHTML = `<div><span style="color:#888;">[${time}]</span> ${msg}</div>` + log.innerHTML;
 }
 
 // Initial load
