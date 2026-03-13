@@ -71,6 +71,8 @@
     }
     
     .nav-btn:hover, .nav-btn.active { background: linear-gradient(90deg, #a855f7, #6366f1); color: #fff; }
+    .nav-btn.info-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); padding: 8px 10px; }
+    .nav-btn.info-btn:hover { background: rgba(99,102,241,0.5); }
     
     .main { padding: 20px; }
     
@@ -286,7 +288,62 @@
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
     <button class="nav-btn" onclick="showSection('gallery')">🖼️ Gallery</button>
     <button class="nav-btn" onclick="showSection('tools')">🔧 Tools</button>
+    <button class="nav-btn info-btn" onclick="showSectionInfo('dashboard')" title="What is this?">ℹ️</button>
   </div>
+  
+  <!-- Section Info Modal -->
+  <div id="section-info" style="display:none;position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(20,20,40,0.95);border:1px solid #6366f1;border-radius:12px;padding:20px;z-index:1000;max-width:400px;box-shadow:0 10px 40px rgba(0,0,0,0.5);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <span id="section-info-title" style="font-size:16px;font-weight:bold;color:#a855f7;">📊 Dashboard</span>
+      <button onclick="closeSectionInfo()" style="background:none;border:none;color:#888;cursor:pointer;font-size:20px;">✕</button>
+    </div>
+    <p id="section-info-desc" style="color:#ccc;font-size:13px;line-height:1.5;margin:0;">Overview of your trading performance and market status.</p>
+  </div>
+
+  <script>
+  // Section Descriptions
+  const SECTION_INFO = {
+    'dashboard': { title: '📊 Dashboard', desc: 'Overview of your trading performance, portfolio summary, and real-time market status.' },
+    'portfolio': { title: '📦 Portfolio', desc: 'View and manage your current positions, entry prices, and holdings.' },
+    'trading': { title: '📈 Trading', desc: 'Execute trades, set buy/sell orders, and manage your trading signals.' },
+    'pnl': { title: '📊 P&L', desc: 'Track your profit and loss, closed trades, and overall trading performance.' },
+    'scanner': { title: '🔍 Scanner', desc: 'Scan market for opportunities using multiple scanners: Mega, Institutional, Smart Money, Quantum, Breakout.' },
+    'patterns': { title: '🎯 Patterns', desc: 'Detect and analyze chart patterns: Cup & Handle, Double Bottom, Head & Shoulders, and more.' },
+    'pretakeoff': { title: '🎯 Pre-Takeoff', desc: 'Find stocks ready for breakout using pre-takeoff screening criteria (price ¥5-30, volume surge, sector alignment).' },
+    'hiddengems': { title: '💎 Hidden Gems', desc: 'Multi-level algorithm to find undervalued stocks before they break out (L1-L5 scoring).' },
+    'technical': { title: '📊 Technical', desc: 'Technical analysis tools: Moving Averages, RSI, MACD, Bollinger Bands, Support/Resistance.' },
+    'probabilistic': { title: '🎲 Probabilistic', desc: 'Bayesian probability models to calculate trade success rates and risk-adjusted returns.' },
+    'multitimeframe': { title: '🔗 Multi-TF', desc: 'Analyze stocks across multiple timeframes: Daily, Weekly, Monthly for confluence signals.' },
+    'selflearning': { title: '🧠 Self-Learning', desc: 'Super Brain engine that learns from market data, expands knowledge, and improves strategies.' },
+    'optionsflow': { title: '🎯 Options', desc: 'Track options flow, unusual options activity, and institutional options positioning.' },
+    'analytics': { title: '📊 Analytics', desc: 'Advanced analytics: Factor analysis, correlation matrix, risk metrics, performance attribution.' },
+    'automation': { title: '⚡ Auto', desc: 'Automation center: Set up auto-trading, alerts, scheduled scans, and workflow automation.' },
+    'predictions': { title: '🔮 Predict', desc: 'AI-powered price predictions using machine learning models and historical patterns.' },
+    'export': { title: '📤 Export', desc: 'Export data: Reports, signals, portfolio to CSV, JSON, or share to Feishu.' },
+    'live': { title: '📡 Live', desc: 'Real-time market data, live price feeds, and streaming quotes.' },
+    'feishu': { title: '💬 Feishu', desc: 'Integrate with Feishu: Send signals, reports, and alerts to your team.' },
+    'level2': { title: '📊 L2', desc: 'Level 2 market data: Order book depth, bid/ask ratio, large order detection.' },
+    'news': { title: '📰 News', desc: 'Market news, stock-specific news, sector news, and sentiment analysis.' },
+    'backtest': { title: '🔬 Backtest', desc: 'Backtest your strategies against historical data to validate trading rules.' },
+    'knowledge': { title: '📚 Knowledge', desc: 'Trading knowledge base: Strategies, risk management, sector rotation, market regimes.' },
+    'gallery': { title: '🖼️ Gallery', desc: 'Visual charts: Candle, Line, Volume, Heatmap, Pie charts with real-time data.' },
+    'tools': { title: '🔧 Tools', desc: 'Utility tools: Calculator, position sizer, risk calculator, stock screener.' }
+  };
+  
+  function showSectionInfo(id) {
+    const info = SECTION_INFO[id];
+    if (!info) return;
+    document.getElementById('section-info-title').innerHTML = info.title;
+    document.getElementById('section-info-desc').innerText = info.desc;
+    document.getElementById('section-info').style.display = 'block';
+    // Auto hide after 5 seconds
+    setTimeout(() => { closeSectionInfo(); }, 5000);
+  }
+  
+  function closeSectionInfo() {
+    document.getElementById('section-info').style.display = 'none';
+  }
+  </script>
   
   <div class="main">
     
