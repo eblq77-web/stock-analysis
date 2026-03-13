@@ -4230,29 +4230,41 @@ function scanOptionsFlow() {
   
   let callSignals = 0, putSignals = 0, unusual = 0;
   
-  const results = optionsData.map(s => {
-    const ratio = s.callVol / (s.putVol || 1);
-    const volRatio = (s.callVol + s.putVol) / s.normalVol;
+  // Render results
+  let html = '';
+  optionsData.forEach(s => {
+    const ratio = (s.callVol / (s.putVol || 1)).toFixed(2);
+    const volRatio = ((s.callVol + s.putVol) / s.normalVol).toFixed(2);
     
     // Determine flow type
     let flow = '⚪ NEUTRAL';
     let signal = '🟡 WATCH';
+    let flowColor = '#ffaa00';
+    let signalColor = '#ffaa00';
     
     if(ratio > 2 && s.callVol > 50000) {
       flow = '🐂 BULLISH';
-      signal = '🚀 STRONG BUY';
+      signal = '🚀 STRONG';
+      flowColor = '#00ff88';
+      signalColor = '#00ff88';
       callSignals++;
     } else if(ratio > 1.5) {
       flow = '🐂 BULLISH';
       signal = '🟢 BUY';
+      flowColor = '#00ff88';
+      signalColor = '#00ff88';
       callSignals++;
     } else if(ratio < 0.5 && s.putVol > 50000) {
       flow = '🐻 BEARISH';
       signal = '🔴 SELL';
+      flowColor = '#ff4444';
+      signalColor = '#ff4444';
       putSignals++;
     } else if(ratio < 0.7) {
       flow = '🐻 BEARISH';
-      signal = '🟠 CAUTION';
+      signal = '🟠 CAUT';
+      flowColor = '#ff4444';
+      signalColor = '#ffaa00';
       putSignals++;
     }
     
@@ -4261,37 +4273,27 @@ function scanOptionsFlow() {
       signal = '⚠️ ' + signal;
     }
     
-    return {...s, ratio, volRatio, flow, signal};
+    html += `<tr style="border-bottom:1px solid #333;">
+      <td style="padding:8px;color:#fff;">${s.code} ${s.name}</td>
+      <td style="padding:8px;text-align:right;color:#00ff88;">${s.callVol.toLocaleString()}</td>
+      <td style="padding:8px;text-align:right;color:#ff4444;">${s.putVol.toLocaleString()}</td>
+      <td style="padding:8px;text-align:right;color:#fff;">${ratio}</td>
+      <td style="padding:8px;text-align:center;color:${flowColor};font-weight:bold;">${flow}</td>
+      <td style="padding:8px;text-align:center;color:${signalColor};font-weight:bold;">${signal}</td>
+    </tr>`;
   });
   
+  tbody.innerHTML = html;
+  
   // Update stats
-  document.getElementById('of-call').innerText = callSignals;
-  document.getElementById('of-put').innerText = putSignals;
-  document.getElementById('of-unusual').innerText = unusual;
+  const statsDiv = document.querySelector('#optionsflow .stat');
+  if (statsDiv) {
+    statsDiv[0].querySelector('.stat-value').innerText = callSignals;
+    statsDiv[1].querySelector('.stat-value').innerText = putSignals;
+    statsDiv[2].querySelector('.stat-value').innerText = unusual;
+  }
   
-  const total = callSignals + putSignals;
-  const bullishPct = total > 0 ? Math.round(callSignals / total * 100) : 50;
-  document.getElementById('of-bullish').innerText = bullishPct + '%';
-  document.getElementById('of-bullish').style.color = bullishPct > 50 ? '#00ff88' : '#ff4444';
-  
-  // Render results
-  tbody.innerHTML = results.map(s => {
-    const flowColor = s.flow.includes('BULLISH') ? '#00ff88' : s.flow.includes('BEARISH') ? '#ff4444' : '#ffaa00';
-    const signalColor = s.signal.includes('STRONG') ? '#00ff88' : s.signal.includes('BUY') ? '#00ff88' : s.signal.includes('SELL') ? '#ff4444' : '#ffaa00';
-    const volColor = s.volRatio > 3 ? '#ffaa00' : '#888';
-    
-    return `<tr>
-      <td><b>${s.code}</b> ${s.name}</td>
-      <td style="color:#00ff88;">${(s.callVol/1000).toFixed(0)}K</td>
-      <td style="color:#ff4444;">${(s.putVol/1000).toFixed(0)}K</td>
-      <td>${s.ratio.toFixed(1)}</td>
-      <td style="color:${flowColor};font-weight:bold;">${s.flow}</td>
-      <td style="color:${signalColor};font-weight:bold;">${s.signal}</td>
-      <td><button class="btn" onclick="buy('${s.code}',0)">TRADE</button></td>
-    </tr>`;
-  }).join('');
-  
-  showAlert(`🎯 Options flow: ${callSignals} bullish, ${putSignals} bearish signals`, 'success');
+  showAlert(`🎯 Options scanned: ${callSignals} bullish, ${putSignals} bearish`, 'success');
 }
 
 // ==================== ANALYTICS ====================
