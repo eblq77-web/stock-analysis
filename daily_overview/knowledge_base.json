@@ -5,15 +5,13 @@
     "riskMetrics": 12,
     "sources": 17,
     "criteria": 11,
-    "alphaFactors": 12,
+    "alphaFactors": 18,
     "regimes": 5,
     "sectors": 4
   },
-  "currentRegime": "bull_strong",
+  "currentRegime": "bull_weak",
   "sectorPhase": "phase_1_recovery",
   "recommendations": [
-    "Focus on momentum and growth stocks",
-    "Increase position sizing on breakout signals",
     "Monitor insider buying as conviction signal",
     "Check sector rotation weekly",
     "Review VaR and position sizing daily"
@@ -173,6 +171,54 @@
         "M&A",
         "New Products",
         "Policy"
+      ]
+    },
+    "smallcap_momentum": {
+      "weight": 0.12,
+      "sources": [
+        "Small Cap Surge",
+        "BSE Rally",
+        "Mid-Cap Breakout"
+      ]
+    },
+    "institutional_flow": {
+      "weight": 0.12,
+      "sources": [
+        "Large Order Flow",
+        "Volume Surge",
+        "Inst Buy Ratio"
+      ]
+    },
+    "sector_leadership": {
+      "weight": 0.1,
+      "sources": [
+        "Sector Rotation",
+        "Top Sector Momo",
+        "Industry Strength"
+      ]
+    },
+    "breakout_velocity": {
+      "weight": 0.1,
+      "sources": [
+        "Price Acceleration",
+        "Volume Spike",
+        "Gap Up"
+      ]
+    },
+    "pre_breakout_base": {
+      "weight": 0.08,
+      "sources": [
+        "Base Formation",
+        "Consolidation",
+        "Resistance Break"
+      ]
+    },
+    "ai_tech_correlation": {
+      "weight": 0.08,
+      "sources": [
+        "AI Theme",
+        "Tech Sector",
+        "Innovation Score"
       ]
     }
   },

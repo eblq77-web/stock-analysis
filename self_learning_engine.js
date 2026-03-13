@@ -177,6 +177,14 @@ const ALPHA_FACTORS = {
   'regime_adaptive': { weight: 0.10, sources: ['Market Regime', 'Cycle Position'] },
   'liquidity': { weight: 0.05, sources: ['Trading Volume', 'Bid-Ask', 'Market Depth'] },
   'catalyst': { weight: 0.10, sources: ['Earnings', 'M&A', 'New Products', 'Policy'] },
+  
+  // NEW ALPHA FACTORS (2026-03-13 - Self-Learned from Market)
+  'smallcap_momentum': { weight: 0.12, sources: ['Small Cap Surge', 'BSE Rally', 'Mid-Cap Breakout'] },
+  'institutional_flow': { weight: 0.12, sources: ['Large Order Flow', 'Volume Surge', 'Inst Buy Ratio'] },
+  'sector_leadership': { weight: 0.10, sources: ['Sector Rotation', 'Top Sector Momo', 'Industry Strength'] },
+  'breakout_velocity': { weight: 0.10, sources: ['Price Acceleration', 'Volume Spike', 'Gap Up'] },
+  'pre_breakout_base': { weight: 0.08, sources: ['Base Formation', 'Consolidation', 'Resistance Break'] },
+  'ai_tech_correlation': { weight: 0.08, sources: ['AI Theme', 'Tech Sector', 'Innovation Score'] },
 };
 
 // EXPANDED KNOWLEDGE GRAPH
