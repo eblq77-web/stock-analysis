@@ -277,6 +277,7 @@
     <button class="nav-btn" onclick="showSection('selflearning')">🧠 Self-Learning</button>
     <button class="nav-btn" onclick="showSection('optionsflow')">🎯 Options</button>
     <button class="nav-btn" onclick="showSection('analytics')">📊 Analytics</button>
+    <button class="nav-btn" onclick="showSection('alphafactors')">🎯 Alpha Factors</button>
     <button class="nav-btn" onclick="showSection('automation')">⚡ Auto</button>
     <button class="nav-btn" onclick="showSection('predictions')">🔮 Predict</button>
     <button class="nav-btn" onclick="showSection('export')">📤 Export</button>
@@ -318,6 +319,7 @@
     'selflearning': { title: '🧠 Self-Learning', desc: 'Super Brain engine that learns from market data, expands knowledge, and improves strategies.' },
     'optionsflow': { title: '🎯 Options', desc: 'Track options flow, unusual options activity, and institutional options positioning.' },
     'analytics': { title: '📊 Analytics', desc: 'Advanced analytics: Factor analysis, correlation matrix, risk metrics, performance attribution.' },
+    'alphafactors': { title: '🎯 Alpha Factors', desc: 'View all trading alpha factors, their weights, and data sources. Total 18 factors including new self-learned ones.' },
     'automation': { title: '⚡ Auto', desc: 'Automation center: Set up auto-trading, alerts, scheduled scans, and workflow automation.' },
     'predictions': { title: '🔮 Predict', desc: 'AI-powered price predictions using machine learning models and historical patterns.' },
     'export': { title: '📤 Export', desc: 'Export data: Reports, signals, portfolio to CSV, JSON, or share to Feishu.' },
@@ -2206,6 +2208,54 @@ Click "Run" to generate adaptive scores based on current weights...
             <div style="display:flex;justify-content:space-between;margin-bottom:5px;"><span style="color:#a855f7;">💊 医药</span><span>72%</span></div>
             <div style="display:flex;justify-content:space-between;"><span style="color:#00d9ff;">⚡ 新能源</span><span>65%</span></div>
           </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ALPHA FACTORS -->
+    <div id="alphafactors" class="section">
+      <div class="card" style="border:2px solid rgba(168,85,247,0.3);">
+        <div class="card-header">
+          <span class="card-title">🎯 Alpha Factors</span>
+          <span style="color:#a855f7;font-size:12px;">Total: 18 Factors</span>
+        </div>
+        
+        <!-- Traditional Factors -->
+        <h4 style="color:#00ff88;margin:15px 0 10px 0;">📈 Traditional Factors</h4>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">value</div><div class="stat-label">Weight: 15%</div></div>
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">momentum</div><div class="stat-label">Weight: 15%</div></div>
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">quality</div><div class="stat-label">Weight: 20%</div></div>
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">size</div><div class="stat-label">Weight: 5%</div></div>
+        </div>
+        
+        <!-- Alternative Factors -->
+        <h4 style="color:#ffaa00;margin:15px 0 10px 0;">🔄 Alternative Factors</h4>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">sentiment</div><div class="stat-label">Weight: 10%</div></div>
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">macro</div><div class="stat-label">Weight: 10%</div></div>
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">sector</div><div class="stat-label">Weight: 10%</div></div>
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">insider</div><div class="stat-label">Weight: 10%</div></div>
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">technical</div><div class="stat-label">Weight: 5%</div></div>
+        </div>
+        
+        <!-- Self-Discovered Factors -->
+        <h4 style="color:#a855f7;margin:15px 0 10px 0;">🧠 Self-Discovered (NEW!)</h4>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">regime_adaptive</div><div class="stat-label">Weight: 10%</div></div>
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">liquidity</div><div class="stat-label">Weight: 5%</div></div>
+          <div class="stat"><div class="stat-value" style="color:#fff;font-size:14px;">catalyst</div><div class="stat-label">Weight: 10%</div></div>
+        </div>
+        
+        <!-- New 2026-03-13 Factors -->
+        <h4 style="color:#00d4ff;margin:15px 0 10px 0;">🚀 NEW (2026-03-13)</h4>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div class="stat" style="background:rgba(0,212,255,0.1);padding:10px;border-radius:8px;"><div class="stat-value" style="color:#00d4ff;font-size:13px;">smallcap_momentum</div><div class="stat-label">Weight: 12%</div></div>
+          <div class="stat" style="background:rgba(0,212,255,0.1);padding:10px;border-radius:8px;"><div class="stat-value" style="color:#00d4ff;font-size:13px;">institutional_flow</div><div class="stat-label">Weight: 12%</div></div>
+          <div class="stat" style="background:rgba(0,212,255,0.1);padding:10px;border-radius:8px;"><div class="stat-value" style="color:#00d4ff;font-size:13px;">sector_leadership</div><div class="stat-label">Weight: 10%</div></div>
+          <div class="stat" style="background:rgba(0,212,255,0.1);padding:10px;border-radius:8px;"><div class="stat-value" style="color:#00d4ff;font-size:13px;">breakout_velocity</div><div class="stat-label">Weight: 10%</div></div>
+          <div class="stat" style="background:rgba(0,212,255,0.1);padding:10px;border-radius:8px;"><div class="stat-value" style="color:#00d4ff;font-size:13px;">pre_breakout_base</div><div class="stat-label">Weight: 8%</div></div>
+          <div class="stat" style="background:rgba(0,212,255,0.1);padding:10px;border-radius:8px;"><div class="stat-value" style="color:#00d4ff;font-size:13px;">ai_tech_correlation</div><div class="stat-label">Weight: 8%</div></div>
         </div>
       </div>
     </div>
