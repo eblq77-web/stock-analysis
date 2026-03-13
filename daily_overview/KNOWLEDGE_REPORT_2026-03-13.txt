@@ -8,7 +8,7 @@
 - criteria: 17
 - alphaFactors: 18
 - regimes: 5
-- sectors: 4
+- sectors: 8
 
 ## 🎯 Current Regime: bull_weak
 - Action: Selective growth

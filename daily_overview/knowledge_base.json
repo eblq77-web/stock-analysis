@@ -7,7 +7,7 @@
     "criteria": 17,
     "alphaFactors": 18,
     "regimes": 5,
-    "sectors": 4
+    "sectors": 8
   },
   "currentRegime": "bull_weak",
   "sectorPhase": "phase_1_recovery",

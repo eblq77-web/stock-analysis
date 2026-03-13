@@ -102,6 +102,27 @@ const SECTOR_CYCLE = {
     sectors: ['公用', '医药', '消费'],
     strategy: 'Defensive + Dividend',
     duration: '3-9 months'
+  },
+  // NEW SECTOR PHASES (2026-03-13 - Based on Today's Smallcap/BSE Rotation)
+  'phase_5_smallcap_bse': {
+    sectors: ['BSE科创', 'BSE医药', 'BSE新能源'],
+    strategy: 'Smallcap + BSE Rally',
+    duration: 'Short-term'
+  },
+  'phase_6_tech_ai': {
+    sectors: ['AI人工智能', '半导体', '云计算'],
+    strategy: 'Tech Leadership + Innovation',
+    duration: '6-12 months'
+  },
+  'phase_7_newenergy': {
+    sectors: ['光伏', '锂电', '储能'],
+    strategy: 'Green Energy + EV',
+    duration: '3-6 months'
+  },
+  'phase_8Healthcare': {
+    sectors: ['创新药', '医疗器械', '医疗服务'],
+    strategy: 'Healthcare + Demographics',
+    duration: '6-12 months'
   }
 };
 
