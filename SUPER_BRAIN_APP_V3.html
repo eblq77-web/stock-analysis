@@ -278,6 +278,7 @@
     <button class="nav-btn" onclick="showSection('optionsflow')">🎯 Options</button>
     <button class="nav-btn" onclick="showSection('analytics')">📊 Analytics</button>
     <button class="nav-btn" onclick="showSection('alphafactors')">🎯 Alpha Factors</button>
+    <button class="nav-btn" onclick="showSection('screening')">🔍 Screening</button>
     <button class="nav-btn" onclick="showSection('automation')">⚡ Auto</button>
     <button class="nav-btn" onclick="showSection('predictions')">🔮 Predict</button>
     <button class="nav-btn" onclick="showSection('export')">📤 Export</button>
@@ -320,6 +321,7 @@
     'optionsflow': { title: '🎯 Options', desc: 'Track options flow, unusual options activity, and institutional options positioning.' },
     'analytics': { title: '📊 Analytics', desc: 'Advanced analytics: Factor analysis, correlation matrix, risk metrics, performance attribution.' },
     'alphafactors': { title: '🎯 Alpha Factors', desc: 'View all trading alpha factors, their weights, and data sources. Total 18 factors including new self-learned ones.' },
+    'screening': { title: '🔍 Screening', desc: 'Stock screening criteria: Financial health, growth, valuation, technical, and new smallcap/BSE criteria. Total 17 criteria.' },
     'automation': { title: '⚡ Auto', desc: 'Automation center: Set up auto-trading, alerts, scheduled scans, and workflow automation.' },
     'predictions': { title: '🔮 Predict', desc: 'AI-powered price predictions using machine learning models and historical patterns.' },
     'export': { title: '📤 Export', desc: 'Export data: Reports, signals, portfolio to CSV, JSON, or share to Feishu.' },
@@ -2256,6 +2258,114 @@ Click "Run" to generate adaptive scores based on current weights...
           <div class="stat" style="background:rgba(0,212,255,0.1);padding:10px;border-radius:8px;"><div class="stat-value" style="color:#00d4ff;font-size:13px;">breakout_velocity</div><div class="stat-label">Weight: 10%</div></div>
           <div class="stat" style="background:rgba(0,212,255,0.1);padding:10px;border-radius:8px;"><div class="stat-value" style="color:#00d4ff;font-size:13px;">pre_breakout_base</div><div class="stat-label">Weight: 8%</div></div>
           <div class="stat" style="background:rgba(0,212,255,0.1);padding:10px;border-radius:8px;"><div class="stat-value" style="color:#00d4ff;font-size:13px;">ai_tech_correlation</div><div class="stat-label">Weight: 8%</div></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- SCREENING CRITERIA -->
+    <div id="screening" class="section">
+      <div class="card" style="border:2px solid rgba(0,255,136,0.3);">
+        <div class="card-header">
+          <span class="card-title">🔍 Stock Screening Criteria</span>
+          <span style="color:#00ff88;font-size:12px;">Total: 17 Criteria</span>
+        </div>
+        
+        <!-- Financial Health -->
+        <h4 style="color:#00ff88;margin:15px 0 10px 0;">💰 Financial Health</h4>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">盈利能力</div>
+            <div style="color:#888;">ROE > 15%, ROA > 5%</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">偿债能力</div>
+            <div style="color:#888;">Debt/Equity < 1</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">运营效率</div>
+            <div style="color:#888;">Asset Turnover > 0.8</div>
+          </div>
+        </div>
+        
+        <!-- Growth Metrics -->
+        <h4 style="color:#ffaa00;margin:15px 0 10px 0;">📈 Growth Metrics</h4>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">收入增长</div>
+            <div style="color:#888;">Revenue Growth > 20%</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">盈利增长</div>
+            <div style="color:#888;">EPS Growth > 15%</div>
+          </div>
+        </div>
+        
+        <!-- Valuation -->
+        <h4 style="color:#ff6b6b;margin:15px 0 10px 0;">💎 Valuation</h4>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">估值合理</div>
+            <div style="color:#888;">PE < 30, PEG < 1</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">估值偏低</div>
+            <div style="color:#888;">PE < 20, Deep Value</div>
+          </div>
+        </div>
+        
+        <!-- Technical -->
+        <h4 style="color:#00aaff;margin:15px 0 10px 0;">📊 Technical</h4>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">技术面</div>
+            <div style="color:#888;">MA50 > MA200, RSI < 70</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">动量</div>
+            <div style="color:#888;">Price > 20DMA, Breakout</div>
+          </div>
+        </div>
+        
+        <!-- Fundamental -->
+        <h4 style="color:#aa00ff;margin:15px 0 10px 0;">🏢 Fundamental</h4>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">护城河</div>
+            <div style="color:#888;">Market Share, Brand</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;">
+            <div style="color:#fff;font-weight:bold;">管理层</div>
+            <div style="color:#888;">Insider Buying</div>
+          </div>
+        </div>
+        
+        <!-- NEW Smallcap Criteria -->
+        <h4 style="color:#00d4ff;margin:15px 0 10px 0;">🚀 NEW Smallcap (2026-03-13)</h4>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:11px;">
+          <div style="background:rgba(0,212,255,0.1);padding:10px;border-radius:6px;border:1px solid #00d4ff;">
+            <div style="color:#00d4ff;font-weight:bold;">小市值动量</div>
+            <div style="color:#888;">Price ¥5-30, >5%</div>
+          </div>
+          <div style="background:rgba(0,212,255,0.1);padding:10px;border-radius:6px;border:1px solid #00d4ff;">
+            <div style="color:#00d4ff;font-weight:bold;">BSE热门</div>
+            <div style="color:#888;">BSE, Vol >100K</div>
+          </div>
+          <div style="background:rgba(0,212,255,0.1);padding:10px;border-radius:6px;border:1px solid #00d4ff;">
+            <div style="color:#00d4ff;font-weight:bold;">成交量突破</div>
+            <div style="color:#888;">Vol >2x Avg</div>
+          </div>
+          <div style="background:rgba(0,212,255,0.1);padding:10px;border-radius:6px;border:1px solid #00d4ff;">
+            <div style="color:#00d4ff;font-weight:bold;">breakout速度</div>
+            <div style="color:#888;">Gap Up >3%</div>
+          </div>
+          <div style="background:rgba(0,212,255,0.1);padding:10px;border-radius:6px;border:1px solid #00d4ff;">
+            <div style="color:#00d4ff;font-weight:bold;">板块轮动</div>
+            <div style="color:#888;">Sector Leading</div>
+          </div>
+          <div style="background:rgba(0,212,255,0.1);padding:10px;border-radius:6px;border:1px solid #00d4ff;">
+            <div style="color:#00d4ff;font-weight:bold;">机构建仓</div>
+            <div style="color:#888;">Inst Accumulation</div>
+          </div>
         </div>
       </div>
     </div>
