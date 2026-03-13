@@ -1823,10 +1823,24 @@ Click "Run" to generate adaptive scores based on current weights...
         
         <!-- Options Flow Table -->
         <div id="options-flow-data" style="max-height:300px;overflow-y:auto;">
-          <div style="text-align:center;color:#666;padding:40px;">
-            <div style="font-size:40px;📊">📊</div>
-            <div>Click "Scan" to analyze options flow</div>
-          </div>
+          <table style="width:100%;font-size:11px;border-collapse:collapse;">
+            <thead style="background:rgba(0,0,0,0.3);">
+              <tr>
+                <th style="padding:8px;text-align:left;color:#888;">Code</th>
+                <th style="padding:8px;text-align:right;color:#888;">Call Vol</th>
+                <th style="padding:8px;text-align:right;color:#888;">Put Vol</th>
+                <th style="padding:8px;text-align:right;color:#888;">Ratio</th>
+                <th style="padding:8px;text-align:center;color:#888;">Flow</th>
+                <th style="padding:8px;text-align:center;color:#888;">Signal</th>
+              </tr>
+            </thead>
+            <tbody id="of-results">
+              <tr><td colspan="7" style="text-align:center;padding:40px;color:#666;">
+                <div style="font-size:40px;📊">📊</div>
+                <div>Click "Scan" to analyze options flow</div>
+              </td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
       
