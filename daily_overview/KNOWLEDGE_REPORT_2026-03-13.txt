@@ -5,7 +5,7 @@
 - strategies: 12
 - riskMetrics: 12
 - sources: 17
-- criteria: 11
+- criteria: 17
 - alphaFactors: 18
 - regimes: 5
 - sectors: 4

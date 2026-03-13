@@ -156,6 +156,14 @@ const SCREENING_CRITERIA = {
   // Fundamental
   '护城河': ['High Market Share', 'Brand Power', 'Network Effect', 'Switching Cost'],
   '管理层': ['Insider Buying', 'Compensation Aligned', 'Track Record'],
+  
+  // NEW SCREENING CRITERIA (2026-03-13 - Based on Today's Smallcap Performance)
+  '小市值动量': ['Price ¥5-30', 'Daily Change > 5%', 'Market Cap < 10B'],
+  'BSE热门': ['BSE Code', 'Volume > 100K', 'Change > 10%'],
+  '成交量突破': ['Volume > 2x Avg', 'Large Order Flow > 1M', 'Inst Buy Ratio > 60%'],
+  ' breakout速度': ['Gap Up > 3%', 'Price Acceleration', 'Volume Spike'],
+  '板块轮动': ['Sector Leading', 'Top 3 Sector', 'Rotation Aligned'],
+  '机构建仓': ['Inst Accumulation', 'Cost Rising', 'No Distribution'],
 };
 
 // NEW ALPHA FACTORS (Self-Learning)
