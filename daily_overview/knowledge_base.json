@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-10",
+  "updated": "2026-03-13",
   "knowledge": {
     "strategies": 12,
     "riskMetrics": 12,
@@ -9,9 +9,11 @@
     "regimes": 5,
     "sectors": 4
   },
-  "currentRegime": "sideways",
+  "currentRegime": "bull_strong",
   "sectorPhase": "phase_1_recovery",
   "recommendations": [
+    "Focus on momentum and growth stocks",
+    "Increase position sizing on breakout signals",
     "Monitor insider buying as conviction signal",
     "Check sector rotation weekly",
     "Review VaR and position sizing daily"
