@@ -288,7 +288,7 @@
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
     <button class="nav-btn" onclick="showSection('gallery')">🖼️ Gallery</button>
     <button class="nav-btn" onclick="showSection('tools')">🔧 Tools</button>
-    <button class="nav-btn info-btn" onclick="showSectionInfo('dashboard')" title="What is this?">ℹ️</button>
+    <button class="nav-btn info-btn" id="info-btn" onclick="showSectionInfo('dashboard')" title="What is this?">ℹ️</button>
   </div>
   
   <!-- Section Info Modal -->
@@ -301,6 +301,7 @@
   </div>
 
   <script>
+  let currentSection = 'dashboard';
   // Section Descriptions
   const SECTION_INFO = {
     'dashboard': { title: '📊 Dashboard', desc: 'Overview of your trading performance, portfolio summary, and real-time market status.' },
@@ -2691,6 +2692,9 @@ function showSection(id) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   event.target.classList.add('active');
+  currentSection = id;
+  // Update info button to show current section
+  document.getElementById('info-btn').setAttribute('onclick', "showSectionInfo('" + id + "')");
 }
 
 function out(id, txt) { document.getElementById(id).innerHTML = txt; }
