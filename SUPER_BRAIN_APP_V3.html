@@ -4751,8 +4751,9 @@ async function renderStockChart() {
         // Draw chart based on type
         if (currentChartType === 'candle') drawCandleChart(ctx, canvas.width, canvas.height, price, change);
         else if (currentChartType === 'line') drawLineChart(ctx, canvas.width, canvas.height, price, change);
-        else if (currentChartType === 'heatmap') drawVolumeBars(ctx, canvas.width, canvas.height);
-        else if (currentChartType === 'pie') drawVolumeChart(ctx, canvas.width, canvas.height);
+        else if (currentChartType === 'volume') drawVolumeChart(ctx, canvas.width, canvas.height, price, change);
+        else if (currentChartType === 'pie') drawPieChart(ctx, canvas.width, canvas.height, price, change);
+        else if (currentChartType === 'heatmap') drawHeatmapChart(ctx, canvas.width, canvas.height, price, change);
     } catch (e) {
         // Draw demo chart on error
         drawDemoChart(ctx, canvas.width, canvas.height);
@@ -4823,19 +4824,39 @@ function drawLineChart(ctx, w, h, price, change) {
     const chartW = w - padding * 2;
     const chartH = h - padding * 2;
     
-    // Draw line
-    ctx.strokeStyle = change >= 0 ? '#00ff00' : '#ff0000';
-    ctx.lineWidth = 2;
+    // Draw grid
+    ctx.strokeStyle = '#222';
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 5; i++) {
+        const y = padding + (chartH / 5) * i;
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(w - padding, y);
+        ctx.stroke();
+    }
+    
+    // Draw price line (simulated based on current price)
+    const isPositive = change >= 0;
+    ctx.strokeStyle = isPositive ? '#00ff00' : '#ff0000';
+    ctx.lineWidth = 3;
     ctx.beginPath();
     
-    const basePrice = price * 0.95;
-    const priceRange = price * 0.1;
+    const basePrice = price * 0.97;
+    const maxPrice = price * 1.03;
+    const priceRange = maxPrice - basePrice;
     
-    for (let i = 0; i < 50; i++) {
+    // Generate realistic-looking line
+    let currentY = padding + chartH * 0.7;
+    ctx.moveTo(padding, currentY);
+    
+    for (let i = 1; i <= 50; i++) {
         const x = padding + (chartW / 50) * i;
-        const y = padding + chartH - ((basePrice + Math.random() * priceRange * 0.5 - basePrice) / priceRange) * chartH;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+        // Add some randomness but trend towards current price
+        const trend = (price - basePrice) / priceRange;
+        const noise = (Math.random() - 0.5) * 0.3;
+        const targetY = padding + chartH * (1 - Math.min(1, Math.max(0, trend + noise)));
+        currentY = currentY * 0.7 + targetY * 0.3;
+        ctx.lineTo(x, currentY);
     }
     ctx.stroke();
     
@@ -4843,8 +4864,13 @@ function drawLineChart(ctx, w, h, price, change) {
     ctx.lineTo(padding + chartW, padding + chartH);
     ctx.lineTo(padding, padding + chartH);
     ctx.closePath();
-    ctx.fillStyle = change >= 0 ? 'rgba(0,255,0,0.1)' : 'rgba(255,0,0,0.1)';
+    ctx.fillStyle = isPositive ? 'rgba(0,255,0,0.15)' : 'rgba(255,0,0,0.15)';
     ctx.fill();
+    
+    // Draw current price label
+    ctx.fillStyle = isPositive ? '#00ff00' : '#ff0000';
+    ctx.font = 'bold 16px Arial';
+    ctx.fillText(`¥${price}`, padding + 10, padding + 20);
 }
 
 function drawVolumeBars(ctx, w, h) {
@@ -4860,12 +4886,143 @@ function drawVolumeBars(ctx, w, h) {
     }
 }
 
-function drawVolumeChart(ctx, w, h) {
+function drawVolumeChart(ctx, w, h, price, change) {
     ctx.fillStyle = '#0a0a15';
     ctx.fillRect(0, 0, w, h);
     
-    // Similar to volume bars
-    drawVolumeBars(ctx, w, h);
+    const padding = 40;
+    const chartW = w - padding * 2;
+    const chartH = h - padding * 2;
+    
+    // Draw volume bars (simulated)
+    const barW = chartW / 30;
+    const isPositive = change >= 0;
+    
+    for (let i = 0; i < 30; i++) {
+        const x = padding + i * barW;
+        // Simulate volume pattern - higher at open and close
+        let volHeight = Math.random() * chartH * 0.5 + chartH * 0.2;
+        if (i < 5 || i > 25) volHeight *= 1.3; // Higher volume at open/close
+        
+        const barColor = isPositive ? 'rgba(0,255,0,0.6)' : 'rgba(255,0,0,0.6)';
+        ctx.fillStyle = barColor;
+        ctx.fillRect(x + 1, padding + chartH - volHeight, barW - 2, volHeight);
+    }
+    
+    // Draw average line
+    ctx.strokeStyle = '#ffaa00';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(padding, padding + chartH * 0.5);
+    ctx.lineTo(w - padding, padding + chartH * 0.5);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    
+    // Label
+    ctx.fillStyle = '#888';
+    ctx.font = '14px Arial';
+    ctx.fillText('Volume (simulated)', padding + 10, padding + 20);
+}
+
+function drawPieChart(ctx, w, h, price, change) {
+    ctx.fillStyle = '#0a0a15';
+    ctx.fillRect(0, 0, w, h);
+    
+    const centerX = w / 2;
+    const centerY = h / 2;
+    const radius = Math.min(w, h) / 2 - 40;
+    
+    // Sample sector data for visualization
+    const sectors = [
+        { name: '科技', value: 30, color: '#00ff88' },
+        { name: '医药', value: 25, color: '#ffaa00' },
+        { name: '新能源', value: 20, color: '#00aaff' },
+        { name: '金融', value: 15, color: '#ff4444' },
+        { name: '消费', value: 10, color: '#aa00ff' }
+    ];
+    
+    let startAngle = -Math.PI / 2;
+    const total = sectors.reduce((sum, s) => sum + s.value, 0);
+    
+    sectors.forEach(sector => {
+        const sliceAngle = (sector.value / total) * 2 * Math.PI;
+        
+        // Draw slice
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+        ctx.closePath();
+        ctx.fillStyle = sector.color;
+        ctx.fill();
+        
+        // Draw label
+        const midAngle = startAngle + sliceAngle / 2;
+        const labelX = centerX + (radius * 0.7) * Math.cos(midAngle);
+        const labelY = centerY + (radius * 0.7) * Math.sin(midAngle);
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 12px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(sector.name, labelX, labelY);
+        
+        startAngle += sliceAngle;
+    });
+    
+    // Center label
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 14px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Sector', centerX, centerY - 5);
+    ctx.font = '12px Arial';
+    ctx.fillText('Allocation', centerX, centerY + 10);
+}
+
+function drawHeatmapChart(ctx, w, h, price, change) {
+    ctx.fillStyle = '#0a0a15';
+    ctx.fillRect(0, 0, w, h);
+    
+    const padding = 30;
+    const cols = 6;
+    const rows = 4;
+    const cellW = (w - padding * 2) / cols;
+    const cellH = (h - padding * 2) / rows;
+    
+    // Simulated stock heatmap data
+    const stocks = [
+        ['茅台', 5.2], ['宁德', 3.8], ['比亚迪', 2.1], ['腾讯', 1.5], ['阿里', -0.8], ['美团', 2.3],
+        ['隆基', 4.1], ['恒瑞', -1.2], ['平安', 0.5], ['工行', 0.2], ['中石油', -2.1], ['海康', 1.8],
+        ['京东', -0.5], ['拼多多', 3.2], ['网易', 1.1], ['快手', 2.8], ['B站', -1.5], ['蔚来', 4.5],
+        ['小鹏', 3.1], ['理想', 2.9], ['特斯拉', -3.2], ['苹果', 0.8], ['微软', 1.2], ['谷歌', 0.3]
+    ];
+    
+    stocks.forEach((stock, i) => {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const x = padding + col * cellW;
+        const y = padding + row * cellH;
+        
+        const changeVal = stock[1];
+        const intensity = Math.min(Math.abs(changeVal) / 5, 1);
+        
+        // Color based on change
+        let r, g, b;
+        if (changeVal >= 0) {
+            r = 0; g = Math.floor(200 * intensity + 55); b = Math.floor(100 * (1 - intensity));
+        } else {
+            r = Math.floor(200 * intensity + 55); g = 0; b = Math.floor(100 * (1 - intensity));
+        }
+        
+        ctx.fillStyle = `rgba(${r},${g},${b},0.7)`;
+        ctx.fillRect(x + 2, y + 2, cellW - 4, cellH - 4);
+        
+        // Text
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 11px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(stock[0], x + cellW/2, y + cellH/2 - 5);
+        ctx.font = '10px Arial';
+        ctx.fillText(`${changeVal > 0 ? '+' : ''}${changeVal}%`, x + cellW/2, y + cellH/2 + 10);
+    });
 }
 
 function drawDemoChart(ctx, w, h) {
