@@ -477,6 +477,7 @@
                 <li><a href="#" onclick="toggleSignals(); return false;">📡 Signals</a></li>
                 <li><a href="#" onclick="togglePatterns(); return false;">🎯 Patterns</a></li>
                 <li><a href="#" onclick="toggleBacktest(); return false;">📈 Backtest</a></li>
+                <li><a href="#" onclick="toggleTemplates(); return false;">📝 Templates</a></li>
                 <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#testimonials">Reviews</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -852,6 +853,63 @@
         </div>
         
         <div id="btLoading" style="display:none; text-align:center; padding:20px; color:#64748b;">Running backtest...</div>
+    </div>
+
+    <!-- Templates Panel -->
+    <div style="position:fixed; right:20px; top:100px; width:380px; max-height:80vh; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:20px; z-index:5000; display:none; overflow-y:auto;" id="templatesPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h4 style="color:#f8fafc;">📝 Message Templates</h4>
+            <button onclick="toggleTemplates()" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:20px;">✕</button>
+        </div>
+        
+        <div style="margin-bottom:15px;">
+            <div style="font-size:12px; color:#64748b; margin-bottom:8px;">Select Template</div>
+            <select id="templateSelect" onchange="loadTemplate()" style="width:100%; padding:10px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#f8fafc; font-size:13px;">
+                <option value="">-- Choose Template --</option>
+                <option value="inquiry">📩 Inquiry Response</option>
+                <option value="analysis">📊 Stock Analysis Report</option>
+                <option value="signal">🚀 Signal Alert</option>
+                <option value="buy">✅ Buy Confirmation</option>
+                <option value="sell">💰 Sell Report</option>
+                <option value="profit">📈 Profit Report</option>
+                <option value="loss">📉 Loss Report</option>
+                <option value="followup">🔔 Follow-up</option>
+                <option value="thankyou">🙏 Thank You</option>
+                <option value="welcome">👋 Welcome</option>
+            </select>
+        </div>
+        
+        <div id="templatePreview" style="display:none;">
+            <div style="font-size:12px; color:#64748b; margin-bottom:8px;">Preview</div>
+            <div id="templateContent" style="background:rgba(255,255,255,0.05); border-radius:10px; padding:15px; color:#f8fafc; font-size:13px; line-height:1.6; max-height:200px; overflow-y:auto; white-space:pre-wrap;"></div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:15px;">
+                <button onclick="copyTemplate()" style="padding:10px; background:#6366f1; border:none; border-radius:8px; color:white; cursor:pointer; font-size:12px;">📋 Copy Text</button>
+                <button onclick="editTemplate()" style="padding:10px; background:rgba(255,255,255,0.1); border:none; border-radius:8px; color:#f8fafc; cursor:pointer; font-size:12px;">✏️ Edit</button>
+            </div>
+        </div>
+        
+        <div id="templateEdit" style="display:none;">
+            <div style="font-size:12px; color:#64748b; margin-bottom:8px;">Edit Template</div>
+            <textarea id="templateEditArea" style="width:100%; height:150px; padding:10px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#f8fafc; font-size:13px; line-height:1.5;"></textarea>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+                <button onclick="saveTemplate()" style="padding:10px; background:#10b981; border:none; border-radius:8px; color:white; cursor:pointer; font-size:12px;">💾 Save</button>
+                <button onclick="cancelEdit()" style="padding:10px; background:rgba(255,255,255,0.1); border:none; border-radius:8px; color:#f8fafc; cursor:pointer; font-size:12px;">❌ Cancel</button>
+            </div>
+        </div>
+        
+        <!-- Quick Variables -->
+        <div style="margin-top:15px; padding-top:15px; border-top:1px solid rgba(255,255,255,0.1);">
+            <div style="font-size:11px; color:#64748b; margin-bottom:8px;">Quick Variables (click to insert)</div>
+            <div style="display:flex; flex-wrap:wrap; gap:5px;">
+                <span onclick="insertVar('{stock}')" style="font-size:10px; padding:4px 8px; background:rgba(99,102,241,0.2); color:#a5b4fc; border-radius:4px; cursor:pointer;">{stock}</span>
+                <span onclick="insertVar('{price}')" style="font-size:10px; padding:4px 8px; background:rgba(99,102,241,0.2); color:#a5b4fc; border-radius:4px; cursor:pointer;">{price}</span>
+                <span onclick="insertVar('{target}')" style="font-size:10px; padding:4px 8px; background:rgba(99,102,241,0.2); color:#a5b4fc; border-radius:4px; cursor:pointer;">{target}</span>
+                <span onclick="insertVar('{stop}')" style="font-size:10px; padding:4px 8px; background:rgba(99,102,241,0.2); color:#a5b4fc; border-radius:4px; cursor:pointer;">{stop}</span>
+                <span onclick="insertVar('{profit}')" style="font-size:10px; padding:4px 8px; background:rgba(16,185,129,0.2); color:#10b981; border-radius:4px; cursor:pointer;">{profit}</span>
+                <span onclick="insertVar('{date}')" style="font-size:10px; padding:4px 8px; background:rgba(245,158,11,0.2); color:#f59e0b; border-radius:4px; cursor:pointer;">{date}</span>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1717,6 +1775,300 @@
     function toggleBacktest() {
         const panel = document.getElementById("backtestPanel");
         panel.style.display = panel.style.display === "none" ? "block" : "none";
+    }
+    
+    // ============================================
+    // MESSAGE TEMPLATES SYSTEM
+    // ============================================
+    
+    const messageTemplates = {
+        inquiry: {
+            title: "📩 Inquiry Response",
+            content: `Dear {name},
+
+Thank you for your interest in our trading signals!
+
+We're pleased to introduce our NewStrategy system - providing institutional-grade stock analysis with:
+
+📊 Real-time signals across 30+ types
+🎯 35+ pattern recognition
+🤖 AI-powered scoring
+📈 Risk assessment
+
+Our current top picks include:
+• 隆基绿能 - BREAKOUT signal (92% confidence)
+• 宁德时代 - MOMENTUM signal (95% confidence)
+• 贵州茅台 - SUPPORT signal (88% confidence)
+
+Would you like to receive our daily report?
+
+Best regards,
+NewStrategy Team`
+        },
+        analysis: {
+            title: "📊 Stock Analysis Report",
+            content: `📊 STOCK ANALYSIS REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Stock: {stock}
+Code: {code}
+Date: {date}
+
+📈 TECHNICAL ANALYSIS
+• Pattern: {pattern}
+• Signal: {signal}
+• Confidence: {confidence}%
+• Risk Level: {risk}
+
+💰 ENTRY PLAN
+• Entry Price: ¥{price}
+• Target Price: ¥{target}
+• Stop Loss: ¥{stop}
+• Risk/Reward: 1:{ratio}
+
+📊 INDICATORS
+• RSI (14): {rsi}
+• MACD: {macd}
+• Volume: {volume}x average
+
+📈 SECTOR: {sector}
+
+Best regards,
+NewStrategy Analysis Team`
+        },
+        signal: {
+            title: "🚀 Signal Alert",
+            content: `🚨 NEW SIGNAL ALERT
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+{stock} ({code})
+
+🎯 Signal: {signal}
+📐 Pattern: {pattern}
+⚡ Confidence: {confidence}%
+
+💰 Entry: ¥{price}
+🎯 Target: ¥{stop}
+🛡️ Stop: ¥{stop}
+
+⏰ Timeframe: {timeframe}
+📊 Risk: {risk}
+
+This signal is valid until market close.
+
+NewStrategy - Institutional Grade Trading`
+        },
+        buy: {
+            title: "✅ Buy Confirmation",
+            content: `✅ ORDER EXECUTED
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 BUY Order Confirmed
+
+Stock: {stock}
+Code: {code}
+Quantity: {shares} shares
+Entry Price: ¥{price}
+Total Value: ¥{total}
+
+🛡️ Stop Loss: ¥{stop}
+🎯 Target: ¥{target}
+
+📝 Notes:
+- Risk: {risk}
+- Timeframe: {timeframe}
+- Pattern: {pattern}
+
+Good luck with your trade!
+
+NewStrategy Trading Team`
+        },
+        sell: {
+            title: "💰 Sell Report",
+            content: `💰 SELL ORDER EXECUTED
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+📉 SELL Order Confirmed
+
+Stock: {stock}
+Code: {code}
+Quantity: {shares} shares
+Sell Price: ¥{price}
+Total Value: ¥{total}
+
+💵 P&L: {profit}
+📈 Return: {return}%
+
+Trade completed successfully!
+
+NewStrategy Trading Team`
+        },
+        profit: {
+            title: "📈 Profit Report",
+            content: `🎉 PROFIT REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 Congratulations! Profitable Trade!
+
+Stock: {stock}
+Entry: ¥{entry}
+Exit: ¥{exit}
+Quantity: {shares}
+
+💰 PROFIT: ¥{profit}
+📈 RETURN: {return}%
+
+Great job! Ready for the next trade?
+
+NewStrategy Trading Team`
+        },
+        loss: {
+            title: "📉 Loss Report",
+            content: `📉 TRADE SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Stock: {stock}
+Entry: ¥{entry}
+Exit: ¥{exit}
+Quantity: {shares}
+
+📉 LOSS: ¥{loss}
+📈 RETURN: {return}%
+
+💡 Learning: Every trade teaches us something.
+Remember: Risk management is key.
+
+Stop loss of ¥{stop} protected your capital.
+
+NewStrategy Trading Team`
+        },
+        followup: {
+            title: "🔔 Follow-up",
+            content: `🔔 FOLLOW-UP
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Hi {name},
+
+Just checking in on your trading progress!
+
+📊 Recent Performance:
+• This week: {week_performance}
+• This month: {month_performance}
+
+📈 Open Positions:
+{positions}
+
+Any questions? We're here to help!
+
+Best,
+NewStrategy Team`
+        },
+        thankyou: {
+            title: "🙏 Thank You",
+            content: `🙏 THANK YOU!
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Dear {name},
+
+Thank you for being part of NewStrategy community!
+
+Your trust in our system means the world to us. We're committed to providing the best trading signals possible.
+
+📈 We recently helped our members:
+• Identify 隆基绿能 at breakout (+15%)
+• Catch 宁德时代 momentum (+12%)
+• Spot 贵州茅台 support bounce (+8%)
+
+Questions? Reply to this message!
+
+Best regards,
+NewStrategy Team`
+        },
+        welcome: {
+            title: "👋 Welcome",
+            content: `👋 WELCOME TO NEWSTRATEGY!
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Dear {name},
+
+Welcome aboard! 🎉
+
+You're now part of an exclusive group of traders using institutional-grade analysis.
+
+📚 GETTING STARTED:
+1. Check daily signals in the app
+2. Review sector heatmap for trends
+3. Use backtest to validate strategies
+
+📊 TODAY'S TOP SIGNALS:
+• 隆基绿能 - BREAKOUT (92%)
+• 宁德时代 - MOMENTUM (95%)
+• 贵州茅台 - SUPPORT (88%)
+
+Questions? Reply to this message!
+
+Happy Trading! 🚀
+NewStrategy Team`
+        }
+    };
+    
+    let currentTemplate = "";
+    
+    function toggleTemplates() {
+        const panel = document.getElementById("templatesPanel");
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+    }
+    
+    function loadTemplate() {
+        const select = document.getElementById("templateSelect");
+        const key = select.value;
+        
+        if (!key) {
+            document.getElementById("templatePreview").style.display = "none";
+            return;
+        }
+        
+        currentTemplate = key;
+        const template = messageTemplates[key];
+        document.getElementById("templateContent").innerText = template.content;
+        document.getElementById("templatePreview").style.display = "block";
+        document.getElementById("templateEdit").style.display = "none";
+    }
+    
+    function copyTemplate() {
+        const content = document.getElementById("templateContent").innerText;
+        navigator.clipboard.writeText(content).then(() => {
+            alert("✅ Copied to clipboard!");
+        });
+    }
+    
+    function editTemplate() {
+        const content = document.getElementById("templateContent").innerText;
+        document.getElementById("templateEditArea").value = content;
+        document.getElementById("templatePreview").style.display = "none";
+        document.getElementById("templateEdit").style.display = "block";
+    }
+    
+    function saveTemplate() {
+        const newContent = document.getElementById("templateEditArea").value;
+        messageTemplates[currentTemplate].content = newContent;
+        document.getElementById("templateContent").innerText = newContent;
+        document.getElementById("templateEdit").style.display = "none";
+        document.getElementById("templatePreview").style.display = "block";
+        alert("✅ Template saved!");
+    }
+    
+    function cancelEdit() {
+        document.getElementById("templateEdit").style.display = "none";
+        document.getElementById("templatePreview").style.display = "block";
+    }
+    
+    function insertVar(variable) {
+        const textarea = document.getElementById("templateEditArea");
+        if (textarea.style.display === "block") {
+            textarea.value += variable;
+            textarea.focus();
+        }
     }
     
     // Simulated historical data (in real app, fetch from API)
