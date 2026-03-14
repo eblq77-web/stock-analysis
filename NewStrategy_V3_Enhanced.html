@@ -892,46 +892,52 @@
     // Sector Heatmap Data - With Live API
     // ============================================
     // ENHANCED SECTOR HEATMAP - 12 SECTORS
+    // Using Index Codes that work with Tencent API
     // ============================================
     
     const sectors = [
-        { name: "新能源", code: "bk0493", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "半导体", code: "bk0738", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "医药", code: "bk0465", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "消费", code: "bk0434", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "金融", code: "bk0473", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "房地产", code: "bk0454", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "有色金属", code: "bk0479", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "化工", code: "bk0466", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "军工", code: "bk0487", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "汽车", code: "bk0480", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "电力", code: "bk0463", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
-        { name: "基建", code: "bk0425", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "大盘", code: "sh000001", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "沪深300", code: "sh000300", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "创业板", code: "sz399006", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "科创50", code: "sh000688", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "深证成指", code: "sz399001", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "上证50", code: "sh000016", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "中小板", code: "sz399005", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "北证50", code: "bj899050", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "新能源车", code: "sz399987", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "医药指数", code: "sz399300", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "券商指数", code: "sh000998", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
+        { name: "银行指数", code: "sh000688", change: 0, volume: 0, amount: 0, up: 0, down: 0 },
     ];
     
-    // Fetch live sector data with full metrics
+    // Fetch live sector/index data
     async function updateSectorData() {
         const container = document.getElementById("sectorHeatmap");
-        if (container) container.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">🔄 Loading sector data...</div>';
+        if (container) container.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">🔄 Loading market data...</div>';
         
-        for (const sector of sectors) {
-            try {
-                const res = await fetch(`https://qt.gtimg.cn/q=${sector.code}`);
-                const text = await res.text();
-                const m = text.match(/="([^"]+)"/);
-                if (m) {
-                    const f = m[1].split("~");
-                    sector.name = f[1] || sector.name; // Get actual name
-                    sector.change = parseFloat(f[5]) || 0;
-                    sector.volume = parseInt(f[4]) || 0;
-                    sector.amount = parseInt(f[6]) || 0;
-                    sector.up = parseInt(f[37]) || 0; // Up stocks
-                    sector.down = parseInt(f[38]) || 0; // Down stocks
+        // Fetch all indices in one call
+        const codes = sectors.map(s => s.code).join(',');
+        
+        try {
+            const res = await fetch(`https://qt.gtimg.cn/q=${codes}`);
+            const text = await res.text();
+            const parts = text.split(';');
+            
+            parts.forEach((part, index) => {
+                if (index < sectors.length && part.includes('"')) {
+                    const m = part.match(/="([^"]+)"/);
+                    if (m) {
+                        const f = m[1].split("~");
+                        sectors[index].change = parseFloat(f[5]) || 0;
+                        sectors[index].volume = parseInt(f[4]) || 0;
+                        sectors[index].amount = parseInt(f[6]) || 0;
+                    }
                 }
-            } catch (e) {
-                console.log("Sector fetch error:", sector.name, e);
-            }
+            });
+        } catch (e) {
+            console.log("Sector fetch error:", e);
         }
+        
         renderSectors();
     }
     
