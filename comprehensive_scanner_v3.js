@@ -115,6 +115,49 @@ const ALL_STOCKS = {
     rdIntensity: 8, newProducts: 5, expansion: 4, insiderHold: 6, quarterTrend: 4, strategicScore: 85 },
   '2318': { name: '中国平安', sector: '金融', quality: 75, pe: 10, pb: 1.2, roe: 15, debt: 0.85, revGrowth: 5, div: 5.0,
     rdIntensity: 3, newProducts: 4, expansion: 4, insiderHold: 5, quarterTrend: 1, strategicScore: 72 },
+  // === SHENZHEN MAIN BOARD (000/002) ===
+  '000001': { name: '平安银行', sector: '银行', quality: 72, pe: 5, pb: 0.6, roe: 12, debt: 0.92, revGrowth: 5, div: 5.0 },
+  '000002': { name: '万科A', sector: '地产', quality: 65, pe: 8, pb: 0.7, roe: 10, debt: 0.80, revGrowth: -5, div: 4.0 },
+  '000063': { name: '中兴通讯', sector: '通信', quality: 70, pe: 15, pb: 2, roe: 14, debt: 0.75, revGrowth: 8, div: 2.0 },
+  '000100': { name: 'TCL科技', sector: '电子', quality: 62, pe: 12, pb: 1.5, roe: 12, debt: 0.65, revGrowth: 10, div: 3.0 },
+  '000425': { name: '徐工机械', sector: '机械', quality: 68, pe: 10, pb: 1.2, roe: 12, debt: 0.70, revGrowth: 8, div: 3.5 },
+  '000568': { name: '泸州老窖', sector: '消费', quality: 85, pe: 25, pb: 8, roe: 30, debt: 0.35, revGrowth: 15, div: 2.0 },
+  '000596': { name: '古井贡酒', sector: '消费', quality: 82, pe: 30, pb: 7, roe: 28, debt: 0.32, revGrowth: 18, div: 1.5 },
+  '002027': { name: '分众传媒', sector: '传媒', quality: 70, pe: 20, pb: 4, roe: 18, debt: 0.45, revGrowth: 12, div: 2.5 },
+  '002044': { name: '江苏国泰', sector: '化工', quality: 65, pe: 12, pb: 1.8, roe: 14, debt: 0.55, revGrowth: 10, div: 2.0 },
+  '002230': { name: '科大讯飞', sector: 'AI', quality: 78, pe: 80, pb: 8, roe: 10, debt: 0.35, revGrowth: 35, div: 0.5 },
+  '002236': { name: '大华股份', sector: '安防', quality: 65, pe: 15, pb: 2.5, roe: 16, debt: 0.50, revGrowth: 8, div: 2.0 },
+  '002252': { name: '莱宝高科', sector: '电子', quality: 62, pe: 18, pb: 2, roe: 12, debt: 0.45, revGrowth: 10, div: 1.5 },
+  '002311': { name: '海大集团', sector: '农业', quality: 72, pe: 25, pb: 5, roe: 20, debt: 0.40, revGrowth: 18, div: 1.0 },
+  '002352': { name: '顺丰控股', sector: '物流', quality: 75, pe: 35, pb: 4, roe: 12, debt: 0.50, revGrowth: 20, div: 1.2 },
+  '002371': { name: '北方华创', sector: '设备', quality: 78, pe: 60, pb: 8, roe: 16, debt: 0.45, revGrowth: 40, div: 0.3 },
+  '002409': { name: '雅克科技', sector: '化工', quality: 68, pe: 40, pb: 5, roe: 14, debt: 0.40, revGrowth: 25, div: 0.8 },
+  '002460': { name: '赣锋锂业', sector: '新能源', quality: 80, pe: 20, pb: 4, roe: 22, debt: 0.45, revGrowth: 30, div: 1.5 },
+  '002493': { name: '荣盛石化', sector: '化工', quality: 70, pe: 15, pb: 2, roe: 14, debt: 0.65, revGrowth: 15, div: 2.0 },
+  // === SHENZHEN CHINEEXT (300) ===
+  '300055': { name: '万邦达', sector: '环保', quality: 60, pe: 25, pb: 3, roe: 10, debt: 0.35, revGrowth: 12, div: 1.0 },
+  '300088': { name: '长盈精密', sector: '电子', quality: 65, pe: 30, pb: 4, roe: 12, debt: 0.50, revGrowth: 15, div: 1.2 },
+  '300124': { name: '汇川技术', sector: '设备', quality: 80, pe: 45, pb: 8, roe: 22, debt: 0.40, revGrowth: 35, div: 0.8 },
+  '300142': { name: '沃森生物', sector: '医药', quality: 72, pe: 80, pb: 8, roe: 8, debt: 0.35, revGrowth: 40, div: 0.0 },
+  '300166': { name: '东方国信', sector: '软件', quality: 65, pe: 35, pb: 4, roe: 12, debt: 0.30, revGrowth: 18, div: 1.0 },
+  '300207': { name: '欣旺达', sector: '新能源', quality: 70, pe: 25, pb: 4, roe: 16, debt: 0.55, revGrowth: 28, div: 1.0 },
+  '300274': { name: '阳光电源', sector: '光伏', quality: 82, pe: 25, pb: 6, roe: 24, debt: 0.50, revGrowth: 45, div: 1.0 },
+  '300347': { name: '泰格医药', sector: '医药', quality: 78, pe: 40, pb: 6, roe: 18, debt: 0.30, revGrowth: 25, div: 1.2 },
+  '300383': { name: '光环新网', sector: '云计算', quality: 62, pe: 30, pb: 3, roe: 10, debt: 0.35, revGrowth: 15, div: 1.0 },
+  '300433': { name: '蓝思科技', sector: '电子', quality: 68, pe: 20, pb: 3, roe: 14, debt: 0.55, revGrowth: 18, div: 1.5 },
+  // === STAR MARKET (688) ===
+  '688008': { name: '澜起科技', sector: '芯片', quality: 85, pe: 60, pb: 10, roe: 20, debt: 0.25, revGrowth: 35, div: 0.3 },
+  '688012': { name: '中芯国际', sector: '芯片', quality: 75, pe: 30, pb: 3, roe: 15, debt: 0.35, revGrowth: 25, div: 1.0 },
+  '688223': { name: '晶科能源', sector: '光伏', quality: 78, pe: 15, pb: 3, roe: 22, debt: 0.50, revGrowth: 45, div: 1.0 },
+  '688599': { name: '天合光能', sector: '光伏', quality: 76, pe: 12, pb: 2.5, roe: 20, debt: 0.55, revGrowth: 50, div: 1.0 },
+  // === BEIJING STOCK EXCHANGE ===
+  '872926': { name: '贝特瑞', sector: '新能源', quality: 78, pe: 25, pb: 5, roe: 28, debt: 0.48, revGrowth: 65, div: 0.8 },
+  '870864': { name: '红东方', sector: '化工', quality: 72, pe: 15, pb: 3, roe: 24, debt: 0.52, revGrowth: 28, div: 1.5 },
+  '835670': { name: '数字人', sector: 'AI教育', quality: 70, pe: 45, pb: 5, roe: 18, debt: 0.30, revGrowth: 40, div: 0.5 },
+  // === HONG KONG ===
+  '00700': { name: '腾讯控股', sector: '科技', quality: 90, pe: 18, pb: 4, roe: 22, debt: 0.40, revGrowth: 15, div: 0.8 },
+  '09988': { name: '阿里巴巴', sector: '科技', quality: 88, pe: 15, pb: 2.5, roe: 16, debt: 0.35, revGrowth: 12, div: 1.5 },
+  '03690': { name: '美团', sector: '科技', quality: 82, pe: 50, pb: 6, roe: 12, debt: 0.55, revGrowth: 25, div: 0.0 }
 };
 
 const SECTOR_HEAT = {

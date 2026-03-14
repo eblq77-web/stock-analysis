@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>V3 Pro Newsletter</title>
+  <style>
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #eee;
+      padding: 30px;
+      min-height: 100vh;
+    }
+    .container { max-width: 750px; margin: 0 auto; }
+    .header { 
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 40px; border-radius: 20px; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      margin-bottom: 25px;
+    }
+    .header h1 { font-size: 32px; margin: 0; color: #fff; }
+    .header .tagline { font-size: 16px; opacity: 0.9; margin-top: 10px; }
+    .badge { 
+      display: inline-block; background: #00d4aa; color: #000;
+      padding: 8px 20px; border-radius: 25px; font-weight: bold;
+      margin-top: 15px;
+    }
+    .section { 
+      background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+      border-radius: 16px; padding: 25px; margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .section-title { 
+      font-size: 18px; color: #00d4aa; margin-bottom: 15px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .metric { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; text-align: center; }
+    .metric-value { font-size: 20px; font-weight: bold; }
+    .metric-label { font-size: 11px; color: #aaa; text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th { background: rgba(0,0,0,0.3); padding: 12px; text-align: left; font-size: 12px; color: #888; }
+    td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .score { background: #00d4aa; color: #000; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+    .stock-tag { background: rgba(0,212,170,0.2); padding: 8px 14px; border-radius: 20px; display: inline-block; margin: 5px; }
+    .risk-box { background: rgba(255,107,107,0.2); border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 8px; }
+    pre { white-space: pre-wrap; font-family: inherit; margin: 0; }
+    .date { text-align: center; color: #888; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📈 V3 PRO</h1>
+      <div class="tagline">Full Analysis with Entry/Target/Stop Loss</div>
+      <div class="badge">¥299/month</div>
+    </div>
+    <div class="date">📅 Friday, March 13, 2026</div>
+    
+    <div class="section">
+      <div class="section-title">📊 Executive Dashboard</div>
+      <div class="metric-grid">
+        <div class="metric"><div class="metric-value">🐻 BEARISH</div><div class="metric-label">Market</div></div>
+        <div class="metric"><div class="metric-value">BULL 90%</div><div class="metric-label">Regime</div></div>
+        <div class="metric"><div class="metric-value">6</div><div class="metric-label">Signals</div></div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">🎯 BUY SIGNALS (Entry → Target → Stop)</div>
+      <pre>Coming Soon...</pre>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">🏦 Institutional Accumulation</div>
+      <div>
+        <span class="stock-tag">✅ 300015 爱尔眼科 (100)</span>
+        <span class="stock-tag">✅ 300033 同花顺 (100)</span>
+        <span class="stock-tag">✅ 300122 智飞生物 (100)</span>
+        <span class="stock-tag">✅ 601012 隆基绿能 (100)</span>
+        <span class="stock-tag">✅ 000001 平安银行 (100)</span>
+        <span class="stock-tag">✅ 000333 美的集团 (100)</span>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">🔄 Sector Leaders</div>
+      <table>
+        <tr><th>#</th><th>Code</th><th>Name</th><th>Score</th></tr>
+        <tr><td>1</td><td>871047</td><td>🔥 国科科技5</td><td><span class="score">92</span></td></tr>
+        <tr><td>2</td><td>871049</td><td>🔥 北控科技5</td><td><span class="score">90</span></td></tr>
+        <tr><td>3</td><td>300119</td><td>📈 云科技2</td><td><span class="score">89</span></td></tr>
+        <tr><td>4</td><td>300178</td><td>📈 数据科技8</td><td><span class="score">89</span></td></tr>
+      </table>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">⚠️ Risk Management</div>
+      <div class="risk-box">
+        <strong>🔴 Current: BEARISH</strong> - Consider reducing exposure<br><br>
+        • Stop Loss: <strong>-7%</strong> on all positions<br>
+        • Max Position: <strong>20%</strong> per stock<br>
+        • Take Profit: <strong>+10%</strong> partial exit
+      </div>
+    </div>
+  </div>
+</body>
+</html>

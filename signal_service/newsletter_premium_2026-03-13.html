@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V3 Institutional Daily Intelligence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #1a1a2e;
+            color: #eee;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { 
+            max-width: 700px; 
+            margin: 0 auto; 
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .header {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 3px solid #e94560;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        .header .tagline {
+            color: #e94560;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .date-bar {
+            background: #0f3460;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #8892b0;
+        }
+        .section {
+            padding: 25px 30px;
+            border-bottom: 1px solid #233554;
+        }
+        .section:last-child { border-bottom: none; }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e94560;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .at-a-glance {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .metric {
+            background: #233554;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .metric-icon { font-size: 24px; margin-bottom: 8px; }
+        .metric-value { font-size: 18px; font-weight: 700; color: #fff; }
+        .metric-label { font-size: 11px; color: #8892b0; text-transform: uppercase; }
+        
+        .key-takeaways {
+            background: #233554;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #e94560;
+        }
+        .key-takeaways ul { list-style: none; }
+        .key-takeaways li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 14px;
+        }
+        .key-takeaways li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #e94560;
+        }
+        
+        table { 
+            width: 100%; 
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th { 
+            background: #0f3460;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            color: #8892b0;
+            text-transform: uppercase;
+        }
+        td { 
+            padding: 12px; 
+            border-bottom: 1px solid #233554;
+            font-size: 14px;
+        }
+        tr:last-child td { border-bottom: none; }
+        .rank { color: #e94560; font-weight: 700; }
+        .score { 
+            background: #e94560; 
+            color: #fff; 
+            padding: 4px 10px; 
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .score-high { background: #00d9a5; }
+        .score-med { background: #ffc107; color: #000; }
+        .conviction { font-size: 12px; }
+        
+        .stocks-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .stock-tag {
+            background: #233554;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .phase-badge {
+            display: inline-block;
+            background: #e94560;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .action-box {
+            background: linear-gradient(135deg, #233554 0%, #1a1a2e 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        .action-box.risk { border-left: 4px solid #ff6b6b; }
+        .action-box.opportunity { border-left: 4px solid #00d9a5; }
+        .action-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .action-title.risk { color: #ff6b6b; }
+        .action-title.opportunity { color: #00d9a5; }
+        .action-list { list-style: none; }
+        .action-list li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .chart {
+            margin-top: 15px;
+        }
+        .chart-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .chart-name {
+            width: 120px;
+            font-size: 13px;
+            color: #ccc;
+        }
+        .chart-bar-container {
+            flex: 1;
+            height: 20px;
+            background: #233554;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        .chart-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            border-radius: 10px;
+        }
+        .chart-value {
+            width: 60px;
+            text-align: right;
+            font-size: 13px;
+            font-weight: 600;
+            color: #00d9a5;
+        }
+        
+        .methodology {
+            background: #0f3460;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .methodology ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .methodology li { font-size: 13px; color: #8892b0; padding-left: 20px; position: relative; }
+        .methodology li::before { content: "✓"; position: absolute; left: 0; color: #00d9a5; }
+        
+        .disclaimer {
+            background: #233554;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 12px;
+            color: #8892b0;
+            line-height: 1.8;
+        }
+        
+        .footer {
+            background: #0f3460;
+            padding: 25px;
+            text-align: center;
+            font-size: 12px;
+            color: #8892b0;
+        }
+        .footer .brand { color: #e94560; font-weight: 700; font-size: 14px; }
+        .footer .contact { margin-top: 10px; }
+        .unsubscribe { color: #e94560; text-decoration: underline; }
+        
+        @media (max-width: 600px) {
+            .at-a-glance { grid-template-columns: 1fr 1fr; }
+            .methodology ul { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📈 V3 INSTITUTIONAL</h1>
+            <div class="tagline">Daily Intelligence</div>
+        </div>
+        
+        <!-- Date Bar -->
+        <div class="date-bar">
+            <span>📅 Friday, March 13, 2026</span>
+            <span>🕐 07:41 PM (Shanghai Time)</span>
+            <span>Vol. 13</span>
+        </div>
+        
+        <!-- At a Glance -->
+        <div class="section">
+            <div class="section-title">👁️ At a Glance</div>
+            <div class="at-a-glance">
+                <div class="metric">
+                    <div class="metric-icon">🐻</div>
+                    <div class="metric-value">BEARISH</div>
+                    <div class="metric-label">Market Sentiment</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-icon">📊</div>
+                    <div class="metric-value">0 / 6</div>
+                    <div class="metric-label">Up / Down</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-icon">📈</div>
+                    <div class="metric-value">-1.90%</div>
+                    <div class="metric-label">Avg Change</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-icon">🎯</div>
+                    <div class="metric-value">6</div>
+                    <div class="metric-label">Strong Signals</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-icon">🔥</div>
+                    <div class="metric-value">22</div>
+                    <div class="metric-label">Hot Stocks</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-icon">🧠</div>
+                    <div class="metric-value">BULL</div>
+                    <div class="metric-label">Quantum (90%)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Daily Brief -->
+        <div class="section">
+            <div class="section-title">📋 The Daily Brief</div>
+            <div class="key-takeaways">
+                <p style="margin-bottom: 15px; color: #fff;">Good evening! Here's your institutional-grade market intelligence:</p>
+                <ul>
+                    <li>Market sentiment is BEARISH with 0 advancing vs 6 declining stocks</li>
+                    <li>Quantum Engine shows BULL regime with 90% confidence</li>
+                    <li>6 stocks showing strong institutional accumulation</li>
+                    <li>Small caps leading with 22 stocks in hot momentum</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Top Picks -->
+        <div class="section">
+            <div class="section-title">🎯 Top Picks</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Conviction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rank">1</td>
+                        <td>300015</td>
+                        <td>爱尔眼科</td>
+                        <td><span class="score score-high">100</span></td>
+                        <td class="conviction">🔥 HIGH</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">2</td>
+                        <td>300033</td>
+                        <td>同花顺</td>
+                        <td><span class="score score-high">100</span></td>
+                        <td class="conviction">🔥 HIGH</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">3</td>
+                        <td>300122</td>
+                        <td>智飞生物</td>
+                        <td><span class="score score-high">100</span></td>
+                        <td class="conviction">🔥 HIGH</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">4</td>
+                        <td>601012</td>
+                        <td>隆基绿能</td>
+                        <td><span class="score score-high">100</span></td>
+                        <td class="conviction">🔥 HIGH</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">5</td>
+                        <td>000001</td>
+                        <td>平安银行</td>
+                        <td><span class="score score-high">100</span></td>
+                        <td class="conviction">🔥 HIGH</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">6</td>
+                        <td>000513</td>
+                        <td>丽珠集团</td>
+                        <td><span class="score score-med">74</span></td>
+                        <td class="conviction">🟡 MEDIUM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Institutional Activity -->
+        <div class="section">
+            <div class="section-title">🏦 Institutional Activity</div>
+            <p style="margin-bottom: 10px; color: #8892b0; font-size: 13px;">Where smart money is putting capital to work:</p>
+            <div class="stocks-list">
+                <div class="stock-tag">✅ 300015 爱尔眼科</div>
+                <div class="stock-tag">✅ 300033 同花顺</div>
+                <div class="stock-tag">✅ 300122 智飞生物</div>
+                <div class="stock-tag">✅ 601012 隆基绿能</div>
+                <div class="stock-tag">✅ 000001 平安银行</div>
+                <div class="stock-tag">✅ 000333 美的集团</div>
+            </div>
+        </div>
+        
+        <!-- Sector Rotation -->
+        <div class="section">
+            <div class="section-title">🔄 Sector Rotation</div>
+            <span class="phase-badge">📍 AFTER_HOURS</span>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="rank">1</td><td>871047</td><td>🔥 国科科技5</td><td><span class="score">92</span></td></tr>
+                    <tr><td class="rank">2</td><td>871049</td><td>🔥 北控科技5</td><td><span class="score">90</span></td></tr>
+                    <tr><td class="rank">3</td><td>300119</td><td>📈 云科技2</td><td><span class="score">89</span></td></tr>
+                    <tr><td class="rank">4</td><td>300178</td><td>📈 数据科技8</td><td><span class="score">89</span></td></tr>
+                    <tr><td class="rank">5</td><td>871007</td><td>📈 国科科技1</td><td><span class="score">89</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Small Cap Momentum -->
+        <div class="section">
+            <div class="section-title">🚀 Small Cap Momentum</div>
+            <div class="chart">
+                <div class="chart-row">
+                    <div class="chart-name">亿纬锂能</div>
+                    <div class="chart-bar-container"><div class="chart-bar" style="width: 100%;"></div></div>
+                    <div class="chart-value">+69.1%</div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-name">航天电器</div>
+                    <div class="chart-bar-container"><div class="chart-bar" style="width: 85%;"></div></div>
+                    <div class="chart-value">+60.0%</div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-name">思源电气</div>
+                    <div class="chart-bar-container"><div class="chart-bar" style="width: 80%;"></div></div>
+                    <div class="chart-value">+56.0%</div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-name">特锐德</div>
+                    <div class="chart-bar-container"><div class="chart-bar" style="width: 50%;"></div></div>
+                    <div class="chart-value">+32.3%</div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-name">硅宝科技</div>
+                    <div class="chart-bar-container"><div class="chart-bar" style="width: 35%;"></div></div>
+                    <div class="chart-value">+22.5%</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Items -->
+        <div class="section">
+            <div class="section-title">✅ Today's Action Items</div>
+            
+            <div class="action-box risk">
+                <div class="action-title risk">🔴 Risk Management</div>
+                <ul class="action-list">
+                    <li>• Current Market: BEARISH - Consider reducing exposure</li>
+                    <li>• Hard Stop Loss: -7% on all positions</li>
+                    <li>• Position Sizing: Max 20% per stock</li>
+                    <li>• Take Profit: Consider partial at +10%</li>
+                </ul>
+            </div>
+            
+            <div class="action-box opportunity" style="margin-top: 15px;">
+                <div class="action-title opportunity">🟢 Opportunities</div>
+                <ul class="action-list">
+                    <li>1. 300015 爱尔眼科 - Score: 100 (Institutional Accumulation)</li>
+                    <li>2. 300033 同花顺 - Score: 100 (Institutional Accumulation)</li>
+                    <li>3. 300122 智飞生物 - Score: 100 (Institutional Accumulation)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Methodology -->
+        <div class="section">
+            <div class="section-title">📊 Methodology</div>
+            <div class="methodology">
+                <ul>
+                    <li>Quantum Pattern Recognition Engine</li>
+                    <li>Institutional Capital Flow Analysis</li>
+                    <li>Multi-Factor Alpha Scoring</li>
+                    <li>Sector Rotation & Market Phase Detection</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Disclaimer -->
+        <div class="section">
+            <div class="disclaimer">
+                <strong>⚠️ Disclaimer</strong><br>
+                This newsletter is for educational purposes only. Not investment advice. 
+                Always do your own due diligence before making any investment decisions. 
+                Past performance does not guarantee future results.
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="brand">© 2026 V3 INSTITUTIONAL SIGNAL SERVICE</div>
+            <div class="contact">
+                📧 contact@v3signals.com | 📱 @V3Signals<br><br>
+                You received this because you subscribed to V3 Daily Intelligence.<br>
+                <span class="unsubscribe">Unsubscribe</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

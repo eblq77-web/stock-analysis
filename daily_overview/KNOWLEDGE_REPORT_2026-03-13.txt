@@ -10,8 +10,8 @@
 - regimes: 5
 - sectors: 8
 
-## 🎯 Current Regime: bull_weak
-- Action: Selective growth
+## 🎯 Current Regime: sideways
+- Action: Sector rotation
 - Position: MODERATE
 
 ## 🔄 Sector Phase: phase_1_recovery

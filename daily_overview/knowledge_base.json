@@ -9,7 +9,7 @@
     "regimes": 5,
     "sectors": 8
   },
-  "currentRegime": "bull_weak",
+  "currentRegime": "sideways",
   "sectorPhase": "phase_1_recovery",
   "recommendations": [
     "Monitor insider buying as conviction signal",

@@ -13,7 +13,7 @@ const HIDDEN_GEMS_CONFIG = {
     },
     // Level 2: Institutional Detection
     level2: {
-        volume Surge: 2.0,
+        volumeSurge: 2.0,
         institutionalBuyMin: 0.55,
         accumulationDaysMin: 3
     },

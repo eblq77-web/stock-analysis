@@ -475,6 +475,7 @@
                 <li><a href="#" onclick="openLookup(); return false;">🔍 Lookup</a></li>
                 <li><a href="#" onclick="openPortfolio(); return false;">💼 Portfolio</a></li>
                 <li><a href="#" onclick="toggleSignals(); return false;">📡 Signals</a></li>
+                <li><a href="#" onclick="togglePatterns(); return false;">🎯 Patterns</a></li>
                 <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#testimonials">Reviews</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -780,6 +781,15 @@
         <div id="signalsList" style="max-height:300px; overflow-y:auto;"></div>
     </div>
 
+    <!-- Patterns Panel -->
+    <div style="position:fixed; right:20px; top:100px; width:340px; background:var(--dark); border:1px solid var(--glass-border); border-radius:16px; padding:20px; z-index:1000; display:none;" id="patternsPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h4 style="color:var(--light);">🎯 Pattern Library</h4>
+            <button onclick="togglePatterns()" style="background:none; border:none; color:var(--gray); cursor:pointer;">✕</button>
+        </div>
+        <div id="patternsList" style="max-height:400px; overflow-y:auto;"></div>
+    </div>
+
     <script>
     // ===== ENHANCED DATA & FUNCTIONS =====
     
@@ -824,6 +834,99 @@
         { name: "金融", change: -0.5, heat: 30 },
         { name: "房地产", change: -1.2, heat: 15 },
     ];
+    
+    // ============================================
+    // ENHANCED TRADING PATTERNS & INDICATORS
+    // ============================================
+    
+    // Pattern Definitions
+    const tradingPatterns = {
+        // Bullish Patterns
+        "Bull Flag": { type: "bullish", strength: 85, description: "Continuation pattern - strong move followed by consolidation" },
+        "Cup & Handle": { type: "bullish", strength: 90, description: "Rounding bottom with subsequent breakout" },
+        "Head & Shoulders": { type: "bearish", strength: 80, description: "Reversal pattern - peak, higher peak, lower peak" },
+        "Inverse H&S": { type: "bullish", strength: 88, description: "Bullish reversal - trough, lower trough, higher trough" },
+        "Double Bottom": { type: "bullish", strength: 82, description: "Two distinct lows at similar price levels" },
+        "Double Top": { type: "bearish", strength: 78, description: "Two distinct highs at similar price levels" },
+        "Ascending Triangle": { type: "bullish", strength: 75, description: "Flat resistance with rising support" },
+        "Descending Triangle": { type: "bearish", strength: 73, description: "Flat support with falling resistance" },
+        "Rising Wedge": { type: "bearish", strength: 70, description: "Converging upward lines - bearish breakdown" },
+        "Falling Wedge": { type: "bullish", strength: 72, description: "Converging downward lines - bullish breakout" },
+        "Three White Soldiers": { type: "bullish", strength: 92, description: "Three consecutive strong green candles" },
+        "Three Black Crows": { type: "bearish", strength: 90, description: "Three consecutive strong red candles" },
+        "Morning Star": { type: "bullish", strength: 85, description: "Three-candle reversal - doji between long candles" },
+        "Evening Star": { type: "bearish", strength: 85, description: "Three-candle reversal - doji between long candles" },
+        "Hammer": { type: "bullish", strength: 78, description: "Small body, long lower shadow - bullish reversal" },
+        "Shooting Star": { type: "bearish", strength: 76, description: "Small body, long upper shadow - bearish reversal" },
+        "Doji": { type: "neutral", strength: 60, description: "Open equals close - indecision" },
+        "Marubozu": { type: "trend", strength: 80, description: "Long body with no shadows - strong trend" },
+        "Engulfing Bull": { type: "bullish", strength: 84, description: "Green candle engulfs previous red candle" },
+        "Engulfing Bear": { type: "bearish", strength: 84, description: "Red candle engulfs previous green candle" },
+    };
+    
+    // Technical Indicators
+    const technicalIndicators = {
+        "SMA20": { name: "20-Day Simple MA", type: "moving_average", description: "Short-term trend indicator" },
+        "SMA50": { name: "50-Day Simple MA", type: "moving_average", description: "Medium-term trend indicator" },
+        "SMA200": { name: "200-Day Simple MA", type: "moving_average", description: "Long-term trend indicator" },
+        "EMA12": { name: "12-Day Exponential MA", type: "moving_average", description: "Fast-moving average" },
+        "EMA26": { name: "26-Day Exponential MA", type: "moving_average", description: "Slow-moving average" },
+        "RSI": { name: "Relative Strength Index", type: "momentum", range: "0-100", overbought: 70, oversold: 30 },
+        "MACD": { name: "Moving Average Convergence", type: "momentum", description: "Trend & momentum" },
+        "Bollinger": { name: "Bollinger Bands", type: "volatility", description: "Price volatility envelope" },
+        "ATR": { name: "Average True Range", type: "volatility", description: "Market volatility measure" },
+        "Volume": { name: "Trading Volume", type: "volume", description: "Buying/selling pressure" },
+        "OBV": { name: "On-Balance Volume", type: "volume", description: "Cumulative volume indicator" },
+        "Stochastic": { name: "Stochastic Oscillator", type: "momentum", range: "0-100", overbought: 80, oversold: 20 },
+        "CCI": { name: "Commodity Channel Index", type: "momentum", range: "-100 to +100" },
+        "ADX": { name: "Average Directional Index", type: "trend", description: "Trend strength (0-100)" },
+        "VWAP": { name: "Volume Weighted Average Price", type: "average", description: "Intraday value benchmark" },
+    };
+    
+    // Signal Types with Patterns
+    const signalTypes = [
+        { id: "BREAKOUT", label: "🚀 Breakout", color: "#10b981", priority: 1 },
+        { id: "PULLBACK", label: "📉 Pullback Entry", color: "#22c55e", priority: 2 },
+        { id: "REVERSAL", label: "🔄 Reversal", color: "#f59e0b", priority: 3 },
+        { id: "MOMENTUM", label: "💨 Momentum", color: "#8b5cf6", priority: 4 },
+        { id: "VOLUME", label: "📊 Volume Surge", color: "#06b6d4", priority: 5 },
+        { id: "ACCUMULATION", label: "📦 Accumulation", color: "#3b82f6", priority: 6 },
+        { id: "DISTRIBUTION", label: "📤 Distribution", color: "#ef4444", priority: 7 },
+        { id: "SUPPORT", label: "🛡️ Support Bounce", color: "#14b8a6", priority: 8 },
+        { id: "RESISTANCE", label: "🏰 Resistance Break", color: "#f97316", priority: 9 },
+    ];
+    
+    // Enhanced Demo Signals with Patterns
+    const enhancedSignals = [
+        { stock: "隆基绿能", code: "sh601012", signal: "BREAKOUT", pattern: "Bull Flag", price: 18.94, target: 21.50, stop: 17.50, rsi: 65, macd: "bullish", volume: 2.3, time: "12:30" },
+        { stock: "宁德时代", code: "sz300750", signal: "MOMENTUM", pattern: "Three White Soldiers", price: 221.50, target: 240.00, stop: 210.00, rsi: 72, macd: "bullish", volume: 1.8, time: "12:15" },
+        { stock: "贵州茅台", code: "sh600519", signal: "SUPPORT", pattern: "Double Bottom", price: 1852.00, target: 1950.00, stop: 1800.00, rsi: 55, macd: "bullish", volume: 1.2, time: "11:45" },
+        { stock: "比亚迪", code: "sz002594", signal: "PULLBACK", pattern: "Ascending Triangle", price: 268.30, target: 290.00, stop: 255.00, rsi: 68, macd: "bullish", volume: 1.5, time: "11:30" },
+        { stock: "招商银行", code: "sh600036", signal: "VOLUME", pattern: "Accumulation", price: 42.15, target: 45.00, stop: 40.00, rsi: 58, macd: "bullish", volume: 3.2, time: "11:15" },
+        { stock: "中国平安", code: "sh601318", signal: "REVERSAL", pattern: "Inverse H&S", price: 48.20, target: 52.00, stop: 45.50, rsi: 42, macd: "turning", volume: 1.4, time: "10:45" },
+        { stock: "紫光国微", code: "sz002049", signal: "BREAKOUT", pattern: "Cup & Handle", price: 118.50, target: 135.00, stop: 110.00, rsi: 75, macd: "strong", volume: 2.1, time: "10:30" },
+        { stock: "海康威视", code: "sz002415", signal: "ACCUMULATION", pattern: "Rising Wedge", price: 32.80, target: 36.00, stop: 30.50, rsi: 52, macd: "bullish", volume: 2.8, time: "10:15" },
+    ];
+    
+    // Calculate Pattern Score
+    function calculatePatternScore(pattern, price, volume, rsi, macd) {
+        let score = 50;
+        const p = tradingPatterns[pattern];
+        if (p) {
+            score = p.strength;
+            if (rsi > 30 && rsi < 70) score += 5; // Neutral RSI is better
+            if (volume > 1.5) score += 10; // Volume confirms
+            if (macd === "bullish" || macd === "strong") score += 10;
+            if (macd === "bearish") score -= 15;
+        }
+        return Math.min(100, Math.max(0, score));
+    }
+    
+    // Get Signal Recommendation
+    function getSignalRecommendation(signal) {
+        const s = signalTypes.find(x => x.id === signal);
+        return s ? s.label : signal;
+    }
     
     // Stock Lookup Function
     async function lookupStock() {
@@ -987,21 +1090,85 @@
         panel.style.display = panel.style.display === "none" ? "block" : "none";
     }
     
-    // Render Signals
+    // Render Signals - Enhanced with Patterns
     function renderSignals() {
         const list = document.getElementById("signalsList");
-        list.innerHTML = demoSignals.map(s => `
-            <div style="background:var(--glass); border-radius:10px; padding:12px; margin-bottom:10px; border-left:3px solid ${s.type === 'BUY' ? '#10b981' : '#f59e0b'};">
+        list.innerHTML = enhancedSignals.map(s => {
+            const signalInfo = signalTypes.find(x => x.id === s.signal) || { color: '#6366f1', label: s.signal };
+            const score = calculatePatternScore(s.pattern, s.price, s.volume, s.rsi, s.macd);
+            const scoreColor = score >= 80 ? '#10b981' : score >= 60 ? '#f59e0b' : '#ef4444';
+            return `
+            <div style="background:var(--glass); border-radius:10px; padding:12px; margin-bottom:10px; border-left:3px solid ${signalInfo.color};">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <span style="font-weight:600; color:var(--light);">${s.stock}</span>
-                    <span style="font-size:12px; padding:2px 8px; border-radius:4px; background:${s.type === 'BUY' ? 'rgba(16,185,129,0.2)' : 'rgba(245,158,11,0.2)'}; color:${s.type === 'BUY' ? '#10b981' : '#f59e0b'};">${s.type}</span>
+                    <span style="font-size:11px; padding:2px 8px; border-radius:4px; background:${signalInfo.color}22; color:${signalInfo.color};">${signalInfo.label}</span>
                 </div>
-                <div style="font-size:13px; color:var(--gray); margin-top:5px;">
+                <div style="font-size:12px; color:#f59e0b; margin-top:5px;">📐 ${s.pattern}</div>
+                <div style="font-size:13px; color:var(--gray); margin-top:3px;">
                     Entry: <span style="color:var(--light);">¥${s.price}</span> | Target: <span style="color:#10b981;">¥${s.target}</span>
                 </div>
-                <div style="font-size:12px; color:var(--gray);">Stop: <span style="color:#ef4444;">¥${s.stop}</span> | ${s.time}</div>
+                <div style="display:flex; gap:10px; font-size:11px; color:var(--gray); margin-top:3px;">
+                    <span>Stop: <span style="color:#ef4444;">¥${s.stop}</span></span>
+                    <span>RSI: ${s.rsi}</span>
+                    <span>Vol: ${s.volume}x</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
+                    <span style="font-size:11px; color:var(--gray);">${s.time}</span>
+                    <span style="font-size:12px; font-weight:600; color:${scoreColor};">Score: ${score}</span>
+                </div>
             </div>
-        `).join('');
+        `}).join('');
+    }
+    
+    // Toggle Patterns Panel
+    function togglePatterns() {
+        const panel = document.getElementById("patternsPanel");
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+        if (panel.style.display === "block") renderPatterns();
+    }
+    
+    // Render Patterns Library
+    function renderPatterns() {
+        const list = document.getElementById("patternsList");
+        const bullish = Object.entries(tradingPatterns).filter(([k,v]) => v.type === 'bullish');
+        const bearish = Object.entries(tradingPatterns).filter(([k,v]) => v.type === 'bearish');
+        const neutral = Object.entries(tradingPatterns).filter(([k,v]) => v.type === 'neutral' || v.type === 'trend');
+        
+        list.innerHTML = `
+            <div style="margin-bottom:15px;">
+                <div style="font-size:12px; font-weight:600; color:#10b981; margin-bottom:8px;">🟢 BULLISH (${bullish.length})</div>
+                ${bullish.map(([name, p]) => `
+                    <div style="background:var(--glass); border-radius:8px; padding:10px; margin-bottom:6px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span style="font-weight:500; color:var(--light);">${name}</span>
+                            <span style="font-size:11px; color:#10b981;">${p.strength}%</span>
+                        </div>
+                        <div style="font-size:10px; color:var(--gray); margin-top:3px;">${p.description}</div>
+                    </div>
+                `).join('')}
+            </div>
+            <div style="margin-bottom:15px;">
+                <div style="font-size:12px; font-weight:600; color:#ef4444; margin-bottom:8px;">🔴 BEARISH (${bearish.length})</div>
+                ${bearish.map(([name, p]) => `
+                    <div style="background:var(--glass); border-radius:8px; padding:10px; margin-bottom:6px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span style="font-weight:500; color:var(--light);">${name}</span>
+                            <span style="font-size:11px; color:#ef4444;">${p.strength}%</span>
+                        </div>
+                        <div style="font-size:10px; color:var(--gray); margin-top:3px;">${p.description}</div>
+                    </div>
+                `).join('')}
+            </div>
+            <div>
+                <div style="font-size:12px; font-weight:600; color:#f59e0b; margin-bottom:8px;">🟡 INDICATORS (${Object.keys(technicalIndicators).length})</div>
+                ${Object.entries(technicalIndicators).map(([key, ind]) => `
+                    <div style="background:var(--glass); border-radius:8px; padding:8px; margin-bottom:4px; display:flex; justify-content:space-between;">
+                        <span style="font-size:11px; color:var(--light);">${ind.name}</span>
+                        <span style="font-size:10px; color:var(--gray);">${ind.type}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
     }
     
     // Sector Heatmap
