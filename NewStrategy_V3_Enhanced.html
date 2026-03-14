@@ -476,6 +476,7 @@
                 <li><a href="#" onclick="openPortfolio(); return false;">💼 Portfolio</a></li>
                 <li><a href="#" onclick="toggleSignals(); return false;">📡 Signals</a></li>
                 <li><a href="#" onclick="togglePatterns(); return false;">🎯 Patterns</a></li>
+                <li><a href="#" onclick="toggleBacktest(); return false;">📈 Backtest</a></li>
                 <li><a href="#pricing">Pricing</a></li>
                 <li><a href="#testimonials">Reviews</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -788,6 +789,35 @@
             <button onclick="togglePatterns()" style="background:none; border:none; color:var(--gray); cursor:pointer;">✕</button>
         </div>
         <div id="patternsList" style="max-height:400px; overflow-y:auto;"></div>
+    </div>
+
+    <!-- Backtesting Panel -->
+    <div style="position:fixed; right:20px; top:100px; width:360px; background:var(--dark); border:1px solid var(--glass-border); border-radius:16px; padding:20px; z-index:1000; display:none;" id="backtestPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h4 style="color:var(--light);">📈 Backtesting</h4>
+            <button onclick="toggleBacktest()" style="background:none; border:none; color:var(--gray); cursor:pointer;">✕</button>
+        </div>
+        <div style="margin-bottom:15px;">
+            <div style="font-size:12px; color:var(--gray); margin-bottom:8px;">Stock Code</div>
+            <input type="text" id="btCode" placeholder="e.g. sh601012" style="width:100%; padding:10px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; color:var(--light); font-size:14px;">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px;">
+            <div>
+                <div style="font-size:12px; color:var(--gray); margin-bottom:5px;">Start Date</div>
+                <input type="date" id="btStart" style="width:100%; padding:8px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; color:var(--light);">
+            </div>
+            <div>
+                <div style="font-size:12px; color:var(--gray); margin-bottom:5px;">End Date</div>
+                <input type="date" id="btEnd" style="width:100%; padding:8px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; color:var(--light);">
+            </div>
+        </div>
+        <div style="margin-bottom:15px;">
+            <div style="font-size:12px; color:var(--gray); margin-bottom:5px;">Initial Capital (¥)</div>
+            <input type="number" id="btCapital" value="100000" style="width:100%; padding:10px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; color:var(--light); font-size:14px;">
+        </div>
+        <button onclick="runBacktest()" style="width:100%; padding:12px; background:linear-gradient(135deg, var(--primary), var(--primary-dark)); border:none; border-radius:8px; color:white; font-weight:600; cursor:pointer; margin-bottom:15px;">🚀 Run Backtest</button>
+        <div id="btResults" style="display:none;"></div>
+        <div id="btLoading" style="display:none; text-align:center; padding:20px; color:var(--gray);">Running backtest...</div>
     </div>
 
     <script>
@@ -1313,6 +1343,191 @@
                 `).join('')}
             </div>
         `;
+    }
+    
+    // Backtesting Functions
+    function toggleBacktest() {
+        const panel = document.getElementById("backtestPanel");
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+    }
+    
+    // Simulated historical data (in real app, fetch from API)
+    function generateHistoricalData(startPrice, days, volatility = 0.02) {
+        const data = [];
+        let price = startPrice;
+        const now = new Date();
+        
+        for (let i = days; i >= 0; i--) {
+            const date = new Date(now);
+            date.setDate(date.getDate() - i);
+            
+            // Random walk with drift
+            const change = (Math.random() - 0.48) * volatility * price;
+            price = Math.max(price + change, price * 0.5);
+            
+            const high = price * (1 + Math.random() * volatility);
+            const low = price * (1 - Math.random() * volatility);
+            const open = price * (1 + (Math.random() - 0.5) * volatility);
+            
+            data.push({
+                date: date.toISOString().split('T')[0],
+                open: open,
+                high: high,
+                low: low,
+                close: price,
+                volume: Math.floor(1000000 + Math.random() * 2000000)
+            });
+        }
+        return data;
+    }
+    
+    // Run Backtest
+    async function runBacktest() {
+        const code = document.getElementById("btCode").value.trim().toLowerCase();
+        const capital = parseFloat(document.getElementById("btCapital").value) || 100000;
+        
+        if (!code) {
+            alert("Please enter a stock code");
+            return;
+        }
+        
+        document.getElementById("btLoading").style.display = "block";
+        document.getElementById("btResults").style.display = "none";
+        
+        // Fetch current price first
+        try {
+            const res = await fetch("https://qt.gtimg.cn/q=" + code);
+            const text = await res.text();
+            const m = text.match(/="([^"]+)"/);
+            
+            if (!m) {
+                alert("Stock not found");
+                document.getElementById("btLoading").style.display = "none";
+                return;
+            }
+            
+            const f = m[1].split("~");
+            const currentPrice = parseFloat(f[3]);
+            const startPrice = currentPrice * 0.8; // Simulate from 80% of current
+            
+            // Generate 90 days of historical data
+            const historicalData = generateHistoricalData(startPrice, 90);
+            
+            // Run backtest simulation
+            const result = runStrategy(historicalData, capital);
+            
+            // Display results
+            displayBacktestResult(result, historicalData);
+            
+        } catch (e) {
+            alert("Error fetching data: " + e.message);
+        }
+        
+        document.getElementById("btLoading").style.display = "none";
+    }
+    
+    // Trading Strategy Simulation
+    function runStrategy(data, capital) {
+        let cash = capital;
+        let shares = 0;
+        let position = 0; // 0 = no position, 1 = long
+        const trades = [];
+        const initialCapital = capital;
+        
+        for (let i = 20; i < data.length; i++) {
+            const today = data[i];
+            const yesterday = data[i - 1];
+            const ma5 = data.slice(Math.max(0, i-5), i).reduce((a,b) => a + b.close, 0) / 5;
+            const ma20 = data.slice(Math.max(0, i-20), i).reduce((a,b) => a + b.close, 0) / 20;
+            
+            // Golden Cross Strategy
+            const goldenCross = yesterday.ma5 <= yesterday.ma20 && ma5 > ma20;
+            const deathCross = yesterday.ma5 >= yesterday.ma20 && ma5 < ma20;
+            
+            // Buy Signal
+            if (position === 0 && goldenCross) {
+                shares = Math.floor(cash / today.close * 0.95);
+                cash -= shares * today.close;
+                position = 1;
+                trades.push({ type: "BUY", price: today.close, date: today.date, reason: "Golden Cross" });
+            }
+            
+            // Sell Signal
+            else if (position === 1 && (deathCross || today.close < ma5 * 0.95)) {
+                cash += shares * today.close;
+                trades.push({ type: "SELL", price: today.close, date: today.date, reason: deathCross ? "Death Cross" : "Stop Loss" });
+                shares = 0;
+                position = 0;
+            }
+        }
+        
+        // Calculate final portfolio value
+        const finalValue = cash + (shares * data[data.length - 1].close);
+        const totalReturn = ((finalValue - initialCapital) / initialCapital) * 100;
+        
+        // Calculate metrics
+        let wins = 0;
+        let losses = 0;
+        let maxDrawdown = 0;
+        let peak = initialCapital;
+        
+        for (const trade of trades) {
+            if (trade.type === "SELL") {
+                const prevBuy = trades[trades.indexOf(trade) - 1];
+                if (prevBuy && trade.price > prevBuy.price) wins++;
+                else losses++;
+            }
+        }
+        
+        const winRate = (wins + losses) > 0 ? (wins / (wins + losses)) * 100 : 0;
+        
+        // Calculate max drawdown
+        let runningValue = initialCapital;
+        trades.forEach(trade => {
+            if (trade.type === "BUY") runningValue -= trade.price * 1000;
+            else runningValue += trade.price * 1000;
+            if (runningValue > peak) peak = runningValue;
+            const dd = (peak - runningValue) / peak * 100;
+            if (dd > maxDrawdown) maxDrawdown = dd;
+        });
+        
+        return {
+            return: totalReturn,
+            trades: trades.length,
+            wins: wins,
+            losses: losses,
+            winRate: winRate,
+            maxDrawdown: maxDrawdown,
+            sharpe: (totalReturn / 100) * Math.sqrt(252), // Simplified
+            history: trades,
+            finalValue: finalValue
+        };
+    }
+    
+    // Display Backtest Results
+    function displayBacktestResult(result, data) {
+        document.getElementById("btResults").style.display = "block";
+        
+        const returnEl = document.getElementById("btReturn");
+        returnEl.innerText = (result.return >= 0 ? "+" : "") + result.return.toFixed(2) + "%";
+        returnEl.style.color = result.return >= 0 ? "#10b981" : "#ef4444";
+        
+        document.getElementById("btTrades").innerText = result.trades;
+        document.getElementById("btWinRate").innerText = result.winRate.toFixed(1) + "%";
+        document.getElementById("btWinRate").style.color = result.winRate >= 50 ? "#10b981" : "#ef4444";
+        document.getElementById("btDrawdown").innerText = "-" + result.maxDrawdown.toFixed(1) + "%";
+        document.getElementById("btSharpe").innerText = result.sharpe.toFixed(2);
+        
+        // Trade history
+        const historyHtml = result.history.slice(0, 20).map(t => `
+            <div style="display:flex; justify-content:space-between; padding:6px; border-bottom:1px solid var(--glass-border);">
+                <span style="color:${t.type === 'BUY' ? '#10b981' : '#ef4444'};">${t.type}</span>
+                <span style="color:var(--light);">¥${t.price.toFixed(2)}</span>
+                <span style="color:var(--gray); font-size:10px;">${t.date}</span>
+            </div>
+        `).join('');
+        
+        document.getElementById("btHistory").innerHTML = historyHtml || '<div style="color:var(--gray); text-align:center;">No trades</div>';
     }
     
     // Sector Heatmap
