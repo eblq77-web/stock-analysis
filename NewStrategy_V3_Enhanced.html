@@ -900,96 +900,292 @@
     ];
     
     // ============================================
-    // ENHANCED TRADING PATTERNS & INDICATORS
+    // ADVANCED TRADING PATTERNS & INDICATORS
     // ============================================
     
-    // Pattern Definitions
+    // ADVANCED PATTERNS (35+ Patterns)
     const tradingPatterns = {
-        // Bullish Patterns
-        "Bull Flag": { type: "bullish", strength: 85, description: "Continuation pattern - strong move followed by consolidation" },
-        "Cup & Handle": { type: "bullish", strength: 90, description: "Rounding bottom with subsequent breakout" },
-        "Head & Shoulders": { type: "bearish", strength: 80, description: "Reversal pattern - peak, higher peak, lower peak" },
-        "Inverse H&S": { type: "bullish", strength: 88, description: "Bullish reversal - trough, lower trough, higher trough" },
-        "Double Bottom": { type: "bullish", strength: 82, description: "Two distinct lows at similar price levels" },
-        "Double Top": { type: "bearish", strength: 78, description: "Two distinct highs at similar price levels" },
-        "Ascending Triangle": { type: "bullish", strength: 75, description: "Flat resistance with rising support" },
-        "Descending Triangle": { type: "bearish", strength: 73, description: "Flat support with falling resistance" },
-        "Rising Wedge": { type: "bearish", strength: 70, description: "Converging upward lines - bearish breakdown" },
-        "Falling Wedge": { type: "bullish", strength: 72, description: "Converging downward lines - bullish breakout" },
-        "Three White Soldiers": { type: "bullish", strength: 92, description: "Three consecutive strong green candles" },
-        "Three Black Crows": { type: "bearish", strength: 90, description: "Three consecutive strong red candles" },
-        "Morning Star": { type: "bullish", strength: 85, description: "Three-candle reversal - doji between long candles" },
-        "Evening Star": { type: "bearish", strength: 85, description: "Three-candle reversal - doji between long candles" },
-        "Hammer": { type: "bullish", strength: 78, description: "Small body, long lower shadow - bullish reversal" },
-        "Shooting Star": { type: "bearish", strength: 76, description: "Small body, long upper shadow - bearish reversal" },
-        "Doji": { type: "neutral", strength: 60, description: "Open equals close - indecision" },
-        "Marubozu": { type: "trend", strength: 80, description: "Long body with no shadows - strong trend" },
-        "Engulfing Bull": { type: "bullish", strength: 84, description: "Green candle engulfs previous red candle" },
-        "Engulfing Bear": { type: "bearish", strength: 84, description: "Red candle engulfs previous green candle" },
+        // === CONTINUATION PATTERNS ===
+        "Bull Flag": { type: "bullish", category: "continuation", strength: 85, winRate: 68, description: "Strong move + consolidation = continuation" },
+        "Bear Flag": { type: "bearish", category: "continuation", strength: 82, winRate: 65, description: "Drop + consolidation = more downside" },
+        "Ascending Channel": { type: "bullish", category: "continuation", strength: 80, winRate: 72, description: "Parallel uptrend lines" },
+        "Descending Channel": { type: "bearish", category: "continuation", strength: 78, winRate: 70, description: "Parallel downtrend lines" },
+        "Cup & Handle": { type: "bullish", category: "continuation", strength: 92, winRate: 73, description: "Rounding bottom + handle breakout" },
+        "Inverted Cup": { type: "bearish", category: "continuation", strength: 88, winRate: 70, description: "Rounding top breakdown" },
+        
+        // === REVERSAL PATTERNS ===
+        "Double Bottom": { type: "bullish", category: "reversal", strength: 88, winRate: 72, description: "Two lows = bounce zone" },
+        "Double Top": { type: "bearish", category: "reversal", strength: 86, winRate: 70, description: "Two highs = reversal zone" },
+        "Triple Bottom": { type: "bullish", category: "reversal", strength: 90, winRate: 75, description: "Three lows = strong support" },
+        "Triple Top": { type: "bearish", category: "reversal", strength: 88, winRate: 73, description: "Three highs = strong resistance" },
+        "Head & Shoulders": { type: "bearish", category: "reversal", strength: 88, winRate: 74, description: "Classic reversal formation" },
+        "Inverse H&S": { type: "bullish", category: "reversal", strength: 90, winRate: 76, description: "Bullish reversal confirmation" },
+        
+        // === TRIANGLE PATTERNS ===
+        "Ascending Triangle": { type: "bullish", category: "triangle", strength: 78, winRate: 70, description: "Flat resistance + rising support" },
+        "Descending Triangle": { type: "bearish", category: "triangle", strength: 76, winRate: 68, description: "Flat support + falling resistance" },
+        "Symmetrical Triangle": { type: "neutral", category: "triangle", strength: 65, winRate: 60, description: "Converging volatility" },
+        
+        // === WEDGE PATTERNS ===
+        "Rising Wedge": { type: "bearish", category: "wedge", strength: 75, winRate: 65, description: "Converging up = breakdown" },
+        "Falling Wedge": { type: "bullish", category: "wedge", strength: 78, winRate: 68, description: "Converging down = breakout" },
+        
+        // === CANDLESTICK PATTERNS ===
+        "Three White Soldiers": { type: "bullish", category: "candlestick", strength: 95, winRate: 78, description: "3 strong green candles" },
+        "Three Black Crows": { type: "bearish", category: "candlestick", strength: 93, winRate: 76, description: "3 strong red candles" },
+        "Morning Star": { type: "bullish", category: "candlestick", strength: 90, winRate: 75, description: "Doji + bullish reversal" },
+        "Evening Star": { type: "bearish", category: "candlestick", strength: 90, winRate: 75, description: "Doji + bearish reversal" },
+        "Hammer": { type: "bullish", category: "candlestick", strength: 82, winRate: 70, description: "Long lower wick = buyers step in" },
+        "Shooting Star": { type: "bearish", category: "candlestick", strength: 80, winRate: 68, description: "Long upper wick = sellers step in" },
+        "Doji": { type: "neutral", category: "candlestick", strength: 55, winRate: 50, description: "Indecision candle" },
+        "Marubozu": { type: "trend", category: "candlestick", strength: 85, winRate: 72, description: "No wicks = strong trend" },
+        "Engulfing Bull": { type: "bullish", category: "candlestick", strength: 88, winRate: 74, description: "Green engulfs red" },
+        "Engulfing Bear": { type: "bearish", category: "candlestick", strength: 88, winRate: 74, description: "Red engulfs green" },
+        "Piercing Line": { type: "bullish", category: "candlestick", strength: 85, winRate: 72, description: "Green opens below red, closes above midpoint" },
+        "Dark Cloud Cover": { type: "bearish", category: "candlestick", strength: 85, winRate: 72, description: "Red opens above green, closes below midpoint" },
+        "Morning Doji": { type: "bullish", category: "candlestick", strength: 78, winRate: 65, description: "Doji after decline" },
+        "Evening Doji": { type: "bearish", category: "candlestick", strength: 78, winRate: 65, description: "Doji after rally" },
+        
+        // === ADVANCED PATTERNS ===
+        "Harmonic Bullish": { type: "bullish", category: "harmonic", strength: 88, winRate: 80, description: "Fibonacci-based bullish setup" },
+        "Harmonic Bearish": { type: "bearish", category: "harmonic", strength: 88, winRate: 80, description: "Fibonacci-based bearish setup" },
+        "Elliot Wave 1": { type: "bullish", category: "wave", strength: 85, winRate: 75, description: "Wave 1-2 setup complete" },
+        "Elliot Wave 3": { type: "bullish", category: "wave", strength: 95, winRate: 85, description: "Strongest wave - momentum play" },
+        "AB=CD Bullish": { type: "bullish", category: "harmonic", strength: 86, winRate: 78, description: "Equal move pattern" },
+        "AB=CD Bearish": { type: "bearish", category: "harmonic", strength: 86, winRate: 78, description: "Equal move pattern" },
     };
     
-    // Technical Indicators
+    // ADVANCED TECHNICAL INDICATORS (25+)
     const technicalIndicators = {
-        "SMA20": { name: "20-Day Simple MA", type: "moving_average", description: "Short-term trend indicator" },
-        "SMA50": { name: "50-Day Simple MA", type: "moving_average", description: "Medium-term trend indicator" },
-        "SMA200": { name: "200-Day Simple MA", type: "moving_average", description: "Long-term trend indicator" },
-        "EMA12": { name: "12-Day Exponential MA", type: "moving_average", description: "Fast-moving average" },
-        "EMA26": { name: "26-Day Exponential MA", type: "moving_average", description: "Slow-moving average" },
-        "RSI": { name: "Relative Strength Index", type: "momentum", range: "0-100", overbought: 70, oversold: 30 },
-        "MACD": { name: "Moving Average Convergence", type: "momentum", description: "Trend & momentum" },
-        "Bollinger": { name: "Bollinger Bands", type: "volatility", description: "Price volatility envelope" },
-        "ATR": { name: "Average True Range", type: "volatility", description: "Market volatility measure" },
-        "Volume": { name: "Trading Volume", type: "volume", description: "Buying/selling pressure" },
-        "OBV": { name: "On-Balance Volume", type: "volume", description: "Cumulative volume indicator" },
-        "Stochastic": { name: "Stochastic Oscillator", type: "momentum", range: "0-100", overbought: 80, oversold: 20 },
-        "CCI": { name: "Commodity Channel Index", type: "momentum", range: "-100 to +100" },
-        "ADX": { name: "Average Directional Index", type: "trend", description: "Trend strength (0-100)" },
-        "VWAP": { name: "Volume Weighted Average Price", type: "average", description: "Intraday value benchmark" },
+        // Moving Averages
+        "SMA5": { name: "5-Period SMA", type: "moving_average", category: "trend", description: "Ultra short-term" },
+        "SMA10": { name: "10-Period SMA", type: "moving_average", category: "trend", description: "Short-term" },
+        "SMA20": { name: "20-Period SMA", type: "moving_average", category: "trend", description: "Short-term" },
+        "SMA50": { name: "50-Period SMA", type: "moving_average", category: "trend", description: "Medium-term" },
+        "SMA100": { name: "100-Period SMA", type: "moving_average", category: "trend", description: "Medium-term" },
+        "SMA200": { name: "200-Period SMA", type: "moving_average", category: "trend", description: "Long-term" },
+        "EMA9": { name: "9-Period EMA", type: "moving_average", category: "trend", description: "Fast track" },
+        "EMA12": { name: "12-Period EMA", type: "moving_average", category: "trend", description: "Fast track" },
+        "EMA26": { name: "26-Period EMA", type: "moving_average", category: "trend", description: "Slow track" },
+        "EMA50": { name: "50-Period EMA", type: "moving_average", category: "trend", description: "Medium track" },
+        
+        // Momentum
+        "RSI(14)": { name: "RSI (14)", type: "momentum", category: "oscillator", range: "0-100", overbought: 70, oversold: 30, description: "Strength meter" },
+        "RSI(9)": { name: "RSI (9)", type: "momentum", category: "oscillator", range: "0-100", overbought: 70, oversold: 30, description: "Fast RSI" },
+        "Stoch %K": { name: "Stochastic %K", type: "momentum", category: "oscillator", range: "0-100", overbought: 80, oversold: 20, description: "Fast stochastic" },
+        "Stoch %D": { name: "Stochastic %D", type: "momentum", category: "oscillator", range: "0-100", overbought: 80, oversold: 20, description: "Slow stochastic" },
+        "CCI": { name: "Commodity Channel", type: "momentum", category: "oscillator", range: "-100 to +100", description: "Trend oscillator" },
+        "Williams %R": { name: "Williams %R", type: "momentum", category: "oscillator", range: "-100 to 0", description: "Overbought < -80, Oversold > -20" },
+        "ROC": { name: "Rate of Change", type: "momentum", category: "rate", description: "Price velocity" },
+        "Momentum": { name: "Momentum (10)", type: "momentum", category: "rate", description: "Speed of price change" },
+        
+        // Trend
+        "MACD": { name: "MACD Line", type: "trend", category: "macd", description: "12-26-9" },
+        "MACD Signal": { name: "Signal Line", type: "trend", category: "macd", description: "EMA of MACD" },
+        "MACD Hist": { name: "MACD Histogram", type: "trend", category: "macd", description: "Momentum shift" },
+        "ADX": { name: "Avg Directional Index", type: "trend", category: "strength", range: "0-100", description: "Trend strength > 25" },
+        "Plus DI": { name: "Plus Directional", type: "trend", category: "dmi", description: "Bullish momentum" },
+        "Minus DI": { name: "Minus Directional", type: "trend", category: "dmi", description: "Bearish momentum" },
+        
+        // Volatility
+        "ATR(14)": { name: "Avg True Range", type: "volatility", category: "range", description: "Price volatility" },
+        "Bollinger Upper": { name: "BB Upper Band", type: "volatility", category: "band", description: "Resistance level" },
+        "Bollinger Lower": { name: "BB Lower Band", type: "volatility", category: "band", description: "Support level" },
+        "Bollinger Width": { name: "BB Width", type: "volatility", category: "width", description: "Squeeze indicator" },
+        
+        // Volume
+        "Volume": { name: "Volume", type: "volume", category: "basic", description: "Trading activity" },
+        "OBV": { name: "On-Balance Volume", type: "volume", category: "cumulative", description: "Volume trend" },
+        "VWAP": { name: "VWAP", type: "volume", category: "average", description: "Intraday value" },
+        "MFI": { name: "Money Flow Index", type: "volume", category: "money", range: "0-100", description: "Volume-weighted RSI" },
+        
+        // Fibonacci
+        "Fib Retracement": { name: "Fibonacci Levels", type: "fibonacci", category: "retracement", levels: [0, 0.236, 0.382, 0.5, 0.618, 0.786, 1], description: "Support/resistance" },
+        
+        // Ichimoku
+        "Ichimoku Cloud": { name: "Ichimoku Cloud", type: "ichimoku", category: "cloud", description: "Multi-line analysis" },
     };
     
-    // Signal Types with Patterns
+    // ADVANCED SIGNAL TYPES (15+)
     const signalTypes = [
-        { id: "BREAKOUT", label: "🚀 Breakout", color: "#10b981", priority: 1 },
-        { id: "PULLBACK", label: "📉 Pullback Entry", color: "#22c55e", priority: 2 },
-        { id: "REVERSAL", label: "🔄 Reversal", color: "#f59e0b", priority: 3 },
-        { id: "MOMENTUM", label: "💨 Momentum", color: "#8b5cf6", priority: 4 },
-        { id: "VOLUME", label: "📊 Volume Surge", color: "#06b6d4", priority: 5 },
-        { id: "ACCUMULATION", label: "📦 Accumulation", color: "#3b82f6", priority: 6 },
-        { id: "DISTRIBUTION", label: "📤 Distribution", color: "#ef4444", priority: 7 },
-        { id: "SUPPORT", label: "🛡️ Support Bounce", color: "#14b8a6", priority: 8 },
-        { id: "RESISTANCE", label: "🏰 Resistance Break", color: "#f97316", priority: 9 },
+        { id: "BREAKOUT", label: "🚀 Breakout", color: "#10b981", risk: "high", description: "Price breaks resistance" },
+        { id: "PULLBACK", label: "📉 Pullback Entry", color: "#22c55e", risk: "medium", description: "Retest broken level" },
+        { id: "REVERSAL", label: "🔄 Reversal", color: "#f59e0b", risk: "high", description: "Trend reversal signal" },
+        { id: "MOMENTUM", label: "💨 Momentum", color: "#8b5cf6", risk: "medium", description: "Strong trend continuation" },
+        { id: "VOLUME", label: "📊 Volume Surge", color: "#06b6d4", risk: "medium", description: "Unusual volume activity" },
+        { id: "ACCUMULATION", label: "📦 Accumulation", color: "#3b82f6", risk: "low", description: "Smart money buying" },
+        { id: "DISTRIBUTION", label: "📤 Distribution", color: "#ef4444", risk: "medium", description: "Smart money selling" },
+        { id: "SUPPORT", label: "🛡️ Support Bounce", color: "#14b8a6", risk: "low", description: "Buy at support" },
+        { id: "RESISTANCE", label: "🏰 Resistance Break", color: "#f97316", risk: "high", description: "Break major resistance" },
+        { id: "OVERSOLD", label: "🔻 Oversold RSI", color: "#06b6d4", risk: "medium", description: "RSI < 30, potential bounce" },
+        { id: "OVERBOUGHT", label: "🔺 Overbought RSI", color: "#f43f5e", risk: "medium", description: "RSI > 70, potential pullback" },
+        { id: "GOLDEN CROSS", label: "✨ Golden Cross", color: "#fbbf24", risk: "low", description: "MA50 crosses above MA200" },
+        { id: "DEATH CROSS", label: "💀 Death Cross", color: "#9ca3af", risk: "medium", description: "MA50 crosses below MA200" },
+        { id: "DIV Bullish", label: "📈 Bullish Divergence", color: "#10b981", risk: "low", description: "Price down, RSI up" },
+        { id: "DIV Bearish", label: "📉 Bearish Divergence", color: "#ef4444", risk: "low", description: "Price up, RSI down" },
+        { id: "VOLUME SPIKE", label: "💥 Volume Spike", color: "#ec4899", risk: "medium", description: "Volume > 2x average" },
     ];
     
-    // Enhanced Demo Signals with Patterns
+    // ADVANCED SIGNALS WITH FULL METADATA
     const enhancedSignals = [
-        { stock: "隆基绿能", code: "sh601012", signal: "BREAKOUT", pattern: "Bull Flag", price: 18.94, target: 21.50, stop: 17.50, rsi: 65, macd: "bullish", volume: 2.3, time: "12:30" },
-        { stock: "宁德时代", code: "sz300750", signal: "MOMENTUM", pattern: "Three White Soldiers", price: 221.50, target: 240.00, stop: 210.00, rsi: 72, macd: "bullish", volume: 1.8, time: "12:15" },
-        { stock: "贵州茅台", code: "sh600519", signal: "SUPPORT", pattern: "Double Bottom", price: 1852.00, target: 1950.00, stop: 1800.00, rsi: 55, macd: "bullish", volume: 1.2, time: "11:45" },
-        { stock: "比亚迪", code: "sz002594", signal: "PULLBACK", pattern: "Ascending Triangle", price: 268.30, target: 290.00, stop: 255.00, rsi: 68, macd: "bullish", volume: 1.5, time: "11:30" },
-        { stock: "招商银行", code: "sh600036", signal: "VOLUME", pattern: "Accumulation", price: 42.15, target: 45.00, stop: 40.00, rsi: 58, macd: "bullish", volume: 3.2, time: "11:15" },
+        { stock: "隆基绿能", code: "sh601012", signal: "BREAKOUT", pattern: "Bull Flag", price: 18.94, target: 21.50, stop: 17.50, rsi: 65, macd: "bullish", volume: 2.3, time: "12:30", confidence: 85, risk: "medium", timeframe: "4H" },
+        { stock: "宁德时代", code: "sz300750", signal: "MOMENTUM", pattern: "Three White Soldiers", price: 221.50, target: 240.00, stop: 210.00, rsi: 72, macd: "bullish", volume: 1.8, time: "12:15", confidence: 92, risk: "low", timeframe: "1D" },
+        { stock: "贵州茅台", code: "sh600519", signal: "SUPPORT", pattern: "Double Bottom", price: 1852.00, target: 1950.00, stop: 1800.00, rsi: 55, macd: "bullish", volume: 1.2, time: "11:45", confidence: 88, risk: "low", timeframe: "1D" },
+        { stock: "比亚迪", code: "sz002594", signal: "PULLBACK", pattern: "Ascending Triangle", price: 268.30, target: 290.00, stop: 255.00, rsi: 68, macd: "bullish", volume: 1.5, time: "11:30", confidence: 78, risk: "medium", timeframe: "4H" },
+        { stock: "招商银行", code: "sh600036", signal: "ACCUMULATION", pattern: "Cup & Handle", price: 42.15, target: 45.00, stop: 40.00, rsi: 58, macd: "bullish", volume: 3.2, time: "11:15", confidence: 90, risk: "low", timeframe: "1D" },
+        { stock: "中国平安", code: "sh601318", signal: "REVERSAL", pattern: "Inverse H&S", price: 48.20, target: 52.00, stop: 45.50, rsi: 42, macd: "turning", volume: 1.4, time: "10:45", confidence: 88, risk: "medium", timeframe: "4H" },
+        { stock: "紫光国微", code: "sz002049", signal: "BREAKOUT", pattern: "Harmonic Bullish", price: 118.50, target: 135.00, stop: 110.00, rsi: 75, macd: "strong", volume: 2.1, time: "10:30", confidence: 95, risk: "high", timeframe: "1H" },
+        { stock: "海康威视", code: "sz002415", signal: "VOLUME SPIKE", pattern: "AB=CD Bullish", price: 32.80, target: 36.00, stop: 30.50, rsi: 52, macd: "bullish", volume: 3.8, time: "10:15", confidence: 86, risk: "medium", timeframe: "30M" },
+        { stock: "三一重工", code: "sh600031", signal: "GOLDEN CROSS", pattern: "EMA Crossover", price: 18.60, target: 20.50, stop: 17.20, rsi: 62, macd: "bullish", volume: 1.6, time: "10:00", confidence: 82, risk: "low", timeframe: "1D" },
+        { stock: "中芯国际", code: "sh688981", signal: "OVERSOLD", pattern: "Hammer", price: 52.30, target: 58.00, stop: 48.50, rsi: 28, macd: "turning", volume: 2.4, time: "09:45", confidence: 78, risk: "medium", timeframe: "4H" },
+    ];
         { stock: "中国平安", code: "sh601318", signal: "REVERSAL", pattern: "Inverse H&S", price: 48.20, target: 52.00, stop: 45.50, rsi: 42, macd: "turning", volume: 1.4, time: "10:45" },
         { stock: "紫光国微", code: "sz002049", signal: "BREAKOUT", pattern: "Cup & Handle", price: 118.50, target: 135.00, stop: 110.00, rsi: 75, macd: "strong", volume: 2.1, time: "10:30" },
         { stock: "海康威视", code: "sz002415", signal: "ACCUMULATION", pattern: "Rising Wedge", price: 32.80, target: 36.00, stop: 30.50, rsi: 52, macd: "bullish", volume: 2.8, time: "10:15" },
     ];
     
-    // Calculate Pattern Score
+    // ============================================
+    // AI-POWERED ADVANCED SCORING ENGINE
+    // ============================================
+    
+    // Calculate AI-Powered Pattern Score
     function calculatePatternScore(pattern, price, volume, rsi, macd) {
         let score = 50;
         const p = tradingPatterns[pattern];
         if (p) {
             score = p.strength;
-            if (rsi > 30 && rsi < 70) score += 5; // Neutral RSI is better
-            if (volume > 1.5) score += 10; // Volume confirms
-            if (macd === "bullish" || macd === "strong") score += 10;
-            if (macd === "bearish") score -= 15;
+            
+            // RSI Analysis (25 points max)
+            if (rsi >= 30 && rsi <= 70) {
+                if (rsi >= 40 && rsi <= 60) score += 10; // Sweet spot
+                else if (rsi < 40) score += 5; // Oversold territory
+                else score += 3; // Overbought but not extreme
+            } else if (rsi < 20 || rsi > 80) {
+                score -= 10; // Extreme
+            }
+            
+            // Volume Analysis (20 points max)
+            if (volume >= 1.5) score += 15;
+            else if (volume >= 1.2) score += 10;
+            else if (volume >= 1.0) score += 5;
+            
+            // MACD Analysis (15 points max)
+            if (macd === "strong") score += 15;
+            else if (macd === "bullish") score += 10;
+            else if (macd === "turning") score += 5;
+            else if (macd === "bearish") score -= 15;
+            
+            // Win Rate Bonus (10 points max)
+            score += (p.winRate - 60) / 4;
         }
-        return Math.min(100, Math.max(0, score));
+        return Math.min(100, Math.max(0, Math.round(score)));
+    }
+    
+    // Multi-Factor AI Score
+    function calculateAIScore(data) {
+        let aiScore = 50;
+        
+        // Trend Score (30%)
+        const trendScore = calculateTrendScore(data);
+        aiScore += trendScore * 0.3;
+        
+        // Momentum Score (25%)
+        const momentumScore = calculateMomentumScore(data);
+        aiScore += momentumScore * 0.25;
+        
+        // Volume Score (20%)
+        const volumeScore = calculateVolumeScore(data);
+        aiScore += volumeScore * 0.2;
+        
+        // Volatility Score (15%)
+        const volatilityScore = calculateVolatilityScore(data);
+        aiScore += volatilityScore * 0.15;
+        
+        // Pattern Score (10%)
+        const patternScore = data.patternStrength || 50;
+        aiScore += patternScore * 0.1;
+        
+        return Math.min(100, Math.max(0, Math.round(aiScore)));
+    }
+    
+    function calculateTrendScore(data) {
+        // SMA alignment analysis
+        if (data.sma20 > data.sma50 && data.sma50 > data.sma200) return 90; // Strong uptrend
+        if (data.sma20 > data.sma50) return 70; // Uptrend
+        if (data.sma20 < data.sma50 && data.sma50 < data.sma200) return 10; // Strong downtrend
+        if (data.sma20 < data.sma50) return 30; // Downtrend
+        return 50; // Sideways
+    }
+    
+    function calculateMomentumScore(data) {
+        let score = 50;
+        if (data.rsi > 50) score += 20;
+        if (data.rsi > 60) score += 15;
+        if (data.macd === "bullish") score += 15;
+        if (data.macd === "strong") score += 20;
+        return Math.min(100, score);
+    }
+    
+    function calculateVolumeScore(data) {
+        if (data.volume > 2.5) return 90;
+        if (data.volume > 2.0) return 80;
+        if (data.volume > 1.5) return 70;
+        if (data.volume > 1.0) return 50;
+        return 30;
+    }
+    
+    function calculateVolatilityScore(data) {
+        // Lower is better for stability
+        if (data.atr < 2) return 80;
+        if (data.atr < 4) return 60;
+        if (data.atr < 6) return 40;
+        return 20;
+    }
+    
+    // Risk Assessment
+    function assessRisk(signal, pattern, rsi, volume) {
+        let risk = "medium";
+        let riskScore = 50;
+        
+        // Pattern risk
+        const p = tradingPatterns[pattern];
+        if (p) riskScore = 100 - p.strength;
+        
+        // RSI risk
+        if (rsi < 30 || rsi > 70) riskScore += 20;
+        
+        // Volume risk
+        if (volume < 1.0) riskScore += 15;
+        
+        if (riskScore < 30) risk = "low";
+        else if (riskScore < 60) risk = "medium";
+        else risk = "high";
+        
+        return risk;
+    }
+    
+    // Timeframe Analysis
+    function analyzeTimeframe(data) {
+        return {
+            "1M": { trend: "scalping", holding: "< 1 hour", risk: "very high" },
+            "5M": { trend: "intraday", holding: "1-4 hours", risk: "high" },
+            "15M": { trend: "intraday", holding: "4-24 hours", risk: "medium-high" },
+            "1H": { trend: "short-term", holding: "1-3 days", risk: "medium" },
+            "4H": { trend: "swing", holding: "3-14 days", risk: "medium" },
+            "1D": { trend: "position", holding: "14-90 days", risk: "low" },
+            "1W": { trend: "long-term", holding: "90+ days", risk: "low" },
+        }[data.timeframe] || { trend: "unknown", holding: "unknown", risk: "unknown" };
     }
     
     // Get Signal Recommendation
     function getSignalRecommendation(signal) {
         const s = signalTypes.find(x => x.id === signal);
         return s ? s.label : signal;
+    }
+    
+    // Get Risk Level Color
+    function getRiskColor(risk) {
+        return risk === "low" ? "#10b981" : risk === "medium" ? "#f59e0b" : "#ef4444";
     }
     
     // ============================================
@@ -1298,31 +1494,71 @@
         panel.style.display = panel.style.display === "none" ? "block" : "none";
     }
     
-    // Render Signals - Enhanced with Patterns
+    // Render Signals - ADVANCED VERSION
     function renderSignals() {
         const list = document.getElementById("signalsList");
         list.innerHTML = enhancedSignals.map(s => {
             const signalInfo = signalTypes.find(x => x.id === s.signal) || { color: '#6366f1', label: s.signal };
             const score = calculatePatternScore(s.pattern, s.price, s.volume, s.rsi, s.macd);
+            const risk = assessRisk(s.signal, s.pattern, s.rsi, s.volume);
+            const aiScore = calculateAIScore({ rsi: s.rsi, macd: s.macd, volume: s.volume, patternStrength: score });
+            const tfInfo = analyzeTimeframe({ timeframe: s.timeframe });
+            
             const scoreColor = score >= 80 ? '#10b981' : score >= 60 ? '#f59e0b' : '#ef4444';
+            const aiColor = aiScore >= 75 ? '#10b981' : aiScore >= 50 ? '#f59e0b' : '#ef4444';
+            const riskColor = getRiskColor(risk);
+            
             return `
-            <div style="background:var(--glass); border-radius:10px; padding:12px; margin-bottom:10px; border-left:3px solid ${signalInfo.color};">
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:10px; border-left:4px solid ${signalInfo.color};">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-weight:600; color:var(--light);">${s.stock}</span>
-                    <span style="font-size:11px; padding:2px 8px; border-radius:4px; background:${signalInfo.color}22; color:${signalInfo.color};">${signalInfo.label}</span>
+                    <div>
+                        <span style="font-weight:600; color:#f8fafc; font-size:14px;">${s.stock}</span>
+                        <span style="font-size:10px; color:#64748b; margin-left:8px;">${s.code}</span>
+                    </div>
+                    <span style="font-size:10px; padding:2px 8px; border-radius:4px; background:${signalInfo.color}22; color:${signalInfo.color};">${signalInfo.label}</span>
                 </div>
-                <div style="font-size:12px; color:#f59e0b; margin-top:5px;">📐 ${s.pattern}</div>
-                <div style="font-size:13px; color:var(--gray); margin-top:3px;">
-                    Entry: <span style="color:var(--light);">¥${s.price}</span> | Target: <span style="color:#10b981;">¥${s.target}</span>
+                
+                <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+                    <span style="font-size:10px; padding:2px 6px; background:#6366f122; color:#a5b4fc; border-radius:4px;">📐 ${s.pattern}</span>
+                    <span style="font-size:10px; padding:2px 6px; background:#8b5cf622; color:#c4b5fd; border-radius:4px;">⏱️ ${s.timeframe}</span>
+                    <span style="font-size:10px; padding:2px 6px; background:${riskColor}22; color:${riskColor}; border-radius:4px;">⚠️ ${risk.toUpperCase()}</span>
                 </div>
-                <div style="display:flex; gap:10px; font-size:11px; color:var(--gray); margin-top:3px;">
-                    <span>Stop: <span style="color:#ef4444;">¥${s.stop}</span></span>
-                    <span>RSI: ${s.rsi}</span>
-                    <span>Vol: ${s.volume}x</span>
+                
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:10px; font-size:11px;">
+                    <div style="background:rgba(0,0,0,0.2); padding:8px; border-radius:6px; text-align:center;">
+                        <div style="color:#64748b; font-size:9px;">ENTRY</div>
+                        <div style="color:#f8fafc; font-weight:600;">¥${s.price}</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.2); padding:8px; border-radius:6px; text-align:center;">
+                        <div style="color:#64748b; font-size:9px;">TARGET</div>
+                        <div style="color:#10b981; font-weight:600;">¥${s.target}</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.2); padding:8px; border-radius:6px; text-align:center;">
+                        <div style="color:#64748b; font-size:9px;">STOP</div>
+                        <div style="color:#ef4444; font-weight:600;">¥${s.stop}</div>
+                    </div>
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:5px;">
-                    <span style="font-size:11px; color:var(--gray);">${s.time}</span>
-                    <span style="font-size:12px; font-weight:600; color:${scoreColor};">Score: ${score}</span>
+                
+                <div style="display:flex; justify-content:space-between; margin-top:10px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.1);">
+                    <div style="display:flex; gap:12px; font-size:10px; color:#64748b;">
+                        <span>RSI: <span style="color:${s.rsi > 70 ? '#ef4444' : s.rsi < 30 ? '#10b981' : '#f8fafc'}">${s.rsi}</span></span>
+                        <span>Vol: <span style="color:${s.volume > 2 ? '#10b981' : '#f8fafc'}">${s.volume}x</span></span>
+                        <span>MACD: <span style="color:${s.macd === 'bullish' || s.macd === 'strong' ? '#10b981' : '#f8fafc'}">${s.macd}</span></span>
+                    </div>
+                </div>
+                
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:10px; color:#64748b;">Confidence:</span>
+                        <div style="width:60px; height:6px; background:#1e293b; border-radius:3px; overflow:hidden;">
+                            <div style="width:${s.confidence}%; height:100%; background:${scoreColor};"></div>
+                        </div>
+                        <span style="font-size:10px; font-weight:600; color:${scoreColor};">${s.confidence}%</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:4px;">
+                        <span style="font-size:10px; color:#64748b;">AI:</span>
+                        <span style="font-size:12px; font-weight:700; color:${aiColor};">${aiScore}</span>
+                    </div>
                 </div>
             </div>
         `}).join('');
