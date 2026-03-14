@@ -889,15 +889,52 @@
         { stock: "贵州茅台", code: "sh600519", type: "BUY", price: 1852.00, target: 1950.00, stop: 1800.00, time: "11:45" },
     ];
     
-    // Sector Heatmap Data
+    // Sector Heatmap Data - With Live API
     const sectors = [
-        { name: "新能源", change: 3.2, heat: 90 },
-        { name: "半导体", change: 2.1, heat: 75 },
-        { name: "医药", change: 1.5, heat: 60 },
-        { name: "消费", change: 0.8, heat: 45 },
-        { name: "金融", change: -0.5, heat: 30 },
-        { name: "房地产", change: -1.2, heat: 15 },
+        { name: "新能源", code: "880951", change: 0, heat: 50 },
+        { name: "半导体", code: "880951", change: 0, heat: 50 },
+        { name: "医药", code: "880951", change: 0, heat: 50 },
+        { name: "消费", code: "880951", change: 0, heat: 50 },
+        { name: "金融", code: "880951", change: 0, heat: 50 },
+        { name: "房地产", code: "880951", change: 0, heat: 50 },
     ];
+    
+    // Fetch live sector data
+    async function updateSectorData() {
+        // Map sector names to industry codes
+        const sectorCodes = {
+            "新能源": "bk0493",
+            "半导体": "bk0738", 
+            "医药": "bk0465",
+            "消费": "bk0434",
+            "金融": "bk0473",
+            "房地产": "bk0454"
+        };
+        
+        for (const sector of sectors) {
+            const code = sectorCodes[sector.name];
+            if (!code) continue;
+            
+            try {
+                const res = await fetch(`https://qt.gtimg.cn/q=${code}`);
+                const text = await res.text();
+                const m = text.match(/="([^"]+)"/);
+                if (m) {
+                    const f = m[1].split("~");
+                    const change = parseFloat(f[5]) || 0;
+                    sector.change = change;
+                    sector.heat = Math.min(100, Math.max(10, 50 + change * 10));
+                }
+            } catch (e) {
+                console.log("Sector fetch error:", e);
+            }
+        }
+        renderSectors();
+    }
+    
+    // Auto-refresh sectors every 2 minutes
+    setInterval(updateSectorData, 120000);
+    updateSectorData(); // Initial load
     
     // ============================================
     // ADVANCED TRADING PATTERNS & INDICATORS
@@ -1800,16 +1837,31 @@
         document.getElementById("btHistory").innerHTML = historyHtml || '<div style="color:var(--gray); text-align:center;">No trades</div>';
     }
     
-    // Sector Heatmap
+    // Sector Heatmap - Enhanced
     function renderSectors() {
         const container = document.getElementById("sectorHeatmap");
         if (!container) return;
-        container.innerHTML = sectors.map(s => `
-            <div style="background:linear-gradient(135deg, rgba(16,185,129,${s.heat/150}), rgba(16,185,129,0.1)); border-radius:10px; padding:15px; text-align:center; flex:1; min-width:100px;">
-                <div style="font-size:14px; font-weight:600; color:var(--light);">${s.name}</div>
-                <div style="font-size:18px; font-weight:700; color:${s.change >= 0 ? '#10b981' : '#ef4444'};">${s.change >= 0 ? '+' : ''}${s.change}%</div>
+        
+        // Sort by change
+        const sorted = [...sectors].sort((a, b) => b.change - a.change);
+        
+        container.innerHTML = sorted.map(s => {
+            const isPositive = s.change >= 0;
+            const color = isPositive ? '#10b981' : '#ef4444';
+            const gradient = isPositive 
+                ? `linear-gradient(135deg, rgba(16,185,129,${s.heat/120}), rgba(16,185,129,0.15))`
+                : `linear-gradient(135deg, rgba(239,68,68,${s.heat/120}), rgba(239,68,68,0.15))`;
+            
+            return `
+            <div style="background:${gradient}; border-radius:12px; padding:16px 20px; text-align:center; min-width:110px; border:1px solid ${color}33; cursor:pointer; transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <div style="font-size:13px; font-weight:600; color:#f8fafc; margin-bottom:6px;">${s.name}</div>
+                <div style="font-size:22px; font-weight:700; color:${color};">${isPositive ? '+' : ''}${s.change.toFixed(2)}%</div>
+                <div style="font-size:10px; color:#94a3b8; margin-top:4px;">${s.heat > 70 ? '🔥 HOT' : s.heat > 50 ? '📈 UP' : '📉 DOWN'}</div>
             </div>
-        `).join('');
+        `}).join('');
+        
+        // Add title
+        container.innerHTML = '<div style="width:100%; text-align:center; margin-bottom:10px; font-size:12px; color:#64748b;">📊 SECTOR PERFORMANCE - CLICK TO REFRESH</div>' + container.innerHTML;
     }
     
     // Enhanced Ticker Update
