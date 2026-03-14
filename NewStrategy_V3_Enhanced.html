@@ -928,53 +928,197 @@
         return s ? s.label : signal;
     }
     
-    // Stock Lookup Function
+    // ============================================
+    // LIVE API DATA FEEDS
+    // ============================================
+    
+    // Multiple API Endpoints with Fallback
+    const apiEndpoints = [
+        { name: "Guotai", url: (code) => `https://qt.gtimg.cn/q=${code}`, priority: 1 },
+        { name: "Sina", url: (code) => `https://hq.sinajs.cn/list=${code}`, priority: 2 },
+        { name: "EastMoney", url: (code) => `https://push2.eastmoney.com/api/qt/stock/get?secid=${convertToEastMoney(code)}&fields=f43,f44,f45,f46,f47,f48,f50,f51,f52,f57,f58,f59,f60,f116,f117,f118,f162,f163,f164,f167,f168,f169,f170,f171,f173,f177`, priority: 3 },
+    ];
+    
+    // Convert code to EastMoney format
+    function convertToEastMoney(code) {
+        if (code.startsWith('sh')) return '1.' + code.replace('sh', '');
+        if (code.startsWith('sz')) return '0.' + code.replace('sz', '');
+        if (code.startsWith('hk')) return '110.' + code.replace('hk', '');
+        return code;
+    }
+    
+    // Fetch with multiple API fallback
+    async function fetchStockData(code, maxRetries = 3) {
+        let lastError = null;
+        
+        for (const api of apiEndpoints) {
+            try {
+                const res = await fetch(api.url(code));
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const text = await res.text();
+                if (text && text.length > 10) {
+                    return { data: text, source: api.name, success: true };
+                }
+            } catch (e) {
+                lastError = e;
+                console.log(`API ${api.name} failed:`, e.message);
+            }
+        }
+        return { data: null, source: 'none', success: false, error: lastError };
+    }
+    
+    // Parse Guotai API response
+    function parseGuotaiData(text) {
+        const m = text.match(/="([^"]+)"/);
+        if (!m) return null;
+        
+        const f = m[1].split("~");
+        return {
+            name: f[1] || '',
+            price: parseFloat(f[3]) || 0,
+            change: parseFloat(f[5]) || 0,
+            volume: parseInt(f[4]) || 0,
+            amount: parseInt(f[6]) || 0,
+            high: parseFloat(f[33]) || 0,
+            low: parseFloat(f[34]) || 0,
+            open: parseFloat(f[35]) || 0,
+            prevClose: parseFloat(f[36]) || 0,
+            bid1: parseFloat(f[9]) || 0,   // Buy price
+            ask1: parseFloat(f[19]) || 0,   // Sell price
+            bidVol1: parseInt(f[10]) || 0,  // Buy volume
+            askVol1: parseInt(f[20]) || 0,  // Sell volume
+            totalBid: parseInt(f[37]) || 0, // Total buy
+            totalAsk: parseInt(f[38]) || 0, // Total sell
+            turnover: parseFloat(f[38]) || 0,
+            amplitude: parseFloat(f[39]) || 0, // Amplitude %
+            changePercent: parseFloat(f[38]) || 0,
+            volumeRatio: parseFloat(f[39]) || 0,
+            pe: parseFloat(f[39]) || 0,
+            pb: parseFloat(f[46]) || 0,
+            marketCap: parseFloat(f[45]) || 0,
+            updateTime: f[30] || '',
+        };
+    }
+    
+    // Calculate technical indicators from raw data
+    function calculateIndicators(data) {
+        if (!data) return {};
+        
+        const { price, prevClose, volume, bid1, ask1, totalBid, totalAsk } = data;
+        const change = price - prevClose;
+        const changePercent = prevClose ? (change / prevClose * 100) : 0;
+        
+        // Buy/Sell pressure
+        const buyPressure = totalBid + totalBid > 0 ? (totalBid / (totalBid + totalAsk) * 100) : 50;
+        const sellPressure = 100 - buyPressure;
+        
+        // Bid/Ask spread
+        const spread = ask1 - bid1;
+        const spreadPercent = price ? (spread / price * 100) : 0;
+        
+        // Volume analysis (assuming 20-day avg of 1M as baseline)
+        const avgVolume = 1000000;
+        const volumeRatio = volume / avgVolume;
+        
+        // Smart money indicator (large orders)
+        const smartMoneyScore = buyPressure > 60 ? 'STRONG BUY' : buyPressure > 55 ? 'BUY' : buyPressure < 40 ? 'STRONG SELL' : 'SELL';
+        
+        return {
+            changePercent: changePercent.toFixed(2),
+            buyPressure: buyPressure.toFixed(1),
+            sellPressure: sellPressure.toFixed(1),
+            spread: spread.toFixed(2),
+            spreadPercent: spreadPercent.toFixed(3),
+            volumeRatio: volumeRatio.toFixed(1),
+            smartMoney: smartMoneyScore,
+        };
+    }
+    
+    // Live Price Update Function
+    async function updateLivePrices() {
+        const codes = tickerStocks.map(s => s.code);
+        if (codes.length === 0) return;
+        
+        try {
+            const res = await fetch("https://qt.gtimg.cn/q=" + codes.join(','));
+            const text = await res.text();
+            const stocks = text.split(';');
+            
+            stocks.forEach((stockData, index) => {
+                if (index < tickerStocks.length && stockData.includes('"')) {
+                    const data = parseGuotaiData(stockData);
+                    if (data) {
+                        tickerStocks[index].price = data.price;
+                        tickerStocks[index].change = parseFloat(data.changePercent);
+                        tickerStocks[index].volume = data.volume;
+                    }
+                }
+            });
+            
+            // Update display if ticker exists
+            if (document.getElementById('tickerContainer')) {
+                renderTicker();
+            }
+        } catch (e) {
+            console.log('Live update failed:', e);
+        }
+    }
+    
+    // Stock Lookup Function - Enhanced
     async function lookupStock() {
         const code = document.getElementById("stockCodeInput").value.trim().toLowerCase();
         if (!code) return;
         
         const resultDiv = document.getElementById("stockResult");
-        resultDiv.innerHTML = '<div style="text-align:center; color:var(--gray);">Loading...</div>';
+        resultDiv.innerHTML = '<div style="text-align:center; color:var(--gray);">Loading from live API...</div>';
         
         try {
-            const res = await fetch("https://qt.gtimg.cn/q=" + code);
-            const text = await res.text();
-            const m = text.match(/="([^"]+)"/);
+            // Try primary API
+            let res = await fetch("https://qt.gtimg.cn/q=" + code);
+            let text = await res.text();
+            let data = parseGuotaiData(text);
             
-            if (m) {
-                const f = m[1].split("~");
-                const name = f[1];
-                const price = parseFloat(f[3]);
-                const change = parseFloat(f[5]);
-                const volume = (parseInt(f[4]) / 1000000).toFixed(1);
-                const amount = (parseInt(f[5]) / 100000000).toFixed(2);
-                const high = parseFloat(f[33]);
-                const low = parseFloat(f[34]);
-                const open = parseFloat(f[35]);
-                
-                const color = change >= 0 ? "#10b981" : "#ef4444";
-                const sign = change >= 0 ? "+" : "";
-                
-                resultDiv.innerHTML = `
+            if (!data) {
+                resultDiv.innerHTML = '<div style="text-align:center; color:#ef4444;">Stock not found</div>';
+                return;
+            }
+            
+            const indicators = calculateIndicators(data);
+            const color = data.change >= 0 ? "#10b981" : "#ef4444";
+            const sign = data.change >= 0 ? "+" : "";
+            const indColor = indicators.smartMoney.includes('BUY') ? '#10b981' : indicators.smartMoney.includes('SELL') ? '#ef4444' : '#f59e0b';
+            
+            resultDiv.innerHTML = `
                     <div style="background:var(--glass); border-radius:12px; padding:20px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
                             <div>
-                                <div style="font-size:18px; font-weight:600; color:var(--light);">${name}</div>
-                                <div style="color:var(--gray); font-size:14px;">${code.toUpperCase()}</div>
+                                <div style="font-size:18px; font-weight:600; color:var(--light);">${data.name}</div>
+                                <div style="color:var(--gray); font-size:14px;">${code.toUpperCase()} | Live Data</div>
                             </div>
                             <div style="text-align:right;">
-                                <div style="font-size:24px; font-weight:700; color:${color};">¥${price.toFixed(2)}</div>
-                                <div style="color:${color}; font-size:16px;">${sign}${change.toFixed(2)}%</div>
+                                <div style="font-size:24px; font-weight:700; color:${color};">¥${data.price.toFixed(2)}</div>
+                                <div style="color:${color}; font-size:16px;">${sign}${data.change.toFixed(2)}%</div>
                             </div>
                         </div>
                         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; font-size:13px;">
-                            <div><span style="color:var(--gray);">Open:</span> <span style="color:var(--light);">¥${open.toFixed(2)}</span></div>
-                            <div><span style="color:var(--gray);">High:</span> <span style="color:#10b981;">¥${high.toFixed(2)}</span></div>
-                            <div><span style="color:var(--gray);">Low:</span> <span style="color:#ef4444;">¥${low.toFixed(2)}</span></div>
+                            <div><span style="color:var(--gray);">Open:</span> <span style="color:var(--light);">¥${data.open.toFixed(2)}</span></div>
+                            <div><span style="color:var(--gray);">High:</span> <span style="color:#10b981;">¥${data.high.toFixed(2)}</span></div>
+                            <div><span style="color:var(--gray);">Low:</span> <span style="color:#ef4444;">¥${data.low.toFixed(2)}</span></div>
                         </div>
                         <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; font-size:13px; margin-top:10px;">
-                            <div><span style="color:var(--gray);">Volume:</span> <span style="color:var(--light);">${volume}M</span></div>
-                            <div><span style="color:var(--gray);">Amount:</span> <span style="color:var(--light);">¥${amount}B</span></div>
+                            <div><span style="color:var(--gray);">Volume:</span> <span style="color:var(--light);">${(data.volume/1000000).toFixed(2)}M</span></div>
+                            <div><span style="color:var(--gray);">Amount:</span> <span style="color:var(--light);">¥${(data.amount/100000000).toFixed(2)}B</span></div>
+                        </div>
+                        <div style="background:rgba(0,0,0,0.3); border-radius:8px; padding:12px; margin-top:12px;">
+                            <div style="font-size:12px; font-weight:600; color:var(--gray); margin-bottom:8px;">📊 SMART MONEY INDICATORS</div>
+                            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; font-size:12px;">
+                                <div><span style="color:var(--gray);">Buy Pressure:</span> <span style="color:#10b981;">${indicators.buyPressure}%</span></div>
+                                <div><span style="color:var(--gray);">Vol Ratio:</span> <span style="color:var(--light);">${indicators.volumeRatio}x</span></div>
+                                <div><span style="color:var(--gray);">Signal:</span> <span style="color:${indColor}; font-weight:600;">${indicators.smartMoney}</span></div>
+                            </div>
+                        </div>
+                        <div style="font-size:11px; color:var(--gray); margin-top:10px; text-align:center;">
+                            Last Update: ${data.updateTime} | Source: Guotai API
                         </div>
                     </div>
                 `;
@@ -1228,6 +1372,7 @@
     renderSectors();
     setInterval(updateTicker, 10000);
     setInterval(updateMarketStatus, 60000);
+    setInterval(updateLivePrices, 30000); // Live API refresh every 30s
     
     // Add keyboard shortcut for lookup
     document.addEventListener('keydown', function(e) {
