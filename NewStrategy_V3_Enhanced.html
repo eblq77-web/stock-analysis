@@ -774,25 +774,25 @@
     </div>
 
     <!-- Real-time Signals Panel -->
-    <div style="position:fixed; right:20px; top:100px; width:320px; background:var(--dark); border:1px solid var(--glass-border); border-radius:16px; padding:20px; z-index:1000; display:none;" id="signalsPanel">
+    <div style="position:fixed; right:20px; top:100px; width:320px; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:20px; z-index:5000; display:none;" id="signalsPanel">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-            <h4 style="color:var(--light);">📡 Live Signals</h4>
-            <button onclick="toggleSignals()" style="background:none; border:none; color:var(--gray); cursor:pointer;">&times;</button>
+            <h4 style="color:#f8fafc;">📡 Live Signals</h4>
+            <button onclick="toggleSignals()" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:20px;">✕</button>
         </div>
         <div id="signalsList" style="max-height:300px; overflow-y:auto;"></div>
     </div>
 
     <!-- Patterns Panel -->
-    <div style="position:fixed; right:20px; top:100px; width:340px; background:var(--dark); border:1px solid var(--glass-border); border-radius:16px; padding:20px; z-index:1000; display:none;" id="patternsPanel">
+    <div style="position:fixed; right:20px; top:100px; width:340px; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:20px; z-index:5000; display:none;" id="patternsPanel">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-            <h4 style="color:var(--light);">🎯 Pattern Library</h4>
-            <button onclick="togglePatterns()" style="background:none; border:none; color:var(--gray); cursor:pointer;">✕</button>
+            <h4 style="color:#f8fafc;">🎯 Pattern Library</h4>
+            <button onclick="togglePatterns()" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:20px;">✕</button>
         </div>
         <div id="patternsList" style="max-height:400px; overflow-y:auto;"></div>
     </div>
 
     <!-- Backtesting Panel -->
-    <div style="position:fixed; right:20px; top:100px; width:360px; background:var(--dark); border:1px solid var(--glass-border); border-radius:16px; padding:20px; z-index:1000; display:none;" id="backtestPanel">
+    <div style="position:fixed; right:20px; top:100px; width:360px; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:20px; z-index:5000; display:none;" id="backtestPanel">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
             <h4 style="color:var(--light);">📈 Backtesting</h4>
             <button onclick="toggleBacktest()" style="background:none; border:none; color:var(--gray); cursor:pointer;">✕</button>
@@ -815,9 +815,43 @@
             <div style="font-size:12px; color:var(--gray); margin-bottom:5px;">Initial Capital (¥)</div>
             <input type="number" id="btCapital" value="100000" style="width:100%; padding:10px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; color:var(--light); font-size:14px;">
         </div>
-        <button onclick="runBacktest()" style="width:100%; padding:12px; background:linear-gradient(135deg, var(--primary), var(--primary-dark)); border:none; border-radius:8px; color:white; font-weight:600; cursor:pointer; margin-bottom:15px;">🚀 Run Backtest</button>
-        <div id="btResults" style="display:none;"></div>
-        <div id="btLoading" style="display:none; text-align:center; padding:20px; color:var(--gray);">Running backtest...</div>
+        <button onclick="runBacktest()" style="width:100%; padding:12px; background:linear-gradient(135deg, #6366f1, #4f46e5); border:none; border-radius:8px; color:white; font-weight:600; cursor:pointer; margin-bottom:15px;">🚀 Run Backtest</button>
+        
+        <div id="btResults" style="display:none;">
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:15px; margin-bottom:10px;">
+                <div style="font-size:11px; color:#64748b;">Total Return</div>
+                <div id="btReturn" style="font-size:24px; font-weight:700; color:#10b981;">+0.00%</div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
+                    <div style="font-size:10px; color:#64748b;">Total Trades</div>
+                    <div id="btTrades" style="font-size:18px; font-weight:600; color:#f8fafc;">0</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
+                    <div style="font-size:10px; color:#64748b;">Win Rate</div>
+                    <div id="btWinRate" style="font-size:18px; font-weight:600; color:#10b981;">0%</div>
+                </div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
+                    <div style="font-size:10px; color:#64748b;">Max Drawdown</div>
+                    <div id="btDrawdown" style="font-size:14px; font-weight:600; color:#ef4444;">0%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
+                    <div style="font-size:10px; color:#64748b;">Sharpe Ratio</div>
+                    <div id="btSharpe" style="font-size:14px; font-weight:600; color:#f8fafc;">0</div>
+                </div>
+            </div>
+            
+            <div style="margin-top:15px;">
+                <div style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:8px;">Trade History</div>
+                <div id="btHistory" style="max-height:150px; overflow-y:auto; font-size:11px;"></div>
+            </div>
+        </div>
+        
+        <div id="btLoading" style="display:none; text-align:center; padding:20px; color:#64748b;">Running backtest...</div>
     </div>
 
     <script>
