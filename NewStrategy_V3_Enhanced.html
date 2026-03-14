@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V3 NewStrategy - Institutional Grade Trading Intelligence</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --glass: rgba(255,255,255,0.05);
+            --glass-border: rgba(255,255,255,0.1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(16,185,129,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(245,158,11,0.05) 0%, transparent 70%),
+                var(--darker);
+        }
+        
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(2,6,26,0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 0;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--light); }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(99,102,241,0.4);
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 180px 40px 100px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        .hero-badge span {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+        
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+        
+        .btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Stats */
+        .stats {
+            padding: 60px 40px;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.2);
+        }
+        
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        /* Sections */
+        section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: var(--gray);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(99,102,241,0.15);
+        }
+        
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .card p {
+            color: var(--gray);
+            font-size: 15px;
+        }
+        
+        /* Live Ticker */
+        .ticker-wrap {
+            overflow: hidden;
+            background: linear-gradient(90deg, var(--dark), rgba(99,102,241,0.2), var(--dark));
+            padding: 18px 0;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .ticker {
+            display: flex;
+            gap: 50px;
+            animation: ticker 40s linear infinite;
+            white-space: nowrap;
+        }
+        
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .ticker-name {
+            font-weight: 600;
+        }
+        
+        .ticker-price {
+            color: var(--secondary);
+        }
+        
+        .ticker-price.red { color: #ef4444; }
+        
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(16,185,129,0.1));
+            border-color: var(--primary);
+        }
+        
+        .pricing-card .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent), #d97706);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+        
+        .pricing-card .price span {
+            font-size: 16px;
+            color: var(--gray);
+            font-weight: 400;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .pricing-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gray);
+        }
+        
+        .pricing-card li:before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .pricing-card li.missing {
+            color: rgba(100,116,139,0.5);
+        }
+        
+        .pricing-card li.missing:before {
+            content: "✗";
+            color: var(--gray);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            border-top: 1px solid var(--glass-border);
+            padding: 60px 40px 30px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover { color: var(--light); }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 140px 20px 60px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            section { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animated"></div>
+    <div class="bg-grid"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <span style="font-size: 28px;">📈</span>
+                V3 NewStrategy
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#" onclick="openLookup(); return false;">🔍 Lookup</a></li>
+                <li><a href="#" onclick="openPortfolio(); return false;">💼 Portfolio</a></li>
+                <li><a href="#" onclick="toggleSignals(); return false;">📡 Signals</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div style="display:flex; align-items:center; gap:15px;">
+                <span id="marketStatus" style="font-size:13px; color:var(--gray);"></span>
+                <button class="btn-primary" onclick="openLookup()">Get Started</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span></span>
+            Institutional Grade Trading Intelligence
+        </div>
+        <h1>
+            AI-Powered Trading<br>
+            <span class="gradient">Next Generation</span>
+        </h1>
+        <p>
+            50+ algorithms. Real-time signals. Institutional flow analysis.<br>
+            The most advanced trading intelligence platform in China.
+        </p>
+        <div class="hero-buttons">
+            <a href="#pricing" class="btn-primary">Start Free Trial</a>
+            <a href="#features" class="btn-secondary">Learn More</a>
+        </div>
+    </section>
+    
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stats-grid">
+            <div class="stat">
+                <div class="stat-value">50+</div>
+                <div class="stat-label">AI Algorithms</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Daily Signals</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">92%</div>
+                <div class="stat-label">AI Confidence</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">Market Monitoring</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Live News Ticker -->
+    <div class="ticker-wrap" style="background:linear-gradient(90deg, var(--dark), rgba(245,158,11,0.2), var(--dark));">
+        <div class="ticker" id="newsTicker" style="animation-duration:60s;">
+            <span class="ticker-item">📰 <strong>宁德时代</strong> 发布新一代电池技术 | </span>
+            <span class="ticker-item">📰 <strong>隆基绿能</strong> 获得10GW光伏订单 | </span>
+            <span class="ticker-item">📰 <strong>证监会</strong> 发布最新监管政策 | </span>
+            <span class="ticker-item">📰 <strong>比亚迪</strong> 销量突破500万辆 | </span>
+            <span class="ticker-item">📰 <strong>A股</strong> 今日成交额突破万亿 | </span>
+            <span class="ticker-item">📰 <strong>宁德时代</strong> 发布新一代电池技术 | </span>
+            <span class="ticker-item">📰 <strong>隆基绿能</strong> 获得10GW光伏订单 | </span>
+            <span class="ticker-item">📰 <strong>证监会</strong> 发布最新监管政策 | </span>
+            <span class="ticker-item">📰 <strong>比亚迪</strong> 销量突破500万辆 | </span>
+            <span class="ticker-item">📰 <strong>A股</strong> 今日成交额突破万亿 | </span>
+        </div>
+    </div>
+    
+    <!-- Live Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker" id="liveTicker">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+    
+    <!-- Sector Heatmap -->
+    <section style="padding:60px 40px; background:rgba(0,0,0,0.2); border-bottom:1px solid var(--glass-border);">
+        <div style="max-width:1200px; margin:0 auto;">
+            <div style="text-align:center; margin-bottom:40px;">
+                <h2 style="font-size:32px; font-weight:800; margin-bottom:10px;">🔥 Sector Heatmap</h2>
+                <p style="color:var(--gray);">Real-time sector performance</p>
+            </div>
+            <div id="sectorHeatmap" style="display:flex; gap:15px; flex-wrap:wrap; justify-content:center;"></div>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section id="features">
+        <div class="section-header">
+            <h2>Powerful Features</h2>
+            <p>Everything you need to make smarter trading decisions</p>
+        </div>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🧠</div>
+                <h3>Quantum AI Engine</h3>
+                <p>Advanced pattern recognition using 50+ algorithms trained on institutional trading data</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Pattern Matching</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Price Prediction</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Volume Analysis</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏦</div>
+                <h3>Institutional Flows</h3>
+                <p>Track where smart money is moving with real-time capital flow analysis</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Large Order Detection</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Smart Money Tracking</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Flow Alerts</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Complete Trade Plans</h3>
+                <p>Every signal comes with entry, target, and stop loss - trade with confidence</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Entry Price</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Target Price</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Stop Loss Level</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔄</div>
+                <h3>Sector Rotation</h3>
+                <p>Know which sectors are leading and where money is flowing next</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Heatmap View</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Rotation Alerts</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Momentum Tracking</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <h3>Breakout Alerts</h3>
+                <p>Real-time notifications when stocks break key resistance levels</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Resistance Breaks</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Support Holds</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Volume Surges</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚠️</div>
+                <h3>Risk Management</h3>
+                <p>Built-in risk alerts and position sizing recommendations</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ -7% Hard Stop</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Position Sizing</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Risk Score</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing -->
+    <section id="pricing" style="background: rgba(0,0,0,0.3); margin: 0 0 0 0; border-radius: 40px 40px 0 0;">
+        <div class="section-header">
+            <h2>Simple Pricing</h2>
+            <p>Choose the plan that fits your trading style</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>📊 V3 Daily</h3>
+                <div class="price">FREE</div>
+                <ul>
+                    <li>Daily market snapshot</li>
+                    <li>Top 3 stock picks</li>
+                    <li>Hot stocks list</li>
+                    <li>Basic sector overview</li>
+                    <li class="missing">Entry/Target/Stop</li>
+                    <li class="missing">Institutional flows</li>
+                    <li class="missing">Breakout alerts</li>
+                </ul>
+                <button class="btn-secondary" style="width: 100%;">Get Started</button>
+            </div>
+            
+            <div class="pricing-card featured">
+                <div class="badge">MOST POPULAR</div>
+                <h3>🚀 V3 Pro</h3>
+                <div class="price">¥99<span>/month</span></div>
+                <ul>
+                    <li>Everything in Free</li>
+                    <li>Full signal reports</li>
+                    <li>Entry/Target/Stop</li>
+                    <li>Institutional flows</li>
+                    <li>Breakout alerts</li>
+                    <li>Sector rotation</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="btn-primary" style="width: 100%;">Start Free Trial</button>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>💎 V3 Enterprise</h3>
+                <div class="price">¥299<span>/month</span></div>
+                <ul>
+                    <li>Everything in Pro</li>
+                    <li>API access</li>
+                    <li>Custom alerts</li>
+                    <li>Portfolio sync</li>
+                    <li>1-on-1 coaching</li>
+                    <li>White label</li>
+                    <li>Dedicated support</li>
+                </ul>
+                <button class="btn-secondary" style="width: 100%;">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+            <span style="font-size: 28px;">📈</span>
+            V3 NewStrategy
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Support</a>
+            <a href="#">API</a>
+            <a href="#">Twitter</a>
+            <a href="#">Discord</a>
+        </div>
+        <p style="color: var(--gray); font-size: 14px; margin-bottom:10px;">© 2026 V3 NewStrategy. All rights reserved.</p>
+        <p style="color: var(--gray); font-size: 12px;">⌨️ Ctrl+K to search stocks • Ctrl+Click signals for details</p>
+    </footer>
+
+    <!-- Stock Lookup Modal -->
+    <div id="stockLookup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:var(--dark); border:1px solid var(--glass-border); border-radius:20px; padding:30px; max-width:500px; width:90%;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="color:var(--light);">🔍 Stock Lookup</h3>
+                <button onclick="closeLookup()" style="background:none; border:none; color:var(--gray); font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+            <input type="text" id="stockCodeInput" placeholder="Enter stock code (e.g., 600519, 300750)" style="width:100%; padding:15px; border-radius:10px; border:1px solid var(--glass-border); background:var(--darker); color:white; font-size:16px; margin-bottom:15px;">
+            <button onclick="lookupStock()" class="btn-primary" style="width:100%;">Search</button>
+            <div id="stockResult" style="margin-top:20px;"></div>
+        </div>
+    </div>
+
+    <!-- Portfolio Tracker Modal -->
+    <div id="portfolioModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:var(--dark); border:1px solid var(--glass-border); border-radius:20px; padding:30px; max-width:700px; width:90%; max-height:80vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="color:var(--light);">💼 Portfolio Tracker</h3>
+                <button onclick="closePortfolio()" style="background:none; border:none; color:var(--gray); font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+            
+            <!-- Add Position Form -->
+            <div style="background:var(--glass); border-radius:12px; padding:20px; margin-bottom:20px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:10px;">
+                    <input type="text" id="portCode" placeholder="Stock Code" style="padding:12px; border-radius:8px; border:1px solid var(--glass-border); background:var(--darker); color:white; font-size:14px;">
+                    <input type="number" id="portShares" placeholder="Shares" style="padding:12px; border-radius:8px; border:1px solid var(--glass-border); background:var(--darker); color:white; font-size:14px;">
+                    <input type="number" id="portCost" placeholder="Cost Price" style="padding:12px; border-radius:8px; border:1px solid var(--glass-border); background:var(--darker); color:white; font-size:14px;">
+                </div>
+                <button onclick="addPosition()" class="btn-primary" style="width:100%;">➕ Add Position</button>
+            </div>
+            
+            <!-- Portfolio Summary -->
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:15px; margin-bottom:20px;">
+                <div style="background:var(--glass); border-radius:12px; padding:15px; text-align:center;">
+                    <div style="color:var(--gray); font-size:12px;">Total Value</div>
+                    <div id="portTotalValue" style="font-size:24px; font-weight:700; color:var(--light);">¥0</div>
+                </div>
+                <div style="background:var(--glass); border-radius:12px; padding:15px; text-align:center;">
+                    <div style="color:var(--gray); font-size:12px;">Total P&L</div>
+                    <div id="portPnLDisplay" style="font-size:24px; font-weight:700; color:#10b981;">¥0</div>
+                </div>
+                <div style="background:var(--glass); border-radius:12px; padding:15px; text-align:center;">
+                    <div style="color:var(--gray); font-size:12px;">Return %</div>
+                    <div id="portReturn" style="font-size:24px; font-weight:700; color:#10b981;">0%</div>
+                </div>
+            </div>
+            
+            <!-- Positions Table -->
+            <table style="width:100%; border-collapse:collapse;">
+                <thead>
+                    <tr style="border-bottom:1px solid var(--glass-border);">
+                        <th style="text-align:left; padding:12px; color:var(--gray); font-size:12px;">Stock</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;">Shares</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;">Cost</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;">Current</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;">P&L</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;"></th>
+                    </tr>
+                </thead>
+                <tbody id="positionsTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Real-time Signals Panel -->
+    <div style="position:fixed; right:20px; top:100px; width:320px; background:var(--dark); border:1px solid var(--glass-border); border-radius:16px; padding:20px; z-index:1000; display:none;" id="signalsPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h4 style="color:var(--light);">📡 Live Signals</h4>
+            <button onclick="toggleSignals()" style="background:none; border:none; color:var(--gray); cursor:pointer;">&times;</button>
+        </div>
+        <div id="signalsList" style="max-height:300px; overflow-y:auto;"></div>
+    </div>
+
+    <script>
+    // ===== ENHANCED DATA & FUNCTIONS =====
+    
+    // Market Status
+    function getMarketStatus() {
+        const now = new Date();
+        const hour = now.getHours();
+        const day = now.getDay();
+        if (day === 0 || day === 6) return { status: 'closed', text: 'Market Closed', color: '#ef4444' };
+        if (hour < 9 || hour >= 15) return { status: 'closed', text: 'Market Closed', color: '#ef4444' };
+        if (hour === 9 && now.getMinutes() < 30) return { status: 'pre', text: 'Pre-Market', color: '#f59e0b' };
+        return { status: 'open', text: 'Market Open', color: '#10b981' };
+    }
+    
+    // Live Ticker Data - Expanded
+    const tickerStocks = [
+        {name: "贵州茅台", code: "sh600519", price: 1850.20, change: 2.3},
+        {name: "宁德时代", code: "sz300750", price: 220.50, change: 3.8},
+        {name: "比亚迪", code: "sz002594", price: 245.80, change: -1.2},
+        {name: "隆基绿能", code: "sh601012", price: 24.50, change: 5.2},
+        {name: "腾讯控股", code: "hk00700", price: 385.60, change: 1.5},
+        {name: "阿里巴巴", code: "hk09988", price: 78.90, change: 0.8},
+        {name: "美团", code: "hk03690", price: 128.50, change: 2.1},
+        {name: "招商银行", code: "sh600036", price: 35.80, change: 0.5},
+        {name: "中国平安", code: "sh601318", price: 48.20, change: -0.3},
+        {name: "京东集团", code: "hk09618", price: 125.60, change: 1.8},
+    ];
+    
+    // Demo Signals
+    const demoSignals = [
+        { stock: "隆基绿能", code: "sh601012", type: "BUY", price: 18.94, target: 21.50, stop: 17.50, time: "12:30" },
+        { stock: "宁德时代", code: "sz300750", type: "WATCH", price: 221.50, target: 240.00, stop: 210.00, time: "12:15" },
+        { stock: "贵州茅台", code: "sh600519", type: "BUY", price: 1852.00, target: 1950.00, stop: 1800.00, time: "11:45" },
+    ];
+    
+    // Sector Heatmap Data
+    const sectors = [
+        { name: "新能源", change: 3.2, heat: 90 },
+        { name: "半导体", change: 2.1, heat: 75 },
+        { name: "医药", change: 1.5, heat: 60 },
+        { name: "消费", change: 0.8, heat: 45 },
+        { name: "金融", change: -0.5, heat: 30 },
+        { name: "房地产", change: -1.2, heat: 15 },
+    ];
+    
+    // Stock Lookup Function
+    async function lookupStock() {
+        const code = document.getElementById("stockCodeInput").value.trim().toLowerCase();
+        if (!code) return;
+        
+        const resultDiv = document.getElementById("stockResult");
+        resultDiv.innerHTML = '<div style="text-align:center; color:var(--gray);">Loading...</div>';
+        
+        try {
+            const res = await fetch("https://qt.gtimg.cn/q=" + code);
+            const text = await res.text();
+            const m = text.match(/="([^"]+)"/);
+            
+            if (m) {
+                const f = m[1].split("~");
+                const name = f[1];
+                const price = parseFloat(f[3]);
+                const change = parseFloat(f[5]);
+                const volume = (parseInt(f[4]) / 1000000).toFixed(1);
+                const amount = (parseInt(f[5]) / 100000000).toFixed(2);
+                const high = parseFloat(f[33]);
+                const low = parseFloat(f[34]);
+                const open = parseFloat(f[35]);
+                
+                const color = change >= 0 ? "#10b981" : "#ef4444";
+                const sign = change >= 0 ? "+" : "";
+                
+                resultDiv.innerHTML = `
+                    <div style="background:var(--glass); border-radius:12px; padding:20px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                            <div>
+                                <div style="font-size:18px; font-weight:600; color:var(--light);">${name}</div>
+                                <div style="color:var(--gray); font-size:14px;">${code.toUpperCase()}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div style="font-size:24px; font-weight:700; color:${color};">¥${price.toFixed(2)}</div>
+                                <div style="color:${color}; font-size:16px;">${sign}${change.toFixed(2)}%</div>
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; font-size:13px;">
+                            <div><span style="color:var(--gray);">Open:</span> <span style="color:var(--light);">¥${open.toFixed(2)}</span></div>
+                            <div><span style="color:var(--gray);">High:</span> <span style="color:#10b981;">¥${high.toFixed(2)}</span></div>
+                            <div><span style="color:var(--gray);">Low:</span> <span style="color:#ef4444;">¥${low.toFixed(2)}</span></div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; font-size:13px; margin-top:10px;">
+                            <div><span style="color:var(--gray);">Volume:</span> <span style="color:var(--light);">${volume}M</span></div>
+                            <div><span style="color:var(--gray);">Amount:</span> <span style="color:var(--light);">¥${amount}B</span></div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = '<div style="text-align:center; color:#ef4444;">Stock not found</div>';
+            }
+        } catch(e) {
+            resultDiv.innerHTML = '<div style="text-align:center; color:#ef4444;">Error fetching data</div>';
+        }
+    }
+    
+    function openLookup() { document.getElementById("stockLookup").style.display = "flex"; }
+    function closeLookup() { document.getElementById("stockLookup").style.display = "none"; }
+    
+    // Portfolio Functions
+    let portfolio = JSON.parse(localStorage.getItem('newstrategy_portfolio') || '[]');
+    
+    function openPortfolio() { 
+        document.getElementById("portfolioModal").style.display = "flex";
+        updatePortfolio();
+    }
+    function closePortfolio() { document.getElementById("portfolioModal").style.display = "none"; }
+    
+    async function addPosition() {
+        const code = document.getElementById("portCode").value.trim().toLowerCase();
+        const shares = parseInt(document.getElementById("portShares").value);
+        const cost = parseFloat(document.getElementById("portCost").value);
+        
+        if (!code || !shares || !cost) {
+            alert("Please fill all fields");
+            return;
+        }
+        
+        // Get current price
+        let currentPrice = cost;
+        try {
+            const res = await fetch("https://qt.gtimg.cn/q=" + code);
+            const text = await res.text();
+            const m = text.match(/="([^"]+)"/);
+            if (m) currentPrice = parseFloat(m[1].split("~")[3]);
+        } catch(e) {}
+        
+        portfolio.push({ code, shares, cost, currentPrice });
+        localStorage.setItem('newstrategy_portfolio', JSON.stringify(portfolio));
+        
+        // Clear inputs
+        document.getElementById("portCode").value = "";
+        document.getElementById("portShares").value = "";
+        document.getElementById("portCost").value = "";
+        
+        updatePortfolio();
+    }
+    
+    function removePosition(index) {
+        portfolio.splice(index, 1);
+        localStorage.setItem('newstrategy_portfolio', JSON.stringify(portfolio));
+        updatePortfolio();
+    }
+    
+    async function updatePortfolio() {
+        const tbody = document.getElementById("positionsTable");
+        let totalValue = 0;
+        let totalCost = 0;
+        
+        // Update current prices
+        for (let i = 0; i < portfolio.length; i++) {
+            try {
+                const res = await fetch("https://qt.gtimg.cn/q=" + portfolio[i].code);
+                const text = await res.text();
+                const m = text.match(/="([^"]+)"/);
+                if (m) portfolio[i].currentPrice = parseFloat(m[1].split("~")[3]);
+            } catch(e) {}
+        }
+        
+        tbody.innerHTML = portfolio.map((p, i) => {
+            const value = p.shares * p.currentPrice;
+            const costBasis = p.shares * p.cost;
+            const pnl = value - costBasis;
+            const pnlPercent = ((p.currentPrice - p.cost) / p.cost * 100);
+            
+            totalValue += value;
+            totalCost += costBasis;
+            
+            const pnlColor = pnl >= 0 ? "#10b981" : "#ef4444";
+            const sign = pnl >= 0 ? "+" : "";
+            
+            return `<tr style="border-bottom:1px solid var(--glass-border);">
+                <td style="padding:12px; color:var(--light); font-weight:600;">${p.code.toUpperCase()}</td>
+                <td style="padding:12px; text-align:right; color:var(--light);">${p.shares}</td>
+                <td style="padding:12px; text-align:right; color:var(--light);">¥${p.cost.toFixed(2)}</td>
+                <td style="padding:12px; text-align:right; color:var(--light);">¥${p.currentPrice.toFixed(2)}</td>
+                <td style="padding:12px; text-align:right; color:${pnlColor};">${sign}¥${pnl.toFixed(2)} (${sign}${pnlPercent.toFixed(1)}%)</td>
+                <td style="padding:12px; text-align:right;">
+                    <button onclick="removePosition(${i})" style="background:#ef4444; border:none; color:white; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px;">✕</button>
+                </td>
+            </tr>`;
+        }).join('');
+        
+        const totalPnL = totalValue - totalCost;
+        const returnPct = totalCost > 0 ? (totalPnL / totalCost * 100) : 0;
+        const pnlColor = totalPnL >= 0 ? "#10b981" : "#ef4444";
+        
+        document.getElementById("portTotalValue").innerText = "¥" + totalValue.toLocaleString();
+        document.getElementById("portPnLDisplay").innerText = (totalPnL >= 0 ? "+" : "") + "¥" + totalPnL.toLocaleString();
+        document.getElementById("portPnLDisplay").style.color = pnlColor;
+        document.getElementById("portReturn").innerText = (returnPct >= 0 ? "+" : "") + returnPct.toFixed(1) + "%";
+        document.getElementById("portReturn").style.color = pnlColor;
+    }
+    
+    // Toggle Signals Panel
+    function toggleSignals() {
+        const panel = document.getElementById("signalsPanel");
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+    }
+    
+    // Render Signals
+    function renderSignals() {
+        const list = document.getElementById("signalsList");
+        list.innerHTML = demoSignals.map(s => `
+            <div style="background:var(--glass); border-radius:10px; padding:12px; margin-bottom:10px; border-left:3px solid ${s.type === 'BUY' ? '#10b981' : '#f59e0b'};">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-weight:600; color:var(--light);">${s.stock}</span>
+                    <span style="font-size:12px; padding:2px 8px; border-radius:4px; background:${s.type === 'BUY' ? 'rgba(16,185,129,0.2)' : 'rgba(245,158,11,0.2)'}; color:${s.type === 'BUY' ? '#10b981' : '#f59e0b'};">${s.type}</span>
+                </div>
+                <div style="font-size:13px; color:var(--gray); margin-top:5px;">
+                    Entry: <span style="color:var(--light);">¥${s.price}</span> | Target: <span style="color:#10b981;">¥${s.target}</span>
+                </div>
+                <div style="font-size:12px; color:var(--gray);">Stop: <span style="color:#ef4444;">¥${s.stop}</span> | ${s.time}</div>
+            </div>
+        `).join('');
+    }
+    
+    // Sector Heatmap
+    function renderSectors() {
+        const container = document.getElementById("sectorHeatmap");
+        if (!container) return;
+        container.innerHTML = sectors.map(s => `
+            <div style="background:linear-gradient(135deg, rgba(16,185,129,${s.heat/150}), rgba(16,185,129,0.1)); border-radius:10px; padding:15px; text-align:center; flex:1; min-width:100px;">
+                <div style="font-size:14px; font-weight:600; color:var(--light);">${s.name}</div>
+                <div style="font-size:18px; font-weight:700; color:${s.change >= 0 ? '#10b981' : '#ef4444'};">${s.change >= 0 ? '+' : ''}${s.change}%</div>
+            </div>
+        `).join('');
+    }
+    
+    // Enhanced Ticker Update
+    async function updateTicker() {
+        const ticker = document.getElementById("liveTicker");
+        let html = "";
+        
+        for (const stock of tickerStocks) {
+            try {
+                const res = await fetch("https://qt.gtimg.cn/q=" + stock.code);
+                const text = await res.text();
+                const m = text.match(/="([^"]+)"/);
+                if (m) {
+                    const f = m[1].split("~");
+                    stock.price = parseFloat(f[3]);
+                    stock.change = parseFloat(f[5]);
+                }
+            } catch(e) {}
+            
+            const color = stock.change >= 0 ? "#10b981" : "#ef4444";
+            const sign = stock.change >= 0 ? "+" : "";
+            html += `<div class="ticker-item">
+                <span class="ticker-name">${stock.name}</span>
+                <span class="ticker-price" style="color:${color}">¥${stock.price.toFixed(2)}</span>
+                <span class="ticker-price" style="color:${color}">${sign}${stock.change.toFixed(2)}%</span>
+            </div>`;
+        }
+        
+        ticker.innerHTML = html + html;
+    }
+    
+    // Update market status indicator
+    function updateMarketStatus() {
+        const status = getMarketStatus();
+        const el = document.getElementById("marketStatus");
+        if (el) {
+            el.innerHTML = `<span style="width:8px; height:8px; background:${status.color}; border-radius:50%; display:inline-block; margin-right:8px;"></span>${status.text}`;
+        }
+    }
+    
+    // Initialize
+    updateTicker();
+    updateMarketStatus();
+    renderSignals();
+    renderSectors();
+    setInterval(updateTicker, 10000);
+    setInterval(updateMarketStatus, 60000);
+    
+    // Add keyboard shortcut for lookup
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') { closeLookup(); closePortfolio(); }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            openLookup();
+        }
+    });
+    </script>
+</body>
+</html>
