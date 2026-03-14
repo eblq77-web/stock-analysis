@@ -1056,37 +1056,85 @@
         "Ichimoku Cloud": { name: "Ichimoku Cloud", type: "ichimoku", category: "cloud", description: "Multi-line analysis" },
     };
     
-    // ADVANCED SIGNAL TYPES (15+)
+    // ULTRA SIGNAL TYPES (30+ Signals)
     const signalTypes = [
+        // Trend Signals
         { id: "BREAKOUT", label: "🚀 Breakout", color: "#10b981", risk: "high", description: "Price breaks resistance" },
         { id: "PULLBACK", label: "📉 Pullback Entry", color: "#22c55e", risk: "medium", description: "Retest broken level" },
         { id: "REVERSAL", label: "🔄 Reversal", color: "#f59e0b", risk: "high", description: "Trend reversal signal" },
         { id: "MOMENTUM", label: "💨 Momentum", color: "#8b5cf6", risk: "medium", description: "Strong trend continuation" },
+        { id: "TREND CONTINUE", label: "➡️ Trend Continue", color: "#14b8a6", risk: "low", description: "Trend continues" },
+        
+        // Volume Signals
         { id: "VOLUME", label: "📊 Volume Surge", color: "#06b6d4", risk: "medium", description: "Unusual volume activity" },
+        { id: "VOLUME SPIKE", label: "💥 Volume Spike", color: "#ec4899", risk: "medium", description: "Volume > 2x average" },
+        { id: "LOW VOLUME", label: "📉 Low Volume", color: "#94a3b8", risk: "low", description: "Weak participation" },
         { id: "ACCUMULATION", label: "📦 Accumulation", color: "#3b82f6", risk: "low", description: "Smart money buying" },
         { id: "DISTRIBUTION", label: "📤 Distribution", color: "#ef4444", risk: "medium", description: "Smart money selling" },
+        
+        // Support/Resistance
         { id: "SUPPORT", label: "🛡️ Support Bounce", color: "#14b8a6", risk: "low", description: "Buy at support" },
         { id: "RESISTANCE", label: "🏰 Resistance Break", color: "#f97316", risk: "high", description: "Break major resistance" },
+        { id: "NEW HIGH", label: "⬆️ New High", color: "#10b981", risk: "medium", description: "52-week high" },
+        { id: "NEW LOW", label: "⬇️ New Low", color: "#ef4444", risk: "medium", description: "52-week low" },
+        
+        // RSI/MACD
         { id: "OVERSOLD", label: "🔻 Oversold RSI", color: "#06b6d4", risk: "medium", description: "RSI < 30, potential bounce" },
         { id: "OVERBOUGHT", label: "🔺 Overbought RSI", color: "#f43f5e", risk: "medium", description: "RSI > 70, potential pullback" },
+        { id: "RSI NEUTRAL", label: "⚖️ RSI Neutral", color: "#22c55e", risk: "low", description: "RSI 40-60" },
+        { id: "MACD BULLISH", label: "📗 MACD Bullish", color: "#10b981", risk: "low", description: "MACD crosses up" },
+        { id: "MACD BEARISH", label: "📕 MACD Bearish", color: "#ef4444", risk: "low", description: "MACD crosses down" },
+        
+        // Moving Averages
         { id: "GOLDEN CROSS", label: "✨ Golden Cross", color: "#fbbf24", risk: "low", description: "MA50 crosses above MA200" },
         { id: "DEATH CROSS", label: "💀 Death Cross", color: "#9ca3af", risk: "medium", description: "MA50 crosses below MA200" },
+        { id: "MA SUPPORT", label: "📐 MA Support", color: "#14b8a6", risk: "low", description: "Price bounces off MA" },
+        { id: "MA RESISTANCE", label: "🚧 MA Resistance", color: "#f97316", risk: "medium", description: "Hits moving average" },
+        
+        // Divergence
         { id: "DIV Bullish", label: "📈 Bullish Divergence", color: "#10b981", risk: "low", description: "Price down, RSI up" },
         { id: "DIV Bearish", label: "📉 Bearish Divergence", color: "#ef4444", risk: "low", description: "Price up, RSI down" },
-        { id: "VOLUME SPIKE", label: "💥 Volume Spike", color: "#ec4899", risk: "medium", description: "Volume > 2x average" },
+        { id: "HIDDEN DIV", label: "🔎 Hidden Bullish", color: "#10b981", risk: "low", description: "Hidden bullish divergence" },
+        
+        // Special
+        { id: "GAP UP", label: "⬆️ Gap Up", color: "#10b981", risk: "high", description: "Opens above previous close" },
+        { id: "GAP DOWN", label: "⬇️ Gap Down", color: "#ef4444", risk: "high", description: "Opens below previous close" },
+        { id: "INSIDER BUY", label: "👤 Insider Buying", color: "#10b981", risk: "low", description: "Insider transactions" },
+        { id: "INSIDER SELL", label: "👥 Insider Selling", color: "#ef4444", risk: "medium", description: "Insider selling" },
+        { id: "NEWS CATALYST", label: "📰 News Catalyst", color: "#8b5cf6", risk: "medium", description: "Breaking news impact" },
+        { id: "EARNINGS", label: "💰 Earnings Play", color: "#f59e0b", risk: "high", description: "Around earnings" },
     ];
     
-    // ADVANCED SIGNALS WITH FULL METADATA
+    // ULTRA SIGNALS - 25+ STOCKS
     const enhancedSignals = [
-        { stock: "隆基绿能", code: "sh601012", signal: "BREAKOUT", pattern: "Bull Flag", price: 18.94, target: 21.50, stop: 17.50, rsi: 65, macd: "bullish", volume: 2.3, time: "12:30", confidence: 85, risk: "medium", timeframe: "4H" },
-        { stock: "宁德时代", code: "sz300750", signal: "MOMENTUM", pattern: "Three White Soldiers", price: 221.50, target: 240.00, stop: 210.00, rsi: 72, macd: "bullish", volume: 1.8, time: "12:15", confidence: 92, risk: "low", timeframe: "1D" },
-        { stock: "贵州茅台", code: "sh600519", signal: "SUPPORT", pattern: "Double Bottom", price: 1852.00, target: 1950.00, stop: 1800.00, rsi: 55, macd: "bullish", volume: 1.2, time: "11:45", confidence: 88, risk: "low", timeframe: "1D" },
-        { stock: "比亚迪", code: "sz002594", signal: "PULLBACK", pattern: "Ascending Triangle", price: 268.30, target: 290.00, stop: 255.00, rsi: 68, macd: "bullish", volume: 1.5, time: "11:30", confidence: 78, risk: "medium", timeframe: "4H" },
-        { stock: "招商银行", code: "sh600036", signal: "ACCUMULATION", pattern: "Cup & Handle", price: 42.15, target: 45.00, stop: 40.00, rsi: 58, macd: "bullish", volume: 3.2, time: "11:15", confidence: 90, risk: "low", timeframe: "1D" },
-        { stock: "中国平安", code: "sh601318", signal: "REVERSAL", pattern: "Inverse H&S", price: 48.20, target: 52.00, stop: 45.50, rsi: 42, macd: "turning", volume: 1.4, time: "10:45", confidence: 88, risk: "medium", timeframe: "4H" },
-        { stock: "紫光国微", code: "sz002049", signal: "BREAKOUT", pattern: "Harmonic Bullish", price: 118.50, target: 135.00, stop: 110.00, rsi: 75, macd: "strong", volume: 2.1, time: "10:30", confidence: 95, risk: "high", timeframe: "1H" },
-        { stock: "海康威视", code: "sz002415", signal: "VOLUME SPIKE", pattern: "AB=CD Bullish", price: 32.80, target: 36.00, stop: 30.50, rsi: 52, macd: "bullish", volume: 3.8, time: "10:15", confidence: 86, risk: "medium", timeframe: "30M" },
-        { stock: "三一重工", code: "sh600031", signal: "GOLDEN CROSS", pattern: "EMA Crossover", price: 18.60, target: 20.50, stop: 17.20, rsi: 62, macd: "bullish", volume: 1.6, time: "10:00", confidence: 82, risk: "low", timeframe: "1D" },
+        // High Confidence Signals
+        { stock: "隆基绿能", code: "sh601012", signal: "BREAKOUT", pattern: "Bull Flag", price: 18.94, target: 21.50, stop: 17.50, rsi: 65, macd: "bullish", volume: 2.3, time: "14:25", confidence: 92, risk: "medium", timeframe: "4H" },
+        { stock: "宁德时代", code: "sz300750", signal: "MOMENTUM", pattern: "Three White Soldiers", price: 221.50, target: 240.00, stop: 210.00, rsi: 72, macd: "bullish", volume: 1.8, time: "14:20", confidence: 95, risk: "low", timeframe: "1D" },
+        { stock: "贵州茅台", code: "sh600519", signal: "SUPPORT", pattern: "Double Bottom", price: 1852.00, target: 1950.00, stop: 1800.00, rsi: 55, macd: "bullish", volume: 1.2, time: "14:15", confidence: 88, risk: "low", timeframe: "1D" },
+        { stock: "比亚迪", code: "sz002594", signal: "PULLBACK", pattern: "Ascending Triangle", price: 268.30, target: 290.00, stop: 255.00, rsi: 68, macd: "bullish", volume: 1.5, time: "14:10", confidence: 78, risk: "medium", timeframe: "4H" },
+        { stock: "招商银行", code: "sh600036", signal: "ACCUMULATION", pattern: "Cup & Handle", price: 42.15, target: 45.00, stop: 40.00, rsi: 58, macd: "bullish", volume: 3.2, time: "14:05", confidence: 90, risk: "low", timeframe: "1D" },
+        { stock: "中国平安", code: "sh601318", signal: "REVERSAL", pattern: "Inverse H&S", price: 48.20, target: 52.00, stop: 45.50, rsi: 42, macd: "turning", volume: 1.4, time: "14:00", confidence: 88, risk: "medium", timeframe: "4H" },
+        { stock: "紫光国微", code: "sz002049", signal: "BREAKOUT", pattern: "Harmonic Bullish", price: 118.50, target: 135.00, stop: 110.00, rsi: 75, macd: "strong", volume: 2.1, time: "13:55", confidence: 95, risk: "high", timeframe: "1H" },
+        { stock: "海康威视", code: "sz002415", signal: "VOLUME SPIKE", pattern: "AB=CD Bullish", price: 32.80, target: 36.00, stop: 30.50, rsi: 52, macd: "bullish", volume: 3.8, time: "13:50", confidence: 86, risk: "medium", timeframe: "30M" },
+        { stock: "三一重工", code: "sh600031", signal: "GOLDEN CROSS", pattern: "EMA Crossover", price: 18.60, target: 20.50, stop: 17.20, rsi: 62, macd: "bullish", volume: 1.6, time: "13:45", confidence: 82, risk: "low", timeframe: "1D" },
+        { stock: "中芯国际", code: "sh688981", signal: "OVERSOLD", pattern: "Hammer", price: 52.30, target: 58.00, stop: 48.50, rsi: 28, macd: "turning", volume: 2.4, time: "13:40", confidence: 78, risk: "medium", timeframe: "4H" },
+        
+        // Additional Signals
+        { stock: "药明康德", code: "sh603259", signal: "RSI NEUTRAL", pattern: "Support Bounce", price: 68.50, target: 75.00, stop: 65.00, rsi: 48, macd: "bullish", volume: 1.3, time: "13:35", confidence: 75, risk: "low", timeframe: "1D" },
+        { stock: "恒瑞医药", code: "sh600276", signal: "DIV Bullish", pattern: "Hidden Divergence", price: 52.80, target: 58.00, stop: 49.50, rsi: 35, macd: "turning", volume: 1.1, time: "13:30", confidence: 72, risk: "low", timeframe: "4H" },
+        { stock: "美的集团", code: "sz000333", signal: "TREND CONTINUE", pattern: "Marubozu", price: 62.40, target: 68.00, stop: 58.50, rsi: 65, macd: "strong", volume: 1.9, time: "13:25", confidence: 85, risk: "low", timeframe: "1D" },
+        { stock: "立讯精密", code: "sz002475", signal: "MACD BULLISH", pattern: "Golden Cross", price: 35.20, target: 39.00, stop: 32.50, rsi: 55, macd: "bullish", volume: 1.7, time: "13:20", confidence: 80, risk: "low", timeframe: "4H" },
+        { stock: "韦尔股份", code: "sh603501", signal: "NEW HIGH", pattern: "Momentum", price: 98.60, target: 110.00, stop: 92.00, rsi: 78, macd: "strong", volume: 2.5, time: "13:15", confidence: 88, risk: "medium", timeframe: "1H" },
+        { stock: "北方华创", code: "sz002371", signal: "GAP UP", pattern: "Bullish Gap", price: 385.00, target: 420.00, stop: 365.00, rsi: 70, macd: "strong", volume: 2.2, time: "13:10", confidence: 90, risk: "high", timeframe: "30M" },
+        { stock: "拓普集团", code: "sh601689", signal: "INSIDER BUY", pattern: "Accumulation", price: 72.30, target: 80.00, stop: 68.00, rsi: 52, macd: "bullish", volume: 1.4, time: "13:05", confidence: 76, risk: "low", timeframe: "1D" },
+        { stock: "德赛西威", code: "sz002920", signal: "NEWS CATALYST", pattern: "Breakout", price: 118.00, target: 135.00, stop: 108.00, rsi: 68, macd: "bullish", volume: 2.8, time: "13:00", confidence: 82, risk: "medium", timeframe: "1H" },
+        { stock: "阳光电源", code: "sz300274", signal: "MA SUPPORT", pattern: "Bull Flag", price: 98.50, target: 110.00, stop: 92.00, rsi: 58, macd: "bullish", volume: 1.6, time: "12:55", confidence: 79, risk: "low", timeframe: "4H" },
+        { stock: "锦浪科技", code: "sz300749", signal: "OVERSOLD", pattern: "Hammer", price: 68.20, target: 75.00, stop: 63.50, rsi: 25, macd: "turning", volume: 2.0, time: "12:50", confidence: 75, risk: "medium", timeframe: "4H" },
+        { stock: "天合光能", code: "sh688599", signal: "BREAKOUT", pattern: "Cup & Handle", price: 42.80, target: 48.00, stop: 39.50, rsi: 62, macd: "bullish", volume: 1.8, time: "12:45", confidence: 84, risk: "medium", timeframe: "1H" },
+        { stock: "通威股份", code: "sh600438", signal: "MOMENTUM", pattern: "Three White Soldiers", price: 38.60, target: 42.00, stop: 35.80, rsi: 69, macd: "strong", volume: 2.1, time: "12:40", confidence: 86, risk: "medium", timeframe: "4H" },
+        { stock: "亿纬锂能", code: "sz300014", signal: "VOLUME", pattern: "Accumulation", price: 85.50, target: 95.00, stop: 80.00, rsi: 58, macd: "bullish", volume: 3.5, time: "12:35", confidence: 88, risk: "low", timeframe: "1D" },
+        { stock: "恩捷股份", code: "sz002812", signal: "GAP DOWN", pattern: "Gap Fill", price: 28.50, target: 32.00, stop: 26.00, rsi: 35, macd: "turning", volume: 1.9, time: "12:30", confidence: 65, risk: "high", timeframe: "1H" },
+        { stock: "当升科技", code: "sz300073", signal: "REVERSAL", pattern: "Inverse H&S", price: 52.30, target: 58.00, stop: 48.50, rsi: 38, macd: "turning", volume: 1.5, time: "12:25", confidence: 80, risk: "medium", timeframe: "4H" },
         { stock: "中芯国际", code: "sh688981", signal: "OVERSOLD", pattern: "Hammer", price: 52.30, target: 58.00, stop: 48.50, rsi: 28, macd: "turning", volume: 2.4, time: "09:45", confidence: 78, risk: "medium", timeframe: "4H" },
     ];
         { stock: "中国平安", code: "sh601318", signal: "REVERSAL", pattern: "Inverse H&S", price: 48.20, target: 52.00, stop: 45.50, rsi: 42, macd: "turning", volume: 1.4, time: "10:45" },
