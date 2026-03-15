@@ -1,0 +1,43 @@
+{
+  "templates": {
+    "daily_signal": {
+      "name": "Daily Signal Alert",
+      "content": "📊 **每日信号播报**\n\n🎯 **今日推荐**: {stock_name} ({stock_code})\n💰 **买入价**: ¥{entry_price}\n🎯 **目标价**: ¥{target_price}\n🛡️ **止损价**: ¥{stop_loss}\n📈 **逻辑**: {signal_reason}\n\n---\n{disclaimer}"
+    },
+    "portfolio_update": {
+      "name": "Portfolio Update",
+      "content": "📦 **持仓更新** ({date})\n\n{holdings}\n\n💵 **现金**: ¥{cash}\n📊 **总市值**: ¥{total_value}\n📈 **今日盈亏**: {daily_pnl}%\n\n---\n{disclaimer}"
+    },
+    "market_overview": {
+      "name": "Market Overview",
+      "content": "� **市场概况** ({date})\n\n📈 **上证指数**: {sh_index}\n📉 **深证成指**: {sz_index}\n🔥 **热门板块**: {hot_sectors}\n💎 **资金流向**: {money_flow}\n\n---\n{disclaimer}"
+    },
+    "welcome": {
+      "name": "Welcome Message",
+      "content": "👋 **欢迎关注Super Brain!**\n\n我是Charles的智能交易助手，专门为各位投资者提供：\n\n✅ **每日交易信号**\n✅ **持仓跟踪分析**\n✅ **市场热点解读**\n✅ **机构资金监测**\n\n关注我，获取更多投资机会！🚀\n\n---\n{disclaimer}"
+    },
+    "weekly_summary": {
+      "name": "Weekly Summary",
+      "content": "📅 **每周总结** ({week})\n\n📈 **盈利交易**: {win_count}笔\n📉 **亏损交易**: {loss_count}笔\n💰 **总收益**: {total_pnl}%\n🏆 **最佳交易**: {best_trade}\n\n{performance_chart}\n\n---\n{disclaimer}"
+    }
+  },
+  "delivery": {
+    "feishu": {
+      "enabled": true,
+      "chat_id": ""
+    },
+    "email": {
+      "enabled": false,
+      "recipients": []
+    },
+    "whatsapp": {
+      "enabled": false,
+      "recipients": []
+    }
+  },
+  "schedule": {
+    "daily_report": "09:00",
+    "weekly_summary": "Monday 09:00",
+    "market_open": "09:30"
+  }
+}

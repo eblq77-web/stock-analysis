@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>China Stock Insights</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#1a1a2e}.container{max-width:900px;margin:0 auto;background:#fff}
+.header{background:linear-gradient(135deg,#0f172a,#1e293b);padding:50px;position:relative}
+.logo{display:flex;align-items:center;gap:15px;margin-bottom:20px}
+.logo-icon{width:50px;height:50px;background:linear-gradient(135deg,#06b6d4,#8b5cf6);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.logo-text{font-size:28px;font-weight:800;color:#fff}
+.header h1{font-size:36px;font-weight:800;color:#fff;margin-bottom:8px}
+.header .subtitle{color:#94a3b8;font-size:16px;margin-bottom:25px}
+.header-meta{display:flex;gap:20px}
+.meta-badge{background:rgba(255,255,255,0.1);padding:8px 16px;border-radius:20px;color:#cbd5e1;font-size:13px}
+.meta-badge strong{color:#fff}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);background:#f8fafc;border-bottom:1px solid #e2e8f0}
+.stat-box{padding:25px 20px;text-align:center;border-right:1px solid #e2e8f0}
+.stat-box:last-child{border-right:none}
+.stat-box .label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.stat-box .value{font-size:28px;font-weight:800;background:linear-gradient(135deg,#0f172a,#334155);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-box .trend{font-size:13px;margin-top:4px}
+.stat-box .trend.up{color:#10b981}
+.section{padding:35px 40px;border-bottom:1px solid #e2e8f0}
+.section-title{font-size:20px;font-weight:700;color:#0f172a;margin-bottom:25px;display:flex;align-items:center;gap:10px}
+.section-badge{background:linear-gradient(135deg,#06b6d4,#8b5cf6);color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600}
+.market-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.market-card{background:#f8fafc;padding:22px;border-radius:14px;border:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center}
+.market-info .name{font-size:14px;color:#64748b;margin-bottom:4px}
+.market-info .price{font-size:26px;font-weight:700;color:#0f172a}
+.market-change .pct{font-size:22px;font-weight:700}
+.market-change .pct.positive{color:#10b981}
+.market-change .pct.negative{color:#ef4444}
+.stock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.stock-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.stock-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,#10b981,#06b6d4)}
+.stock-rank{position:absolute;top:12px;right:15px;width:28px;height:28px;background:#0f172a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.stock-name{font-size:18px;font-weight:700;color:#0f172a}
+.stock-code{font-size:13px;color:#06b6d4;font-weight:500;margin-bottom:12px}
+.stock-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stock-meta-item{font-size:12px}
+.stock-meta-item span{color:#64748b}
+.stock-meta-item strong{color:#0f172a;display:block;margin-top:2px}
+.stock-score{margin-top:15px;padding-top:15px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center}
+.score-value{background:linear-gradient(135deg,#10b981,#06b6d4);color:#fff;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600}
+.inflow-value{font-size:13px;font-weight:600;color:#10b981}
+.gem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.gem-card{background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #f59e0b;border-radius:14px;padding:20px}
+.gem-card .tag{background:#f59e0b;color:#fff;padding:4px 10px;border-radius:12px;font-size:10px;font-weight:600;display:inline-block;margin-bottom:10px}
+.gem-card .name{font-size:16px;font-weight:700;color:#92400e}
+.gem-card .code{font-size:12px;color:#b45309;margin-bottom:10px}
+.gem-card .catalyst{font-size:12px;color:#92400e}
+.sector-flow{display:flex;flex-direction:column;gap:15px}
+.sector-row{display:flex;align-items:center;gap:15px}
+.sector-phase{width:80px;font-size:12px;font-weight:600;padding:8px 12px;border-radius:8px;text-align:center}
+.sector-phase.hot{background:#fef2f2;color:#dc2626}
+.sector-phase.next{background:#fef3c7;color:#d97706}
+.sector-phase.later{background:#f3e8ff;color:#7c3aed}
+.sector-tags{display:flex;gap:10px;flex-wrap:wrap}
+.sector-tag{background:#f1f5f9;padding:8px 16px;border-radius:20px;font-size:14px;font-weight:500;color:#475569}
+.trade-table{width:100%;border-collapse:collapse}
+.trade-table th{text-align:left;padding:14px 16px;background:#f8fafc;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#64748b;border-bottom:1px solid #e2e8f0}
+.trade-table td{padding:16px;border-bottom:1px solid #e2e8f0;vertical-align:middle}
+.trade-table .stock-cell{display:flex;flex-direction:column}
+.trade-table .stock-name{font-weight:600;color:#0f172a}
+.trade-table .stock-code{font-size:12px;color:#06b6d4}
+.action-badge{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600}
+.action-buy{background:#d1fae5;color:#059669}
+.action-watch{background:#fef3c7;color:#d97706}
+.target{color:#10b981;font-weight:600}
+.stop{color:#ef4444}
+.alert-box{background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:20px;display:flex;gap:15px;align-items:flex-start}
+.alert-icon{font-size:24px}
+.alert-content h4{color:#dc2626;font-size:14px;margin-bottom:5px}
+.alert-content p{color:#7f1d1d;font-size:13px}
+.footer{background:#0f172a;padding:50px;text-align:center}
+.footer .cta{color:#fff;font-size:22px;font-weight:700;margin-bottom:25px}
+.footer .contact{display:flex;justify-content:center;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+.footer .contact-item{color:#94a3b8;font-size:14px}
+.footer .contact-item span{color:#fff}
+.footer .disclaimer{color:#475569;font-size:11px;max-width:700px;margin:0 auto;line-height:1.7}
+.footer .brand{margin-top:30px;padding-top:30px;border-top:1px solid #1e293b;color:#64748b;font-size:12px}
+@media(max-width:768px){.hero-stats,.market-grid,.stock-grid,.gem-grid{grid-template-columns:1fr}.header{padding:30px 20px}.section{padding:25px 20px}}
+</style></head>
+<body><div class="container"><div class="header"><div class="logo"><div class="logo-icon">🧠</div><div class="logo-text">China Stock Insights</div></div><h1>Daily Trading Report</h1><div class="subtitle">Institutional-Grade Analysis for Smart Investors</div><div class="header-meta"><div class="meta-badge">📅 <strong>March 15, 2026</strong></div><div class="meta-badge">⏰ <strong>Market Open</strong></div><div class="meta-badge">🔬 <strong>8 Modules Active</strong></div></div></div>
+<div class="hero-stats"><div class="stat-box"><div class="label">Win Rate</div><div class="value">87.3%</div><div class="trend up">↑ 2.1%</div></div><div class="stat-box"><div class="label">Active Signals</div><div class="value">24</div><div class="trend up">↑ 5 new</div></div><div class="stat-box"><div class="label">This Month</div><div class="value">+18.6%</div><div class="trend up">↑ Outperforming</div></div><div class="stat-box"><div class="label">Subscribers</div><div class="value">512</div><div class="trend up">↑ 23 new</div></div></div>
+<div class="section"><div class="section-title">📈 Market Overview</div><div class="section-badge">LIVE</div><div class="market-grid"><div class="market-card"><div class="market-info"><div class="name">上证指数</div><div class="price">¥4095.45</div></div><div class="market-change"><div class="pct positive">+4129.10%</div></div></div><div class="market-card"><div class="market-info"><div class="name">深证成指</div><div class="price">¥14280.78</div></div><div class="market-change"><div class="pct positive">+14374.87%</div></div></div><div class="market-card"><div class="market-info"><div class="name">沪深300</div><div class="price">¥4669.14</div></div><div class="market-change"><div class="pct positive">+4687.56%</div></div></div><div class="market-card"><div class="market-info"><div class="name">创业板指</div><div class="price">¥3310.28</div></div><div class="market-change"><div class="pct positive">+3317.52%</div></div></div></div></div><div class="section"><div class="section-title">🎯 Institutional Top Picks</div><div class="section-badge">SMART MONEY</div><div class="stock-grid"><div class="stock-card"><div class="stock-rank">1</div><div class="stock-name">快手</div><div class="stock-code">1024</div><div class="stock-meta"><div class="stock-meta-item"><span>Sector</span><strong>科技</strong></div><div class="stock-meta-item"><span>Flow</span><strong>¥2.8亿</strong></div></div><div class="stock-score"><span class="score-value">🧠 100</span><span class="inflow-value">⬆️</span></div></div><div class="stock-card"><div class="stock-rank">2</div><div class="stock-name">爱尔眼科</div><div class="stock-code">300015</div><div class="stock-meta"><div class="stock-meta-item"><span>Sector</span><strong>医疗</strong></div><div class="stock-meta-item"><span>Flow</span><strong>¥1.5亿</strong></div></div><div class="stock-score"><span class="score-value">🧠 100</span><span class="inflow-value">⬆️</span></div></div><div class="stock-card"><div class="stock-rank">3</div><div class="stock-name">同花顺</div><div class="stock-code">300033</div><div class="stock-meta"><div class="stock-meta-item"><span>Sector</span><strong>金融科技</strong></div><div class="stock-meta-item"><span>Flow</span><strong>¥9800万</strong></div></div><div class="stock-score"><span class="score-value">🧠 100</span><span class="inflow-value">⬆️</span></div></div><div class="stock-card"><div class="stock-rank">4</div><div class="stock-name">隆基绿能</div><div class="stock-code">601012</div><div class="stock-meta"><div class="stock-meta-item"><span>Sector</span><strong>光伏</strong></div><div class="stock-meta-item"><span>Flow</span><strong>¥3.2亿</strong></div></div><div class="stock-score"><span class="score-value">🧠 100</span><span class="inflow-value">⬆️</span></div></div><div class="stock-card"><div class="stock-rank">5</div><div class="stock-name">美的集团</div><div class="stock-code">000333</div><div class="stock-meta"><div class="stock-meta-item"><span>Sector</span><strong>家电</strong></div><div class="stock-meta-item"><span>Flow</span><strong>¥2.1亿</strong></div></div><div class="stock-score"><span class="score-value">🧠 98</span><span class="inflow-value">⬆️</span></div></div><div class="stock-card"><div class="stock-rank">6</div><div class="stock-name">腾讯控股</div><div class="stock-code">0700</div><div class="stock-meta"><div class="stock-meta-item"><span>Sector</span><strong>科技</strong></div><div class="stock-meta-item"><span>Flow</span><strong>¥5.6亿</strong></div></div><div class="stock-score"><span class="score-value">🧠 95</span><span class="inflow-value">⬆️</span></div></div></div></div><div class="section" style="background:#fffbeb"><div class="section-title">💎 Hidden Gems</div><div class="section-badge" style="background:#f59e0b">HIGH POTENTIAL</div><div class="gem-grid"><div class="gem-card"><div class="tag">🔥</div><div class="name">中际旭创</div><div class="code">300476 | 85</div><div class="catalyst">💡 光模块出口</div></div><div class="gem-card"><div class="tag">🔥</div><div class="name">吉林碳谷</div><div class="code">870299 | 84</div><div class="catalyst">💡 碳纤维国产</div></div><div class="gem-card"><div class="tag">🔥</div><div class="name">贝特瑞</div><div class="code">872926 | 83</div><div class="catalyst">💡 固态电池</div></div><div class="gem-card"><div class="tag">🚀</div><div class="name">红东方</div><div class="code">870864 | 81</div><div class="catalyst">💡 农药出口</div></div></div></div><div class="section"><div class="section-title">🔥 Sector Rotation</div><div class="sector-flow"><div class="sector-row"><div class="sector-phase hot">NOW</div><div class="sector-tags"><div class="sector-tag">电力</div><div class="sector-tag">有色金属</div><div class="sector-tag">光伏</div></div></div><div class="sector-row"><div class="sector-phase next">NEXT</div><div class="sector-tags"><div class="sector-tag">化工</div><div class="sector-tag">军工</div><div class="sector-tag">半导体</div></div></div><div class="sector-row"><div class="sector-phase later">LATER</div><div class="sector-tags"><div class="sector-tag">消费</div><div class="sector-tag">医药</div></div></div></div></div>
+<div class="section"><div class="section-title">📝 Trade Ideas</div><table class="trade-table"><thead><tr><th>Stock</th><th>Action</th><th>Entry</th><th>Target</th><th>Stop</th><th>Risk</th></tr></thead><tbody>
+<tr><td><div class="stock-cell"><span class="stock-name">隆基绿能</span><span class="stock-code">601012</span></div></td><td><span class="action-badge action-buy">BUY</span></td><td>¥18.87</td><td class="target">¥20.00</td><td class="stop">¥17.50</td><td>Medium</td></tr>
+<tr><td><div class="stock-cell"><span class="stock-name">快手</span><span class="stock-code">1024.HK</span></div></td><td><span class="action-badge action-buy">BUY</span></td><td>¥72.50</td><td class="target">¥85.00</td><td class="stop">¥68.00</td><td>Medium</td></tr>
+<tr><td><div class="stock-cell"><span class="stock-name">腾讯控股</span><span class="stock-code">0700.HK</span></div></td><td><span class="action-badge action-watch">WATCH</span></td><td>-</td><td class="target">¥600</td><td class="stop">-</td><td>Low</td></tr>
+</tbody></table></div>
+<div class="section"><div class="section-title">⚠️ Risk Alerts</div><div class="alert-box"><div class="alert-icon">⚠️</div><div class="alert-content"><h4>20+ Stocks Showing Distribution Signals</h4><p>Consider taking profits or avoiding new positions.</p></div></div></div>
+<div class="footer"><div class="cta">📧 Want daily insights?</div><div class="contact"><div class="contact-item"><span>📧</span> charles@stockinsights.com</div><div class="contact-item"><span>📱</span> +86 139-2022-4277</div></div><p class="disclaimer">⚠️ DISCLAIMER: This report is for educational purposes only. Not financial advice.</p><div class="brand">🔒 © 2026 China Stock Insights | Super Brain V3</div></div></div></body></html>

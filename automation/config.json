@@ -1,0 +1,21 @@
+{
+  "feishu": {
+    "enabled": true,
+    "chat_id": "633299"
+  },
+  "email": {
+    "enabled": true,
+    "sender": "eblq77@gmail.com",
+    "password": "ogapcrpthhrxofrd",
+    "recipients": ["eblq77@outlook.com"],
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 587,
+      "secure": false
+    }
+  },
+  "schedule": {
+    "daily_report": "09:00",
+    "weekly_summary": "Monday 09:00"
+  }
+}
