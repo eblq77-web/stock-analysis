@@ -6,6 +6,7 @@
 
 const fs = require('fs');
 const https = require('https');
+const iconv = require('iconv-lite');
 
 const REPORT_DIR = './daily_reports/';
 const DATE = new Date().toISOString().slice(0,10);
@@ -48,16 +49,19 @@ const STOCKS = {
   ]
 };
 
-// Fetch quote from Tencent API
+// Fetch quote from Tencent API (GBK encoding -> UTF-8)
 function getQuote(code) {
   return new Promise((resolve) => {
     const url = `https://qt.gtimg.cn/q=${code}`;
+    const chunks = [];
     https.get(url, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
+      res.on('data', chunk => chunks.push(chunk));
       res.on('end', () => {
         try {
-          const match = data.match(/="([^"]+)"/);
+          const buffer = Buffer.concat(chunks);
+          const text = iconv.decode(buffer, 'GBK');
+          
+          const match = text.match(/="([^"]+)"/);
           if (match) {
             const p = match[1].split('~');
             resolve({
