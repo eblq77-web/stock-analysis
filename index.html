@@ -1,0 +1,2370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V3 NewStrategy - Institutional Grade Trading Intelligence</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --glass: rgba(255,255,255,0.05);
+            --glass-border: rgba(255,255,255,0.1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(16,185,129,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(245,158,11,0.05) 0%, transparent 70%),
+                var(--darker);
+        }
+        
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(2,6,26,0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 0;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--light); }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(99,102,241,0.4);
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 180px 40px 100px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        .hero-badge span {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+        
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+        
+        .btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Stats */
+        .stats {
+            padding: 60px 40px;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.2);
+        }
+        
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        /* Sections */
+        section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: var(--gray);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(99,102,241,0.15);
+        }
+        
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .card p {
+            color: var(--gray);
+            font-size: 15px;
+        }
+        
+        /* Live Ticker */
+        .ticker-wrap {
+            overflow: hidden;
+            background: linear-gradient(90deg, var(--dark), rgba(99,102,241,0.2), var(--dark));
+            padding: 18px 0;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .ticker {
+            display: flex;
+            gap: 50px;
+            animation: ticker 40s linear infinite;
+            white-space: nowrap;
+        }
+        
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .ticker-name {
+            font-weight: 600;
+        }
+        
+        .ticker-price {
+            color: var(--secondary);
+        }
+        
+        .ticker-price.red { color: #ef4444; }
+        
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(16,185,129,0.1));
+            border-color: var(--primary);
+        }
+        
+        .pricing-card .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent), #d97706);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+        
+        .pricing-card .price span {
+            font-size: 16px;
+            color: var(--gray);
+            font-weight: 400;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .pricing-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gray);
+        }
+        
+        .pricing-card li:before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .pricing-card li.missing {
+            color: rgba(100,116,139,0.5);
+        }
+        
+        .pricing-card li.missing:before {
+            content: "✗";
+            color: var(--gray);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            border-top: 1px solid var(--glass-border);
+            padding: 60px 40px 30px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover { color: var(--light); }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 140px 20px 60px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            section { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animated"></div>
+    <div class="bg-grid"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <span style="font-size: 28px;">📈</span>
+                V3 NewStrategy
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#" onclick="openLookup(); return false;">🔍 Lookup</a></li>
+                <li><a href="#" onclick="openPortfolio(); return false;">💼 Portfolio</a></li>
+                <li><a href="#" onclick="toggleSignals(); return false;">📡 Signals</a></li>
+                <li><a href="#" onclick="togglePatterns(); return false;">🎯 Patterns</a></li>
+                <li><a href="#" onclick="toggleBacktest(); return false;">📈 Backtest</a></li>
+                <li><a href="#" onclick="toggleTemplates(); return false;">📝 Templates</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div style="display:flex; align-items:center; gap:15px;">
+                <span id="marketStatus" style="font-size:13px; color:var(--gray);"></span>
+                <button class="btn-primary" onclick="openLookup()">Get Started</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span></span>
+            Institutional Grade Trading Intelligence
+        </div>
+        <h1>
+            AI-Powered Trading<br>
+            <span class="gradient">Next Generation</span>
+        </h1>
+        <p>
+            50+ algorithms. Real-time signals. Institutional flow analysis.<br>
+            The most advanced trading intelligence platform in China.
+        </p>
+        <div class="hero-buttons">
+            <a href="#pricing" class="btn-primary">Start Free Trial</a>
+            <a href="#features" class="btn-secondary">Learn More</a>
+        </div>
+    </section>
+    
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stats-grid">
+            <div class="stat">
+                <div class="stat-value">50+</div>
+                <div class="stat-label">AI Algorithms</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Daily Signals</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">92%</div>
+                <div class="stat-label">AI Confidence</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">Market Monitoring</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Live News Ticker -->
+    <div class="ticker-wrap" style="background:linear-gradient(90deg, var(--dark), rgba(245,158,11,0.2), var(--dark));">
+        <div class="ticker" id="newsTicker" style="animation-duration:60s;">
+            <span class="ticker-item">📰 <strong>宁德时代</strong> 发布新一代电池技术 | </span>
+            <span class="ticker-item">📰 <strong>隆基绿能</strong> 获得10GW光伏订单 | </span>
+            <span class="ticker-item">📰 <strong>证监会</strong> 发布最新监管政策 | </span>
+            <span class="ticker-item">📰 <strong>比亚迪</strong> 销量突破500万辆 | </span>
+            <span class="ticker-item">📰 <strong>A股</strong> 今日成交额突破万亿 | </span>
+            <span class="ticker-item">📰 <strong>宁德时代</strong> 发布新一代电池技术 | </span>
+            <span class="ticker-item">📰 <strong>隆基绿能</strong> 获得10GW光伏订单 | </span>
+            <span class="ticker-item">📰 <strong>证监会</strong> 发布最新监管政策 | </span>
+            <span class="ticker-item">📰 <strong>比亚迪</strong> 销量突破500万辆 | </span>
+            <span class="ticker-item">📰 <strong>A股</strong> 今日成交额突破万亿 | </span>
+        </div>
+    </div>
+    
+    <!-- Live Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker" id="liveTicker">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+    
+    <!-- Sector Heatmap -->
+    <section style="padding:60px 40px; background:rgba(0,0,0,0.2); border-bottom:1px solid var(--glass-border);">
+        <div style="max-width:1200px; margin:0 auto;">
+            <div style="text-align:center; margin-bottom:40px;">
+                <h2 style="font-size:32px; font-weight:800; margin-bottom:10px;">🔥 Sector Heatmap</h2>
+                <p style="color:var(--gray);">Real-time sector performance</p>
+            </div>
+            <div id="sectorHeatmap" style="display:flex; gap:15px; flex-wrap:wrap; justify-content:center;"></div>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section id="features">
+        <div class="section-header">
+            <h2>Powerful Features</h2>
+            <p>Everything you need to make smarter trading decisions</p>
+        </div>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🧠</div>
+                <h3>Quantum AI Engine</h3>
+                <p>Advanced pattern recognition using 50+ algorithms trained on institutional trading data</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Pattern Matching</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Price Prediction</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Volume Analysis</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏦</div>
+                <h3>Institutional Flows</h3>
+                <p>Track where smart money is moving with real-time capital flow analysis</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Large Order Detection</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Smart Money Tracking</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Flow Alerts</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Complete Trade Plans</h3>
+                <p>Every signal comes with entry, target, and stop loss - trade with confidence</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Entry Price</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Target Price</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Stop Loss Level</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔄</div>
+                <h3>Sector Rotation</h3>
+                <p>Know which sectors are leading and where money is flowing next</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Heatmap View</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Rotation Alerts</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Momentum Tracking</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <h3>Breakout Alerts</h3>
+                <p>Real-time notifications when stocks break key resistance levels</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ Resistance Breaks</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Support Holds</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Volume Surges</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚠️</div>
+                <h3>Risk Management</h3>
+                <p>Built-in risk alerts and position sizing recommendations</p>
+                <div style="margin-top:15px; padding-top:15px; border-top:1px solid var(--glass-border);">
+                    <span style="font-size:12px; color:var(--secondary);">✓ -7% Hard Stop</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Position Sizing</span><br>
+                    <span style="font-size:12px; color:var(--secondary);">✓ Risk Score</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing -->
+    <section id="pricing" style="background: rgba(0,0,0,0.3); margin: 0 0 0 0; border-radius: 40px 40px 0 0;">
+        <div class="section-header">
+            <h2>Simple Pricing</h2>
+            <p>Choose the plan that fits your trading style</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>📊 V3 Daily</h3>
+                <div class="price">FREE</div>
+                <ul>
+                    <li>Daily market snapshot</li>
+                    <li>Top 3 stock picks</li>
+                    <li>Hot stocks list</li>
+                    <li>Basic sector overview</li>
+                    <li class="missing">Entry/Target/Stop</li>
+                    <li class="missing">Institutional flows</li>
+                    <li class="missing">Breakout alerts</li>
+                </ul>
+                <button class="btn-secondary" style="width: 100%;">Get Started</button>
+            </div>
+            
+            <div class="pricing-card featured">
+                <div class="badge">MOST POPULAR</div>
+                <h3>🚀 V3 Pro</h3>
+                <div class="price">¥99<span>/month</span></div>
+                <ul>
+                    <li>Everything in Free</li>
+                    <li>Full signal reports</li>
+                    <li>Entry/Target/Stop</li>
+                    <li>Institutional flows</li>
+                    <li>Breakout alerts</li>
+                    <li>Sector rotation</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="btn-primary" style="width: 100%;">Start Free Trial</button>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>💎 V3 Enterprise</h3>
+                <div class="price">¥299<span>/month</span></div>
+                <ul>
+                    <li>Everything in Pro</li>
+                    <li>API access</li>
+                    <li>Custom alerts</li>
+                    <li>Portfolio sync</li>
+                    <li>1-on-1 coaching</li>
+                    <li>White label</li>
+                    <li>Dedicated support</li>
+                </ul>
+                <button class="btn-secondary" style="width: 100%;">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+            <span style="font-size: 28px;">📈</span>
+            V3 NewStrategy
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Support</a>
+            <a href="#">API</a>
+            <a href="#">Twitter</a>
+            <a href="#">Discord</a>
+        </div>
+        <p style="color: var(--gray); font-size: 14px; margin-bottom:10px;">© 2026 V3 NewStrategy. All rights reserved.</p>
+        <p style="color: var(--gray); font-size: 12px;">⌨️ Ctrl+K to search stocks • Ctrl+Click signals for details</p>
+    </footer>
+
+    <!-- Stock Lookup Modal -->
+    <div id="stockLookup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:var(--dark); border:1px solid var(--glass-border); border-radius:20px; padding:30px; max-width:500px; width:90%;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="color:var(--light);">🔍 Stock Lookup</h3>
+                <button onclick="closeLookup()" style="background:none; border:none; color:var(--gray); font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+            <input type="text" id="stockCodeInput" placeholder="Enter stock code (e.g., 600519, 300750)" style="width:100%; padding:15px; border-radius:10px; border:1px solid var(--glass-border); background:var(--darker); color:white; font-size:16px; margin-bottom:15px;">
+            <button onclick="lookupStock()" class="btn-primary" style="width:100%;">Search</button>
+            <div id="stockResult" style="margin-top:20px;"></div>
+        </div>
+    </div>
+
+    <!-- Portfolio Tracker Modal -->
+    <div id="portfolioModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:var(--dark); border:1px solid var(--glass-border); border-radius:20px; padding:30px; max-width:700px; width:90%; max-height:80vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="color:var(--light);">💼 Portfolio Tracker</h3>
+                <button onclick="closePortfolio()" style="background:none; border:none; color:var(--gray); font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+            
+            <!-- Add Position Form -->
+            <div style="background:var(--glass); border-radius:12px; padding:20px; margin-bottom:20px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:10px;">
+                    <input type="text" id="portCode" placeholder="Stock Code" style="padding:12px; border-radius:8px; border:1px solid var(--glass-border); background:var(--darker); color:white; font-size:14px;">
+                    <input type="number" id="portShares" placeholder="Shares" style="padding:12px; border-radius:8px; border:1px solid var(--glass-border); background:var(--darker); color:white; font-size:14px;">
+                    <input type="number" id="portCost" placeholder="Cost Price" style="padding:12px; border-radius:8px; border:1px solid var(--glass-border); background:var(--darker); color:white; font-size:14px;">
+                </div>
+                <button onclick="addPosition()" class="btn-primary" style="width:100%;">➕ Add Position</button>
+            </div>
+            
+            <!-- Portfolio Summary -->
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:15px; margin-bottom:20px;">
+                <div style="background:var(--glass); border-radius:12px; padding:15px; text-align:center;">
+                    <div style="color:var(--gray); font-size:12px;">Total Value</div>
+                    <div id="portTotalValue" style="font-size:24px; font-weight:700; color:var(--light);">¥0</div>
+                </div>
+                <div style="background:var(--glass); border-radius:12px; padding:15px; text-align:center;">
+                    <div style="color:var(--gray); font-size:12px;">Total P&L</div>
+                    <div id="portPnLDisplay" style="font-size:24px; font-weight:700; color:#10b981;">¥0</div>
+                </div>
+                <div style="background:var(--glass); border-radius:12px; padding:15px; text-align:center;">
+                    <div style="color:var(--gray); font-size:12px;">Return %</div>
+                    <div id="portReturn" style="font-size:24px; font-weight:700; color:#10b981;">0%</div>
+                </div>
+            </div>
+            
+            <!-- Positions Table -->
+            <table style="width:100%; border-collapse:collapse;">
+                <thead>
+                    <tr style="border-bottom:1px solid var(--glass-border);">
+                        <th style="text-align:left; padding:12px; color:var(--gray); font-size:12px;">Stock</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;">Shares</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;">Cost</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;">Current</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;">P&L</th>
+                        <th style="text-align:right; padding:12px; color:var(--gray); font-size:12px;"></th>
+                    </tr>
+                </thead>
+                <tbody id="positionsTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Real-time Signals Panel -->
+    <div style="position:fixed; right:20px; top:100px; width:320px; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:20px; z-index:5000; display:none;" id="signalsPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h4 style="color:#f8fafc;">📡 Live Signals</h4>
+            <button onclick="toggleSignals()" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:20px;">✕</button>
+        </div>
+        <div id="signalsList" style="max-height:300px; overflow-y:auto;"></div>
+    </div>
+
+    <!-- Patterns Panel -->
+    <div style="position:fixed; right:20px; top:100px; width:340px; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:20px; z-index:5000; display:none;" id="patternsPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h4 style="color:#f8fafc;">🎯 Pattern Library</h4>
+            <button onclick="togglePatterns()" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:20px;">✕</button>
+        </div>
+        <div id="patternsList" style="max-height:400px; overflow-y:auto;"></div>
+    </div>
+
+    <!-- Backtesting Panel -->
+    <div style="position:fixed; right:20px; top:100px; width:360px; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:20px; z-index:5000; display:none;" id="backtestPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h4 style="color:var(--light);">📈 Backtesting</h4>
+            <button onclick="toggleBacktest()" style="background:none; border:none; color:var(--gray); cursor:pointer;">✕</button>
+        </div>
+        <div style="margin-bottom:15px;">
+            <div style="font-size:12px; color:var(--gray); margin-bottom:8px;">Stock Code</div>
+            <input type="text" id="btCode" placeholder="e.g. sh601012" style="width:100%; padding:10px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; color:var(--light); font-size:14px;">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px;">
+            <div>
+                <div style="font-size:12px; color:var(--gray); margin-bottom:5px;">Start Date</div>
+                <input type="date" id="btStart" style="width:100%; padding:8px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; color:var(--light);">
+            </div>
+            <div>
+                <div style="font-size:12px; color:var(--gray); margin-bottom:5px;">End Date</div>
+                <input type="date" id="btEnd" style="width:100%; padding:8px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; color:var(--light);">
+            </div>
+        </div>
+        <div style="margin-bottom:15px;">
+            <div style="font-size:12px; color:var(--gray); margin-bottom:5px;">Initial Capital (¥)</div>
+            <input type="number" id="btCapital" value="100000" style="width:100%; padding:10px; background:var(--glass); border:1px solid var(--glass-border); border-radius:8px; color:var(--light); font-size:14px;">
+        </div>
+        <button onclick="runBacktest()" style="width:100%; padding:12px; background:linear-gradient(135deg, #6366f1, #4f46e5); border:none; border-radius:8px; color:white; font-weight:600; cursor:pointer; margin-bottom:15px;">🚀 Run Backtest</button>
+        
+        <div id="btResults" style="display:none;">
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:15px; margin-bottom:10px;">
+                <div style="font-size:11px; color:#64748b;">Total Return</div>
+                <div id="btReturn" style="font-size:24px; font-weight:700; color:#10b981;">+0.00%</div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
+                    <div style="font-size:10px; color:#64748b;">Total Trades</div>
+                    <div id="btTrades" style="font-size:18px; font-weight:600; color:#f8fafc;">0</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
+                    <div style="font-size:10px; color:#64748b;">Win Rate</div>
+                    <div id="btWinRate" style="font-size:18px; font-weight:600; color:#10b981;">0%</div>
+                </div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
+                    <div style="font-size:10px; color:#64748b;">Max Drawdown</div>
+                    <div id="btDrawdown" style="font-size:14px; font-weight:600; color:#ef4444;">0%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center;">
+                    <div style="font-size:10px; color:#64748b;">Sharpe Ratio</div>
+                    <div id="btSharpe" style="font-size:14px; font-weight:600; color:#f8fafc;">0</div>
+                </div>
+            </div>
+            
+            <div style="margin-top:15px;">
+                <div style="font-size:12px; font-weight:600; color:#64748b; margin-bottom:8px;">Trade History</div>
+                <div id="btHistory" style="max-height:150px; overflow-y:auto; font-size:11px;"></div>
+            </div>
+        </div>
+        
+        <div id="btLoading" style="display:none; text-align:center; padding:20px; color:#64748b;">Running backtest...</div>
+    </div>
+
+    <!-- Templates Panel -->
+    <div style="position:fixed; right:20px; top:100px; width:380px; max-height:80vh; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:20px; z-index:5000; display:none; overflow-y:auto;" id="templatesPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <h4 style="color:#f8fafc;">📝 Message Templates</h4>
+            <button onclick="toggleTemplates()" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:20px;">✕</button>
+        </div>
+        
+        <div style="margin-bottom:15px;">
+            <div style="font-size:12px; color:#64748b; margin-bottom:8px;">Select Template</div>
+            <select id="templateSelect" onchange="loadTemplate()" style="width:100%; padding:10px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#f8fafc; font-size:13px;">
+                <option value="">-- Choose Template --</option>
+                <option value="inquiry">📩 Inquiry Response</option>
+                <option value="analysis">📊 Stock Analysis Report</option>
+                <option value="signal">🚀 Signal Alert</option>
+                <option value="buy">✅ Buy Confirmation</option>
+                <option value="sell">💰 Sell Report</option>
+                <option value="profit">📈 Profit Report</option>
+                <option value="loss">📉 Loss Report</option>
+                <option value="followup">🔔 Follow-up</option>
+                <option value="thankyou">🙏 Thank You</option>
+                <option value="welcome">👋 Welcome</option>
+            </select>
+        </div>
+        
+        <div id="templatePreview" style="display:none;">
+            <div style="font-size:12px; color:#64748b; margin-bottom:8px;">Preview</div>
+            <div id="templateContent" style="background:rgba(255,255,255,0.05); border-radius:10px; padding:15px; color:#f8fafc; font-size:13px; line-height:1.6; max-height:200px; overflow-y:auto; white-space:pre-wrap;"></div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:15px;">
+                <button onclick="copyTemplate()" style="padding:10px; background:#6366f1; border:none; border-radius:8px; color:white; cursor:pointer; font-size:12px;">📋 Copy Text</button>
+                <button onclick="editTemplate()" style="padding:10px; background:rgba(255,255,255,0.1); border:none; border-radius:8px; color:#f8fafc; cursor:pointer; font-size:12px;">✏️ Edit</button>
+            </div>
+        </div>
+        
+        <div id="templateEdit" style="display:none;">
+            <div style="font-size:12px; color:#64748b; margin-bottom:8px;">Edit Template</div>
+            <textarea id="templateEditArea" style="width:100%; height:150px; padding:10px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#f8fafc; font-size:13px; line-height:1.5;"></textarea>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+                <button onclick="saveTemplate()" style="padding:10px; background:#10b981; border:none; border-radius:8px; color:white; cursor:pointer; font-size:12px;">💾 Save</button>
+                <button onclick="cancelEdit()" style="padding:10px; background:rgba(255,255,255,0.1); border:none; border-radius:8px; color:#f8fafc; cursor:pointer; font-size:12px;">❌ Cancel</button>
+            </div>
+        </div>
+        
+        <!-- Quick Variables -->
+        <div style="margin-top:15px; padding-top:15px; border-top:1px solid rgba(255,255,255,0.1);">
+            <div style="font-size:11px; color:#64748b; margin-bottom:8px;">Quick Variables (click to insert)</div>
+            <div style="display:flex; flex-wrap:wrap; gap:5px;">
+                <span onclick="insertVar('{stock}')" style="font-size:10px; padding:4px 8px; background:rgba(99,102,241,0.2); color:#a5b4fc; border-radius:4px; cursor:pointer;">{stock}</span>
+                <span onclick="insertVar('{price}')" style="font-size:10px; padding:4px 8px; background:rgba(99,102,241,0.2); color:#a5b4fc; border-radius:4px; cursor:pointer;">{price}</span>
+                <span onclick="insertVar('{target}')" style="font-size:10px; padding:4px 8px; background:rgba(99,102,241,0.2); color:#a5b4fc; border-radius:4px; cursor:pointer;">{target}</span>
+                <span onclick="insertVar('{stop}')" style="font-size:10px; padding:4px 8px; background:rgba(99,102,241,0.2); color:#a5b4fc; border-radius:4px; cursor:pointer;">{stop}</span>
+                <span onclick="insertVar('{profit}')" style="font-size:10px; padding:4px 8px; background:rgba(16,185,129,0.2); color:#10b981; border-radius:4px; cursor:pointer;">{profit}</span>
+                <span onclick="insertVar('{date}')" style="font-size:10px; padding:4px 8px; background:rgba(245,158,11,0.2); color:#f59e0b; border-radius:4px; cursor:pointer;">{date}</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ===== ENHANCED DATA & FUNCTIONS =====
+    
+    // Market Status
+    function getMarketStatus() {
+        const now = new Date();
+        const hour = now.getHours();
+        const day = now.getDay();
+        if (day === 0 || day === 6) return { status: 'closed', text: 'Market Closed', color: '#ef4444' };
+        if (hour < 9 || hour >= 15) return { status: 'closed', text: 'Market Closed', color: '#ef4444' };
+        if (hour === 9 && now.getMinutes() < 30) return { status: 'pre', text: 'Pre-Market', color: '#f59e0b' };
+        return { status: 'open', text: 'Market Open', color: '#10b981' };
+    }
+    
+    // Live Ticker Data - Expanded
+    const tickerStocks = [
+        {name: "贵州茅台", code: "sh600519", price: 1850.20, change: 2.3},
+        {name: "宁德时代", code: "sz300750", price: 220.50, change: 3.8},
+        {name: "比亚迪", code: "sz002594", price: 245.80, change: -1.2},
+        {name: "隆基绿能", code: "sh601012", price: 24.50, change: 5.2},
+        {name: "腾讯控股", code: "hk00700", price: 385.60, change: 1.5},
+        {name: "阿里巴巴", code: "hk09988", price: 78.90, change: 0.8},
+        {name: "美团", code: "hk03690", price: 128.50, change: 2.1},
+        {name: "招商银行", code: "sh600036", price: 35.80, change: 0.5},
+        {name: "中国平安", code: "sh601318", price: 48.20, change: -0.3},
+        {name: "京东集团", code: "hk09618", price: 125.60, change: 1.8},
+    ];
+    
+    // Demo Signals
+    const demoSignals = [
+        { stock: "隆基绿能", code: "sh601012", type: "BUY", price: 18.94, target: 21.50, stop: 17.50, time: "12:30" },
+        { stock: "宁德时代", code: "sz300750", type: "WATCH", price: 221.50, target: 240.00, stop: 210.00, time: "12:15" },
+        { stock: "贵州茅台", code: "sh600519", type: "BUY", price: 1852.00, target: 1950.00, stop: 1800.00, time: "11:45" },
+    ];
+    
+    // Sector Heatmap Data - With Live API
+    // ============================================
+    // ENHANCED SECTOR HEATMAP - 12 SECTORS
+    // With Demo Data as Fallback
+    // ============================================
+    
+    const sectors = [
+        { name: "大盘", code: "sh000001", change: -0.81, volume: 792054764, amount: 1063918169 },
+        { name: "沪深300", code: "sh000300", change: -0.70, volume: 312456789, amount: 456789123 },
+        { name: "创业板", code: "sz399006", change: 1.25, volume: 123456789, amount: 234567890 },
+        { name: "科创50", code: "sh000688", change: 0.45, volume: 98765432, amount: 123456789 },
+        { name: "深证成指", code: "sz399001", change: 0.33, volume: 234567890, amount: 345678901 },
+        { name: "上证50", code: "sh000016", change: -0.55, volume: 87654321, amount: 98765432 },
+        { name: "中小板", code: "sz399005", change: 0.67, volume: 76543210, amount: 87654321 },
+        { name: "北证50", code: "bj899050", change: 2.15, volume: 12345678, amount: 23456789 },
+        { name: "新能源车", code: "sz399987", change: 3.25, volume: 45678901, amount: 56789012 },
+        { name: "医药指数", code: "sz399300", change: -1.12, volume: 34567890, amount: 45678901 },
+        { name: "券商指数", code: "sh000998", change: -0.88, volume: 23456789, amount: 34567890 },
+        { name: "银行指数", code: "sh000688", change: -0.45, volume: 34567890, amount: 45678901 },
+    ];
+    
+    // Fetch live sector/index data (with fallback to demo data)
+    async function updateSectorData() {
+        const container = document.getElementById("sectorHeatmap");
+        if (container) container.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">🔄 Loading market data...</div>';
+        
+        // Fetch all indices in one call
+        const codes = sectors.map(s => s.code).join(',');
+        
+        try {
+            const res = await fetch(`https://qt.gtimg.cn/q=${codes}`);
+            const text = await res.text();
+            
+            // Only update if we get valid data
+            if (text && text.length > 100 && !text.includes('v_pv_none_match')) {
+                const parts = text.split(';');
+                
+                parts.forEach((part, index) => {
+                    if (index < sectors.length && part.includes('"')) {
+                        const m = part.match(/="([^"]+)"/);
+                        if (m) {
+                            const f = m[1].split("~");
+                            sectors[index].change = parseFloat(f[5]) || sectors[index].change;
+                            sectors[index].volume = parseInt(f[4]) || sectors[index].volume;
+                            sectors[index].amount = parseInt(f[6]) || sectors[index].amount;
+                        }
+                    }
+                });
+            }
+        } catch (e) {
+            console.log("Using demo data - API unavailable:", e.message);
+        }
+        
+        renderSectors();
+    }
+    
+    // Auto-refresh sectors every 2 minutes
+    setInterval(updateSectorData, 120000);
+    setTimeout(updateSectorData, 1000); // Initial load after 1s
+    
+    // ============================================
+    // ADVANCED TRADING PATTERNS & INDICATORS
+    // ============================================
+    
+    // ADVANCED PATTERNS (35+ Patterns)
+    const tradingPatterns = {
+        // === CONTINUATION PATTERNS ===
+        "Bull Flag": { type: "bullish", category: "continuation", strength: 85, winRate: 68, description: "Strong move + consolidation = continuation" },
+        "Bear Flag": { type: "bearish", category: "continuation", strength: 82, winRate: 65, description: "Drop + consolidation = more downside" },
+        "Ascending Channel": { type: "bullish", category: "continuation", strength: 80, winRate: 72, description: "Parallel uptrend lines" },
+        "Descending Channel": { type: "bearish", category: "continuation", strength: 78, winRate: 70, description: "Parallel downtrend lines" },
+        "Cup & Handle": { type: "bullish", category: "continuation", strength: 92, winRate: 73, description: "Rounding bottom + handle breakout" },
+        "Inverted Cup": { type: "bearish", category: "continuation", strength: 88, winRate: 70, description: "Rounding top breakdown" },
+        
+        // === REVERSAL PATTERNS ===
+        "Double Bottom": { type: "bullish", category: "reversal", strength: 88, winRate: 72, description: "Two lows = bounce zone" },
+        "Double Top": { type: "bearish", category: "reversal", strength: 86, winRate: 70, description: "Two highs = reversal zone" },
+        "Triple Bottom": { type: "bullish", category: "reversal", strength: 90, winRate: 75, description: "Three lows = strong support" },
+        "Triple Top": { type: "bearish", category: "reversal", strength: 88, winRate: 73, description: "Three highs = strong resistance" },
+        "Head & Shoulders": { type: "bearish", category: "reversal", strength: 88, winRate: 74, description: "Classic reversal formation" },
+        "Inverse H&S": { type: "bullish", category: "reversal", strength: 90, winRate: 76, description: "Bullish reversal confirmation" },
+        
+        // === TRIANGLE PATTERNS ===
+        "Ascending Triangle": { type: "bullish", category: "triangle", strength: 78, winRate: 70, description: "Flat resistance + rising support" },
+        "Descending Triangle": { type: "bearish", category: "triangle", strength: 76, winRate: 68, description: "Flat support + falling resistance" },
+        "Symmetrical Triangle": { type: "neutral", category: "triangle", strength: 65, winRate: 60, description: "Converging volatility" },
+        
+        // === WEDGE PATTERNS ===
+        "Rising Wedge": { type: "bearish", category: "wedge", strength: 75, winRate: 65, description: "Converging up = breakdown" },
+        "Falling Wedge": { type: "bullish", category: "wedge", strength: 78, winRate: 68, description: "Converging down = breakout" },
+        
+        // === CANDLESTICK PATTERNS ===
+        "Three White Soldiers": { type: "bullish", category: "candlestick", strength: 95, winRate: 78, description: "3 strong green candles" },
+        "Three Black Crows": { type: "bearish", category: "candlestick", strength: 93, winRate: 76, description: "3 strong red candles" },
+        "Morning Star": { type: "bullish", category: "candlestick", strength: 90, winRate: 75, description: "Doji + bullish reversal" },
+        "Evening Star": { type: "bearish", category: "candlestick", strength: 90, winRate: 75, description: "Doji + bearish reversal" },
+        "Hammer": { type: "bullish", category: "candlestick", strength: 82, winRate: 70, description: "Long lower wick = buyers step in" },
+        "Shooting Star": { type: "bearish", category: "candlestick", strength: 80, winRate: 68, description: "Long upper wick = sellers step in" },
+        "Doji": { type: "neutral", category: "candlestick", strength: 55, winRate: 50, description: "Indecision candle" },
+        "Marubozu": { type: "trend", category: "candlestick", strength: 85, winRate: 72, description: "No wicks = strong trend" },
+        "Engulfing Bull": { type: "bullish", category: "candlestick", strength: 88, winRate: 74, description: "Green engulfs red" },
+        "Engulfing Bear": { type: "bearish", category: "candlestick", strength: 88, winRate: 74, description: "Red engulfs green" },
+        "Piercing Line": { type: "bullish", category: "candlestick", strength: 85, winRate: 72, description: "Green opens below red, closes above midpoint" },
+        "Dark Cloud Cover": { type: "bearish", category: "candlestick", strength: 85, winRate: 72, description: "Red opens above green, closes below midpoint" },
+        "Morning Doji": { type: "bullish", category: "candlestick", strength: 78, winRate: 65, description: "Doji after decline" },
+        "Evening Doji": { type: "bearish", category: "candlestick", strength: 78, winRate: 65, description: "Doji after rally" },
+        
+        // === ADVANCED PATTERNS ===
+        "Harmonic Bullish": { type: "bullish", category: "harmonic", strength: 88, winRate: 80, description: "Fibonacci-based bullish setup" },
+        "Harmonic Bearish": { type: "bearish", category: "harmonic", strength: 88, winRate: 80, description: "Fibonacci-based bearish setup" },
+        "Elliot Wave 1": { type: "bullish", category: "wave", strength: 85, winRate: 75, description: "Wave 1-2 setup complete" },
+        "Elliot Wave 3": { type: "bullish", category: "wave", strength: 95, winRate: 85, description: "Strongest wave - momentum play" },
+        "AB=CD Bullish": { type: "bullish", category: "harmonic", strength: 86, winRate: 78, description: "Equal move pattern" },
+        "AB=CD Bearish": { type: "bearish", category: "harmonic", strength: 86, winRate: 78, description: "Equal move pattern" },
+    };
+    
+    // ADVANCED TECHNICAL INDICATORS (25+)
+    const technicalIndicators = {
+        // Moving Averages
+        "SMA5": { name: "5-Period SMA", type: "moving_average", category: "trend", description: "Ultra short-term" },
+        "SMA10": { name: "10-Period SMA", type: "moving_average", category: "trend", description: "Short-term" },
+        "SMA20": { name: "20-Period SMA", type: "moving_average", category: "trend", description: "Short-term" },
+        "SMA50": { name: "50-Period SMA", type: "moving_average", category: "trend", description: "Medium-term" },
+        "SMA100": { name: "100-Period SMA", type: "moving_average", category: "trend", description: "Medium-term" },
+        "SMA200": { name: "200-Period SMA", type: "moving_average", category: "trend", description: "Long-term" },
+        "EMA9": { name: "9-Period EMA", type: "moving_average", category: "trend", description: "Fast track" },
+        "EMA12": { name: "12-Period EMA", type: "moving_average", category: "trend", description: "Fast track" },
+        "EMA26": { name: "26-Period EMA", type: "moving_average", category: "trend", description: "Slow track" },
+        "EMA50": { name: "50-Period EMA", type: "moving_average", category: "trend", description: "Medium track" },
+        
+        // Momentum
+        "RSI(14)": { name: "RSI (14)", type: "momentum", category: "oscillator", range: "0-100", overbought: 70, oversold: 30, description: "Strength meter" },
+        "RSI(9)": { name: "RSI (9)", type: "momentum", category: "oscillator", range: "0-100", overbought: 70, oversold: 30, description: "Fast RSI" },
+        "Stoch %K": { name: "Stochastic %K", type: "momentum", category: "oscillator", range: "0-100", overbought: 80, oversold: 20, description: "Fast stochastic" },
+        "Stoch %D": { name: "Stochastic %D", type: "momentum", category: "oscillator", range: "0-100", overbought: 80, oversold: 20, description: "Slow stochastic" },
+        "CCI": { name: "Commodity Channel", type: "momentum", category: "oscillator", range: "-100 to +100", description: "Trend oscillator" },
+        "Williams %R": { name: "Williams %R", type: "momentum", category: "oscillator", range: "-100 to 0", description: "Overbought < -80, Oversold > -20" },
+        "ROC": { name: "Rate of Change", type: "momentum", category: "rate", description: "Price velocity" },
+        "Momentum": { name: "Momentum (10)", type: "momentum", category: "rate", description: "Speed of price change" },
+        
+        // Trend
+        "MACD": { name: "MACD Line", type: "trend", category: "macd", description: "12-26-9" },
+        "MACD Signal": { name: "Signal Line", type: "trend", category: "macd", description: "EMA of MACD" },
+        "MACD Hist": { name: "MACD Histogram", type: "trend", category: "macd", description: "Momentum shift" },
+        "ADX": { name: "Avg Directional Index", type: "trend", category: "strength", range: "0-100", description: "Trend strength > 25" },
+        "Plus DI": { name: "Plus Directional", type: "trend", category: "dmi", description: "Bullish momentum" },
+        "Minus DI": { name: "Minus Directional", type: "trend", category: "dmi", description: "Bearish momentum" },
+        
+        // Volatility
+        "ATR(14)": { name: "Avg True Range", type: "volatility", category: "range", description: "Price volatility" },
+        "Bollinger Upper": { name: "BB Upper Band", type: "volatility", category: "band", description: "Resistance level" },
+        "Bollinger Lower": { name: "BB Lower Band", type: "volatility", category: "band", description: "Support level" },
+        "Bollinger Width": { name: "BB Width", type: "volatility", category: "width", description: "Squeeze indicator" },
+        
+        // Volume
+        "Volume": { name: "Volume", type: "volume", category: "basic", description: "Trading activity" },
+        "OBV": { name: "On-Balance Volume", type: "volume", category: "cumulative", description: "Volume trend" },
+        "VWAP": { name: "VWAP", type: "volume", category: "average", description: "Intraday value" },
+        "MFI": { name: "Money Flow Index", type: "volume", category: "money", range: "0-100", description: "Volume-weighted RSI" },
+        
+        // Fibonacci
+        "Fib Retracement": { name: "Fibonacci Levels", type: "fibonacci", category: "retracement", levels: [0, 0.236, 0.382, 0.5, 0.618, 0.786, 1], description: "Support/resistance" },
+        
+        // Ichimoku
+        "Ichimoku Cloud": { name: "Ichimoku Cloud", type: "ichimoku", category: "cloud", description: "Multi-line analysis" },
+    };
+    
+    // ULTRA SIGNAL TYPES (30+ Signals)
+    const signalTypes = [
+        // Trend Signals
+        { id: "BREAKOUT", label: "🚀 Breakout", color: "#10b981", risk: "high", description: "Price breaks resistance" },
+        { id: "PULLBACK", label: "📉 Pullback Entry", color: "#22c55e", risk: "medium", description: "Retest broken level" },
+        { id: "REVERSAL", label: "🔄 Reversal", color: "#f59e0b", risk: "high", description: "Trend reversal signal" },
+        { id: "MOMENTUM", label: "💨 Momentum", color: "#8b5cf6", risk: "medium", description: "Strong trend continuation" },
+        { id: "TREND CONTINUE", label: "➡️ Trend Continue", color: "#14b8a6", risk: "low", description: "Trend continues" },
+        
+        // Volume Signals
+        { id: "VOLUME", label: "📊 Volume Surge", color: "#06b6d4", risk: "medium", description: "Unusual volume activity" },
+        { id: "VOLUME SPIKE", label: "💥 Volume Spike", color: "#ec4899", risk: "medium", description: "Volume > 2x average" },
+        { id: "LOW VOLUME", label: "📉 Low Volume", color: "#94a3b8", risk: "low", description: "Weak participation" },
+        { id: "ACCUMULATION", label: "📦 Accumulation", color: "#3b82f6", risk: "low", description: "Smart money buying" },
+        { id: "DISTRIBUTION", label: "📤 Distribution", color: "#ef4444", risk: "medium", description: "Smart money selling" },
+        
+        // Support/Resistance
+        { id: "SUPPORT", label: "🛡️ Support Bounce", color: "#14b8a6", risk: "low", description: "Buy at support" },
+        { id: "RESISTANCE", label: "🏰 Resistance Break", color: "#f97316", risk: "high", description: "Break major resistance" },
+        { id: "NEW HIGH", label: "⬆️ New High", color: "#10b981", risk: "medium", description: "52-week high" },
+        { id: "NEW LOW", label: "⬇️ New Low", color: "#ef4444", risk: "medium", description: "52-week low" },
+        
+        // RSI/MACD
+        { id: "OVERSOLD", label: "🔻 Oversold RSI", color: "#06b6d4", risk: "medium", description: "RSI < 30, potential bounce" },
+        { id: "OVERBOUGHT", label: "🔺 Overbought RSI", color: "#f43f5e", risk: "medium", description: "RSI > 70, potential pullback" },
+        { id: "RSI NEUTRAL", label: "⚖️ RSI Neutral", color: "#22c55e", risk: "low", description: "RSI 40-60" },
+        { id: "MACD BULLISH", label: "📗 MACD Bullish", color: "#10b981", risk: "low", description: "MACD crosses up" },
+        { id: "MACD BEARISH", label: "📕 MACD Bearish", color: "#ef4444", risk: "low", description: "MACD crosses down" },
+        
+        // Moving Averages
+        { id: "GOLDEN CROSS", label: "✨ Golden Cross", color: "#fbbf24", risk: "low", description: "MA50 crosses above MA200" },
+        { id: "DEATH CROSS", label: "💀 Death Cross", color: "#9ca3af", risk: "medium", description: "MA50 crosses below MA200" },
+        { id: "MA SUPPORT", label: "📐 MA Support", color: "#14b8a6", risk: "low", description: "Price bounces off MA" },
+        { id: "MA RESISTANCE", label: "🚧 MA Resistance", color: "#f97316", risk: "medium", description: "Hits moving average" },
+        
+        // Divergence
+        { id: "DIV Bullish", label: "📈 Bullish Divergence", color: "#10b981", risk: "low", description: "Price down, RSI up" },
+        { id: "DIV Bearish", label: "📉 Bearish Divergence", color: "#ef4444", risk: "low", description: "Price up, RSI down" },
+        { id: "HIDDEN DIV", label: "🔎 Hidden Bullish", color: "#10b981", risk: "low", description: "Hidden bullish divergence" },
+        
+        // Special
+        { id: "GAP UP", label: "⬆️ Gap Up", color: "#10b981", risk: "high", description: "Opens above previous close" },
+        { id: "GAP DOWN", label: "⬇️ Gap Down", color: "#ef4444", risk: "high", description: "Opens below previous close" },
+        { id: "INSIDER BUY", label: "👤 Insider Buying", color: "#10b981", risk: "low", description: "Insider transactions" },
+        { id: "INSIDER SELL", label: "👥 Insider Selling", color: "#ef4444", risk: "medium", description: "Insider selling" },
+        { id: "NEWS CATALYST", label: "📰 News Catalyst", color: "#8b5cf6", risk: "medium", description: "Breaking news impact" },
+        { id: "EARNINGS", label: "💰 Earnings Play", color: "#f59e0b", risk: "high", description: "Around earnings" },
+    ];
+    
+    // ULTRA SIGNALS - 25+ STOCKS
+    const enhancedSignals = [
+        // High Confidence Signals
+        { stock: "隆基绿能", code: "sh601012", signal: "BREAKOUT", pattern: "Bull Flag", price: 18.94, target: 21.50, stop: 17.50, rsi: 65, macd: "bullish", volume: 2.3, time: "14:25", confidence: 92, risk: "medium", timeframe: "4H" },
+        { stock: "宁德时代", code: "sz300750", signal: "MOMENTUM", pattern: "Three White Soldiers", price: 221.50, target: 240.00, stop: 210.00, rsi: 72, macd: "bullish", volume: 1.8, time: "14:20", confidence: 95, risk: "low", timeframe: "1D" },
+        { stock: "贵州茅台", code: "sh600519", signal: "SUPPORT", pattern: "Double Bottom", price: 1852.00, target: 1950.00, stop: 1800.00, rsi: 55, macd: "bullish", volume: 1.2, time: "14:15", confidence: 88, risk: "low", timeframe: "1D" },
+        { stock: "比亚迪", code: "sz002594", signal: "PULLBACK", pattern: "Ascending Triangle", price: 268.30, target: 290.00, stop: 255.00, rsi: 68, macd: "bullish", volume: 1.5, time: "14:10", confidence: 78, risk: "medium", timeframe: "4H" },
+        { stock: "招商银行", code: "sh600036", signal: "ACCUMULATION", pattern: "Cup & Handle", price: 42.15, target: 45.00, stop: 40.00, rsi: 58, macd: "bullish", volume: 3.2, time: "14:05", confidence: 90, risk: "low", timeframe: "1D" },
+        { stock: "中国平安", code: "sh601318", signal: "REVERSAL", pattern: "Inverse H&S", price: 48.20, target: 52.00, stop: 45.50, rsi: 42, macd: "turning", volume: 1.4, time: "14:00", confidence: 88, risk: "medium", timeframe: "4H" },
+        { stock: "紫光国微", code: "sz002049", signal: "BREAKOUT", pattern: "Harmonic Bullish", price: 118.50, target: 135.00, stop: 110.00, rsi: 75, macd: "strong", volume: 2.1, time: "13:55", confidence: 95, risk: "high", timeframe: "1H" },
+        { stock: "海康威视", code: "sz002415", signal: "VOLUME SPIKE", pattern: "AB=CD Bullish", price: 32.80, target: 36.00, stop: 30.50, rsi: 52, macd: "bullish", volume: 3.8, time: "13:50", confidence: 86, risk: "medium", timeframe: "30M" },
+        { stock: "三一重工", code: "sh600031", signal: "GOLDEN CROSS", pattern: "EMA Crossover", price: 18.60, target: 20.50, stop: 17.20, rsi: 62, macd: "bullish", volume: 1.6, time: "13:45", confidence: 82, risk: "low", timeframe: "1D" },
+        { stock: "中芯国际", code: "sh688981", signal: "OVERSOLD", pattern: "Hammer", price: 52.30, target: 58.00, stop: 48.50, rsi: 28, macd: "turning", volume: 2.4, time: "13:40", confidence: 78, risk: "medium", timeframe: "4H" },
+        
+        // Additional Signals
+        { stock: "药明康德", code: "sh603259", signal: "RSI NEUTRAL", pattern: "Support Bounce", price: 68.50, target: 75.00, stop: 65.00, rsi: 48, macd: "bullish", volume: 1.3, time: "13:35", confidence: 75, risk: "low", timeframe: "1D" },
+        { stock: "恒瑞医药", code: "sh600276", signal: "DIV Bullish", pattern: "Hidden Divergence", price: 52.80, target: 58.00, stop: 49.50, rsi: 35, macd: "turning", volume: 1.1, time: "13:30", confidence: 72, risk: "low", timeframe: "4H" },
+        { stock: "美的集团", code: "sz000333", signal: "TREND CONTINUE", pattern: "Marubozu", price: 62.40, target: 68.00, stop: 58.50, rsi: 65, macd: "strong", volume: 1.9, time: "13:25", confidence: 85, risk: "low", timeframe: "1D" },
+        { stock: "立讯精密", code: "sz002475", signal: "MACD BULLISH", pattern: "Golden Cross", price: 35.20, target: 39.00, stop: 32.50, rsi: 55, macd: "bullish", volume: 1.7, time: "13:20", confidence: 80, risk: "low", timeframe: "4H" },
+        { stock: "韦尔股份", code: "sh603501", signal: "NEW HIGH", pattern: "Momentum", price: 98.60, target: 110.00, stop: 92.00, rsi: 78, macd: "strong", volume: 2.5, time: "13:15", confidence: 88, risk: "medium", timeframe: "1H" },
+        { stock: "北方华创", code: "sz002371", signal: "GAP UP", pattern: "Bullish Gap", price: 385.00, target: 420.00, stop: 365.00, rsi: 70, macd: "strong", volume: 2.2, time: "13:10", confidence: 90, risk: "high", timeframe: "30M" },
+        { stock: "拓普集团", code: "sh601689", signal: "INSIDER BUY", pattern: "Accumulation", price: 72.30, target: 80.00, stop: 68.00, rsi: 52, macd: "bullish", volume: 1.4, time: "13:05", confidence: 76, risk: "low", timeframe: "1D" },
+        { stock: "德赛西威", code: "sz002920", signal: "NEWS CATALYST", pattern: "Breakout", price: 118.00, target: 135.00, stop: 108.00, rsi: 68, macd: "bullish", volume: 2.8, time: "13:00", confidence: 82, risk: "medium", timeframe: "1H" },
+        { stock: "阳光电源", code: "sz300274", signal: "MA SUPPORT", pattern: "Bull Flag", price: 98.50, target: 110.00, stop: 92.00, rsi: 58, macd: "bullish", volume: 1.6, time: "12:55", confidence: 79, risk: "low", timeframe: "4H" },
+        { stock: "锦浪科技", code: "sz300749", signal: "OVERSOLD", pattern: "Hammer", price: 68.20, target: 75.00, stop: 63.50, rsi: 25, macd: "turning", volume: 2.0, time: "12:50", confidence: 75, risk: "medium", timeframe: "4H" },
+        { stock: "天合光能", code: "sh688599", signal: "BREAKOUT", pattern: "Cup & Handle", price: 42.80, target: 48.00, stop: 39.50, rsi: 62, macd: "bullish", volume: 1.8, time: "12:45", confidence: 84, risk: "medium", timeframe: "1H" },
+        { stock: "通威股份", code: "sh600438", signal: "MOMENTUM", pattern: "Three White Soldiers", price: 38.60, target: 42.00, stop: 35.80, rsi: 69, macd: "strong", volume: 2.1, time: "12:40", confidence: 86, risk: "medium", timeframe: "4H" },
+        { stock: "亿纬锂能", code: "sz300014", signal: "VOLUME", pattern: "Accumulation", price: 85.50, target: 95.00, stop: 80.00, rsi: 58, macd: "bullish", volume: 3.5, time: "12:35", confidence: 88, risk: "low", timeframe: "1D" },
+        { stock: "恩捷股份", code: "sz002812", signal: "GAP DOWN", pattern: "Gap Fill", price: 28.50, target: 32.00, stop: 26.00, rsi: 35, macd: "turning", volume: 1.9, time: "12:30", confidence: 65, risk: "high", timeframe: "1H" },
+        { stock: "当升科技", code: "sz300073", signal: "REVERSAL", pattern: "Inverse H&S", price: 52.30, target: 58.00, stop: 48.50, rsi: 38, macd: "turning", volume: 1.5, time: "12:25", confidence: 80, risk: "medium", timeframe: "4H" },
+        { stock: "中芯国际", code: "sh688981", signal: "OVERSOLD", pattern: "Hammer", price: 52.30, target: 58.00, stop: 48.50, rsi: 28, macd: "turning", volume: 2.4, time: "09:45", confidence: 78, risk: "medium", timeframe: "4H" },
+    ];
+        { stock: "中国平安", code: "sh601318", signal: "REVERSAL", pattern: "Inverse H&S", price: 48.20, target: 52.00, stop: 45.50, rsi: 42, macd: "turning", volume: 1.4, time: "10:45" },
+        { stock: "紫光国微", code: "sz002049", signal: "BREAKOUT", pattern: "Cup & Handle", price: 118.50, target: 135.00, stop: 110.00, rsi: 75, macd: "strong", volume: 2.1, time: "10:30" },
+        { stock: "海康威视", code: "sz002415", signal: "ACCUMULATION", pattern: "Rising Wedge", price: 32.80, target: 36.00, stop: 30.50, rsi: 52, macd: "bullish", volume: 2.8, time: "10:15" },
+    ];
+    
+    // ============================================
+    // AI-POWERED ADVANCED SCORING ENGINE
+    // ============================================
+    
+    // Calculate AI-Powered Pattern Score
+    function calculatePatternScore(pattern, price, volume, rsi, macd) {
+        let score = 50;
+        const p = tradingPatterns[pattern];
+        if (p) {
+            score = p.strength;
+            
+            // RSI Analysis (25 points max)
+            if (rsi >= 30 && rsi <= 70) {
+                if (rsi >= 40 && rsi <= 60) score += 10; // Sweet spot
+                else if (rsi < 40) score += 5; // Oversold territory
+                else score += 3; // Overbought but not extreme
+            } else if (rsi < 20 || rsi > 80) {
+                score -= 10; // Extreme
+            }
+            
+            // Volume Analysis (20 points max)
+            if (volume >= 1.5) score += 15;
+            else if (volume >= 1.2) score += 10;
+            else if (volume >= 1.0) score += 5;
+            
+            // MACD Analysis (15 points max)
+            if (macd === "strong") score += 15;
+            else if (macd === "bullish") score += 10;
+            else if (macd === "turning") score += 5;
+            else if (macd === "bearish") score -= 15;
+            
+            // Win Rate Bonus (10 points max)
+            score += (p.winRate - 60) / 4;
+        }
+        return Math.min(100, Math.max(0, Math.round(score)));
+    }
+    
+    // Multi-Factor AI Score
+    function calculateAIScore(data) {
+        let aiScore = 50;
+        
+        // Trend Score (30%)
+        const trendScore = calculateTrendScore(data);
+        aiScore += trendScore * 0.3;
+        
+        // Momentum Score (25%)
+        const momentumScore = calculateMomentumScore(data);
+        aiScore += momentumScore * 0.25;
+        
+        // Volume Score (20%)
+        const volumeScore = calculateVolumeScore(data);
+        aiScore += volumeScore * 0.2;
+        
+        // Volatility Score (15%)
+        const volatilityScore = calculateVolatilityScore(data);
+        aiScore += volatilityScore * 0.15;
+        
+        // Pattern Score (10%)
+        const patternScore = data.patternStrength || 50;
+        aiScore += patternScore * 0.1;
+        
+        return Math.min(100, Math.max(0, Math.round(aiScore)));
+    }
+    
+    function calculateTrendScore(data) {
+        // SMA alignment analysis
+        if (data.sma20 > data.sma50 && data.sma50 > data.sma200) return 90; // Strong uptrend
+        if (data.sma20 > data.sma50) return 70; // Uptrend
+        if (data.sma20 < data.sma50 && data.sma50 < data.sma200) return 10; // Strong downtrend
+        if (data.sma20 < data.sma50) return 30; // Downtrend
+        return 50; // Sideways
+    }
+    
+    function calculateMomentumScore(data) {
+        let score = 50;
+        if (data.rsi > 50) score += 20;
+        if (data.rsi > 60) score += 15;
+        if (data.macd === "bullish") score += 15;
+        if (data.macd === "strong") score += 20;
+        return Math.min(100, score);
+    }
+    
+    function calculateVolumeScore(data) {
+        if (data.volume > 2.5) return 90;
+        if (data.volume > 2.0) return 80;
+        if (data.volume > 1.5) return 70;
+        if (data.volume > 1.0) return 50;
+        return 30;
+    }
+    
+    function calculateVolatilityScore(data) {
+        // Lower is better for stability
+        if (data.atr < 2) return 80;
+        if (data.atr < 4) return 60;
+        if (data.atr < 6) return 40;
+        return 20;
+    }
+    
+    // Risk Assessment
+    function assessRisk(signal, pattern, rsi, volume) {
+        let risk = "medium";
+        let riskScore = 50;
+        
+        // Pattern risk
+        const p = tradingPatterns[pattern];
+        if (p) riskScore = 100 - p.strength;
+        
+        // RSI risk
+        if (rsi < 30 || rsi > 70) riskScore += 20;
+        
+        // Volume risk
+        if (volume < 1.0) riskScore += 15;
+        
+        if (riskScore < 30) risk = "low";
+        else if (riskScore < 60) risk = "medium";
+        else risk = "high";
+        
+        return risk;
+    }
+    
+    // Timeframe Analysis
+    function analyzeTimeframe(data) {
+        return {
+            "1M": { trend: "scalping", holding: "< 1 hour", risk: "very high" },
+            "5M": { trend: "intraday", holding: "1-4 hours", risk: "high" },
+            "15M": { trend: "intraday", holding: "4-24 hours", risk: "medium-high" },
+            "1H": { trend: "short-term", holding: "1-3 days", risk: "medium" },
+            "4H": { trend: "swing", holding: "3-14 days", risk: "medium" },
+            "1D": { trend: "position", holding: "14-90 days", risk: "low" },
+            "1W": { trend: "long-term", holding: "90+ days", risk: "low" },
+        }[data.timeframe] || { trend: "unknown", holding: "unknown", risk: "unknown" };
+    }
+    
+    // Get Signal Recommendation
+    function getSignalRecommendation(signal) {
+        const s = signalTypes.find(x => x.id === signal);
+        return s ? s.label : signal;
+    }
+    
+    // Get Risk Level Color
+    function getRiskColor(risk) {
+        return risk === "low" ? "#10b981" : risk === "medium" ? "#f59e0b" : "#ef4444";
+    }
+    
+    // ============================================
+    // LIVE API DATA FEEDS
+    // ============================================
+    
+    // Multiple API Endpoints with Fallback
+    const apiEndpoints = [
+        { name: "Guotai", url: (code) => `https://qt.gtimg.cn/q=${code}`, priority: 1 },
+        { name: "Sina", url: (code) => `https://hq.sinajs.cn/list=${code}`, priority: 2 },
+        { name: "EastMoney", url: (code) => `https://push2.eastmoney.com/api/qt/stock/get?secid=${convertToEastMoney(code)}&fields=f43,f44,f45,f46,f47,f48,f50,f51,f52,f57,f58,f59,f60,f116,f117,f118,f162,f163,f164,f167,f168,f169,f170,f171,f173,f177`, priority: 3 },
+    ];
+    
+    // Convert code to EastMoney format
+    function convertToEastMoney(code) {
+        if (code.startsWith('sh')) return '1.' + code.replace('sh', '');
+        if (code.startsWith('sz')) return '0.' + code.replace('sz', '');
+        if (code.startsWith('hk')) return '110.' + code.replace('hk', '');
+        return code;
+    }
+    
+    // Fetch with multiple API fallback
+    async function fetchStockData(code, maxRetries = 3) {
+        let lastError = null;
+        
+        for (const api of apiEndpoints) {
+            try {
+                const res = await fetch(api.url(code));
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const text = await res.text();
+                if (text && text.length > 10) {
+                    return { data: text, source: api.name, success: true };
+                }
+            } catch (e) {
+                lastError = e;
+                console.log(`API ${api.name} failed:`, e.message);
+            }
+        }
+        return { data: null, source: 'none', success: false, error: lastError };
+    }
+    
+    // Parse Guotai API response
+    function parseGuotaiData(text) {
+        const m = text.match(/="([^"]+)"/);
+        if (!m) return null;
+        
+        const f = m[1].split("~");
+        return {
+            name: f[1] || '',
+            price: parseFloat(f[3]) || 0,
+            change: parseFloat(f[5]) || 0,
+            volume: parseInt(f[4]) || 0,
+            amount: parseInt(f[6]) || 0,
+            high: parseFloat(f[33]) || 0,
+            low: parseFloat(f[34]) || 0,
+            open: parseFloat(f[35]) || 0,
+            prevClose: parseFloat(f[36]) || 0,
+            bid1: parseFloat(f[9]) || 0,   // Buy price
+            ask1: parseFloat(f[19]) || 0,   // Sell price
+            bidVol1: parseInt(f[10]) || 0,  // Buy volume
+            askVol1: parseInt(f[20]) || 0,  // Sell volume
+            totalBid: parseInt(f[37]) || 0, // Total buy
+            totalAsk: parseInt(f[38]) || 0, // Total sell
+            turnover: parseFloat(f[38]) || 0,
+            amplitude: parseFloat(f[39]) || 0, // Amplitude %
+            changePercent: parseFloat(f[38]) || 0,
+            volumeRatio: parseFloat(f[39]) || 0,
+            pe: parseFloat(f[39]) || 0,
+            pb: parseFloat(f[46]) || 0,
+            marketCap: parseFloat(f[45]) || 0,
+            updateTime: f[30] || '',
+        };
+    }
+    
+    // Calculate technical indicators from raw data
+    function calculateIndicators(data) {
+        if (!data) return {};
+        
+        const { price, prevClose, volume, bid1, ask1, totalBid, totalAsk } = data;
+        const change = price - prevClose;
+        const changePercent = prevClose ? (change / prevClose * 100) : 0;
+        
+        // Buy/Sell pressure
+        const buyPressure = totalBid + totalBid > 0 ? (totalBid / (totalBid + totalAsk) * 100) : 50;
+        const sellPressure = 100 - buyPressure;
+        
+        // Bid/Ask spread
+        const spread = ask1 - bid1;
+        const spreadPercent = price ? (spread / price * 100) : 0;
+        
+        // Volume analysis (assuming 20-day avg of 1M as baseline)
+        const avgVolume = 1000000;
+        const volumeRatio = volume / avgVolume;
+        
+        // Smart money indicator (large orders)
+        const smartMoneyScore = buyPressure > 60 ? 'STRONG BUY' : buyPressure > 55 ? 'BUY' : buyPressure < 40 ? 'STRONG SELL' : 'SELL';
+        
+        return {
+            changePercent: changePercent.toFixed(2),
+            buyPressure: buyPressure.toFixed(1),
+            sellPressure: sellPressure.toFixed(1),
+            spread: spread.toFixed(2),
+            spreadPercent: spreadPercent.toFixed(3),
+            volumeRatio: volumeRatio.toFixed(1),
+            smartMoney: smartMoneyScore,
+        };
+    }
+    
+    // Live Price Update Function
+    async function updateLivePrices() {
+        const codes = tickerStocks.map(s => s.code);
+        if (codes.length === 0) return;
+        
+        try {
+            const res = await fetch("https://qt.gtimg.cn/q=" + codes.join(','));
+            const text = await res.text();
+            const stocks = text.split(';');
+            
+            stocks.forEach((stockData, index) => {
+                if (index < tickerStocks.length && stockData.includes('"')) {
+                    const data = parseGuotaiData(stockData);
+                    if (data) {
+                        tickerStocks[index].price = data.price;
+                        tickerStocks[index].change = parseFloat(data.changePercent);
+                        tickerStocks[index].volume = data.volume;
+                    }
+                }
+            });
+            
+            // Update display if ticker exists
+            if (document.getElementById('tickerContainer')) {
+                renderTicker();
+            }
+        } catch (e) {
+            console.log('Live update failed:', e);
+        }
+    }
+    
+    // Stock Lookup Function - Enhanced
+    async function lookupStock() {
+        const code = document.getElementById("stockCodeInput").value.trim().toLowerCase();
+        if (!code) return;
+        
+        const resultDiv = document.getElementById("stockResult");
+        resultDiv.innerHTML = '<div style="text-align:center; color:var(--gray);">Loading from live API...</div>';
+        
+        try {
+            // Try primary API
+            let res = await fetch("https://qt.gtimg.cn/q=" + code);
+            let text = await res.text();
+            let data = parseGuotaiData(text);
+            
+            if (!data) {
+                resultDiv.innerHTML = '<div style="text-align:center; color:#ef4444;">Stock not found</div>';
+                return;
+            }
+            
+            const indicators = calculateIndicators(data);
+            const color = data.change >= 0 ? "#10b981" : "#ef4444";
+            const sign = data.change >= 0 ? "+" : "";
+            const indColor = indicators.smartMoney.includes('BUY') ? '#10b981' : indicators.smartMoney.includes('SELL') ? '#ef4444' : '#f59e0b';
+            
+            resultDiv.innerHTML = `
+                    <div style="background:var(--glass); border-radius:12px; padding:20px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                            <div>
+                                <div style="font-size:18px; font-weight:600; color:var(--light);">${data.name}</div>
+                                <div style="color:var(--gray); font-size:14px;">${code.toUpperCase()} | Live Data</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div style="font-size:24px; font-weight:700; color:${color};">¥${data.price.toFixed(2)}</div>
+                                <div style="color:${color}; font-size:16px;">${sign}${data.change.toFixed(2)}%</div>
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; font-size:13px;">
+                            <div><span style="color:var(--gray);">Open:</span> <span style="color:var(--light);">¥${data.open.toFixed(2)}</span></div>
+                            <div><span style="color:var(--gray);">High:</span> <span style="color:#10b981;">¥${data.high.toFixed(2)}</span></div>
+                            <div><span style="color:var(--gray);">Low:</span> <span style="color:#ef4444;">¥${data.low.toFixed(2)}</span></div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; font-size:13px; margin-top:10px;">
+                            <div><span style="color:var(--gray);">Volume:</span> <span style="color:var(--light);">${(data.volume/1000000).toFixed(2)}M</span></div>
+                            <div><span style="color:var(--gray);">Amount:</span> <span style="color:var(--light);">¥${(data.amount/100000000).toFixed(2)}B</span></div>
+                        </div>
+                        <div style="background:rgba(0,0,0,0.3); border-radius:8px; padding:12px; margin-top:12px;">
+                            <div style="font-size:12px; font-weight:600; color:var(--gray); margin-bottom:8px;">📊 SMART MONEY INDICATORS</div>
+                            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; font-size:12px;">
+                                <div><span style="color:var(--gray);">Buy Pressure:</span> <span style="color:#10b981;">${indicators.buyPressure}%</span></div>
+                                <div><span style="color:var(--gray);">Vol Ratio:</span> <span style="color:var(--light);">${indicators.volumeRatio}x</span></div>
+                                <div><span style="color:var(--gray);">Signal:</span> <span style="color:${indColor}; font-weight:600;">${indicators.smartMoney}</span></div>
+                            </div>
+                        </div>
+                        <div style="font-size:11px; color:var(--gray); margin-top:10px; text-align:center;">
+                            Last Update: ${data.updateTime} | Source: Guotai API
+                        </div>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = '<div style="text-align:center; color:#ef4444;">Stock not found</div>';
+            }
+        } catch(e) {
+            resultDiv.innerHTML = '<div style="text-align:center; color:#ef4444;">Error fetching data</div>';
+        }
+    }
+    
+    function openLookup() { document.getElementById("stockLookup").style.display = "flex"; }
+    function closeLookup() { document.getElementById("stockLookup").style.display = "none"; }
+    
+    // Portfolio Functions
+    let portfolio = JSON.parse(localStorage.getItem('newstrategy_portfolio') || '[]');
+    
+    function openPortfolio() { 
+        document.getElementById("portfolioModal").style.display = "flex";
+        updatePortfolio();
+    }
+    function closePortfolio() { document.getElementById("portfolioModal").style.display = "none"; }
+    
+    async function addPosition() {
+        const code = document.getElementById("portCode").value.trim().toLowerCase();
+        const shares = parseInt(document.getElementById("portShares").value);
+        const cost = parseFloat(document.getElementById("portCost").value);
+        
+        if (!code || !shares || !cost) {
+            alert("Please fill all fields");
+            return;
+        }
+        
+        // Get current price
+        let currentPrice = cost;
+        try {
+            const res = await fetch("https://qt.gtimg.cn/q=" + code);
+            const text = await res.text();
+            const m = text.match(/="([^"]+)"/);
+            if (m) currentPrice = parseFloat(m[1].split("~")[3]);
+        } catch(e) {}
+        
+        portfolio.push({ code, shares, cost, currentPrice });
+        localStorage.setItem('newstrategy_portfolio', JSON.stringify(portfolio));
+        
+        // Clear inputs
+        document.getElementById("portCode").value = "";
+        document.getElementById("portShares").value = "";
+        document.getElementById("portCost").value = "";
+        
+        updatePortfolio();
+    }
+    
+    function removePosition(index) {
+        portfolio.splice(index, 1);
+        localStorage.setItem('newstrategy_portfolio', JSON.stringify(portfolio));
+        updatePortfolio();
+    }
+    
+    async function updatePortfolio() {
+        const tbody = document.getElementById("positionsTable");
+        let totalValue = 0;
+        let totalCost = 0;
+        
+        // Update current prices
+        for (let i = 0; i < portfolio.length; i++) {
+            try {
+                const res = await fetch("https://qt.gtimg.cn/q=" + portfolio[i].code);
+                const text = await res.text();
+                const m = text.match(/="([^"]+)"/);
+                if (m) portfolio[i].currentPrice = parseFloat(m[1].split("~")[3]);
+            } catch(e) {}
+        }
+        
+        tbody.innerHTML = portfolio.map((p, i) => {
+            const value = p.shares * p.currentPrice;
+            const costBasis = p.shares * p.cost;
+            const pnl = value - costBasis;
+            const pnlPercent = ((p.currentPrice - p.cost) / p.cost * 100);
+            
+            totalValue += value;
+            totalCost += costBasis;
+            
+            const pnlColor = pnl >= 0 ? "#10b981" : "#ef4444";
+            const sign = pnl >= 0 ? "+" : "";
+            
+            return `<tr style="border-bottom:1px solid var(--glass-border);">
+                <td style="padding:12px; color:var(--light); font-weight:600;">${p.code.toUpperCase()}</td>
+                <td style="padding:12px; text-align:right; color:var(--light);">${p.shares}</td>
+                <td style="padding:12px; text-align:right; color:var(--light);">¥${p.cost.toFixed(2)}</td>
+                <td style="padding:12px; text-align:right; color:var(--light);">¥${p.currentPrice.toFixed(2)}</td>
+                <td style="padding:12px; text-align:right; color:${pnlColor};">${sign}¥${pnl.toFixed(2)} (${sign}${pnlPercent.toFixed(1)}%)</td>
+                <td style="padding:12px; text-align:right;">
+                    <button onclick="removePosition(${i})" style="background:#ef4444; border:none; color:white; padding:5px 10px; border-radius:5px; cursor:pointer; font-size:12px;">✕</button>
+                </td>
+            </tr>`;
+        }).join('');
+        
+        const totalPnL = totalValue - totalCost;
+        const returnPct = totalCost > 0 ? (totalPnL / totalCost * 100) : 0;
+        const pnlColor = totalPnL >= 0 ? "#10b981" : "#ef4444";
+        
+        document.getElementById("portTotalValue").innerText = "¥" + totalValue.toLocaleString();
+        document.getElementById("portPnLDisplay").innerText = (totalPnL >= 0 ? "+" : "") + "¥" + totalPnL.toLocaleString();
+        document.getElementById("portPnLDisplay").style.color = pnlColor;
+        document.getElementById("portReturn").innerText = (returnPct >= 0 ? "+" : "") + returnPct.toFixed(1) + "%";
+        document.getElementById("portReturn").style.color = pnlColor;
+    }
+    
+    // Toggle Signals Panel
+    function toggleSignals() {
+        const panel = document.getElementById("signalsPanel");
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+    }
+    
+    // Render Signals - ADVANCED VERSION
+    function renderSignals() {
+        const list = document.getElementById("signalsList");
+        list.innerHTML = enhancedSignals.map(s => {
+            const signalInfo = signalTypes.find(x => x.id === s.signal) || { color: '#6366f1', label: s.signal };
+            const score = calculatePatternScore(s.pattern, s.price, s.volume, s.rsi, s.macd);
+            const risk = assessRisk(s.signal, s.pattern, s.rsi, s.volume);
+            const aiScore = calculateAIScore({ rsi: s.rsi, macd: s.macd, volume: s.volume, patternStrength: score });
+            const tfInfo = analyzeTimeframe({ timeframe: s.timeframe });
+            
+            const scoreColor = score >= 80 ? '#10b981' : score >= 60 ? '#f59e0b' : '#ef4444';
+            const aiColor = aiScore >= 75 ? '#10b981' : aiScore >= 50 ? '#f59e0b' : '#ef4444';
+            const riskColor = getRiskColor(risk);
+            
+            return `
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; margin-bottom:10px; border-left:4px solid ${signalInfo.color};">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <span style="font-weight:600; color:#f8fafc; font-size:14px;">${s.stock}</span>
+                        <span style="font-size:10px; color:#64748b; margin-left:8px;">${s.code}</span>
+                    </div>
+                    <span style="font-size:10px; padding:2px 8px; border-radius:4px; background:${signalInfo.color}22; color:${signalInfo.color};">${signalInfo.label}</span>
+                </div>
+                
+                <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+                    <span style="font-size:10px; padding:2px 6px; background:#6366f122; color:#a5b4fc; border-radius:4px;">📐 ${s.pattern}</span>
+                    <span style="font-size:10px; padding:2px 6px; background:#8b5cf622; color:#c4b5fd; border-radius:4px;">⏱️ ${s.timeframe}</span>
+                    <span style="font-size:10px; padding:2px 6px; background:${riskColor}22; color:${riskColor}; border-radius:4px;">⚠️ ${risk.toUpperCase()}</span>
+                </div>
+                
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:10px; font-size:11px;">
+                    <div style="background:rgba(0,0,0,0.2); padding:8px; border-radius:6px; text-align:center;">
+                        <div style="color:#64748b; font-size:9px;">ENTRY</div>
+                        <div style="color:#f8fafc; font-weight:600;">¥${s.price}</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.2); padding:8px; border-radius:6px; text-align:center;">
+                        <div style="color:#64748b; font-size:9px;">TARGET</div>
+                        <div style="color:#10b981; font-weight:600;">¥${s.target}</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.2); padding:8px; border-radius:6px; text-align:center;">
+                        <div style="color:#64748b; font-size:9px;">STOP</div>
+                        <div style="color:#ef4444; font-weight:600;">¥${s.stop}</div>
+                    </div>
+                </div>
+                
+                <div style="display:flex; justify-content:space-between; margin-top:10px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.1);">
+                    <div style="display:flex; gap:12px; font-size:10px; color:#64748b;">
+                        <span>RSI: <span style="color:${s.rsi > 70 ? '#ef4444' : s.rsi < 30 ? '#10b981' : '#f8fafc'}">${s.rsi}</span></span>
+                        <span>Vol: <span style="color:${s.volume > 2 ? '#10b981' : '#f8fafc'}">${s.volume}x</span></span>
+                        <span>MACD: <span style="color:${s.macd === 'bullish' || s.macd === 'strong' ? '#10b981' : '#f8fafc'}">${s.macd}</span></span>
+                    </div>
+                </div>
+                
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:10px; color:#64748b;">Confidence:</span>
+                        <div style="width:60px; height:6px; background:#1e293b; border-radius:3px; overflow:hidden;">
+                            <div style="width:${s.confidence}%; height:100%; background:${scoreColor};"></div>
+                        </div>
+                        <span style="font-size:10px; font-weight:600; color:${scoreColor};">${s.confidence}%</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:4px;">
+                        <span style="font-size:10px; color:#64748b;">AI:</span>
+                        <span style="font-size:12px; font-weight:700; color:${aiColor};">${aiScore}</span>
+                    </div>
+                </div>
+            </div>
+        `}).join('');
+    }
+    
+    // Toggle Patterns Panel
+    function togglePatterns() {
+        const panel = document.getElementById("patternsPanel");
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+        if (panel.style.display === "block") renderPatterns();
+    }
+    
+    // Render Patterns Library
+    function renderPatterns() {
+        const list = document.getElementById("patternsList");
+        const bullish = Object.entries(tradingPatterns).filter(([k,v]) => v.type === 'bullish');
+        const bearish = Object.entries(tradingPatterns).filter(([k,v]) => v.type === 'bearish');
+        const neutral = Object.entries(tradingPatterns).filter(([k,v]) => v.type === 'neutral' || v.type === 'trend');
+        
+        list.innerHTML = `
+            <div style="margin-bottom:15px;">
+                <div style="font-size:12px; font-weight:600; color:#10b981; margin-bottom:8px;">🟢 BULLISH (${bullish.length})</div>
+                ${bullish.map(([name, p]) => `
+                    <div style="background:var(--glass); border-radius:8px; padding:10px; margin-bottom:6px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span style="font-weight:500; color:var(--light);">${name}</span>
+                            <span style="font-size:11px; color:#10b981;">${p.strength}%</span>
+                        </div>
+                        <div style="font-size:10px; color:var(--gray); margin-top:3px;">${p.description}</div>
+                    </div>
+                `).join('')}
+            </div>
+            <div style="margin-bottom:15px;">
+                <div style="font-size:12px; font-weight:600; color:#ef4444; margin-bottom:8px;">🔴 BEARISH (${bearish.length})</div>
+                ${bearish.map(([name, p]) => `
+                    <div style="background:var(--glass); border-radius:8px; padding:10px; margin-bottom:6px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span style="font-weight:500; color:var(--light);">${name}</span>
+                            <span style="font-size:11px; color:#ef4444;">${p.strength}%</span>
+                        </div>
+                        <div style="font-size:10px; color:var(--gray); margin-top:3px;">${p.description}</div>
+                    </div>
+                `).join('')}
+            </div>
+            <div>
+                <div style="font-size:12px; font-weight:600; color:#f59e0b; margin-bottom:8px;">🟡 INDICATORS (${Object.keys(technicalIndicators).length})</div>
+                ${Object.entries(technicalIndicators).map(([key, ind]) => `
+                    <div style="background:var(--glass); border-radius:8px; padding:8px; margin-bottom:4px; display:flex; justify-content:space-between;">
+                        <span style="font-size:11px; color:var(--light);">${ind.name}</span>
+                        <span style="font-size:10px; color:var(--gray);">${ind.type}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+    
+    // Backtesting Functions
+    function toggleBacktest() {
+        const panel = document.getElementById("backtestPanel");
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+    }
+    
+    // ============================================
+    // MESSAGE TEMPLATES SYSTEM
+    // ============================================
+    
+    const messageTemplates = {
+        inquiry: {
+            title: "📩 Inquiry Response",
+            content: `Dear {name},
+
+Thank you for your interest in our trading signals!
+
+We're pleased to introduce our NewStrategy system - providing institutional-grade stock analysis with:
+
+📊 Real-time signals across 30+ types
+🎯 35+ pattern recognition
+🤖 AI-powered scoring
+📈 Risk assessment
+
+Our current top picks include:
+• 隆基绿能 - BREAKOUT signal (92% confidence)
+• 宁德时代 - MOMENTUM signal (95% confidence)
+• 贵州茅台 - SUPPORT signal (88% confidence)
+
+Would you like to receive our daily report?
+
+Best regards,
+NewStrategy Team`
+        },
+        analysis: {
+            title: "📊 Stock Analysis Report",
+            content: `📊 STOCK ANALYSIS REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Stock: {stock}
+Code: {code}
+Date: {date}
+
+📈 TECHNICAL ANALYSIS
+• Pattern: {pattern}
+• Signal: {signal}
+• Confidence: {confidence}%
+• Risk Level: {risk}
+
+💰 ENTRY PLAN
+• Entry Price: ¥{price}
+• Target Price: ¥{target}
+• Stop Loss: ¥{stop}
+• Risk/Reward: 1:{ratio}
+
+📊 INDICATORS
+• RSI (14): {rsi}
+• MACD: {macd}
+• Volume: {volume}x average
+
+📈 SECTOR: {sector}
+
+Best regards,
+NewStrategy Analysis Team`
+        },
+        signal: {
+            title: "🚀 Signal Alert",
+            content: `🚨 NEW SIGNAL ALERT
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+{stock} ({code})
+
+🎯 Signal: {signal}
+📐 Pattern: {pattern}
+⚡ Confidence: {confidence}%
+
+💰 Entry: ¥{price}
+🎯 Target: ¥{stop}
+🛡️ Stop: ¥{stop}
+
+⏰ Timeframe: {timeframe}
+📊 Risk: {risk}
+
+This signal is valid until market close.
+
+NewStrategy - Institutional Grade Trading`
+        },
+        buy: {
+            title: "✅ Buy Confirmation",
+            content: `✅ ORDER EXECUTED
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 BUY Order Confirmed
+
+Stock: {stock}
+Code: {code}
+Quantity: {shares} shares
+Entry Price: ¥{price}
+Total Value: ¥{total}
+
+🛡️ Stop Loss: ¥{stop}
+🎯 Target: ¥{target}
+
+📝 Notes:
+- Risk: {risk}
+- Timeframe: {timeframe}
+- Pattern: {pattern}
+
+Good luck with your trade!
+
+NewStrategy Trading Team`
+        },
+        sell: {
+            title: "💰 Sell Report",
+            content: `💰 SELL ORDER EXECUTED
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+📉 SELL Order Confirmed
+
+Stock: {stock}
+Code: {code}
+Quantity: {shares} shares
+Sell Price: ¥{price}
+Total Value: ¥{total}
+
+💵 P&L: {profit}
+📈 Return: {return}%
+
+Trade completed successfully!
+
+NewStrategy Trading Team`
+        },
+        profit: {
+            title: "📈 Profit Report",
+            content: `🎉 PROFIT REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 Congratulations! Profitable Trade!
+
+Stock: {stock}
+Entry: ¥{entry}
+Exit: ¥{exit}
+Quantity: {shares}
+
+💰 PROFIT: ¥{profit}
+📈 RETURN: {return}%
+
+Great job! Ready for the next trade?
+
+NewStrategy Trading Team`
+        },
+        loss: {
+            title: "📉 Loss Report",
+            content: `📉 TRADE SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Stock: {stock}
+Entry: ¥{entry}
+Exit: ¥{exit}
+Quantity: {shares}
+
+📉 LOSS: ¥{loss}
+📈 RETURN: {return}%
+
+💡 Learning: Every trade teaches us something.
+Remember: Risk management is key.
+
+Stop loss of ¥{stop} protected your capital.
+
+NewStrategy Trading Team`
+        },
+        followup: {
+            title: "🔔 Follow-up",
+            content: `🔔 FOLLOW-UP
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Hi {name},
+
+Just checking in on your trading progress!
+
+📊 Recent Performance:
+• This week: {week_performance}
+• This month: {month_performance}
+
+📈 Open Positions:
+{positions}
+
+Any questions? We're here to help!
+
+Best,
+NewStrategy Team`
+        },
+        thankyou: {
+            title: "🙏 Thank You",
+            content: `🙏 THANK YOU!
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Dear {name},
+
+Thank you for being part of NewStrategy community!
+
+Your trust in our system means the world to us. We're committed to providing the best trading signals possible.
+
+📈 We recently helped our members:
+• Identify 隆基绿能 at breakout (+15%)
+• Catch 宁德时代 momentum (+12%)
+• Spot 贵州茅台 support bounce (+8%)
+
+Questions? Reply to this message!
+
+Best regards,
+NewStrategy Team`
+        },
+        welcome: {
+            title: "👋 Welcome",
+            content: `👋 WELCOME TO NEWSTRATEGY!
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+Dear {name},
+
+Welcome aboard! 🎉
+
+You're now part of an exclusive group of traders using institutional-grade analysis.
+
+📚 GETTING STARTED:
+1. Check daily signals in the app
+2. Review sector heatmap for trends
+3. Use backtest to validate strategies
+
+📊 TODAY'S TOP SIGNALS:
+• 隆基绿能 - BREAKOUT (92%)
+• 宁德时代 - MOMENTUM (95%)
+• 贵州茅台 - SUPPORT (88%)
+
+Questions? Reply to this message!
+
+Happy Trading! 🚀
+NewStrategy Team`
+        }
+    };
+    
+    let currentTemplate = "";
+    
+    function toggleTemplates() {
+        const panel = document.getElementById("templatesPanel");
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+    }
+    
+    function loadTemplate() {
+        const select = document.getElementById("templateSelect");
+        const key = select.value;
+        
+        if (!key) {
+            document.getElementById("templatePreview").style.display = "none";
+            return;
+        }
+        
+        currentTemplate = key;
+        const template = messageTemplates[key];
+        document.getElementById("templateContent").innerText = template.content;
+        document.getElementById("templatePreview").style.display = "block";
+        document.getElementById("templateEdit").style.display = "none";
+    }
+    
+    function copyTemplate() {
+        const content = document.getElementById("templateContent").innerText;
+        navigator.clipboard.writeText(content).then(() => {
+            alert("✅ Copied to clipboard!");
+        });
+    }
+    
+    function editTemplate() {
+        const content = document.getElementById("templateContent").innerText;
+        document.getElementById("templateEditArea").value = content;
+        document.getElementById("templatePreview").style.display = "none";
+        document.getElementById("templateEdit").style.display = "block";
+    }
+    
+    function saveTemplate() {
+        const newContent = document.getElementById("templateEditArea").value;
+        messageTemplates[currentTemplate].content = newContent;
+        document.getElementById("templateContent").innerText = newContent;
+        document.getElementById("templateEdit").style.display = "none";
+        document.getElementById("templatePreview").style.display = "block";
+        alert("✅ Template saved!");
+    }
+    
+    function cancelEdit() {
+        document.getElementById("templateEdit").style.display = "none";
+        document.getElementById("templatePreview").style.display = "block";
+    }
+    
+    function insertVar(variable) {
+        const textarea = document.getElementById("templateEditArea");
+        if (textarea.style.display === "block") {
+            textarea.value += variable;
+            textarea.focus();
+        }
+    }
+    
+    // Simulated historical data (in real app, fetch from API)
+    function generateHistoricalData(startPrice, days, volatility = 0.02) {
+        const data = [];
+        let price = startPrice;
+        const now = new Date();
+        
+        for (let i = days; i >= 0; i--) {
+            const date = new Date(now);
+            date.setDate(date.getDate() - i);
+            
+            // Random walk with drift
+            const change = (Math.random() - 0.48) * volatility * price;
+            price = Math.max(price + change, price * 0.5);
+            
+            const high = price * (1 + Math.random() * volatility);
+            const low = price * (1 - Math.random() * volatility);
+            const open = price * (1 + (Math.random() - 0.5) * volatility);
+            
+            data.push({
+                date: date.toISOString().split('T')[0],
+                open: open,
+                high: high,
+                low: low,
+                close: price,
+                volume: Math.floor(1000000 + Math.random() * 2000000)
+            });
+        }
+        return data;
+    }
+    
+    // Run Backtest
+    async function runBacktest() {
+        const code = document.getElementById("btCode").value.trim().toLowerCase();
+        const capital = parseFloat(document.getElementById("btCapital").value) || 100000;
+        
+        if (!code) {
+            alert("Please enter a stock code");
+            return;
+        }
+        
+        document.getElementById("btLoading").style.display = "block";
+        document.getElementById("btResults").style.display = "none";
+        
+        // Fetch current price first
+        try {
+            const res = await fetch("https://qt.gtimg.cn/q=" + code);
+            const text = await res.text();
+            const m = text.match(/="([^"]+)"/);
+            
+            if (!m) {
+                alert("Stock not found");
+                document.getElementById("btLoading").style.display = "none";
+                return;
+            }
+            
+            const f = m[1].split("~");
+            const currentPrice = parseFloat(f[3]);
+            const startPrice = currentPrice * 0.8; // Simulate from 80% of current
+            
+            // Generate 90 days of historical data
+            const historicalData = generateHistoricalData(startPrice, 90);
+            
+            // Run backtest simulation
+            const result = runStrategy(historicalData, capital);
+            
+            // Display results
+            displayBacktestResult(result, historicalData);
+            
+        } catch (e) {
+            alert("Error fetching data: " + e.message);
+        }
+        
+        document.getElementById("btLoading").style.display = "none";
+    }
+    
+    // Trading Strategy Simulation
+    function runStrategy(data, capital) {
+        let cash = capital;
+        let shares = 0;
+        let position = 0; // 0 = no position, 1 = long
+        const trades = [];
+        const initialCapital = capital;
+        
+        for (let i = 20; i < data.length; i++) {
+            const today = data[i];
+            const yesterday = data[i - 1];
+            const ma5 = data.slice(Math.max(0, i-5), i).reduce((a,b) => a + b.close, 0) / 5;
+            const ma20 = data.slice(Math.max(0, i-20), i).reduce((a,b) => a + b.close, 0) / 20;
+            
+            // Golden Cross Strategy
+            const goldenCross = yesterday.ma5 <= yesterday.ma20 && ma5 > ma20;
+            const deathCross = yesterday.ma5 >= yesterday.ma20 && ma5 < ma20;
+            
+            // Buy Signal
+            if (position === 0 && goldenCross) {
+                shares = Math.floor(cash / today.close * 0.95);
+                cash -= shares * today.close;
+                position = 1;
+                trades.push({ type: "BUY", price: today.close, date: today.date, reason: "Golden Cross" });
+            }
+            
+            // Sell Signal
+            else if (position === 1 && (deathCross || today.close < ma5 * 0.95)) {
+                cash += shares * today.close;
+                trades.push({ type: "SELL", price: today.close, date: today.date, reason: deathCross ? "Death Cross" : "Stop Loss" });
+                shares = 0;
+                position = 0;
+            }
+        }
+        
+        // Calculate final portfolio value
+        const finalValue = cash + (shares * data[data.length - 1].close);
+        const totalReturn = ((finalValue - initialCapital) / initialCapital) * 100;
+        
+        // Calculate metrics
+        let wins = 0;
+        let losses = 0;
+        let maxDrawdown = 0;
+        let peak = initialCapital;
+        
+        for (const trade of trades) {
+            if (trade.type === "SELL") {
+                const prevBuy = trades[trades.indexOf(trade) - 1];
+                if (prevBuy && trade.price > prevBuy.price) wins++;
+                else losses++;
+            }
+        }
+        
+        const winRate = (wins + losses) > 0 ? (wins / (wins + losses)) * 100 : 0;
+        
+        // Calculate max drawdown
+        let runningValue = initialCapital;
+        trades.forEach(trade => {
+            if (trade.type === "BUY") runningValue -= trade.price * 1000;
+            else runningValue += trade.price * 1000;
+            if (runningValue > peak) peak = runningValue;
+            const dd = (peak - runningValue) / peak * 100;
+            if (dd > maxDrawdown) maxDrawdown = dd;
+        });
+        
+        return {
+            return: totalReturn,
+            trades: trades.length,
+            wins: wins,
+            losses: losses,
+            winRate: winRate,
+            maxDrawdown: maxDrawdown,
+            sharpe: (totalReturn / 100) * Math.sqrt(252), // Simplified
+            history: trades,
+            finalValue: finalValue
+        };
+    }
+    
+    // Display Backtest Results
+    function displayBacktestResult(result, data) {
+        document.getElementById("btResults").style.display = "block";
+        
+        const returnEl = document.getElementById("btReturn");
+        returnEl.innerText = (result.return >= 0 ? "+" : "") + result.return.toFixed(2) + "%";
+        returnEl.style.color = result.return >= 0 ? "#10b981" : "#ef4444";
+        
+        document.getElementById("btTrades").innerText = result.trades;
+        document.getElementById("btWinRate").innerText = result.winRate.toFixed(1) + "%";
+        document.getElementById("btWinRate").style.color = result.winRate >= 50 ? "#10b981" : "#ef4444";
+        document.getElementById("btDrawdown").innerText = "-" + result.maxDrawdown.toFixed(1) + "%";
+        document.getElementById("btSharpe").innerText = result.sharpe.toFixed(2);
+        
+        // Trade history
+        const historyHtml = result.history.slice(0, 20).map(t => `
+            <div style="display:flex; justify-content:space-between; padding:6px; border-bottom:1px solid var(--glass-border);">
+                <span style="color:${t.type === 'BUY' ? '#10b981' : '#ef4444'};">${t.type}</span>
+                <span style="color:var(--light);">¥${t.price.toFixed(2)}</span>
+                <span style="color:var(--gray); font-size:10px;">${t.date}</span>
+            </div>
+        `).join('');
+        
+        document.getElementById("btHistory").innerHTML = historyHtml || '<div style="color:var(--gray); text-align:center;">No trades</div>';
+    }
+    
+    // Sector Heatmap - ADVANCED VERSION
+    function renderSectors() {
+        const container = document.getElementById("sectorHeatmap");
+        if (!container) return;
+        
+        // Sort by change (best performers first)
+        const sorted = [...sectors].sort((a, b) => b.change - a.change);
+        
+        const getHeatColor = (change) => {
+            if (change >= 3) return { bg: '#10b981', light: 'rgba(16,185,129,0.4)', icon: '🔥' };
+            if (change >= 1) return { bg: '#22c55e', light: 'rgba(34,197,94,0.3)', icon: '📈' };
+            if (change >= 0) return { bg: '#84cc16', light: 'rgba(132,204,22,0.2)', icon: '↗️' };
+            if (change >= -1) return { bg: '#f97316', light: 'rgba(249,115,22,0.2)', icon: '↘️' };
+            if (change >= -3) return { bg: '#ef4444', light: 'rgba(239,68,68,0.3)', icon: '📉' };
+            return { bg: '#dc2626', light: 'rgba(220,38,38,0.4)', icon: '💥' };
+        };
+        
+        const formatVolume = (vol) => {
+            if (vol >= 100000000) return (vol / 100000000).toFixed(1) + '亿';
+            if (vol >= 10000) return (vol / 10000).toFixed(0) + '万';
+            return vol;
+        };
+        
+        container.innerHTML = sorted.map(s => {
+            const heat = getHeatColor(s.change);
+            const total = s.up + s.down;
+            const upPct = total > 0 ? Math.round((s.up / total) * 100) : 50;
+            
+            return `
+            <div style="background:${heat.light}; border-radius:16px; padding:18px; min-width:140px; border-left:4px solid ${heat.bg}; cursor:pointer; transition:all 0.3s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span style="font-size:14px; font-weight:700; color:#f8fafc;">${s.name}</span>
+                    <span style="font-size:16px;">${heat.icon}</span>
+                </div>
+                <div style="font-size:28px; font-weight:800; color:${heat.bg}; margin-bottom:8px;">
+                    ${s.change >= 0 ? '+' : ''}${s.change.toFixed(2)}%
+                </div>
+                <div style="display:flex; gap:8px; font-size:10px; color:#94a3b8;">
+                    <span style="background:rgba(16,185,129,0.2); padding:2px 6px; border-radius:4px;">↑ ${s.up}</span>
+                    <span style="background:rgba(239,68,68,0.2); padding:2px 6px; border-radius:4px;">↓ ${s.down}</span>
+                </div>
+                <div style="margin-top:8px; height:4px; background:#1e293b; border-radius:2px; overflow:hidden;">
+                    <div style="width:${upPct}%; height:100%; background:linear-gradient(90deg, #ef4444, #10b981);"></div>
+                </div>
+                <div style="font-size:9px; color:#64748b; margin-top:4px; text-align:center;">${upPct}% stocks up</div>
+            </div>
+        `}).join('');
+        
+        // Header
+        container.innerHTML = `
+            <div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding:0 5px;">
+                <div style="font-size:14px; font-weight:600; color:#f8fafc;">📊 Market Sectors</div>
+                <button onclick="updateSectorData()" style="background:#6366f1; border:none; padding:6px 12px; border-radius:6px; color:white; font-size:11px; cursor:pointer;">🔄 Refresh</button>
+            </div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+                ${container.innerHTML}
+            </div>
+        `;
+    }
+    
+    // Enhanced Ticker Update
+    async function updateTicker() {
+        const ticker = document.getElementById("liveTicker");
+        let html = "";
+        
+        for (const stock of tickerStocks) {
+            try {
+                const res = await fetch("https://qt.gtimg.cn/q=" + stock.code);
+                const text = await res.text();
+                const m = text.match(/="([^"]+)"/);
+                if (m) {
+                    const f = m[1].split("~");
+                    stock.price = parseFloat(f[3]);
+                    stock.change = parseFloat(f[5]);
+                }
+            } catch(e) {}
+            
+            const color = stock.change >= 0 ? "#10b981" : "#ef4444";
+            const sign = stock.change >= 0 ? "+" : "";
+            html += `<div class="ticker-item">
+                <span class="ticker-name">${stock.name}</span>
+                <span class="ticker-price" style="color:${color}">¥${stock.price.toFixed(2)}</span>
+                <span class="ticker-price" style="color:${color}">${sign}${stock.change.toFixed(2)}%</span>
+            </div>`;
+        }
+        
+        ticker.innerHTML = html + html;
+    }
+    
+    // Update market status indicator
+    function updateMarketStatus() {
+        const status = getMarketStatus();
+        const el = document.getElementById("marketStatus");
+        if (el) {
+            el.innerHTML = `<span style="width:8px; height:8px; background:${status.color}; border-radius:50%; display:inline-block; margin-right:8px;"></span>${status.text}`;
+        }
+    }
+    
+    // Initialize
+    updateTicker();
+    updateMarketStatus();
+    renderSignals();
+    renderSectors();
+    setInterval(updateTicker, 10000);
+    setInterval(updateMarketStatus, 60000);
+    setInterval(updateLivePrices, 30000); // Live API refresh every 30s
+    
+    // Add keyboard shortcut for lookup
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') { closeLookup(); closePortfolio(); }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            openLookup();
+        }
+    });
+    </script>
+</body>
+</html>
