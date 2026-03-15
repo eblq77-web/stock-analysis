@@ -724,15 +724,37 @@
     </footer>
 
     <!-- Stock Lookup Modal -->
-    <div id="stockLookup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center;">
-        <div style="background:var(--dark); border:1px solid var(--glass-border); border-radius:20px; padding:30px; max-width:500px; width:90%;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                <h3 style="color:var(--light);">🔍 Stock Lookup</h3>
-                <button onclick="closeLookup()" style="background:none; border:none; color:var(--gray); font-size:24px; cursor:pointer;">&times;</button>
+    <!-- Stock Lookup Modal - Enhanced -->
+    <div id="stockLookup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.9); z-index:2000; align-items:center; justify-content:center; padding:20px;">
+        <div style="background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border:1px solid rgba(99,102,241,0.3); border-radius:24px; padding:30px; max-width:700px; width:100%; max-height:90vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+                <h3 style="color:#fff; font-size:22px;">🔍 Stock Lookup</h3>
+                <button onclick="closeLookup()" style="background:none; border:none; color:#64748b; font-size:28px; cursor:pointer;">&times;</button>
             </div>
-            <input type="text" id="stockCodeInput" placeholder="Enter stock code (e.g., 600519, 300750)" style="width:100%; padding:15px; border-radius:10px; border:1px solid var(--glass-border); background:var(--darker); color:white; font-size:16px; margin-bottom:15px;">
-            <button onclick="lookupStock()" class="btn-primary" style="width:100%;">Search</button>
-            <div id="stockResult" style="margin-top:20px;"></div>
+            
+            <!-- Quick Codes -->
+            <div style="margin-bottom:15px;">
+                <div style="font-size:12px; color:#64748b; margin-bottom:8px;">Quick Search:</div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                    <button onclick="document.getElementById('stockCodeInput').value='sh600519';lookupStock()" style="padding:6px 12px; background:rgba(99,102,241,0.2); border:1px solid rgba(99,102,241,0.3); border-radius:20px; color:#a5b4fc; cursor:pointer; font-size:12px;">贵州茅台</button>
+                    <button onclick="document.getElementById('stockCodeInput').value='sz002594';lookupStock()" style="padding:6px 12px; background:rgba(99,102,241,0.2); border:1px solid rgba(99,102,241,0.3); border-radius:20px; color:#a5b4fc; cursor:pointer; font-size:12px;">比亚迪</button>
+                    <button onclick="document.getElementById('stockCodeInput').value='sh601012';lookupStock()" style="padding:6px 12px; background:rgba(99,102,241,0.2); border:1px solid rgba(99,102,241,0.3); border-radius:20px; color:#a5b4fc; cursor:pointer; font-size:12px;">隆基绿能</button>
+                    <button onclick="document.getElementById('stockCodeInput').value='sh600036';lookupStock()" style="padding:6px 12px; background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.3); border-radius:20px; color:#34d399; cursor:pointer; font-size:12px;">招商银行</button>
+                    <button onclick="document.getElementById('stockCodeInput').value='sz000001';lookupStock()" style="padding:6px 12px; background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.3); border-radius:20px; color:#fbbf24; cursor:pointer; font-size:12px;">平安银行</button>
+                    <button onclick="document.getElementById('stockCodeInput').value='bj835670';lookupStock()" style="padding:6px 12px; background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.3); border-radius:20px; color:#f472b6; cursor:pointer; font-size:12px;">数字人(BSE)</button>
+                </div>
+            </div>
+            
+            <!-- Search Input -->
+            <div style="display:flex; gap:10px; margin-bottom:20px;">
+                <input type="text" id="stockCodeInput" placeholder="Enter stock code (e.g., 600519, 300750, 835670)" 
+                    style="flex:1; padding:16px; border-radius:12px; border:1px solid rgba(99,102,241,0.3); background:rgba(0,0,0,0.3); color:white; font-size:16px;"
+                    onkeypress="if(event.key==='Enter')lookupStock()">
+                <button onclick="lookupStock()" style="padding:16px 30px; background:linear-gradient(135deg, #6366f1, #4f46e5); border:none; border-radius:12px; color:white; font-size:16px; font-weight:600; cursor:pointer;">🔍 Search</button>
+            </div>
+            
+            <!-- Results -->
+            <div id="stockResult" style="min-height:200px;"></div>
         </div>
     </div>
 
@@ -1501,7 +1523,7 @@
         const changePercent = prevClose ? (change / prevClose * 100) : 0;
         
         // Buy/Sell pressure
-        const buyPressure = totalBid + totalBid > 0 ? (totalBid / (totalBid + totalAsk) * 100) : 50;
+        const buyPressure = (totalBid + totalAsk) > 0 ? (totalBid / (totalBid + totalAsk) * 100) : 50;
         const sellPressure = 100 - buyPressure;
         
         // Bid/Ask spread
@@ -1556,69 +1578,123 @@
         }
     }
     
-    // Stock Lookup Function - Enhanced
+    // Stock Lookup Function - Enhanced with Full Forensic
     async function lookupStock() {
-        const code = document.getElementById("stockCodeInput").value.trim().toLowerCase();
+        const code = document.getElementById("stockCodeInput").value.trim().toLowerCase().replace(/,/g, ' ').split(' ')[0];
         if (!code) return;
         
         const resultDiv = document.getElementById("stockResult");
-        resultDiv.innerHTML = '<div style="text-align:center; color:var(--gray);">Loading from live API...</div>';
+        resultDiv.innerHTML = '<div style="text-align:center; padding:40px; color:#64748b;">🔄 Fetching live data...</div>';
         
         try {
-            // Try primary API
             let res = await fetch("https://qt.gtimg.cn/q=" + code);
             let text = await res.text();
             let data = parseGuotaiData(text);
             
-            if (!data) {
-                resultDiv.innerHTML = '<div style="text-align:center; color:#ef4444;">Stock not found</div>';
+            if (!data || !data.name) {
+                resultDiv.innerHTML = '<div style="text-align:center; padding:40px; color:#ef4444;">❌ Stock not found. Try format: sh600519, sz300750, or bj835670</div>';
                 return;
             }
             
             const indicators = calculateIndicators(data);
-            const color = data.change >= 0 ? "#10b981" : "#ef4444";
-            const sign = data.change >= 0 ? "+" : "";
+            const color = data.changePercent >= 0 ? "#10b981" : "#ef4444";
+            const sign = data.changePercent >= 0 ? "+" : "";
             const indColor = indicators.smartMoney.includes('BUY') ? '#10b981' : indicators.smartMoney.includes('SELL') ? '#ef4444' : '#f59e0b';
             
+            // Calculate additional metrics
+            const dayRange = data.high > data.low ? ((data.price - data.low) / (data.high - data.low) * 100).toFixed(1) : 0;
+            const volumeK = (data.volume / 10000).toFixed(1);
+            const amountY = (data.amount / 100000000).toFixed(2);
+            
+            // Bid/Ask analysis
+            const bidAskRatio = data.ask1 > 0 ? (data.bid1 / data.ask1 * 100).toFixed(1) : 0;
+            const orderFlow = data.totalBid - data.totalAsk;
+            
             resultDiv.innerHTML = `
-                    <div style="background:var(--glass); border-radius:12px; padding:20px;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                            <div>
-                                <div style="font-size:18px; font-weight:600; color:var(--light);">${data.name}</div>
-                                <div style="color:var(--gray); font-size:14px;">${code.toUpperCase()} | Live Data</div>
-                            </div>
-                            <div style="text-align:right;">
-                                <div style="font-size:24px; font-weight:700; color:${color};">¥${data.price.toFixed(2)}</div>
-                                <div style="color:${color}; font-size:16px;">${sign}${data.change.toFixed(2)}%</div>
-                            </div>
+                <div style="background:linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(16,185,129,0.1) 100%); border:1px solid rgba(99,102,241,0.2); border-radius:16px; padding:20px;">
+                    <!-- Header -->
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+                        <div>
+                            <div style="font-size:24px; font-weight:700; color:#fff;">${data.name}</div>
+                            <div style="color:#64748b; font-size:14px;">${data.code || code.toUpperCase()} | ${data.updateTime || 'N/A'}</div>
                         </div>
-                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; font-size:13px;">
-                            <div><span style="color:var(--gray);">Open:</span> <span style="color:var(--light);">¥${data.open.toFixed(2)}</span></div>
-                            <div><span style="color:var(--gray);">High:</span> <span style="color:#10b981;">¥${data.high.toFixed(2)}</span></div>
-                            <div><span style="color:var(--gray);">Low:</span> <span style="color:#ef4444;">¥${data.low.toFixed(2)}</span></div>
-                        </div>
-                        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; font-size:13px; margin-top:10px;">
-                            <div><span style="color:var(--gray);">Volume:</span> <span style="color:var(--light);">${(data.volume/1000000).toFixed(2)}M</span></div>
-                            <div><span style="color:var(--gray);">Amount:</span> <span style="color:var(--light);">¥${(data.amount/100000000).toFixed(2)}B</span></div>
-                        </div>
-                        <div style="background:rgba(0,0,0,0.3); border-radius:8px; padding:12px; margin-top:12px;">
-                            <div style="font-size:12px; font-weight:600; color:var(--gray); margin-bottom:8px;">📊 SMART MONEY INDICATORS</div>
-                            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; font-size:12px;">
-                                <div><span style="color:var(--gray);">Buy Pressure:</span> <span style="color:#10b981;">${indicators.buyPressure}%</span></div>
-                                <div><span style="color:var(--gray);">Vol Ratio:</span> <span style="color:var(--light);">${indicators.volumeRatio}x</span></div>
-                                <div><span style="color:var(--gray);">Signal:</span> <span style="color:${indColor}; font-weight:600;">${indicators.smartMoney}</span></div>
-                            </div>
-                        </div>
-                        <div style="font-size:11px; color:var(--gray); margin-top:10px; text-align:center;">
-                            Last Update: ${data.updateTime} | Source: Guotai API
+                        <div style="text-align:right;">
+                            <div style="font-size:32px; font-weight:700; color:${color};">¥${data.price.toFixed(2)}</div>
+                            <div style="color:${color}; font-size:18px; font-weight:600;">${sign}${data.changePercent.toFixed(2)}%</div>
                         </div>
                     </div>
-                `;
-            } else {
-                resultDiv.innerHTML = '<div style="text-align:center; color:#ef4444;">Stock not found</div>';
-            }
+                    
+                    <!-- Price Data -->
+                    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:15px;">
+                        <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px; text-align:center;">
+                            <div style="color:#64748b; font-size:11px;">OPEN</div>
+                            <div style="color:#fff; font-weight:600;">¥${data.open.toFixed(2)}</div>
+                        </div>
+                        <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px; text-align:center;">
+                            <div style="color:#10b981; font-size:11px;">HIGH</div>
+                            <div style="color:#10b981; font-weight:600;">¥${data.high.toFixed(2)}</div>
+                        </div>
+                        <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px; text-align:center;">
+                            <div style="color:#ef4444; font-size:11px;">LOW</div>
+                            <div style="color:#ef4444; font-weight:600;">¥${data.low.toFixed(2)}</div>
+                        </div>
+                        <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px; text-align:center;">
+                            <div style="color:#f59e0b; font-size:11px;">RANGE</div>
+                            <div style="color:#f59e0b; font-weight:600;">${dayRange}%</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Volume & Money -->
+                    <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:15px;">
+                        <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px;">
+                            <div style="color:#64748b; font-size:11px;">VOLUME</div>
+                            <div style="color:#fff; font-weight:600;">${volumeK}万手</div>
+                        </div>
+                        <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px;">
+                            <div style="color:#64748b; font-size:11px;">TURNOVER</div>
+                            <div style="color:#fff; font-weight:600;">¥${amountY}亿</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Smart Money Section -->
+                    <div style="background:rgba(0,0,0,0.4); border-radius:12px; padding:15px; margin-bottom:15px;">
+                        <div style="font-size:13px; font-weight:600; color:#a855f7; margin-bottom:12px;">🧠 SMART MONEY ANALYSIS</div>
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
+                            <div>
+                                <div style="color:#64748b; font-size:11px;">Buy Pressure</div>
+                                <div style="color:#10b981; font-weight:700; font-size:18px;">${indicators.buyPressure}%</div>
+                            </div>
+                            <div>
+                                <div style="color:#64748b; font-size:11px;">Vol Ratio</div>
+                                <div style="color:#fff; font-weight:700; font-size:18px;">${indicators.volumeRatio}x</div>
+                            </div>
+                            <div>
+                                <div style="color:#64748b; font-size:11px;">Signal</div>
+                                <div style="color:${indColor}; font-weight:700; font-size:18px;">${indicators.smartMoney}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Flow -->
+                    <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;">
+                        <div style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); padding:12px; border-radius:10px;">
+                            <div style="color:#10b981; font-size:11px;">BID/ASK RATIO</div>
+                            <div style="color:#10b981; font-weight:600;">${bidAskRatio}%</div>
+                        </div>
+                        <div style="background:rgba(236,72,153,0.1); border:1px solid rgba(236,72,153,0.3); padding:12px; border-radius:10px;">
+                            <div style="color:#f472b6; font-size:11px;">ORDER FLOW</div>
+                            <div style="color:${orderFlow >= 0 ? '#10b981' : '#ef4444'}; font-weight:600;">${orderFlow >= 0 ? '+' : ''}${orderFlow.toLocaleString()}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Source -->
+                    <div style="text-align:center; margin-top:15px; color:#475569; font-size:11px;">
+                        📡 Live Data from Tencent API | ${new Date().toLocaleString('zh-CN')}
+                    </div>
+                </div>
+            `;
         } catch(e) {
-            resultDiv.innerHTML = '<div style="text-align:center; color:#ef4444;">Error fetching data</div>';
+            resultDiv.innerHTML = '<div style="text-align:center; padding:40px; color:#ef4444;">❌ Error: ' + e.message + '</div>';
         }
     }
     
