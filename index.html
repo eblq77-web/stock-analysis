@@ -555,6 +555,19 @@
     </div>
     
     <!-- Sector Heatmap -->
+    <!-- Live Market Indices Bar -->
+    <section style="padding:20px 40px; background:linear-gradient(90deg, rgba(99,102,241,0.1), rgba(16,185,129,0.1)); border-bottom:1px solid var(--glass-border);">
+        <div style="max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px;">
+            <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+                <span style="font-size:14px; font-weight:600; color:var(--light);">📈 Live Indices:</span>
+                <div id="liveIndices" style="display:flex; gap:20px; flex-wrap:wrap;">
+                    <span style="color:var(--gray);">Loading...</span>
+                </div>
+            </div>
+            <div id="marketStatus" style="font-size:14px; font-weight:500;"></div>
+        </div>
+    </section>
+    
     <section style="padding:60px 40px; background:rgba(0,0,0,0.2); border-bottom:1px solid var(--glass-border);">
         <div style="max-width:1200px; margin:0 auto;">
             <div style="text-align:center; margin-bottom:40px;">
@@ -919,11 +932,74 @@
     function getMarketStatus() {
         const now = new Date();
         const hour = now.getHours();
+        const minute = now.getMinutes();
         const day = now.getDay();
-        if (day === 0 || day === 6) return { status: 'closed', text: 'Market Closed', color: '#ef4444' };
-        if (hour < 9 || hour >= 15) return { status: 'closed', text: 'Market Closed', color: '#ef4444' };
-        if (hour === 9 && now.getMinutes() < 30) return { status: 'pre', text: 'Pre-Market', color: '#f59e0b' };
-        return { status: 'open', text: 'Market Open', color: '#10b981' };
+        
+        // Weekend
+        if (day === 0) return { status: 'weekend', text: '📅 Sunday - Market Closed', color: '#6366f1' };
+        if (day === 6) return { status: 'weekend', text: '📅 Saturday - Market Closed', color: '#6366f1' };
+        
+        // Weekday - before open
+        if (hour < 9 || (hour === 9 && minute < 30)) return { status: 'pre', text: 'Pre-Market (09:00-09:30)', color: '#f59e0b' };
+        
+        // Lunch break (11:30-13:00)
+        if (hour >= 11 && hour < 13) return { status: 'lunch', text: 'Lunch Break - Trading Paused', color: '#f59e0b' };
+        
+        // After close
+        if (hour >= 15) return { status: 'closed', text: 'Market Closed (15:00+)', color: '#ef4444' };
+        
+        // Market open
+        return { status: 'open', text: '🔴 Market Open', color: '#10b981' };
+    }
+    
+    // Get day name in Chinese
+    function getDayName(day) {
+        const days = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+        return days[day];
+    }
+    
+    // Live Indices
+    const indices = [
+        {code: 'sh000001', name: '上证指数'},
+        {code: 'sz399001', name: '深证成指'},
+        {code: 'sz399006', name: '创业板指'},
+        {code: 'sh000688', name: '科创50'},
+        {code: 'bj899050', name: '北证50'},
+    ];
+    
+    async function updateLiveIndices() {
+        const container = document.getElementById('liveIndices');
+        if (!container) return;
+        
+        let html = '';
+        const now = new Date();
+        const day = now.getDay();
+        const isWeekend = day === 0 || day === 6;
+        
+        for (const idx of indices) {
+            try {
+                const res = await fetch('https://qt.gtimg.cn/q=' + idx.code);
+                const text = await res.text();
+                const m = text.match(/="([^"]+)"/);
+                if (m) {
+                    const f = m[1].split('~');
+                    idx.price = parseFloat(f[3]);
+                    idx.change = parseFloat(f[32]) || 0;
+                    idx.name = f[1] || idx.name;
+                }
+            } catch(e) {}
+            
+            const color = idx.change >= 0 ? '#10b981' : '#ef4444';
+            const sign = idx.change >= 0 ? '+' : '';
+            const label = isWeekend ? '📅' : '🔴';
+            html += `<span style="font-size:13px;">
+                <span style="color:var(--gray);">${idx.name}:</span>
+                <span style="color:var(--light); font-weight:600;">${idx.price.toFixed(2)}</span>
+                <span style="color:${color};">${sign}${idx.change.toFixed(2)}%</span>
+            </span>`;
+        }
+        
+        container.innerHTML = html;
     }
     
     // Live Ticker Data - Expanded
@@ -1391,26 +1467,26 @@
         const f = m[1].split("~");
         return {
             name: f[1] || '',
+            code: f[2] || '',
             price: parseFloat(f[3]) || 0,
-            change: parseFloat(f[5]) || 0,
-            volume: parseInt(f[4]) || 0,
-            amount: parseInt(f[6]) || 0,
+            change: parseFloat(f[31]) || 0,  // Change from yesterday
+            changePercent: parseFloat(f[32]) || 0,  // Change %
+            volume: parseInt(f[6]) || 0,
+            amount: parseInt(f[7]) || 0,
+            open: parseFloat(f[5]) || 0,
             high: parseFloat(f[33]) || 0,
             low: parseFloat(f[34]) || 0,
-            open: parseFloat(f[35]) || 0,
-            prevClose: parseFloat(f[36]) || 0,
-            bid1: parseFloat(f[9]) || 0,   // Buy price
-            ask1: parseFloat(f[19]) || 0,   // Sell price
-            bidVol1: parseInt(f[10]) || 0,  // Buy volume
-            askVol1: parseInt(f[20]) || 0,  // Sell volume
-            totalBid: parseInt(f[37]) || 0, // Total buy
-            totalAsk: parseInt(f[38]) || 0, // Total sell
+            prevClose: parseFloat(f[4]) || 0,
+            bid1: parseFloat(f[9]) || 0,
+            ask1: parseFloat(f[19]) || 0,
+            bidVol1: parseInt(f[10]) || 0,
+            askVol1: parseInt(f[20]) || 0,
+            totalBid: parseInt(f[37]) || 0,
+            totalAsk: parseInt(f[38]) || 0,
+            pe: parseFloat(p[38]) || 0,
+            pb: parseFloat(p[46]) || 0,
             turnover: parseFloat(f[38]) || 0,
-            amplitude: parseFloat(f[39]) || 0, // Amplitude %
-            changePercent: parseFloat(f[38]) || 0,
-            volumeRatio: parseFloat(f[39]) || 0,
-            pe: parseFloat(f[39]) || 0,
-            pb: parseFloat(f[46]) || 0,
+            amplitude: parseFloat(f[39]) || 0,
             marketCap: parseFloat(f[45]) || 0,
             updateTime: f[30] || '',
         };
@@ -2313,6 +2389,7 @@ NewStrategy Team`
     // Enhanced Ticker Update
     async function updateTicker() {
         const ticker = document.getElementById("liveTicker");
+        if (!ticker) return;
         let html = "";
         
         for (const stock of tickerStocks) {
@@ -2323,9 +2400,10 @@ NewStrategy Team`
                 if (m) {
                     const f = m[1].split("~");
                     stock.price = parseFloat(f[3]);
-                    stock.change = parseFloat(f[5]);
+                    stock.change = parseFloat(f[32]) || 0; // Change % from field 32
+                    stock.name = f[1] || stock.name; // Update name from API
                 }
-            } catch(e) {}
+            } catch(e) { console.log('Ticker error:', e); }
             
             const color = stock.change >= 0 ? "#10b981" : "#ef4444";
             const sign = stock.change >= 0 ? "+" : "";
@@ -2351,9 +2429,11 @@ NewStrategy Team`
     // Initialize
     updateTicker();
     updateMarketStatus();
+    updateLiveIndices();
     renderSignals();
     renderSectors();
     setInterval(updateTicker, 10000);
+    setInterval(updateLiveIndices, 30000);
     setInterval(updateMarketStatus, 60000);
     setInterval(updateLivePrices, 30000); // Live API refresh every 30s
     
