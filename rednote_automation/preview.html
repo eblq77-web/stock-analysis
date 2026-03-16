@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Rednote Meme Clips Preview</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        .header { text-align: center; padding: 20px; }
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+        }
+        .clips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .clip-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .clip-card.selected {
+            border: 2px solid #feca57;
+            box-shadow: 0 0 25px rgba(254,202,87,0.3);
+        }
+        .clip-preview {
+            height: 120px;
+            background: linear-gradient(180deg, #2d3436, #0a0a0a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .clip-info { padding: 15px; }
+        .clip-title { font-size: 1.1rem; color: #feca57; margin-bottom: 5px; }
+        .clip-duration { font-size: 0.8rem; opacity: 0.7; margin-bottom: 10px; display: block; }
+        .scene { font-size: 0.8rem; padding: 4px 0; opacity: 0.8; }
+        .view-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #48dbfb;
+            color: #1a1a2e;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .view-btn:hover { background: #feca57; }
+        
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: linear-gradient(135deg, #2d3436, #1a1a2e);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            border: 2px solid #feca57;
+        }
+        .modal h2 { color: #feca57; margin-bottom: 20px; }
+        .modal-caption {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+        .modal-close {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .modal-post {
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .modal-scenes {
+            text-align: left;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        .modal-scenes div { padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎬 Rednote Meme Clips</h1>
+        <p style="opacity:0.7;">Click "View Caption" to preview • Click "Post This" to publish</p>
+    </div>
+    
+    <div class="filters">
+        <button class="filter-btn active" onclick="showCategory('all')">All</button>
+        <button class="filter-btn" onclick="showCategory('work')">Work</button>
+        <button class="filter-btn" onclick="showCategory('money')">Money</button>
+        <button class="filter-btn" onclick="showCategory('funny')">Funny</button>
+        <button class="filter-btn" onclick="showCategory('relatable')">Relatable</button>
+    </div>
+    
+    <div class="clips-container" id="clipsContainer"></div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h2 id="modalTitle">Title</h2>
+            <div class="modal-scenes" id="modalScenes"></div>
+            <div class="modal-caption" id="modalCaption">Caption text</div>
+            <button class="modal-close" onclick="closeModal()">✕ Close</button>
+            <button class="modal-post" onclick="postFromModal()">📤 Post This</button>
+        </div>
+    </div>
+
+    <script>
+    const clips = [
+        {id:'salary_journey',title:'💸 Monthly Salary Journey',duration:'20s',tags:['money','relatable'],scenes:['💰 Day 1: "I\'m gonna save money!"','💸 Day 3: Rent paid','😰 Day 15: "Why wallet crying?"','💀 Day 30: "WHO SPENT THIS???"','💧 Salary = water in sieve']},
+        {id:'growth_opportunity',title:'📈 The Growth Opportunity',duration:'18s',tags:['work','funny'],scenes:['👔 "We value growth over money!"','Me: "Cool. How much growth?"','👔 "You\'ll grow... professionally!"','Me: "So zero money?"','🎤 *drops mic*']},
+        {id:'work_life_balance',title:'💼 The Real Employee Benefits',duration:'15s',tags:['work','relatable'],scenes:['🏢 "Great work-life balance!"','📊 Stock photo: Happy','🕚 Leaves at 11PM','💔 "Balance? Zero."']},
+        {id:'late_excuse',title:'🐺 The Late Report Excuse',duration:'15s',tags:['work','funny'],scenes:['🐺 "WHERE IS THE REPORT?!"','🐑 "Lost in translation..."','🐺 "BY WHO?!"','🐑 "Dog ate it!"']},
+        {id:'chat_fail',title:'💬 The Accidental Reply',duration:'12s',tags:['funny','relatable'],scenes:['📱 Boss: "Sat?"','💬 "Can\'t, got plans" *SENT*','😱 RED CIRCLE!','👔 "What plans?"']},
+        {id:'monday_mood',title:'🧟 Monday Mood',duration:'15s',tags:['work','relatable'],scenes:['🎉 Friday: PARTY!','⏰ Mon 6AM: ALARM!','😴 Snooze 10x','🧟 Zombie to office']},
+        {id:'meeting_vs_reality',title:'📊 Meeting vs Reality',duration:'18s',tags:['work','funny'],scenes:['🏢 Meeting room...','🫧 Pretending attention','🏖️ Thought: Beach','😰 "What\'s update?"','👍 Fake nod']},
+        {id:'boss_email',title:'📧 The 11PM Email',duration:'12s',tags:['work','relatable'],scenes:['😴 Sleeping...','📱 *RED* 11PM EMAIL!','👤 "Quick question..."','😳 *sits up*']},
+        {id:'fake_busy',title:'🎭 Looking Busy',duration:'15s',tags:['work','funny'],scenes:['💻 Multiple screens...','⌨️ Random tabs...','👀 Boss walks by...','✅ Boss leaves 😎']},
+        {id:'deadline_vs_start',title:'⏰ Deadline vs Start',duration:'15s',tags:['work','relatable'],scenes:['📅 1 month: OK','⏩ Days fly...','😱 TOMORROW!','🌙 3AM: Coffee']},
+        {id:'coffee_life',title:'☕ Coffee Fuel',duration:'12s',tags:['work','relatable'],scenes:['🌅 No coffee = ZOMBIE','☕ Coffee = Angels!','👁️ Dead → Alive','🦸 Coffee superhero!']},
+        {id:'budget_vs_receipt',title:'💰 Budget vs Receipt',duration:'15s',tags:['money','funny'],scenes:['📝 Budget: $50','🧾 Receipt: $200 😱','🛒 Snacks...','😿 Crying 💔']},
+        {id:'team_player',title:'🏆 Team Player',duration:'15s',tags:['work','funny'],scenes:['🎉 Celebration!','😓 Me: Huge pile','🙈 Credit takers','🏅 Everyone but me']},
+        {id:'out_of_office',title:'🏝️ Out of Office',duration:'15s',tags:['work','funny'],scenes:['🏖️ Beach + cocktail','📧 Work email 🔔','🤖 Auto-reply ✨','🏊 Diving in!']}
+    ];
+
+    const captions = {
+        salary_journey: "Day 1: I'm saving money.\nDay 30: Who stole my wallet? 😂\n\n#salary #meme #relatable #finance",
+        growth_opportunity: "Boss: 'We value growth over me'\nMe: 'So... no money?'\nBoss: 'Exactly!'\n\n#interview #sarcasm #workmeme",
+        work_life_balance: "Company: We offer great work-life balance!\nMe: *leaves at 11PM*\n\n#worklife #meme #sarcasm",
+        late_excuse: "Boss: WHERE IS THE REPORT?! \nMe: ...My dog ate it?\n\n#workexcuses #meme #funny",
+        chat_fail: "Boss: Can you work Saturday?\nMe: *accidentally replies* Can't\nBoss: ??\n\n#chatfail #meme #RIP",
+        monday_mood: "Friday: I'm invincible!\nMonday: *existential crisis*\n\n#monday #meme #relatable #TGIF",
+        meeting_vs_reality: "Meeting: 🎭\nMy brain: 🏖️\nBoss: Any updates?\nMe: *nods blindly* YES! 👍\n\n#meeting #meme #sarcasm",
+        boss_email: "11PM: *peacefully sleeping*\n📱: New email from boss\nMe: *sits up instantly* I'M AWAKE!\n\n#boss #email #meme",
+        fake_busy: "Boss walks by: 🤨\nMe: *slams keyboard* 🏃💨\nBoss leaves: *stops immediately* 😌\n\n#faking #work #meme",
+        deadline_vs_start: "1 week before: Plenty of time! 😌\n1 day before: WHY IS IT TOMORROW?! 😱\n3AM: Coffee IV 💉\n\n#deadline #procrastination #meme",
+        coffee_life: "Before coffee: 🧟‍♂️\nAfter coffee: 🦸‍♂️\n\nCoffee: Because adulting is hard ☕\n\n#coffee #meme #morning",
+        budget_vs_receipt: "Budget: $50 for food ✅\nReceipt: $200 💸\nMe: 😰\n\n#budget #meme #finance #fail",
+        team_player: "Team: Great job everyone! 🎉\nMe: *carrying all the work*\nTeam: *takes credit* 🙈\nMe: 🏅\n\n#teamwork #sarcasm #meme",
+        out_of_office: "Out of office activated! 🏝️\nBoss: Quick question...\nMe: *on beach* 🤖 Auto-reply: NO\n\n#vacation #outofoffice #genius"
+    };
+
+    let selectedClip = null;
+
+    function showCategory(cat) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        const filtered = cat === 'all' ? clips : clips.filter(c => c.tags.includes(cat));
+        renderClips(filtered);
+    }
+
+    function renderClips(list) {
+        const container = document.getElementById('clipsContainer');
+        container.innerHTML = list.map(clip => `
+            <div class="clip-card" id="card-${clip.id}">
+                <div class="clip-preview">${clip.scenes[0]}</div>
+                <div class="clip-info">
+                    <h3 class="clip-title">${clip.title}</h3>
+                    <span class="clip-duration">⏱️ ${clip.duration}</span>
+                    <div class="scene">${clip.scenes.slice(1).join(' → ')}</div>
+                    <button class="view-btn" onclick="openModal('${clip.id}')">📋 View Caption</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function openModal(id) {
+        selectedClip = clips.find(c => c.id === id);
+        document.getElementById('modalTitle').textContent = selectedClip.title;
+        document.getElementById('modalScenes').innerHTML = selectedClip.scenes.map((s,i) => 
+            `<div>⏱️ ${['0:00','0:03','0:06','0:10','0:15'][i] || '0:15'}: ${s}</div>`
+        ).join('');
+        document.getElementById('modalCaption').textContent = captions[id];
+        document.getElementById('modal').classList.add('show');
+        
+        // Highlight selected card
+        document.querySelectorAll('.clip-card').forEach(c => c.classList.remove('selected'));
+        document.getElementById('card-' + id)?.classList.add('selected');
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('selected');
+        document.getElementById('modal').classList.remove('show');
+    }
+
+    function postFromModal() {
+        if (selectedClip) {
+            closeModal();
+            // Tell user which clip to post
+            alert('🎬 Ready to post: ' + selectedClip.title + '\n\nUse the browser to post this meme!');
+        }
+    }
+
+    // Initial
+    renderClips(clips);
+    </script>
+</body>
+</html>

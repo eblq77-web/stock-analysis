@@ -1,0 +1,179 @@
+{
+  "video_api": {
+    "provider": "minimax_video",
+    "api_key": "YOUR_API_KEY_HERE",
+    "endpoint": "https://api.minimax.chat/v1/video/generation"
+  },
+  "content_profile": {
+    "theme": "black_humor_worklife",
+    "language": "english",
+    "style": ["meme", "sarcastic", "relatable"]
+  },
+  "posting": {
+    "schedule": "daily",
+    "time": "09:00",
+    "platform": "xiaohongshu"
+  },
+  "scripts": {
+    "templates": [
+      {
+        "id": "salary_journey",
+        "title": "Monthly Salary Journey",
+        "duration": 20,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Golden coins in hand, sparkle effects, happy expression, bright colors"},
+          {"time": "0:03-0:06", "prompt": "Money flying away, rent receipt, red arrow pointing out, minimalist flat design"},
+          {"time": "0:06-0:10", "prompt": "Deflating balloon shaped like wallet, slowly losing air, pathetic, grey background"},
+          {"time": "0:10-0:15", "prompt": "Empty pockets, tumbleweed rolling, desert background, dramatic movie poster style"},
+          {"time": "0:15-0:20", "prompt": "Water leaking through sieve, golden particles falling through holes, philosophical mood"}
+        ]
+      },
+      {
+        "id": "growth_opportunity",
+        "title": "The Growth Opportunity",
+        "duration": 18,
+        "scenes": [
+          {"time": "0:00-0:04", "prompt": "Corporate interview scene, two chairs, spotlight, serious mood, dark blue background"},
+          {"time": "0:04-0:08", "prompt": "Smiling businessman, thumbs up, growth chart going up, dollar sign fading away"},
+          {"time": "0:08-0:12", "prompt": "Confused employee, question marks floating, pointing finger, thinking pose"},
+          {"time": "0:12-0:15", "prompt": "Awkward moment, sweat drops, blank stare, crickets chirping sound effect"},
+          {"time": "0:15-0:18", "prompt": "Microphone dropping, explosion effect, dramatic exit, black background with impact text"}
+        ]
+      },
+      {
+        "id": "work_life_balance",
+        "title": "The Real Employee Benefits",
+        "duration": 15,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Dark office at night, single desk lamp glowing, silhouette of tired worker, moody atmosphere"},
+          {"time": "0:03-0:06", "prompt": "Sleek corporate office, happy employees stock photo, too perfect to be real, ironic"},
+          {"time": "0:06-0:10", "prompt": "Clock showing 11 PM, office door closing, lone figure walking away, dark hallway"},
+          {"time": "0:10-0:15", "prompt": "Empty wallet, dust particles, dramatic lighting, crying emoji, minimalist dark background"}
+        ]
+      },
+      {
+        "id": "late_excuse",
+        "title": "The Late Report Excuse",
+        "duration": 15,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Angry wolf character, business suit, thunder clouds above, red eyes, animated style"},
+          {"time": "0:03-0:06", "prompt": "Wolf pointing finger, angry expression, office background, cartoon vector art"},
+          {"time": "0:06-0:09", "prompt": "Scared sheep character, sweating, shaking, small in corner, cute nervous style"},
+          {"time": "0:09-0:12", "prompt": "Lost in translation concept, document flying away, confused sheep, cartoon cloud"},
+          {"time": "0:12-0:15", "prompt": "Sheep with excuse list, dog eating paper, chaotic cartoon scene, funny expression"}
+        ]
+      },
+      {
+        "id": "chat_fail",
+        "title": "The Accidental Reply",
+        "duration": 12,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "iPhone chat screen, WeChat style, green message bubbles, realistic"},
+          {"time": "0:03-0:06", "prompt": "Finger pressing send button, red send arrow, oh no alarm,紧张氛围"},
+          {"time": "0:06-0:09", "prompt": "Sent message highlighted, horror movie effect, red alert, shaking phone"},
+          {"time": "0:09-0:12", "prompt": "Boss message notification, evil grin emoji, dramatic zoom, scary music"}
+        ]
+      },
+      {
+        "id": "monday_mood",
+        "title": "Monday Mood Be Like",
+        "duration": 15,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Happy person dancing on Friday night, disco lights, party atmosphere"},
+          {"time": "0:03-0:06", "prompt": "Alarm clock at 6 AM, red flashing, horror movie style, tired person"},
+          {"time": "0:06-0:10", "prompt": "Person hitting snooze 10 times, piled up alarm clocks, chaotic"},
+          {"time": "0:10-0:15", "prompt": "Zombie walking to office, grey fog, dead eyes, Monday morning atmosphere"}
+        ]
+      },
+      {
+        "id": "meeting_vs_reality",
+        "title": "Meeting vs Reality",
+        "duration": 18,
+        "scenes": [
+          {"time": "0:00-0:04", "prompt": "Professional meeting room, round table, presentation slides, corporate stock photo"},
+          {"time": "0:04-0:08", "prompt": "Employee pretending to pay attention, blank stare, floating bubbles, daydreaming"},
+          {"time": "0:08-0:12", "prompt": "Actual thought: person on beach, relaxing, cocktail, paradise"},
+          {"time": "0:12-0:15", "prompt": "Back to meeting, boss asking question, panic, sweat drops, confused face"},
+          {"time": "0:15-0:18", "prompt": "Awkward silence, person nodding yes, thumbs up, fake smile, relief"}
+        ]
+      },
+      {
+        "id": "boss_email",
+        "title": "The 11PM Email",
+        "duration": 12,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Peaceful sleeping person, moon shining, stars, cozy bed, dream bubbles"},
+          {"time": "0:03-0:06", "prompt": "Phone notification glowing red, email icon, 11PM timestamp, horror effect"},
+          {"time": "0:06-0:09", "prompt": "Email from boss: 'Quick question...' text, evil laugh emoji, warning signs"},
+          {"time": "0:09-0:12", "prompt": "Person sitting up in bed, eyes wide open, instant awake, dramatic lighting"}
+        ]
+      },
+      {
+        "id": "fake_busy",
+        "title": "The Art of Looking Busy",
+        "duration": 15,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Person at desk, multiple monitors, serious face, productive atmosphere"},
+          {"time": "0:03-0:06", "prompt": "Screen showing random spreadsheets, CTRL+TAB clicking, smoke screen effect"},
+          {"time": "0:06-0:10", "prompt": "Boss walking by, person instantly typing fast, dramatic zoom, serious focus face"},
+          {"time": "0:10-0:15", "prompt": "Boss leaves, person stops typing, looks at phone, relieved smile, thumbs up"}
+        ]
+      },
+      {
+        "id": "deadline_vs_start",
+        "title": "Deadline vs Start Date",
+        "duration": 15,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Calendar showing deadline in 1 month, relaxed person, laying down, peaceful"},
+          {"time": "0:03-0:06", "prompt": "Calendar flipping fast, days passing, clouds moving, time lapse"},
+          {"time": "0:06-0:10", "prompt": "Calendar showing deadline tomorrow, person hair pulling, panic, stressed"},
+          {"time": "0:10-0:15", "prompt": "Person at desk at 3AM, multiple coffee cups, red eyes, frantic typing, deadline"}
+        ]
+      },
+      {
+        "id": "coffee_life",
+        "title": "Coffee: The Real Fuel",
+        "duration": 12,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Morning person without coffee, zombie mode, grey filter, slow motion"},
+          {"time": "0:03-0:06", "prompt": "Coffee machine pouring, golden light rays, angel singing, magical atmosphere"},
+          {"time": "0:06-0:09", "prompt": "Drinking coffee, eyes opening slowly, from dead to alive transition, dramatic"},
+          {"time": "0:09-0:12", "prompt": "Superhero pose with coffee cup, cape flowing, dramatic lighting, ready to conquer world"}
+        ]
+      },
+      {
+        "id": "budget_vs_receipt",
+        "title": "Budget vs Receipt",
+        "duration": 15,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Budget list: $50 for food, organized, neat paper, responsible adult"},
+          {"time": "0:03-0:06", "prompt": "Receipt showing $200, shock, eyes wide, jaw dropped, horror movie"},
+          {"time": "0:06-0:10", "prompt": "What I bought: coffee, snacks, more coffee, emergency snacks, confused face"},
+          {"time": "0:10-0:15", "prompt": "Sad cat meme, crying in corner, empty wallet, dramatic lighting, tragedy"}
+        ]
+      },
+      {
+        "id": "team_player",
+        "title": "The Team Player",
+        "duration": 15,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Team meeting, everyone clapping, celebration, high five, corporate happy"},
+          {"time": "0:03-0:06", "prompt": "Who actually did the work: one person with huge pile of papers, others watching"},
+          {"time": "0:06-0:10", "prompt": "Person sweating, carrying pile, other team members taking credit, thumbs up"},
+          {"time": "0:10-0:15", "prompt": "End result: Team player award goes to everyone else, one person clapping fake smile"}
+        ]
+      },
+      {
+        "id": "out_of_office",
+        "title": "Out of Office Genius",
+        "duration": 15,
+        "scenes": [
+          {"time": "0:00-0:03", "prompt": "Person on vacation beach, cocktail, sunglasses, paradise, relaxing"},
+          {"time": "0:03-0:06", "prompt": "Work email notification, sand falling through hourglass, tension building"},
+          {"time": "0:06-0:10", "prompt": "Auto-reply: 'I'm out of office until...' evil grin, magic wand, solved"},
+          {"time": "0:10-0:15", "prompt": "Person ignoring email, diving into ocean, freedom, thumbs up, victory pose"}
+        ]
+      }
+    ]
+  }
+}

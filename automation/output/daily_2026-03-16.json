@@ -1,0 +1,34 @@
+{
+  "date": "2026-03-16",
+  "market": {},
+  "signals": [
+    {
+      "code": "601012",
+      "name": "隆基绿能",
+      "sector": "新能源",
+      "reason": "Institutional strong buy + volume surge",
+      "target": 25,
+      "stopLoss": 15
+    },
+    {
+      "code": "summary"
+    }
+  ],
+  "portfolio": {
+    "holdings": [
+      {
+        "code": "688185",
+        "name": "康希诺",
+        "shares": 100,
+        "avgPrice": 68.5,
+        "stopLoss": 63,
+        "entryDate": "2026-02-27",
+        "currentPrice": 68.5,
+        "value": 6850,
+        "pnl": "0.00"
+      }
+    ],
+    "cash": 500000,
+    "totalValue": 506850
+  }
+}

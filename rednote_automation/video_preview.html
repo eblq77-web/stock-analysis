@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Video Clip Preview - Screen Record This</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .video-container {
+            width: 360px;
+            height: 640px;
+            background: linear-gradient(180deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .scene {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            line-height: 1.4;
+        }
+        .scene.active { opacity: 1; }
+        
+        /* Scene themes */
+        .scene-0 { background: linear-gradient(135deg, #ff6b6b, #feca57); }
+        .scene-1 { background: linear-gradient(135deg, #feca57, #48dbfb); }
+        .scene-2 { background: linear-gradient(135deg, #48dbfb, #a55eea); }
+        .scene-3 { background: linear-gradient(135deg, #a55eea, #6c5ce7); }
+        .scene-4 { background: linear-gradient(135deg, #6c5ce7, #ff6b6b); }
+        
+        .scene-icon { font-size: 4rem; margin-bottom: 20px; }
+        .scene-text { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        
+        .progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 6px;
+            background: white;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .btn-play { background: linear-gradient(90deg, #ff6b6b, #feca57); color: white; }
+        .btn-reset { background: #48dbfb; color: #1a1a2e; }
+        
+        .info {
+            margin-top: 20px;
+            color: #888;
+            text-align: center;
+        }
+        
+        .script-select {
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: none;
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="script-select">
+        <select id="scriptSelector" onchange="changeScript()">
+            <option value="salary_journey">💸 Monthly Salary Journey</option>
+            <option value="coffee_life">☕ Coffee: The Real Fuel</option>
+            <option value="monday_mood">🧟 Monday Mood</option>
+            <option value="meeting_vs_reality">📊 Meeting vs Reality</option>
+            <option value="growth_opportunity">📈 The Growth Opportunity</option>
+        </select>
+    </div>
+    
+    <div class="video-container" id="videoContainer">
+        <!-- Scenes will be inserted here -->
+        <div class="progress" id="progress"></div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn btn-play" onclick="playVideo()">▶ Play</button>
+        <button class="btn btn-reset" onclick="resetVideo()">↺ Reset</button>
+    </div>
+    
+    <div class="info">
+        <p>🎯 <strong>To create video:</strong> Click Play, then screen record this area!</p>
+        <p>📱 Perfect for Xiaohongshu (9:16 vertical format)</p>
+    </div>
+
+    <script>
+    const SCRIPTS = {
+        salary_journey: {
+            scenes: [
+                { icon: '💰', text: 'DAY 1:\nI\'m gonna save\nmoney!' },
+                { icon: '💸', text: 'DAY 3:\nRent paid.\nStill good!' },
+                { icon: '😰', text: 'DAY 15:\nWhy is my\nwallet crying??' },
+                { icon: '💀', text: 'DAY 30:\nWHO SPENT\nTHIS????' },
+                { icon: '💧', text: 'Salary is like\nwater in a sieve...' }
+            ],
+            duration: [3, 3, 3, 3, 4]
+        },
+        coffee_life: {
+            scenes: [
+                { icon: '🌅', text: 'Morning:\nZOMBIE MODE' },
+                { icon: '☕', text: 'Coffee:\nGolden rays!' },
+                { icon: '👁️', text: 'Eyes opening:\nDead → Alive' },
+                { icon: '🦸', text: 'Coffee\nsuperhero!' }
+            ],
+            duration: [3, 3, 3, 4]
+        },
+        monday_mood: {
+            scenes: [
+                { icon: '🎉', text: 'FRIDAY:\nParty mode!' },
+                { icon: '⏰', text: 'MONDAY 6AM:\nALARM FROM HELL' },
+                { icon: '😴', text: 'Snooze:\n10 times...' },
+                { icon: '🧟', text: 'Zombie walking\nto office' }
+            ],
+            duration: [3, 3, 3, 4]
+        },
+        meeting_vs_reality: {
+            scenes: [
+                { icon: '🏢', text: 'Professional\nmeeting...' },
+                { icon: '🫧', text: 'Actually:\nPretending to care' },
+                { icon: '🏖️', text: 'My thought:\nBeach + cocktail' },
+                { icon: '😰', text: 'Boss:\nWhat\'s the update?' },
+                { icon: '👍', text: 'Fake nod\n+ smile' }
+            ],
+            duration: [3, 3, 3, 3, 4]
+        },
+        growth_opportunity: {
+            scenes: [
+                { icon: '👔', text: 'We value growth\nover money!' },
+                { icon: '❓', text: 'Me:\nCool. How much?' },
+                { icon: '📈', text: 'You\'ll grow...\nprofessionally!' },
+                { icon: '💰', text: 'Me:\nSo... zero money?' },
+                { icon: '🎤', text: '*drops mic*\nAre you in?' }
+            ],
+            duration: [3, 3, 3, 3, 4]
+        }
+    };
+
+    let currentScript = 'salary_journey';
+    let currentScene = 0;
+    let isPlaying = false;
+    let progressInterval = null;
+
+    function renderScript() {
+        const script = SCRIPTS[currentScript];
+        const container = document.getElementById('videoContainer');
+        
+        // Keep progress bar
+        const progress = document.getElementById('progress');
+        container.innerHTML = '';
+        container.appendChild(progress);
+        
+        script.scenes.forEach((scene, i) => {
+            const div = document.createElement('div');
+            div.className = `scene scene-${i} ${i === 0 ? 'active' : ''}`;
+            div.id = `scene-${i}`;
+            div.innerHTML = `
+                <div class="scene-icon">${scene.icon}</div>
+                <div class="scene-text">${scene.text}</div>
+            `;
+            container.appendChild(div);
+        });
+        
+        currentScene = 0;
+    }
+
+    function playVideo() {
+        if (isPlaying) return;
+        isPlaying = true;
+        
+        const script = SCRIPTS[currentScript];
+        const totalDuration = script.duration.reduce((a,b) => a+b, 0);
+        let elapsed = 0;
+        
+        function nextScene() {
+            if (currentScene >= script.scenes.length) {
+                isPlaying = false;
+                return;
+            }
+            
+            // Update progress
+            const sceneDuration = script.duration[currentScene] * 1000;
+            const startTime = Date.now();
+            
+            // Show current scene
+            document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+            document.getElementById(`scene-${currentScene}`).classList.add('active');
+            
+            // Progress bar
+            const progressEl = document.getElementById('progress');
+            progressEl.style.width = '0%';
+            progressEl.style.transition = `width ${sceneDuration}ms linear`;
+            
+            setTimeout(() => {
+                progressEl.style.width = '100%';
+            }, 50);
+            
+            setTimeout(() => {
+                currentScene++;
+                if (currentScene < script.scenes.length) {
+                    nextScene();
+                } else {
+                    isPlaying = false;
+                }
+            }, sceneDuration);
+        }
+        
+        nextScene();
+    }
+
+    function resetVideo() {
+        isPlaying = false;
+        currentScene = 0;
+        document.getElementById('progress').style.width = '0%';
+        document.querySelectorAll('.scene').forEach((s, i) => {
+            s.classList.toggle('active', i === 0);
+        });
+    }
+
+    function changeScript() {
+        currentScript = document.getElementById('scriptSelector').value;
+        resetVideo();
+        renderScript();
+    }
+
+    // Initial render
+    renderScript();
+    </script>
+</body>
+</html>
