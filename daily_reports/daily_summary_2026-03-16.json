@@ -1,199 +1,465 @@
 {
-  "date": "2026-03-16",
-  "generated": "2026-03-16T09:23:58.615Z",
-  "market": {
-    "status": "BULL",
-    "closeTime": "15:00",
-    "topGainers": [
-      {
-        "code": "688256",
-        "name": "寒锐钴业",
-        "change": "+1155%"
-      },
-      {
-        "code": "600309",
-        "name": "万华化学",
-        "change": "+88%"
-      },
-      {
-        "code": "601888",
-        "name": "中国中免",
-        "change": "+75%"
-      },
-      {
-        "code": "000333",
-        "name": "美的集团",
-        "change": "+76%"
-      },
-      {
-        "code": "002812",
-        "name": "恩捷股份",
-        "change": "+66%"
-      }
-    ]
-  },
-  "predictions": {
-    "total": 5,
-    "hits": 2,
-    "accuracy": "40%",
-    "details": [
-      {
-        "code": "002594",
-        "name": "比亚迪",
-        "predicted": "+8%",
-        "actual": "+3.17%",
-        "result": "HIT"
-      },
-      {
-        "code": "300750",
-        "name": "宁德时代",
-        "predicted": "+8%",
-        "actual": "+5.97%",
-        "result": "HIT"
-      },
-      {
-        "code": "300476",
-        "name": "胜宏科技",
-        "predicted": "+2%",
-        "actual": "-1.12%",
-        "result": "MISS"
-      },
-      {
-        "code": "300308",
-        "name": "中际旭创",
-        "predicted": "+3%",
-        "actual": "+1.92%",
-        "result": "PENDING"
-      },
-      {
-        "code": "601012",
-        "name": "隆基绿能",
-        "predicted": "+13%",
-        "actual": "+1.40%",
-        "result": "PENDING"
-      }
-    ]
-  },
-  "strategy": {
-    "improvements": [
-      "Reduced prediction multiplier from 100% to 25% for more realistic targets",
-      "Added volume + momentum combination filter",
-      "Minimum confidence threshold: 60%",
-      "Top 5 picks only per day",
-      "Avoid stocks with low momentum (<2%)"
-    ],
-    "lessons": [
-      "High volume alone not enough - need momentum confirmation",
-      "Conservative predictions (2-5%) more accurate than aggressive (60%+)",
-      "Focus on stocks with 3-8% daily change for best results"
-    ]
-  },
-  "portfolio": {
-    "openPositions": 12,
-    "totalPnL": "+¥67,454",
-    "return": "+6.75%",
-    "positions": [
-      {
-        "code": "600085",
-        "name": "同仁堂",
-        "shares": 423,
-        "entry": 30.4
-      },
-      {
-        "code": "000792",
-        "name": "盐湖股份",
-        "shares": 339,
-        "entry": 37.94
-      },
-      {
-        "code": "600066",
-        "name": "宇通客车",
-        "shares": 425,
-        "entry": 30.25
-      },
-      {
-        "code": "000938",
-        "name": "紫光股份",
-        "shares": 511,
-        "entry": 25.17
-      },
-      {
-        "code": "600038",
-        "name": "中直股份",
-        "shares": 335,
-        "entry": 38.36
-      },
-      {
-        "code": "000651",
-        "name": "格力电器",
-        "shares": 346,
-        "entry": 37.19
-      },
-      {
-        "code": "300045",
-        "name": "奥普光电",
-        "shares": 462,
-        "entry": 27.87
-      },
-      {
-        "code": "300046",
-        "name": "台基股份",
-        "shares": 366,
-        "entry": 35.18
-      },
-      {
-        "code": "000513",
-        "name": "丽珠集团",
-        "shares": 370,
-        "entry": 34.8
-      },
-      {
-        "code": "600096",
-        "name": "云天化",
-        "shares": 296,
-        "entry": 43.5
-      },
-      {
-        "code": "300122",
-        "name": "智飞生物",
-        "shares": 200,
-        "entry": 58.2
-      },
-      {
-        "code": "0700",
-        "name": "腾讯控股",
-        "shares": 50,
-        "entry": 502
-      }
-    ]
-  },
-  "alerts": {
-    "institutional": [
-      {
-        "code": "601012",
-        "name": "隆基绿能",
-        "volume": "129万",
-        "signal": "BUY"
-      }
-    ],
-    "breakout": [
-      {
-        "code": "688256",
-        "name": "寒锐钴业",
-        "change": "+1155%"
-      },
-      {
-        "code": "600309",
-        "name": "万华化学",
-        "change": "+88%"
-      }
-    ]
-  },
-  "recommendations": [
-    "Continue using momentum + volume filter",
-    "Focus on stocks with 3-8% daily change",
-    "Set stop-loss at -7% hard rule",
-    "Take partial profits at +10%",
-    "Monitor institutional buying signals"
+  "indices": [
+    {
+      "code": "000001",
+      "name": "上证指数",
+      "price": 4084.79,
+      "change": -10.66,
+      "changePct": -0.26,
+      "open": 4092.25,
+      "high": 4096.13,
+      "low": 4048.09,
+      "volume": 732227098,
+      "amount": 0,
+      "ask1": 0,
+      "bid1": 0,
+      "askVol1": 0,
+      "bidVol1": 0,
+      "pe": 1.53,
+      "pb": 0,
+      "updateTime": "20260316161415",
+      "status": "17.43"
+    },
+    {
+      "code": "399001",
+      "name": "深证成指",
+      "price": 14307.58,
+      "change": 26.8,
+      "changePct": 0.19,
+      "open": 14291.15,
+      "high": 14320.1,
+      "low": 14097.82,
+      "volume": 753016186,
+      "amount": 0,
+      "ask1": 0,
+      "bid1": 0,
+      "askVol1": 0,
+      "bidVol1": 0,
+      "pe": 3.12,
+      "pb": 0,
+      "updateTime": "20260316161406",
+      "status": "53.06"
+    },
+    {
+      "code": "399006",
+      "name": "创业板指",
+      "price": 3357.02,
+      "change": 46.74,
+      "changePct": 1.41,
+      "open": 3323.98,
+      "high": 3360.35,
+      "low": 3284.05,
+      "volume": 208217725,
+      "amount": 0,
+      "ask1": 0,
+      "bid1": 0,
+      "askVol1": 0,
+      "bidVol1": 0,
+      "pe": 4,
+      "pb": 0,
+      "updateTime": "20260316161421",
+      "status": "70.78"
+    },
+    {
+      "code": "000688",
+      "name": "科创50",
+      "price": 1384.99,
+      "change": 11.35,
+      "changePct": 0.83,
+      "open": 1370.7,
+      "high": 1386.55,
+      "low": 1349.27,
+      "volume": 10953762,
+      "amount": 0,
+      "ask1": 0,
+      "bid1": 0,
+      "askVol1": 0,
+      "bidVol1": 0,
+      "pe": 1.66,
+      "pb": 0,
+      "updateTime": "20260316161409",
+      "status": "172.81"
+    },
+    {
+      "code": "899050",
+      "name": "北证50",
+      "price": 1391.73,
+      "change": -4.91,
+      "changePct": -0.35,
+      "open": 1394.15,
+      "high": 1400.15,
+      "low": 1381.45,
+      "volume": 6884661,
+      "amount": 3442330,
+      "ask1": 0,
+      "bid1": 0,
+      "askVol1": 0,
+      "bidVol1": 0,
+      "pe": 2.36,
+      "pb": 0,
+      "updateTime": "20260316153450",
+      "status": "56.36"
+    }
+  ],
+  "keyStocks": [
+    {
+      "code": "600519",
+      "name": "贵州茅台",
+      "price": 1460.18,
+      "change": 46.54,
+      "changePct": 3.29,
+      "open": 1420,
+      "high": 1466,
+      "low": 1420,
+      "volume": 60086,
+      "amount": 33910,
+      "ask1": 1460.02,
+      "bid1": 1460.18,
+      "askVol1": 1,
+      "bidVol1": 0,
+      "pe": 0.48,
+      "pb": 8.05,
+      "updateTime": "20260316161405",
+      "status": "20.31"
+    },
+    {
+      "code": "000858",
+      "name": "五 粮 液",
+      "price": 104.54,
+      "change": 1.59,
+      "changePct": 1.54,
+      "open": 102.8,
+      "high": 105.31,
+      "low": 102.7,
+      "volume": 203049,
+      "amount": 107479,
+      "ask1": 104.53,
+      "bid1": 104.54,
+      "askVol1": 138,
+      "bidVol1": 104,
+      "pe": 0.52,
+      "pb": 3.06,
+      "updateTime": "20260316161442",
+      "status": "14.27"
+    },
+    {
+      "code": "002594",
+      "name": "比亚迪",
+      "price": 104.62,
+      "change": 4.95,
+      "changePct": 4.97,
+      "open": 99.67,
+      "high": 105,
+      "low": 98.79,
+      "volume": 1087814,
+      "amount": 666305,
+      "ask1": 104.62,
+      "bid1": 104.63,
+      "askVol1": 102,
+      "bidVol1": 322,
+      "pe": 3.12,
+      "pb": 4.34,
+      "updateTime": "20260316161415",
+      "status": "24.87"
+    },
+    {
+      "code": "600036",
+      "name": "招商银行",
+      "price": 39.91,
+      "change": 0.15,
+      "changePct": 0.38,
+      "open": 39.77,
+      "high": 40.04,
+      "low": 39.64,
+      "volume": 610945,
+      "amount": 322874,
+      "ask1": 39.91,
+      "bid1": 39.92,
+      "askVol1": 590,
+      "bidVol1": 439,
+      "pe": 0.3,
+      "pb": 0.92,
+      "updateTime": "20260316161428",
+      "status": "6.70"
+    },
+    {
+      "code": "601012",
+      "name": "隆基绿能",
+      "price": 18.68,
+      "change": -0.19,
+      "changePct": -1.01,
+      "open": 18.95,
+      "high": 19.19,
+      "low": 18.61,
+      "volume": 2013163,
+      "amount": 896663,
+      "ask1": 18.68,
+      "bid1": 18.69,
+      "askVol1": 1585,
+      "bidVol1": 1874,
+      "pe": 2.66,
+      "pb": 2.49,
+      "updateTime": "20260316161417",
+      "status": "-25.57"
+    },
+    {
+      "code": "000333",
+      "name": "美的集团",
+      "price": 76.64,
+      "change": -0.22,
+      "changePct": -0.29,
+      "open": 76.52,
+      "high": 76.88,
+      "low": 75.68,
+      "volume": 205600,
+      "amount": 102421,
+      "ask1": 76.64,
+      "bid1": 76.65,
+      "askVol1": 36,
+      "bidVol1": 7,
+      "pe": 0.3,
+      "pb": 2.64,
+      "updateTime": "20260316161439",
+      "status": "13.03"
+    },
+    {
+      "code": "600030",
+      "name": "中信证券",
+      "price": 25.5,
+      "change": -0.25,
+      "changePct": -0.97,
+      "open": 25.66,
+      "high": 25.69,
+      "low": 25.36,
+      "volume": 1156698,
+      "amount": 554877,
+      "ask1": 25.49,
+      "bid1": 25.5,
+      "askVol1": 2714,
+      "bidVol1": 444,
+      "pe": 0.95,
+      "pb": 1.18,
+      "updateTime": "20260316161423",
+      "status": "12.58"
+    },
+    {
+      "code": "600276",
+      "name": "恒瑞医药",
+      "price": 55.59,
+      "change": 0.48,
+      "changePct": 0.87,
+      "open": 55.21,
+      "high": 56.05,
+      "low": 54.52,
+      "volume": 307751,
+      "amount": 159210,
+      "ask1": 55.59,
+      "bid1": 55.6,
+      "askVol1": 30,
+      "bidVol1": 146,
+      "pe": 0.48,
+      "pb": 6.2,
+      "updateTime": "20260316161421",
+      "status": "49.40"
+    },
+    {
+      "code": "000999",
+      "name": "华润三九",
+      "price": 29.32,
+      "change": 0.2,
+      "changePct": 0.69,
+      "open": 29.15,
+      "high": 29.54,
+      "low": 29.07,
+      "volume": 90892,
+      "amount": 47463,
+      "ask1": 29.32,
+      "bid1": 29.33,
+      "askVol1": 15,
+      "bidVol1": 1,
+      "pe": 0.55,
+      "pb": 2.2,
+      "updateTime": "20260316161439",
+      "status": "14.26"
+    },
+    {
+      "code": "000651",
+      "name": "格力电器",
+      "price": 38.78,
+      "change": 0.18,
+      "changePct": 0.47,
+      "open": 38.5,
+      "high": 38.9,
+      "low": 38.39,
+      "volume": 422740,
+      "amount": 259858,
+      "ask1": 38.78,
+      "bid1": 38.79,
+      "askVol1": 751,
+      "bidVol1": 458,
+      "pe": 0.77,
+      "pb": 1.56,
+      "updateTime": "20260316161451",
+      "status": "6.86"
+    }
+  ],
+  "hkStocks": [
+    {
+      "code": "00700",
+      "name": "腾讯控股",
+      "price": 558.5,
+      "change": 11,
+      "changePct": 2.01,
+      "open": 551,
+      "high": 565.5,
+      "low": 543.5,
+      "volume": 24217363,
+      "amount": 0,
+      "ask1": 558.5,
+      "bid1": 558.5,
+      "askVol1": 0,
+      "bidVol1": 0,
+      "pe": 0,
+      "pb": 0,
+      "updateTime": "2026/03/16 16:08:24",
+      "status": "24.27"
+    },
+    {
+      "code": "09988",
+      "name": "阿里巴巴-W",
+      "price": 134,
+      "change": 1.5,
+      "changePct": 1.13,
+      "open": 132.9,
+      "high": 135.1,
+      "low": 130.8,
+      "volume": 50025123,
+      "amount": 0,
+      "ask1": 134,
+      "bid1": 134,
+      "askVol1": 0,
+      "bidVol1": 0,
+      "pe": 0,
+      "pb": 0,
+      "updateTime": "2026/03/16 16:08:24",
+      "status": "18.15"
+    },
+    {
+      "code": "03690",
+      "name": "美团-W",
+      "price": 78.3,
+      "change": 2.35,
+      "changePct": 3.09,
+      "open": 76.9,
+      "high": 79,
+      "low": 76.5,
+      "volume": 38287519,
+      "amount": 0,
+      "ask1": 78.3,
+      "bid1": 78.3,
+      "askVol1": 0,
+      "bidVol1": 0,
+      "pe": 0,
+      "pb": 0,
+      "updateTime": "2026/03/16 16:08:24",
+      "status": "12.50"
+    },
+    {
+      "code": "01810",
+      "name": "小米集团-W",
+      "price": 35.2,
+      "change": 1.88,
+      "changePct": 5.64,
+      "open": 33.52,
+      "high": 35.28,
+      "low": 33.4,
+      "volume": 227090440,
+      "amount": 0,
+      "ask1": 35.2,
+      "bid1": 35.2,
+      "askVol1": 0,
+      "bidVol1": 0,
+      "pe": 0,
+      "pb": 0,
+      "updateTime": "2026/03/16 16:08:24",
+      "status": "36.02"
+    }
+  ],
+  "portfolio": [
+    {
+      "code": "sh600036",
+      "name": "招商银行",
+      "entry": 38.72,
+      "shares": 100,
+      "current": 39.91,
+      "pnl": 118.99999999999977,
+      "pnlPct": 3.073347107438011,
+      "change": 0.15,
+      "changePct": 0.38
+    },
+    {
+      "code": "sh600030",
+      "name": "中信证券",
+      "entry": 27.16,
+      "shares": 100,
+      "current": 25.5,
+      "pnl": -166,
+      "pnlPct": -6.111929307805597,
+      "change": -0.25,
+      "changePct": -0.97
+    },
+    {
+      "code": "sz000999",
+      "name": "华润三九",
+      "entry": 29.39,
+      "shares": 100,
+      "current": 29.32,
+      "pnl": -7.000000000000028,
+      "pnlPct": -0.2381762504253157,
+      "change": 0.2,
+      "changePct": 0.69
+    }
+  ],
+  "sectors": [
+    {
+      "code": "sh600011",
+      "name": "华能国际",
+      "sector": "电力",
+      "change": -0.21,
+      "changePct": -2.68,
+      "volume": 1514817
+    },
+    {
+      "code": "sh600547",
+      "name": "山东黄金",
+      "sector": "黄金",
+      "change": -2.42,
+      "changePct": -5.2,
+      "volume": 702718
+    },
+    {
+      "code": "sz002476",
+      "name": "华鲁恒升",
+      "sector": "化工",
+      "change": 0.04,
+      "changePct": 0.65,
+      "volume": 101853
+    },
+    {
+      "code": "sh600795",
+      "name": "北方华创",
+      "sector": "半导体",
+      "change": -0.07,
+      "changePct": -1.38,
+      "volume": 2546801
+    },
+    {
+      "code": "sz002371",
+      "name": "北方华创",
+      "sector": "半导体",
+      "change": -3.17,
+      "changePct": -0.69,
+      "volume": 73655
+    }
   ]
 }
