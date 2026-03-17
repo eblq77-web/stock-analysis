@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Super Brain - Report Versions</title>
+  <style>
+    body { font-family: sans-serif; padding: 40px; background: #f5f5f5; }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 40px; }
+    .links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .link { background: white; padding: 20px; border-radius: 10px; text-decoration: none; color: #333; display: block; }
+    .link:hover { background: #eee; }
+    .link h3 { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📱 Choose a Version</h1>
+    <div class="links">
+      <a href="viral_story_2026-03-17.html" class="link" target="_blank">
+        <h3>📖 Version A: Story</h3>
+        <p>Personal story + how I made money</p>
+      </a>
+      <a href="hot_pick_v2.html" class="link" target="_blank">
+        <h3>🔥 Version B: Power Words</h3>
+        <p>Aggressive, urgent, FOMO</p>
+      </a>
+      <a href="#" class="link" onclick="document.body.innerHTML=verA;return false">
+        <h3>🔐 Version C: Secret</h3>
+        <p>Mysterious, insider info</p>
+      </a>
+      <a href="#" class="link">
+        <h3>🤫 Version D: Challenge</h3>
+        <p>Question-based, educational</p>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

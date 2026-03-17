@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Super Brain 今日必看</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #000; min-height: 100vh; padding: 20px; }
+    .container { max-width: 480px; margin: 0 auto; }
+    
+    /* 封面 */
+    .cover { background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb); padding: 40px 30px; border-radius: 24px; text-align: center; margin-bottom: 20px; }
+    .cover h1 { color: white; font-size: 32px; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+    .cover .subtitle { color: white; font-size: 18px; opacity: 0.95; }
+    .cover .date { color: white; opacity: 0.8; margin-top: 15px; font-size: 14px; }
+    
+    /* 今日爆点 */
+    .hot { background: linear-gradient(135deg, #ff9ff3, #f368e0); padding: 25px; border-radius: 20px; margin-bottom: 20px; }
+    .hot-title { color: white; font-size: 22px; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+    .hot-item { background: rgba(255,255,255,0.95); padding: 16px; border-radius: 14px; margin-bottom: 12px; }
+    .hot-item:last-child { margin-bottom: 0; }
+    .hot-stock { font-size: 20px; font-weight: bold; color: #333; }
+    .hot-reason { font-size: 13px; color: #666; margin-top: 6px; }
+    .hot-tag { display: inline-block; background: #ff6b6b; color: white; padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-left: 8px; }
+    
+    /* 暴涨榜单 */
+    .surge { background: #1a1a2e; padding: 25px; border-radius: 20px; margin-bottom: 20px; }
+    .surge-title { color: white; font-size: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+    .surge-list { display: flex; flex-direction: column; gap: 10px; }
+    .surge-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.1); padding: 12px 16px; border-radius: 12px; }
+    .surge-name { color: white; font-weight: 500; }
+    .surge-pct { color: #00ff88; font-weight: bold; font-size: 18px; }
+    
+    /* 机构动向 */
+    .institutional { background: white; padding: 25px; border-radius: 20px; margin-bottom: 20px; }
+    .inst-title { font-size: 20px; font-weight: bold; color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+    .inst-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #eee; }
+    .inst-item:last-child { border-bottom: none; }
+    .inst-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+    .inst-info { flex: 1; }
+    .inst-name { font-weight: 600; color: #333; }
+    .inst-action { font-size: 12px; color: #10b981; }
+    .inst-pct { font-weight: bold; color: #10b981; font-size: 16px; }
+    
+    /* 你的持仓 */
+    .portfolio { background: white; padding: 25px; border-radius: 20px; margin-bottom: 20px; }
+    .pf-title { font-size: 20px; font-weight: bold; color: #333; margin-bottom: 15px; }
+    .pf-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .pf-item:last-child { border-bottom: none; }
+    .pf-name { font-weight: 500; color: #333; }
+    .pf-pnl { font-weight: bold; padding: 4px 12px; border-radius: 20px; font-size: 14px; }
+    .pf-pnl.up { background: #d1fae5; color: #065f46; }
+    .pf-pnl.down { background: #fee2e2; color: #991b1b; }
+    
+    /* CTA */
+    .cta { background: linear-gradient(135deg, #667eea, #764ba2); padding: 25px; border-radius: 20px; text-align: center; }
+    .cta-text { color: white; font-size: 18px; margin-bottom: 15px; }
+    .cta-btn { display: inline-block; background: white; color: #667eea; padding: 14px 30px; border-radius: 30px; font-weight: bold; text-decoration: none; font-size: 16px; }
+    
+    /* Footer */
+    .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 封面 -->
+    <div class="cover">
+      <h1>🔥 今日必看</h1>
+      <p class="subtitle">2026年3月17日 · 第127期</p>
+      <p class="date">Super Brain 量化内参</p>
+    </div>
+    
+    <!-- 今日爆点 -->
+    <div class="hot">
+      <div class="hot-title">💥 今日爆点</div>
+      <div class="hot-item">
+        <div class="hot-stock">思源电气 <span class="hot-tag">+208%</span></div>
+        <div class="hot-reason">电气板块龙头，订单爆棚，机构抢筹</div>
+      </div>
+      <div class="hot-item">
+        <div class="hot-stock">亿纬锂能 <span class="hot-tag">+70%</span></div>
+        <div class="hot-reason">新能源赛道反弹，锂电池需求激增</div>
+      </div>
+      <div class="hot-item">
+        <div class="hot-stock">航天电器 <span class="hot-tag">+58%</span></div>
+        <div class="hot-reason">军工景气周期，业绩超预期</div>
+      </div>
+    </div>
+    
+    <!-- 暴涨榜单 -->
+    <div class="surge">
+      <div class="surge-title">🚀 暴涨榜单 (当日)</div>
+      <div class="surge-list">
+        <div class="surge-item">
+          <span class="surge-name">思源电气</span>
+          <span class="surge-pct">+208.80%</span>
+        </div>
+        <div class="surge-item">
+          <span class="surge-name">寒锐钴业</span>
+          <span class="surge-pct">+1089.9%</span>
+        </div>
+        <div class="surge-item">
+          <span class="surge-name">汉威科技</span>
+          <span class="surge-pct">+48.06%</span>
+        </div>
+        <div class="surge-item">
+          <span class="surge-name">新和成</span>
+          <span class="surge-pct">+37.30%</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 机构动向 -->
+    <div class="institutional">
+      <div class="inst-title">🏛️ 机构动向</div>
+      <div class="inst-item">
+        <div class="inst-icon">快手</div>
+        <div class="inst-info">
+          <div class="inst-name">快手 (1024)</div>
+          <div class="inst-action">聪明钱流入</div>
+        </div>
+        <div class="inst-pct">Score 100</div>
+      </div>
+      <div class="inst-item">
+        <div class="inst-icon">爱尔</div>
+        <div class="inst-info">
+          <div class="inst-name">爱尔眼科 (300015)</div>
+          <div class="inst-action">聪明钱流入</div>
+        </div>
+        <div class="inst-pct">Score 100</div>
+      </div>
+      <div class="inst-item">
+        <div class="inst-icon">腾讯</div>
+        <div class="inst-info">
+          <div class="inst-name">腾讯控股 (0700)</div>
+          <div class="inst-action">聪明钱流入</div>
+        </div>
+        <div class="inst-pct">Score 100</div>
+      </div>
+    </div>
+    
+    <!-- 你的持仓 -->
+    <div class="portfolio">
+      <div class="pf-title">📦 你的持仓</div>
+      <div class="pf-item">
+        <span class="pf-name">腾讯控股</span>
+        <span class="pf-pnl up">+11.75%</span>
+      </div>
+      <div class="pf-item">
+        <span class="pf-name">宇通客车</span>
+        <span class="pf-pnl up">+3.67%</span>
+      </div>
+      <div class="pf-item">
+        <span class="pf-name">同仁堂</span>
+        <span class="pf-pnl up">+0.10%</span>
+      </div>
+      <div class="pf-item">
+        <span class="pf-name">盐湖股份</span>
+        <span class="pf-pnl down">-2.05%</span>
+      </div>
+    </div>
+    
+    <!-- CTA -->
+    <div class="cta">
+      <div class="cta-text">想每天收到这份报告吗？</div>
+      <a href="#" class="cta-btn">免费订阅 →</a>
+    </div>
+    
+    <div class="footer">
+      <p>Super Brain 量化交易系统</p>
+      <p>投资有风险，入市需谨慎</p>
+    </div>
+  </div>
+</body>
+</html>

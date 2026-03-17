@@ -1,5 +1,5 @@
 {
-  "capital": 159487.6676922554,
+  "capital": 157526.2876922554,
   "positions": [
     {
       "code": "600085",
@@ -38,16 +38,6 @@
       "shares": 511,
       "entryDate": "2026-03-03",
       "sector": "科技",
-      "period": "Mid",
-      "score": 85
-    },
-    {
-      "code": "600038",
-      "name": "中直股份",
-      "entryPrice": 38.36,
-      "shares": 335,
-      "entryDate": "2026-03-03",
-      "sector": "军工",
       "period": "Mid",
       "score": 85
     },
@@ -92,16 +82,6 @@
       "score": 85
     },
     {
-      "code": "600096",
-      "name": "云天化",
-      "entryPrice": 43.5,
-      "shares": 296,
-      "entryDate": "2026-03-03",
-      "sector": "化工",
-      "period": "Long",
-      "score": 85
-    },
-    {
       "code": "300122",
       "name": "智飞生物",
       "entryPrice": 58.2,
@@ -138,5 +118,37 @@
     }
   ],
   "dailyLog": [],
-  "lastRun": "2026-03-03T02:20:38.469Z"
+  "lastRun": "2026-03-03T02:20:38.469Z",
+  "closedPositions": [
+    {
+      "code": "600038",
+      "name": "中直股份",
+      "entryPrice": 38.36,
+      "shares": 335,
+      "entryDate": "2026-03-03",
+      "sector": "军工",
+      "period": "Mid",
+      "score": 85,
+      "exitPrice": 35.58,
+      "exitDate": "2026-03-17",
+      "pnl": -931.3000000000004,
+      "pnlPct": "-7.25",
+      "reason": "STOP LOSS"
+    },
+    {
+      "code": "600096",
+      "name": "云天化",
+      "entryPrice": 43.5,
+      "shares": 296,
+      "entryDate": "2026-03-03",
+      "sector": "化工",
+      "period": "Long",
+      "score": 85,
+      "exitPrice": 40.02,
+      "exitDate": "2026-03-17",
+      "pnl": -1030.079999999999,
+      "pnlPct": "-8.00",
+      "reason": "STOP LOSS"
+    }
+  ]
 }
