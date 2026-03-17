@@ -8,7 +8,7 @@
       "quality": 82,
       "score": 84.3,
       "signal": "🎯 STRONG",
-      "currentPrice": 846.9956782626372,
+      "currentPrice": 869.9205609945617,
       "patterns": [
         "HIGH_SCORE"
       ],
@@ -22,7 +22,7 @@
       "quality": 78,
       "score": 82.9,
       "signal": "🎯 STRONG",
-      "currentPrice": 782.0745926589827,
+      "currentPrice": 806.2355243769546,
       "patterns": [
         "HIGH_SCORE"
       ],
@@ -36,7 +36,7 @@
       "quality": 70,
       "score": 79.3,
       "signal": "🟢 BUY",
-      "currentPrice": 711.3122089128923,
+      "currentPrice": 734.9585640062581,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -51,7 +51,7 @@
       "quality": 75,
       "score": 78.9,
       "signal": "🟢 BUY",
-      "currentPrice": 756.2747721404289,
+      "currentPrice": 796.6239622351515,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -66,7 +66,7 @@
       "quality": 72,
       "score": 78.7,
       "signal": "🟢 BUY",
-      "currentPrice": 761.4589452919494,
+      "currentPrice": 737.5778211492465,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -81,7 +81,7 @@
       "quality": 78,
       "score": 78.6,
       "signal": "🟢 BUY",
-      "currentPrice": 826.879905564446,
+      "currentPrice": 781.1886816791231,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -96,7 +96,7 @@
       "quality": 68,
       "score": 78.5,
       "signal": "🟢 BUY",
-      "currentPrice": 681.2464292844775,
+      "currentPrice": 697.7660108805834,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -111,7 +111,7 @@
       "quality": 72,
       "score": 77.3,
       "signal": "🟢 BUY",
-      "currentPrice": 727.9257420951537,
+      "currentPrice": 752.5801013546023,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -126,7 +126,7 @@
       "quality": 72,
       "score": 76.7,
       "signal": "🟢 BUY",
-      "currentPrice": 725.0472033940177,
+      "currentPrice": 744.886509853459,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -141,7 +141,7 @@
       "quality": 72,
       "score": 76.4,
       "signal": "🟢 BUY",
-      "currentPrice": 749.24272206092,
+      "currentPrice": 759.5669464764978,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -156,7 +156,7 @@
       "quality": 75,
       "score": 76.2,
       "signal": "🟢 BUY",
-      "currentPrice": 779.4957286542395,
+      "currentPrice": 775.453324422095,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -171,7 +171,7 @@
       "quality": 75,
       "score": 75.6,
       "signal": "🟢 BUY",
-      "currentPrice": 767.6890453364431,
+      "currentPrice": 756.422253887921,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -186,7 +186,7 @@
       "quality": 75,
       "score": 75.6,
       "signal": "🟢 BUY",
-      "currentPrice": 765.4865474177453,
+      "currentPrice": 764.6066600568262,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -201,7 +201,7 @@
       "quality": 68,
       "score": 75.2,
       "signal": "🟢 BUY",
-      "currentPrice": 695.172602805697,
+      "currentPrice": 682.2673152782882,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -216,7 +216,7 @@
       "quality": 78,
       "score": 75.2,
       "signal": "🟢 BUY",
-      "currentPrice": 789.1349433206078,
+      "currentPrice": 826.5889077600704,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -231,7 +231,7 @@
       "quality": 75,
       "score": 75,
       "signal": "🟢 BUY",
-      "currentPrice": 753.7366356769602,
+      "currentPrice": 778.6629525904331,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -246,7 +246,7 @@
       "quality": 60,
       "score": 75,
       "signal": "🟢 BUY",
-      "currentPrice": 632.1694052154269,
+      "currentPrice": 628.0434546029235,
       "patterns": [
         "HIGH_SCORE",
         "BUY_SIGNAL"
@@ -256,5 +256,5 @@
   ],
   "sell": [],
   "watch": [],
-  "timestamp": "2026-03-16T09:39:08.195Z"
+  "timestamp": "2026-03-17T00:52:27.244Z"
 }
