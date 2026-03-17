@@ -4932,6 +4932,22 @@ const HIDDEN_GEMS_STOCKS = [
     '002236', '002226', '002156', '002124', '600522', '600506', '600489', '600468', '600438', '600406'
 ];
 
+// Stock code to name mapping
+const STOCK_NAMES = {
+    '870864': '瑞华技术', '870299': '华兴源创', '872926': '华医网', '835670': '华信永道', '872567': '晶赛科技',
+    '870518': '大华股份', '872358': '华岭股份', '872885': '并行科技', '835799': '钢研纳克', '872357': '天马天马',
+    '300750': '宁德时代', '300498': '中际旭创', '300455': '康拓红外', '300408': '中际旭创', '300327': '中颖电子',
+    '300146': '中颖电子', '300145': '佳士科技', '300124': '汇川技术', '300115': '长盈精密', '300104': '智飞生物',
+    '300033': '同花顺', '300012': '华宇软件', '300009': '安科生物', '300003': '东方财富', '002475': '富安娜',
+    '002371': '北方华创', '002352': '牧原股份', '002340': '格林美', '002294': '八菱科技', '002241': '歌尔股份',
+    '002236': '大华股份', '002226': '嘉凯城', '002156': '通富微电', '002124': '天邦股份', '600522': '中天科技',
+    '600506': '香梨股份', '600489': '中金黄金', '600468': '百利电气', '600438': '通威股份', '600406': '国电南瑞'
+};
+
+function getStockName(code) {
+    return STOCK_NAMES[code] || code;
+}
+
 function calculateHiddenGemScore(stock, data) {
     let score = 0;
     let level = 0;
@@ -5038,9 +5054,10 @@ async function runHiddenGemsScan() {
     `;
 
     results.slice(0, 25).forEach(r => {
+        const stockName = getStockName(r.stock);
         html += `
             <tr style="border-bottom:1px solid #333;">
-                <td style="padding:8px;"><strong>${r.stock}</strong></td>
+                <td style="padding:8px;"><strong>${r.stock}</strong> <span style="color:#888;font-size:11px;">${stockName}</span></td>
                 <td style="padding:8px;">¥${(r.price || 0).toFixed(2)}</td>
                 <td style="padding:8px;color:${r.change >= 0 ? '#00ff00' : '#ff0000'}">${(r.change || 0).toFixed(2)}%</td>
                 <td style="padding:8px;"><strong>${r.score}</strong></td>
