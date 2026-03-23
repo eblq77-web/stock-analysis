@@ -1,0 +1,130 @@
+{
+  "generated": "2026-03-23T02:31:04.201Z",
+  "marketStatus": {
+    "status": "MARKET OPEN",
+    "color": "🟢"
+  },
+  "isMarketHours": true,
+  "summary": {
+    "apisOnline": 3,
+    "totalApis": 4,
+    "freshnessPass": 3,
+    "totalFreshness": 5,
+    "isDynamic": true
+  },
+  "details": {
+    "apis": [
+      {
+        "api": "Tencent Realtime",
+        "status": "CONNECTED",
+        "latency": 63,
+        "dataFreshness": "LIVE",
+        "dataTimestamp": "2026-03-23T02:31:00.000Z",
+        "sample": {
+          "name": "ͭ����ɫ",
+          "code": "000630",
+          "current": 5.81,
+          "yesterdayClose": 5.96,
+          "open": 5.81,
+          "volume": 2097484,
+          "timestamp": "2026-03-23T02:31:00.000Z",
+          "dataAge": 2040,
+          "change": -0.15,
+          "changePercent": -2.52
+        }
+      },
+      {
+        "api": "Tencent KLine",
+        "status": "CONNECTED",
+        "latency": 722
+      },
+      {
+        "api": "EastMoney Push2",
+        "status": "CONNECTED",
+        "latency": 502,
+        "redirect": "//push2delay.eastmoney.com/api/qt/stock/get?secid=0.000630&fields=f43,f57,f58,f60,f169,f170"
+      },
+      {
+        "api": "EastMoney Quotes",
+        "status": "ERROR",
+        "latency": 579
+      }
+    ],
+    "freshness": [
+      {
+        "name": "ͭ����ɫ",
+        "code": "000630",
+        "current": 5.81,
+        "yesterdayClose": 5.96,
+        "open": 5.81,
+        "volume": 2097484,
+        "timestamp": "2026-03-23T02:31:00.000Z",
+        "dataAge": 4195,
+        "change": -0.15,
+        "changePercent": -2.52,
+        "ageMs": 4195,
+        "freshness": "✅ <1 min"
+      },
+      {
+        "name": "��Ѷ�ع�",
+        "code": "00700",
+        "current": 504,
+        "yesterdayClose": 508,
+        "open": 497.8,
+        "volume": 11951963,
+        "timestamp": null,
+        "dataAge": null,
+        "change": -4,
+        "changePercent": -0.79,
+        "ageMs": null,
+        "freshness": "❌ STALE"
+      },
+      {
+        "name": "¡������",
+        "code": "601012",
+        "current": 19.1,
+        "yesterdayClose": 18.99,
+        "open": 19.05,
+        "volume": 2132060,
+        "timestamp": "2026-03-23T02:31:01.000Z",
+        "dataAge": 3195,
+        "change": 0.11,
+        "changePercent": 0.58,
+        "ageMs": 3195,
+        "freshness": "✅ <1 min"
+      },
+      {
+        "name": "����ʱ��",
+        "code": "300750",
+        "current": 407.7,
+        "yesterdayClose": 413,
+        "open": 417.33,
+        "volume": 185310,
+        "timestamp": "2026-03-23T02:31:00.000Z",
+        "dataAge": 4195,
+        "change": -5.3,
+        "changePercent": -1.28,
+        "ageMs": 4195,
+        "freshness": "✅ <1 min"
+      },
+      {
+        "name": "������",
+        "code": "835670",
+        "current": 18.45,
+        "yesterdayClose": 18.45,
+        "open": 0,
+        "volume": 0,
+        "timestamp": "2026-03-23T01:00:00.000Z",
+        "dataAge": 5464196,
+        "change": 0,
+        "changePercent": 0,
+        "ageMs": 5464196,
+        "freshness": "❌ STALE"
+      }
+    ],
+    "history": {
+      "isDynamic": true,
+      "changes": 5
+    }
+  }
+}

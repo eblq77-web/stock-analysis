@@ -1,77 +1,77 @@
 # 🧠 CHARLES'S QUANTUM ENGINE V2
-## 2026/3/13 19:53:45
+## 2026/3/19 11:28:39
 
 ### Market Regime
 - **State:** BULL
 - **Confidence:** 90%
-- **Avg Change:** 912.04%
+- **Avg Change:** 912.22%
 
 ### Top Opportunities
 1. **300476 ʤ��Ƽ�**
-   - Price: ¥278.23 | Change: 275.00%
+   - Price: ¥280.48 | Change: 281.00%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%
    - Patterns: The Anarchist
 
 2. **300033 ͬ��˳**
-   - Price: ¥318.18 | Change: 323.32%
+   - Price: ¥321.99 | Change: 316.20%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%
    - Patterns: The Anarchist
 
 3. **300308 �м���**
-   - Price: ¥542.02 | Change: 526.50%
+   - Price: ¥584.99 | Change: 580.00%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%
    - Patterns: The Anarchist
 
 4. **300018 ��Ԫ�ɷ�**
-   - Price: ¥13.31 | Change: 13.76%
+   - Price: ¥13.05 | Change: 13.11%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%
    - Patterns: The Anarchist
 
 5. **300502 ����ʢ**
-   - Price: ¥394.03 | Change: 373.18%
+   - Price: ¥447.7 | Change: 427.01%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%
    - Patterns: The Anarchist
 
 6. **300498 ���Ϲɷ�**
-   - Price: ¥17.43 | Change: 17.60%
+   - Price: ¥17.13 | Change: 17.36%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%
    - Patterns: The Anarchist
 
 7. **300750 ����ʱ��**
-   - Price: ¥397 | Change: 393.88%
+   - Price: ¥406 | Change: 401.94%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%
    - Patterns: The Anarchist
 
 8. **002594 ���ǵ�**
-   - Price: ¥99.67 | Change: 99.00%
+   - Price: ¥102.97 | Change: 100.99%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%
    - Patterns: The Anarchist
 
 9. **601012 ¡������**
-   - Price: ¥18.87 | Change: 18.92%
+   - Price: ¥18.71 | Change: 18.35%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%
    - Patterns: The Anarchist
 
 10. **300014 ��γ���**
-   - Price: ¥68.22 | Change: 68.69%
+   - Price: ¥67.56 | Change: 67.19%
    - Signal: TAKE_PROFIT
    - Confidence: 100.0%
    - Position Size: 20.0%

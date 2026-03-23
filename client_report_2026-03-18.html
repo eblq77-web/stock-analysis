@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客户持仓报告 - 2026-03-18 | SUPER BRAIN</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 40px 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo { font-size: 14px; color: #667eea; margin-bottom: 10px; letter-spacing: 2px; }
+        h1 { font-size: 32px; margin-bottom: 10px; background: linear-gradient(90deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .date { color: #888; font-size: 14px; }
+        .section { margin-bottom: 30px; }
+        .section-title {
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(102,126,234,0.3);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-value { font-size: 24px; font-weight: bold; color: #667eea; }
+        .stat-label { font-size: 12px; color: #888; margin-top: 5px; }
+        .table-container {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 15px; text-align: left; }
+        th { background: rgba(102,126,234,0.2); color: #667eea; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+        td { border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+        tr:hover { background: rgba(255,255,255,0.02); }
+        .positive { color: #4ade80; }
+        .negative { color: #f87171; }
+        .score { 
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .score-high { background: rgba(74,222,128,0.2); color: #4ade80; }
+        .score-mid { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        .score-low { background: rgba(248,113,113,0.2); color: #f87171; }
+        .tier-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">◆ SUPER BRAIN PORTFOLIO</div>
+            <h1>客户持仓报告</h1>
+            <div class="date">2026年3月18日 星期三</div>
+            <div class="tier-badge">STANDARD</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">17</div>
+                <div class="stat-label">持仓数量</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">64</div>
+                <div class="stat-label">平均评分</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">医药</div>
+                <div class="stat-label">主导板块</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">2/3/10</div>
+                <div class="stat-label">短线/中线/长线</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📊 短线标的 (Daily) - 2只</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>代码</th>
+                            <th>名称</th>
+                            <th>板块</th>
+                            <th>价格</th>
+                            <th>涨跌幅</th>
+                            <th>评分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>600096</td>
+                            <td>云天化</td>
+                            <td>化工</td>
+                            <td>¥43.13</td>
+                            <td class="positive">+2.08%</td>
+                            <td><span class="score score-high">57</span></td>
+                        </tr>
+                        <tr>
+                            <td>000792</td>
+                            <td>盐湖股份</td>
+                            <td>化工</td>
+                            <td>¥39.60</td>
+                            <td class="positive">+3.50%</td>
+                            <td><span class="score score-mid">51</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📈 中线标的 (Mid) - 3只</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>代码</th>
+                            <th>名称</th>
+                            <th>板块</th>
+                            <th>价格</th>
+                            <th>涨跌幅</th>
+                            <th>评分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>601166</td>
+                            <td>兴业银行</td>
+                            <td>金融</td>
+                            <td>¥18.83</td>
+                            <td class="positive">+0.11%</td>
+                            <td><span class="score score-high">66</span></td>
+                        </tr>
+                        <tr>
+                            <td>600036</td>
+                            <td>招商银行</td>
+                            <td>金融</td>
+                            <td>¥39.76</td>
+                            <td class="positive">+0.66%</td>
+                            <td><span class="score score-high">64</span></td>
+                        </tr>
+                        <tr>
+                            <td>000651</td>
+                            <td>格力电器</td>
+                            <td>家电</td>
+                            <td>¥38.60</td>
+                            <td class="positive">+1.90%</td>
+                            <td><span class="score score-mid">60</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🏆 长线标的 (Long) - 10只</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>代码</th>
+                            <th>名称</th>
+                            <th>板块</th>
+                            <th>价格</th>
+                            <th>涨跌幅</th>
+                            <th>评分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>000513</td>
+                            <td>丽珠集团</td>
+                            <td>医药</td>
+                            <td>¥34.73</td>
+                            <td>0.00%</td>
+                            <td><span class="score score-high">74</span></td>
+                        </tr>
+                        <tr>
+                            <td>600276</td>
+                            <td>恒瑞医药</td>
+                            <td>医药</td>
+                            <td>¥55.11</td>
+                            <td class="negative">-0.34%</td>
+                            <td><span class="score score-high">73</span></td>
+                        </tr>
+                        <tr>
+                            <td>600085</td>
+                            <td>同仁堂</td>
+                            <td>医药</td>
+                            <td>¥29.95</td>
+                            <td class="negative">-0.40%</td>
+                            <td><span class="score score-high">71</span></td>
+                        </tr>
+                        <tr>
+                            <td>600009</td>
+                            <td>上海机场</td>
+                            <td>交运</td>
+                            <td>¥29.27</td>
+                            <td class="negative">-0.34%</td>
+                            <td><span class="score score-high">66</span></td>
+                        </tr>
+                        <tr>
+                            <td>000999</td>
+                            <td>华润三九</td>
+                            <td>医药</td>
+                            <td>¥29.12</td>
+                            <td class="negative">-1.22%</td>
+                            <td><span class="score score-high">66</span></td>
+                        </tr>
+                        <tr>
+                            <td>600038</td>
+                            <td>中直股份</td>
+                            <td>军工</td>
+                            <td>¥35.76</td>
+                            <td class="negative">-1.27%</td>
+                            <td><span class="score score-high">66</span></td>
+                        </tr>
+                        <tr>
+                            <td>600030</td>
+                            <td>中信证券</td>
+                            <td>金融</td>
+                            <td>¥25.75</td>
+                            <td class="negative">-0.69%</td>
+                            <td><span class="score score-high">65</span></td>
+                        </tr>
+                        <tr>
+                            <td>000001</td>
+                            <td>平安银行</td>
+                            <td>金融</td>
+                            <td>¥10.93</td>
+                            <td class="negative">-0.09%</td>
+                            <td><span class="score score-high">64</span></td>
+                        </tr>
+                        <tr>
+                            <td>600089</td>
+                            <td>特变电工</td>
+                            <td>新能源</td>
+                            <td>¥30.32</td>
+                            <td class="negative">-1.69%</td>
+                            <td><span class="score score-high">64</span></td>
+                        </tr>
+                        <tr>
+                            <td>000333</td>
+                            <td>美的集团</td>
+                            <td>家电</td>
+                            <td>¥76.86</td>
+                            <td class="negative">-0.70%</td>
+                            <td><span class="score score-mid">63</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>◆ SUPER BRAIN 智能选股系统 | Generated on 2026-03-18</p>
+            <p>本报告仅供参考，不构成投资建议</p>
+        </div>
+    </div>
+</body>
+</html>

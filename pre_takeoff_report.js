@@ -298,4 +298,7 @@ function generateHTMLReport(results) {
     const emoji = parseFloat(r.pnl) >= 0 ? '🟢' : '🔴';
     console.log(`  ${emoji} ${r.name}: Entry ¥${r.ourEntry} → ¥${r.price} (${r.pnl}%)`);
   });
+} catch(e) {
+  console.error('Error:', e.message);
+}
 })();

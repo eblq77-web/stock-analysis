@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Standard Report - 2026-03-20</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; 
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%); 
+      padding: 24px;
+      color: #f1f5f9;
+      line-height: 1.6;
+    }
+    .header { text-align: center; padding: 30px 0; }
+    .header h1 { font-size: 32px; margin-bottom: 10px; color: #3b82f6; }
+    .subtitle { opacity: 0.9; font-size: 14px; }
+    .badge { background: #3b82f6; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-top: 10px; display: inline-block; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+    .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; }
+    .card-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #3b82f6; display: flex; align-items: center; justify-content: space-between; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    th { color: #888; font-weight: 500; font-size: 11px; text-transform: uppercase; }
+    .positive { color: #10b981; }
+    .negative { color: #ef4444; }
+    .stock-code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-right: 6px; }
+    .stock-name { color: #ccc; }
+    .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🧠 Super Brain V3</h1>
+    <p class="subtitle">2026年3月20日星期五</p>
+    <span class="badge">STANDARD</span>
+  </div>
+  <div class="grid">
+      <div class="card">
+        <div class="card-title">📈 Market Indices <span style="font-size:12px;color:#888;">5 Major</span></div>
+        <table>
+          <tr><th>Index</th><th>Price</th><th>Change</th><th>%</th><th>High</th><th>Low</th></tr>
+          <tr><td>上证指数</td><td style="font-weight:bold;">¥3957.05</td><td class="negative">-49.50%</td><td class="negative">-1.24%</td><td style="color:#888;">¥4022.70</td><td style="color:#888;">¥3955.71</td></tr><tr><td>深证成指</td><td style="font-weight:bold;">¥13866.20</td><td class="negative">-35.37%</td><td class="negative">-0.25%</td><td style="color:#888;">¥14144.99</td><td style="color:#888;">¥13856.49</td></tr><tr><td>创业板指</td><td style="font-weight:bold;">¥3352.10</td><td class="positive">+43.00%</td><td class="positive">+1.30%</td><td style="color:#888;">¥3426.61</td><td style="color:#888;">¥3348.70</td></tr><tr><td>科创50</td><td style="font-weight:bold;">¥1318.31</td><td class="negative">-20.72%</td><td class="negative">-1.55%</td><td style="color:#888;">¥1347.37</td><td style="color:#888;">¥1317.40</td></tr><tr><td>北证50</td><td style="font-weight:bold;">¥1316.14</td><td class="negative">-13.42%</td><td class="negative">-1.01%</td><td style="color:#888;">¥1345.85</td><td style="color:#888;">¥1316.14</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🔥 Sector Rotation</div>
+        <table>
+          <tr><th>Phase</th><th>Sectors</th><th>Action</th></tr>
+          <tr><td style="color:#ef4444;">🔥 NOW</td><td>电力, 有色金属</td><td>BUY</td></tr>
+          <tr><td style="color:#f59e0b;">📈 NEXT</td><td>化工, 军工</td><td>WATCH</td></tr>
+          <tr><td style="color:#10b981;">📈 LATER</td><td>消费</td><td>HOLD</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">💰 Portfolio Summary</div>
+        <table>
+          <tr><td>Total Value</td><td style="text-align:right;font-weight:bold;">¥9,467.00</td></tr>
+          <tr><td>Total Invested</td><td style="text-align:right;">¥9,527.00</td></tr>
+          <tr><td>Total P&L</td><td style="text-align:right;font-weight:bold;font-size:18px;" class="negative">¥-60.00 (-0.63%)</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 Today's Top Picks</div>
+        <table>
+          <tr><th>Stock</th><th>Change</th><th>Action</th><th>Target</th></tr>
+          <tr><td>贵州茅台</td><td class="negative">-0.54%</td><td>WATCH</td><td style="color:#10b981;">+-0.8%</td></tr><tr><td>五 粮 液</td><td class="negative">-0.13%</td><td>WATCH</td><td style="color:#10b981;">+-0.2%</td></tr><tr><td>比亚迪</td><td class="positive">+0.70%</td><td>BUY</td><td style="color:#10b981;">+1.0%</td></tr><tr><td>招商银行</td><td class="negative">-0.05%</td><td>WATCH</td><td style="color:#10b981;">+-0.1%</td></tr><tr><td>隆基绿能</td><td class="positive">+2.54%</td><td>BUY</td><td style="color:#10b981;">+3.8%</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="footer">
+      🤖 Super Brain V3 | STANDARD Report | 2026-03-20 | LIVE Market
+    </div>
+  </body>
+</html>

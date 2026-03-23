@@ -90,3 +90,13 @@
 - Score: 0
 - Stocks: 0 (BSE: 0, STAR: 0, ChiNext: 0)
 - Top: undefined (undefined pts)
+
+## 2026-03-19
+- Score: 364
+- Stocks: 46 (BSE: 13, STAR: 15, ChiNext: 10)
+- Top: 宁德时代 (37 pts)
+
+## 2026-03-20
+- Score: 213
+- Stocks: 46 (BSE: 13, STAR: 15, ChiNext: 10)
+- Top: 腾景科技 (77 pts)

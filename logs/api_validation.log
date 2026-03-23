@@ -1,0 +1,108 @@
+[2026-03-23T01:28:34.361Z] --- Tencent Realtime API ---
+[2026-03-23T01:28:34.371Z] --- Tencent KLine API ---
+[2026-03-23T01:28:34.371Z] --- EastMoney Push2 API ---
+[2026-03-23T01:28:34.372Z] --- EastMoney Quotes API ---
+[2026-03-23T01:28:34.853Z]   KLine API: 200 (480ms)
+[2026-03-23T01:28:34.854Z]   KLine Data: ✅ Received
+[2026-03-23T01:28:34.874Z]   Push2 API: 302 (502ms)
+[2026-03-23T01:28:34.874Z]   EastMoney: ✅ Connected
+[2026-03-23T01:28:34.874Z]   Redirect to: //push2delay.eastmoney.com/api/qt/stock/get?secid=0.000630&fields=f43,f57,f58,f60,f169,f170
+[2026-03-23T01:28:35.049Z]   Connectivity: 200 (686ms)
+[2026-03-23T01:28:35.114Z]   Multi-stock: 200 (64ms)
+[2026-03-23T01:28:35.116Z]   Data Freshness: ✅ LIVE
+[2026-03-23T01:28:35.116Z]   Data Timestamp: Invalid Date
+[2026-03-23T01:28:35.507Z]   Quotes API: 302 (1135ms)
+[2026-03-23T01:28:37.253Z]   Data Consistency: ✅ Dynamic (data changes)
+[2026-03-23T01:28:37.254Z] 
+=== DATA FRESHNESS VALIDATION ===
+[2026-03-23T01:28:37.320Z] Market Status: 🟡 PRE-MARKET
+[2026-03-23T01:28:37.321Z]   000630 ͭ����ɫ: ❌ STALE (NaNs ago)
+[2026-03-23T01:28:37.321Z]   00700 ��Ѷ�ع�: ❌ STALE (908s ago)
+[2026-03-23T01:28:37.322Z]   601012 ¡������: ❌ STALE (NaNs ago)
+[2026-03-23T01:28:37.322Z]   300750 ����ʱ��: ❌ STALE (NaNs ago)
+[2026-03-23T01:28:37.323Z]   835670 ������: ❌ STALE (NaNs ago)
+[2026-03-23T01:28:37.324Z] FATAL: ENOENT: no such file or directory, open '/Users/liu/Desktop/Stock_Analysis/data/api_history/api_snapshot_2026-03-23.json'
+[2026-03-23T01:29:05.209Z] --- Tencent Realtime API ---
+[2026-03-23T01:29:05.217Z] --- Tencent KLine API ---
+[2026-03-23T01:29:05.218Z] --- EastMoney Push2 API ---
+[2026-03-23T01:29:05.218Z] --- EastMoney Quotes API ---
+[2026-03-23T01:29:05.637Z]   KLine API: 200 (418ms)
+[2026-03-23T01:29:05.638Z]   KLine Data: ✅ Received
+[2026-03-23T01:29:05.868Z]   Connectivity: 200 (659ms)
+[2026-03-23T01:29:05.929Z]   Multi-stock: 200 (60ms)
+[2026-03-23T01:29:05.931Z]   Data Freshness: ✅ LIVE
+[2026-03-23T01:29:05.931Z]   Data Timestamp: Mon Mar 23 2026 09:28:15 GMT+0800 (China Standard Time)
+[2026-03-23T01:29:06.046Z]   Quotes API: 302 (827ms)
+[2026-03-23T01:29:06.129Z]   Push2 API: 302 (910ms)
+[2026-03-23T01:29:06.129Z]   EastMoney: ✅ Connected
+[2026-03-23T01:29:06.130Z]   Redirect to: //push2delay.eastmoney.com/api/qt/stock/get?secid=0.000630&fields=f43,f57,f58,f60,f169,f170
+[2026-03-23T01:29:07.993Z]   Data Consistency: ✅ Dynamic (data changes)
+[2026-03-23T01:29:07.995Z] 
+=== DATA FRESHNESS VALIDATION ===
+[2026-03-23T01:29:08.059Z] Market Status: 🟡 PRE-MARKET
+[2026-03-23T01:29:08.059Z]   000630 ͭ����ɫ: ✅ <1 min (53s ago)
+[2026-03-23T01:29:08.060Z]   00700 ��Ѷ�ع�: ❌ STALE (NaNs ago)
+[2026-03-23T01:29:08.061Z]   601012 ¡������: ✅ <5 min (61s ago)
+[2026-03-23T01:29:08.061Z]   300750 ����ʱ��: ✅ <1 min (47s ago)
+[2026-03-23T01:29:08.062Z]   835670 ������: ❌ STALE (1748s ago)
+[2026-03-23T01:29:08.064Z] History saved: /Users/liu/Desktop/Stock_Analysis/data/api_history/api_snapshot_2026-03-23.json
+[2026-03-23T01:29:08.065Z] Only 1 snapshot(s) today - need more data for comparison
+[2026-03-23T01:29:08.067Z] Full report saved: /Users/liu/Desktop/Stock_Analysis/logs/api_validation_report_2026-03-23.json
+[2026-03-23T01:29:24.761Z] --- Tencent Realtime API ---
+[2026-03-23T01:29:24.769Z] --- Tencent KLine API ---
+[2026-03-23T01:29:24.770Z] --- EastMoney Push2 API ---
+[2026-03-23T01:29:24.770Z] --- EastMoney Quotes API ---
+[2026-03-23T01:29:25.176Z]   Connectivity: 200 (413ms)
+[2026-03-23T01:29:25.185Z]   KLine API: 200 (416ms)
+[2026-03-23T01:29:25.186Z]   KLine Data: ✅ Received
+[2026-03-23T01:29:25.244Z]   Multi-stock: 200 (67ms)
+[2026-03-23T01:29:25.246Z]   Data Freshness: ✅ LIVE
+[2026-03-23T01:29:25.246Z]   Data Timestamp: Mon Mar 23 2026 09:29:15 GMT+0800 (China Standard Time)
+[2026-03-23T01:29:25.248Z]   Quotes API: 302 (478ms)
+[2026-03-23T01:29:25.539Z]   Push2 API: 302 (768ms)
+[2026-03-23T01:29:25.540Z]   EastMoney: ✅ Connected
+[2026-03-23T01:29:25.540Z]   Redirect to: //push2delay.eastmoney.com/api/qt/stock/get?secid=0.000630&fields=f43,f57,f58,f60,f169,f170
+[2026-03-23T01:29:27.317Z]   Data Consistency: ✅ Dynamic (data changes)
+[2026-03-23T01:29:27.318Z] 
+=== DATA FRESHNESS VALIDATION ===
+[2026-03-23T01:29:27.388Z] Market Status: 🟡 PRE-MARKET
+[2026-03-23T01:29:27.389Z]   000630 ͭ����ɫ: ✅ <1 min (12s ago)
+[2026-03-23T01:29:27.390Z]   00700 ��Ѷ�ع�: ❌ STALE (NaNs ago)
+[2026-03-23T01:29:27.390Z]   601012 ¡������: ✅ <1 min (20s ago)
+[2026-03-23T01:29:27.391Z]   300750 ����ʱ��: ✅ <1 min (6s ago)
+[2026-03-23T01:29:27.391Z]   835670 ������: ❌ STALE (1767s ago)
+[2026-03-23T01:29:27.393Z] History saved: /Users/liu/Desktop/Stock_Analysis/data/api_history/api_snapshot_2026-03-23.json
+[2026-03-23T01:29:27.394Z] Comparing snapshots 0 -> 1
+[2026-03-23T01:29:27.394Z] Last snapshot: 2026-03-23T01:29:27.392Z
+[2026-03-23T01:29:27.394Z] Previous: 2026-03-23T01:29:08.063Z
+[2026-03-23T01:29:27.394Z] ✅ Data IS dynamic: 5 stock(s) changed between snapshots
+[2026-03-23T01:29:27.397Z] Full report saved: /Users/liu/Desktop/Stock_Analysis/logs/api_validation_report_2026-03-23.json
+[2026-03-23T02:31:01.536Z] --- Tencent Realtime API ---
+[2026-03-23T02:31:01.544Z] --- Tencent KLine API ---
+[2026-03-23T02:31:01.545Z] --- EastMoney Push2 API ---
+[2026-03-23T02:31:01.545Z] --- EastMoney Quotes API ---
+[2026-03-23T02:31:01.974Z]   Connectivity: 200 (436ms)
+[2026-03-23T02:31:02.039Z]   Multi-stock: 200 (63ms)
+[2026-03-23T02:31:02.041Z]   Data Freshness: ✅ LIVE
+[2026-03-23T02:31:02.041Z]   Data Timestamp: Mon Mar 23 2026 10:31:00 GMT+0800 (China Standard Time)
+[2026-03-23T02:31:02.047Z]   Push2 API: 302 (502ms)
+[2026-03-23T02:31:02.048Z]   EastMoney: ✅ Connected
+[2026-03-23T02:31:02.048Z]   Redirect to: //push2delay.eastmoney.com/api/qt/stock/get?secid=0.000630&fields=f43,f57,f58,f60,f169,f170
+[2026-03-23T02:31:02.124Z]   Quotes API: 302 (579ms)
+[2026-03-23T02:31:02.267Z]   KLine API: 200 (722ms)
+[2026-03-23T02:31:02.268Z]   KLine Data: ✅ Received
+[2026-03-23T02:31:04.108Z]   Data Consistency: ✅ Dynamic (data changes)
+[2026-03-23T02:31:04.110Z] 
+=== DATA FRESHNESS VALIDATION ===
+[2026-03-23T02:31:04.190Z] Market Status: 🟢 MARKET OPEN
+[2026-03-23T02:31:04.195Z]   000630 ͭ����ɫ: ✅ <1 min (4s ago)
+[2026-03-23T02:31:04.195Z]   00700 ��Ѷ�ع�: ❌ STALE (NaNs ago)
+[2026-03-23T02:31:04.195Z]   601012 ¡������: ✅ <1 min (3s ago)
+[2026-03-23T02:31:04.195Z]   300750 ����ʱ��: ✅ <1 min (4s ago)
+[2026-03-23T02:31:04.196Z]   835670 ������: ❌ STALE (5464s ago)
+[2026-03-23T02:31:04.198Z] History saved: /Users/liu/Desktop/Stock_Analysis/data/api_history/api_snapshot_2026-03-23.json
+[2026-03-23T02:31:04.199Z] Comparing snapshots 1 -> 2
+[2026-03-23T02:31:04.199Z] Last snapshot: 2026-03-23T02:31:04.197Z
+[2026-03-23T02:31:04.200Z] Previous: 2026-03-23T01:29:27.392Z
+[2026-03-23T02:31:04.200Z] ✅ Data IS dynamic: 5 stock(s) changed between snapshots
+[2026-03-23T02:31:04.202Z] Full report saved: /Users/liu/Desktop/Stock_Analysis/logs/api_validation_report_2026-03-23.json

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Brain V3 + Hidden Gem Report - HANRUI (300618)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .header h1 { font-size: 28px; margin-bottom: 10px; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header .subtitle { font-size: 18px; color: #fff; opacity: 0.95; }
+        .header .badge { 
+            display: inline-block; 
+            background: rgba(0,0,0,0.3); 
+            padding: 10px 25px; 
+            border-radius: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #fff;
+        }
+        
+        /* Sections */
+        .section {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        /* Score Bars */
+        .factor-row {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+        }
+        .factor-name {
+            width: 160px;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .factor-bar-container {
+            flex: 1;
+            height: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        .factor-bar {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        .factor-score {
+            width: 50px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .bar-green { background: linear-gradient(90deg, #4ade80, #22c55e); }
+        .bar-yellow { background: linear-gradient(90deg, #facc15, #eab308); }
+        .bar-red { background: linear-gradient(90deg, #f87171, #ef4444); }
+        .bar-blue { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
+        
+        /* Score Box */
+        .score-box {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(59, 130, 246, 0.2));
+            border: 2px solid #60a5fa;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .score-box.gem {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
+            border-color: #fbbf24;
+        }
+        .score-main {
+            font-size: 48px;
+            font-weight: bold;
+        }
+        .score-label {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        .rating-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .badge-buy { background: #22c55e; color: #fff; }
+        .badge-super { background: linear-gradient(90deg, #fbbf24, #f59e0b); color: #000; }
+        
+        /* Level Cards */
+        .level-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .level-icon {
+            font-size: 28px;
+            margin-right: 15px;
+        }
+        .level-name {
+            flex: 1;
+            font-weight: bold;
+        }
+        .level-score {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4ade80;
+        }
+        .level-status {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-left: 10px;
+        }
+        
+        /* Final Box */
+        .final-box {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(34, 197, 94, 0.4);
+        }
+        .final-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .final-score {
+            font-size: 56px;
+            font-weight: bold;
+        }
+        
+        /* Table */
+        .insight-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .insight-table td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .insight-table .check { color: #4ade80; }
+        .insight-table .warn { color: #fbbf24; }
+        .insight-table .cross { color: #f87171; }
+        
+        /* Strategy */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .strategy-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        .strategy-label {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        .strategy-value {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .strategy-value.green { color: #4ade80; }
+        .strategy-value.red { color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🧠 SUPER BRAIN V3 + HIDDEN GEM PROFILER</h1>
+            <div class="subtitle">HANRUI COBALT (300618) | 锂电板块 | 钴金属</div>
+            <div class="badge">📅 2026-03-20 10:41</div>
+        </div>
+
+        <!-- Part 1: Super Brain V3 -->
+        <div class="section">
+            <div class="section-title">🧠 PART 1: SUPER BRAIN V3 ANALYSIS</div>
+            
+            <div class="factor-row">
+                <div class="factor-name">Price Momentum</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-green" style="width: 60%;"></div></div>
+                <div class="factor-score">6/10</div>
+            </div>
+            <div class="factor-row">
+                <div class="factor-name">Volume Ratio</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-green" style="width: 70%;"></div></div>
+                <div class="factor-score">7/10</div>
+            </div>
+            <div class="factor-row">
+                <div class="factor-name">Turnover Rate</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-green" style="width: 70%;"></div></div>
+                <div class="factor-score">7/10</div>
+            </div>
+            <div class="factor-row">
+                <div class="factor-name">Price Position</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-green" style="width: 70%;"></div></div>
+                <div class="factor-score">7/10</div>
+            </div>
+            <div class="factor-row">
+                <div class="factor-name">VWAP</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-red" style="width: 40%;"></div></div>
+                <div class="factor-score">4/10</div>
+            </div>
+            <div class="factor-row">
+                <div class="factor-name">Gap Analysis</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-green" style="width: 100%;"></div></div>
+                <div class="factor-score">10/10</div>
+            </div>
+            <div class="factor-row">
+                <div class="factor-name">Sector Strength</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-green" style="width: 70%;"></div></div>
+                <div class="factor-score">7/10</div>
+            </div>
+            <div class="factor-row">
+                <div class="factor-name">Relative Strength</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-green" style="width: 80%;"></div></div>
+                <div class="factor-score">8/10</div>
+            </div>
+            <div class="factor-row">
+                <div class="factor-name">Pattern Score</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-green" style="width: 80%;"></div></div>
+                <div class="factor-score">8/10</div>
+            </div>
+            <div class="factor-row">
+                <div class="factor-name">Liquidity</div>
+                <div class="factor-bar-container"><div class="factor-bar bar-green" style="width: 100%;"></div></div>
+                <div class="factor-score">10/10</div>
+            </div>
+            
+            <div class="score-box">
+                <div class="score-main" style="color: #60a5fa;">74/100</div>
+                <div class="score-label">Super Brain V3 Score</div>
+                <div class="rating-badge badge-buy">✅ BUY</div>
+            </div>
+        </div>
+
+        <!-- Part 2: Hidden Gem -->
+        <div class="section">
+            <div class="section-title">💎 PART 2: HIDDEN GEM PROFILER</div>
+            
+            <div class="level-card">
+                <div class="level-icon">💎</div>
+                <div class="level-name">Level 1: Surface Screening</div>
+                <div class="level-score">+30</div>
+                <div class="level-status">✅ PASS</div>
+            </div>
+            <div class="level-card">
+                <div class="level-icon">🔬</div>
+                <div class="level-name">Level 2: Institutional Detection</div>
+                <div class="level-score">+25</div>
+                <div class="level-status">✅ PASS</div>
+            </div>
+            <div class="level-card">
+                <div class="level-icon">🕵️</div>
+                <div class="level-name">Level 3: Forensic Analysis</div>
+                <div class="level-score">+25</div>
+                <div class="level-status">✅ PASS</div>
+            </div>
+            <div class="level-card">
+                <div class="level-icon">🕐</div>
+                <div class="level-name">Level 4: Multi-Timeframe</div>
+                <div class="level-score">+25</div>
+                <div class="level-status">✅ PASS</div>
+            </div>
+            <div class="level-card">
+                <div class="level-icon">🤖</div>
+                <div class="level-name">Level 5: Predictive AI</div>
+                <div class="level-score">+30</div>
+                <div class="level-status">✅ PASS</div>
+            </div>
+            
+            <div class="score-box gem">
+                <div class="score-main" style="color: #fbbf24;">135/100</div>
+                <div class="score-label">Hidden Gem Index</div>
+                <div class="rating-badge badge-super">💎💎💎 SUPER GEM</div>
+            </div>
+        </div>
+
+        <!-- Part 3: Combined -->
+        <div class="section">
+            <div class="section-title">🎯 PART 3: COMBINED VERDICT</div>
+            
+            <div class="final-box">
+                <div class="final-title">FINAL RECOMMENDATION</div>
+                <div class="final-score">🟢 STRONG BUY</div>
+                <div style="margin-top: 15px; font-size: 18px;">Combined Score: 105/100</div>
+            </div>
+            
+            <div style="margin-top: 25px;">
+                <h3 style="margin-bottom: 15px;">📈 Key Insights</h3>
+                <table class="insight-table">
+                    <tr><td class="check">✅</td><td>Outperforming peers (宁德-1.2%, 比亚迪-0.8%)</td></tr>
+                    <tr><td class="check">✅</td><td>Gap up pattern (+1.1%)</td></tr>
+                    <tr><td class="check">✅</td><td>Good liquidity (172万手)</td></tr>
+                    <tr><td class="check">✅</td><td>Strong sector rotation into lithium</td></tr>
+                    <tr><td class="warn">⚠️</td><td>Turnover moderate (1.18%)</td></tr>
+                    <tr><td class="warn">⚠️</td><td>Near daily low position (48%)</td></tr>
+                </table>
+            </div>
+            
+            <div style="margin-top: 25px;">
+                <h3 style="margin-bottom: 15px;">🎯 Trading Strategy</h3>
+                <div class="strategy-grid">
+                    <div class="strategy-item">
+                        <div class="strategy-label">Entry</div>
+                        <div class="strategy-value">¥42.30-50</div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-label">Stop Loss</div>
+                        <div class="strategy-value red">¥39.50</div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-label">Target 1</div>
+                        <div class="strategy-value green">¥44.50</div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-label">Target 2</div>
+                        <div class="strategy-value green">¥46.70</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="text-align: center; padding: 20px; opacity: 0.5; font-size: 12px;">
+            <p>© 2026 Super Brain AI | For Educational Purposes Only</p>
+            <p>⚠️ Disclaimer: Not financial advice. Trade at your own risk.</p>
+        </div>
+    </div>
+</body>
+</html>

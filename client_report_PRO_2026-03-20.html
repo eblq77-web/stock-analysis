@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Super Brain Daily Report - 2026-03-20</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; 
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%); 
+      padding: 24px;
+      color: #f1f5f9;
+      line-height: 1.6;
+    }
+    .header { text-align: center; padding: 30px 0; }
+    .header h1 { font-size: 32px; margin-bottom: 10px; color: #8b5cf6; }
+    .subtitle { opacity: 0.9; font-size: 14px; }
+    .badge { background: #8b5cf6; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-top: 10px; display: inline-block; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+    .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; }
+    .card-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #8b5cf6; display: flex; align-items: center; justify-content: space-between; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    th { color: #888; font-weight: 500; font-size: 11px; text-transform: uppercase; }
+    .positive { color: #10b981; }
+    .negative { color: #ef4444; }
+    .stock-code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-right: 6px; }
+    .stock-name { color: #ccc; }
+    .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🧠 Super Brain V3</h1>
+    <p class="subtitle">2026年3月20日星期五</p>
+    <span class="badge">PRO</span>
+  </div>
+  <div class="grid">
+      <div class="card">
+        <div class="card-title">📊 Executive Summary</div>
+        <table>
+          <tr><td>Market Status</td><td style="font-weight:bold;color:#ef4444;">BEARISH</td></tr>
+          <tr><td>Trading Day</td><td>周五</td></tr>
+          <tr><td>Data Source</td><td>LIVE API</td></tr>
+          <tr><td>Analysis Depth</td><td>INSTITUTIONAL</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🌊 Market Overview</div>
+        <table>
+          <tr><th>Index</th><th>Close</th><th>Change</th><th>Volume</th></tr>
+          <tr><td>上证指数</td><td>¥3957.05</td><td class="negative">-1.24%</td><td style="color:#888;">666,798,387</td></tr><tr><td>深证成指</td><td>¥13866.20</td><td class="negative">-0.25%</td><td style="color:#888;">734,132,051</td></tr><tr><td>创业板指</td><td>¥3352.10</td><td class="positive">+1.30%</td><td style="color:#888;">225,401,630</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🔥 Sector Rotation</div>
+        <table>
+          <tr><th>Phase</th><th>Sectors</th><th>Action</th></tr>
+          <tr><td style="color:#ef4444;">🔥 NOW</td><td>电力, 有色金属</td><td>BUY</td></tr>
+          <tr><td style="color:#f59e0b;">📈 NEXT</td><td>化工, 军工</td><td>WATCH</td></tr>
+          <tr><td style="color:#10b981;">📈 LATER</td><td>消费</td><td>HOLD</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🏛️ Institutional Money Flow <span style="font-size:12px;color:#888;">Smart Money</span></div>
+        <table>
+          <tr><th>Stock</th><th>Flow</th><th>Signal</th></tr>
+          <tr><td>贵州茅台</td><td class="negative">OUTFLOW</td><td>🔴</td></tr><tr><td>五 粮 液</td><td class="negative">OUTFLOW</td><td>🔴</td></tr><tr><td>比亚迪</td><td class="positive">INFLOW</td><td>🟢</td></tr><tr><td>招商银行</td><td class="negative">OUTFLOW</td><td>🔴</td></tr><tr><td>隆基绿能</td><td class="positive">INFLOW</td><td>🟢</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">📦 Current Positions</div>
+        <table>
+          <tr><th>Stock</th><th>Shares</th><th>Entry</th><th>Value</th></tr>
+          <tr><td>招商银行</td><td>100</td><td>¥38.72</td><td>¥3975.00</td></tr><tr><td>中信证券</td><td>100</td><td>¥27.16</td><td>¥2530.00</td></tr><tr><td>华润三九</td><td>100</td><td>¥29.39</td><td>¥2962.00</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">⚠️ Risk Management</div>
+        <table>
+          <tr><td>Max Position</td><td style="text-align:right;">20%</td></tr>
+          <tr><td>Stop Loss</td><td style="text-align:right;color:#ef4444;">-7%</td></tr>
+          <tr><td>Take Profit</td><td style="text-align:right;color:#10b981;">+10%</td></tr>
+          <tr><td>Cash Reserve</td><td style="text-align:right;">¥500,000</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 Today's Top Picks</div>
+        <table>
+          <tr><th>Stock</th><th>Change</th><th>Action</th><th>Target</th></tr>
+          <tr><td>贵州茅台</td><td class="negative">-0.54%</td><td>WATCH</td><td style="color:#10b981;">+-0.8%</td></tr><tr><td>五 粮 液</td><td class="negative">-0.13%</td><td>WATCH</td><td style="color:#10b981;">+-0.2%</td></tr><tr><td>比亚迪</td><td class="positive">+0.70%</td><td>BUY</td><td style="color:#10b981;">+1.0%</td></tr><tr><td>招商银行</td><td class="negative">-0.05%</td><td>WATCH</td><td style="color:#10b981;">+-0.1%</td></tr><tr><td>隆基绿能</td><td class="positive">+2.54%</td><td>BUY</td><td style="color:#10b981;">+3.8%</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">⚡ Action Items</div>
+        <table>
+          <tr><td>1. Review portfolio positions</td></tr>
+          <tr><td>2. Check sector rotation</td></tr>
+          <tr><td>3. Monitor institutional flow</td></tr>
+          <tr><td>4. Set price alerts</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="footer">
+      🤖 Super Brain V3 | PRO Report | 2026-03-20 | LIVE Market
+    </div>
+  </body>
+</html>

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Brain V3 - Weekly China Market Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d1b4e 100%);
+            border-radius: 24px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,212,255,0.3);
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d4ff, #00ff88, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .subtitle { color: #aaa; font-size: 1.2em; }
+        .header .date { color: #666; margin-top: 10px; }
+        
+        /* Section */
+        .section {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .section-number {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .section h2 {
+            font-size: 1.4em;
+            color: #fff;
+        }
+        
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.95em;
+        }
+        .data-table th, .data-table td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .data-table th {
+            color: #888;
+            font-weight: 500;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .data-table tr:hover { background: rgba(255,255,255,0.03); }
+        
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            background: rgba(0,212,255,0.15);
+            color: #00d4ff;
+            margin-right: 6px;
+        }
+        .tag.gold { background: rgba(255,215,0,0.15); color: #ffd700; }
+        .tag.green { background: rgba(0,255,136,0.15); color: #00ff88; }
+        .tag.red { background: rgba(255,71,87,0.15); color: #ff4757; }
+        
+        /* Boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(123,44,191,0.08));
+            border-left: 4px solid #00d4ff;
+            padding: 20px;
+            margin: 16px 0;
+            border-radius: 0 16px 16px 0;
+        }
+        .quote-box {
+            background: rgba(123,44,191,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 20px 0;
+            font-style: italic;
+            line-height: 1.8;
+            color: #ccc;
+        }
+        .warning-box {
+            background: rgba(255,107,107,0.1);
+            border: 1px solid rgba(255,107,107,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 16px 0;
+        }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-card .label { color: #888; font-size: 0.9em; margin-top: 8px; }
+        
+        /* Cards */
+        .stock-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .stock-card .name { font-weight: 600; font-size: 1.1em; }
+        .stock-card .code { color: #666; font-size: 0.9em; }
+        
+        /* Platform Selector */
+        .platform-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .platform-tag {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            background: rgba(255,255,255,0.1);
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .platform-tag:hover, .platform-tag.active {
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            color: #fff;
+        }
+        
+        /* Content Blocks */
+        .content-block {
+            display: none;
+        }
+        .content-block.active {
+            display: block;
+        }
+        
+        .script-box {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 24px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            margin: 16px 0;
+        }
+        
+        .hook-list {
+            list-style: none;
+        }
+        .hook-list li {
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 3px solid #00d4ff;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            margin-top: 40px;
+        }
+        
+        .positive { color: #00ff88; }
+        .negative { color: #ff4757; }
+        
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8em; }
+            .section { padding: 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🧠 Super Brain V3</h1>
+            <p class="subtitle">Institutional-Grade China Market Analysis</p>
+            <p class="date">📅 Week of March 16-20, 2026</p>
+        </div>
+
+        <!-- PLATFORM SELECTOR -->
+        <div class="section">
+            <p style="color:#888;margin-bottom:12px">👇 Pick your platform:</p>
+            <div class="platform-tags">
+                <span class="platform-tag active" onclick="showContent('all')">📋 All</span>
+                <span class="platform-tag" onclick="showContent('youtube')">🎬 YouTube</span>
+                <span class="platform-tag" onclick="showContent('tiktok')">📱 TikTok</span>
+                <span class="platform-tag" onclick="showContent('linkedin')">💼 LinkedIn</span>
+                <span class="platform-tag" onclick="showContent('twitter')">🐦 Twitter/X</span>
+            </div>
+        </div>
+
+        <!-- SECTION 1: EXECUTIVE SUMMARY -->
+        <div class="section content-block active" data-type="all youtube tiktok linkedin twitter">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <h2>📊 Executive Summary</h2>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="value">8</div>
+                    <div class="label">Institutional Picks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value">100</div>
+                    <div class="label">Max Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value positive">+1.6%</div>
+                    <div class="label">ChiNext (逆势)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value">3</div>
+                    <div class="label">Hidden Gems</div>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <strong>🎯 The Verdict:</strong><br>
+                This wasn't a crash — it was a <strong>rotation correction</strong>. While retail panicked, institutions loaded up on 8 quality stocks.
+            </div>
+        </div>
+
+        <!-- SECTION 2: MARKET DATA -->
+        <div class="section content-block active" data-type="all youtube linkedin">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <h2>📉 Market Performance</h2>
+            </div>
+            
+            <table class="data-table">
+                <tr>
+                    <th>Index</th>
+                    <th>Weekly Change</th>
+                    <th>Narrative</th>
+                    <th>Reality</th>
+                </tr>
+                <tr>
+                    <td>Shanghai (上证)</td>
+                    <td class="negative">-2.53%</td>
+                    <td>"Market crash"</td>
+                    <td>Rotation</td>
+                </tr>
+                <tr>
+                    <td>ChiNext (创业板)</td>
+                    <td class="positive">+1.60%</td>
+                    <td>"Survivor"</td>
+                    <td>Leading</td>
+                </tr>
+                <tr>
+                    <td>STAR 50 (科创50)</td>
+                    <td class="negative">-3.80%</td>
+                    <td>"Tech dead"</td>
+                    <td> Oversold</td>
+                </tr>
+                <tr>
+                    <td>Beijing Stock (北证50)</td>
+                    <td class="negative">-4.64%</td>
+                    <td>"Small caps dying"</td>
+                    <td>Opportunity</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SECTION 3: INSTITUTIONAL PICKS -->
+        <div class="section content-block active" data-type="all youtube tiktok linkedin twitter">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <h2>🏦 8 Institutional "100 Score" Stocks</h2>
+            </div>
+            
+            <p style="color:#888;margin-bottom:16px">These 8 stocks have BOTH: 100 institutional score + net inflow signal</p>
+            
+            <table class="data-table">
+                <tr>
+                    <th>#</th>
+                    <th>Stock</th>
+                    <th>Code</th>
+                    <th>Sector</th>
+                    <th>Why Buy</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td><strong>Tencent</strong></td>
+                    <td class="code">0700.HK</td>
+                    <td><span class="tag">Tech</span></td>
+                    <td>Digital empire, deep value</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>Alibaba</strong></td>
+                    <td class="code">9988.HK</td>
+                    <td><span class="tag">E-commerce</span></td>
+                    <td>Cloud growth, oversold</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><strong>BYD</strong></td>
+                    <td class="code">002594.SZ</td>
+                    <td><span class="tag">EV</span></td>
+                    <td>Global expansion</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><strong>CATL</strong></td>
+                    <td class="code">300750.SZ</td>
+                    <td><span class="tag">Battery</span></td>
+                    <td>World leader</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><strong>Tonghuashun</strong></td>
+                    <td class="code">300033.SZ</td>
+                    <td><span class="tag">AI+Fintech</span></td>
+                    <td>AI integration</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><strong>IEIT Systems</strong></td>
+                    <td class="code">300476.SZ</td>
+                    <td><span class="tag">AI Hardware</span></td>
+                    <td>Optical module supercycle</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td><strong>Longi Green</strong></td>
+                    <td class="code">601012.SH</td>
+                    <td><span class="tag">Solar</span></td>
+                    <td>光伏龙头, oversold</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td><strong>Aier Eye</strong></td>
+                    <td class="code">300015.SZ</td>
+                    <td><span class="tag">Healthcare</span></td>
+                    <td>Recession-proof</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SECTION 4: HIDDEN GEMS -->
+        <div class="section content-block active" data-type="all youtube tiktok">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <h2>💎 3 Hidden Gems (Under the Radar)</h2>
+            </div>
+            
+            <div class="stock-card">
+                <div>
+                    <div class="name">吉林碳谷 ⭐</div>
+                    <div class="code">870299.BJ</div>
+                </div>
+                <div style="text-align:right">
+                    <span class="tag gold">HIGH UPSIDE</span>
+                    <div style="color:#888;margin-top:8px">Carbon fiber • 军工 demand</div>
+                </div>
+            </div>
+            
+            <div class="stock-card">
+                <div>
+                    <div class="name">贝特瑞 ⭐</div>
+                    <div class="code">872926.BJ</div>
+                </div>
+                <div style="text-align:right">
+                    <span class="tag gold">HIGH UPSIDE</span>
+                    <div style="color:#888;margin-top:8px">Battery materials • 北交所 hidden champ</div>
+                </div>
+            </div>
+            
+            <div class="stock-card">
+                <div>
+                    <div class="name">中际旭创 ⭐</div>
+                    <div class="code">300476.SZ</div>
+                </div>
+                <div style="text-align:right">
+                    <span class="tag gold">BREAKOUT</span>
+                    <div style="color:#888;margin-top:8px">AI hardware • Already moving</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: SECTOR FLOW -->
+        <div class="section content-block active" data-type="all linkedin">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <h2>🌊 Sector Rotation Flow</h2>
+            </div>
+            
+            <div class="highlight-box">
+                <strong>Phase 1 (Mon-Thu):</strong> Risk-off → Money to 电力 (Power) for defense<br>
+                <strong>Phase 2 (Thu-Fri):</strong> Profit taking on 黄金 (Gold) -7%<br>
+                <strong>Phase 3 (Now):</strong> Accumulation in 新能源 + 医药 + AI
+            </div>
+            
+            <table class="data-table">
+                <tr>
+                    <th>Sector</th>
+                    <th>Flow</th>
+                    <th>Analysis</th>
+                </tr>
+                <tr>
+                    <td>⚡ Power (电力)</td>
+                    <td><span class="tag green">DEFENSIVE</span></td>
+                    <td>Safe haven during panic</td>
+                </tr>
+                <tr>
+                    <td>🥇 Gold (黄金)</td>
+                    <td><span class="tag red">PROFIT TAKING</span></td>
+                    <td>-7%, not trend reversal</td>
+                </tr>
+                <tr>
+                    <td>🔋 New Energy</td>
+                    <td><span class="tag green">ACCUMULATING</span></td>
+                    <td>Institution loading</td>
+                </tr>
+                <tr>
+                    <td>🏥 Healthcare</td>
+                    <td><span class="tag green">REBOUND</span></td>
+                    <td>Contrarian play</td>
+                </tr>
+                <tr>
+                    <td>🤖 AI/Tech</td>
+                    <td><span class="tag green">ACCUMULATING</span></td>
+                    <td>Next growth engine</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SECTION 6: QUANTUM SIGNALS -->
+        <div class="section content-block active" data-type="all youtube">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <h2>⚡ Quantum Algorithm Signals</h2>
+            </div>
+            
+            <table class="data-table">
+                <tr>
+                    <th>Stock</th>
+                    <th>Signal</th>
+                    <th>Confidence</th>
+                    <th>Pattern</th>
+                </tr>
+                <tr>
+                    <td>BYD</td>
+                    <td><span class="tag green">STRONG BUY</span></td>
+                    <td>86%</td>
+                    <td>Institutional inflow</td>
+                </tr>
+                <tr>
+                    <td>Alibaba</td>
+                    <td><span class="tag green">STRONG BUY</span></td>
+                    <td>87%</td>
+                    <td>Deep value</td>
+                </tr>
+                <tr>
+                    <td>IEIT</td>
+                    <td><span class="tag">BUY DIP</span></td>
+                    <td>50%</td>
+                    <td>Entropy collapse</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SECTION 7: PHILOSOPHY -->
+        <div class="section content-block active" data-type="all youtube tiktok linkedin">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <h2>🧠 The Philosophy</h2>
+            </div>
+            
+            <div class="quote-box">
+                "The market doesn't lie — but it does whisper.<br><br>
+                Most people can't hear it because they're too busy screaming."<br><br>
+                <strong>Same data. Different interpretation.<br>
+                That's the difference between reacting and anticipating.</strong>
+            </div>
+        </div>
+
+        <!-- SECTION 8: CONTENT SCRIPTS -->
+        <div class="section content-block" data-type="youtube">
+            <div class="section-header">
+                <div class="section-number">🎬</div>
+                <h2>YouTube Script (3-5 min)</h2>
+            </div>
+            
+            <div class="script-box"># YOUTUBE SCRIPT: "What Really Happened in China's Market This Week"
+
+## HOOK (30 seconds)
+"Everyone says China market crashed this week.
+But I checked the institutional data — and they're actually buying.
+Here's what smart money is quietly loading right now..."
+
+## BODY (3-4 minutes)
+
+### Segment 1: The Narrative vs Reality (1 min)
+- Show the index table
+- Explain: "This is not a crash — it's rotation"
+- ChiNext up +1.6% while Shanghai down -2.5%
+
+### Segment 2: The Institutional Picks (2 min)
+- Walk through the 8 stocks
+- Explain WHY each one matters
+- Key point: "All 8 have 100 institutional score + net inflow"
+
+### Segment 3: The Hidden Gems (1 min)
+- Introduce the 3 under-the-radar stocks
+- Why they're hidden (BSE, boring sectors)
+- The upside potential
+
+## CLOSING (30 seconds)
+"This is the game. Retail reacts. Institutions anticipate.
+That's the difference.
+If you want more data-driven China analysis — hit subscribe."
+
+## END SCREEN
+- Link to Super Brain V3 dashboard
+- "Next week: China's AI sector deep dive"</div>
+        </div>
+
+        <!-- SECTION 9: TIKTOK SCRIPTS -->
+        <div class="section content-block" data-type="tiktok">
+            <div class="section-header">
+                <div class="section-number">📱</div>
+                <h2>TikTok Hooks (15-60 sec)</h2>
+            </div>
+            
+            <ul class="hook-list">
+                <li>
+                    <strong>Hook A (15 sec):</strong><br>
+                    "China market crashed? Actually... institutions are buying. Here's what's happening 👇"
+                </li>
+                <li>
+                    <strong>Hook B (30 sec):</strong><br>
+                    "8 stocks just got 100 institutional score. All showing net inflow. The data doesn't lie — here's the list:"
+                </li>
+                <li>
+                    <strong>Hook C (60 sec):</strong><br>
+                    "Everyone says China is dead. But my algo found 3 hidden gems nobody's talking about. This is how you find alpha before it goes mainstream..."
+                </li>
+            </ul>
+            
+            <div class="highlight-box">
+                <strong>📱 TikTok Style Tips:</strong><br>
+                • Fast cuts, quick data reveals<br>
+                • Use text overlays heavily<br>
+                • End with a question/statement that drives comments
+            </div>
+        </div>
+
+        <!-- SECTION 10: LINKEDIN POST -->
+        <div class="section content-block" data-type="linkedin">
+            <div class="section-header">
+                <div class="section-number">💼</div>
+                <h2>LinkedIn Post</h2>
+            </div>
+            
+            <div class="script-box"># LINKEDIN POST
+
+🔬 China Market Deep Dive: What the Data Actually Shows
+
+This week, mainstream narrative: "China market crashed."
+
+But when I dug into the institutional data, I found something different:
+
+📊 8 stocks with 100 institutional score — ALL showing net inflow
+📈 ChiNext (创业板) up +1.6% while Shanghai down -2.5%
+💎 3 hidden gems flying under the radar
+
+The reality? This is a rotation correction, not a crash.
+
+Here's my analysis on what smart money is actually doing in China's market right now:
+
+[Thread 🧵]
+
+1/ The narrative vs reality
+2/ The 8 institutional picks  
+3/ The 3 hidden gems
+4/ Sector rotation flow
+5/ What comes next
+
+👇 Drop a comment if you want part 2 — I'll share the full stock list.
+
+#ChinaStocks #Ashares #Investing #Finance</div>
+        </div>
+
+        <!-- SECTION 11: TWITTER THREAD -->
+        <div class="section content-block" data-type="twitter">
+            <div class="section-header">
+                <div class="section-number">🐦</div>
+                <h2>Twitter/X Thread</h2>
+            </div>
+            
+            <div class="script-box"># TWITTER THREAD
+
+🧵 1/ China market "crashed" this week? Let me show you what the data actually says...
+
+2/ 📊 Here's the truth:
+- Shanghai: -2.53% (narrative: crash)
+- ChiNext: +1.60% (reality: rotation)
+- 8 stocks: 100 institutional score + net inflow
+
+3/ This is NOT a crash — it's a rotation correction.
+While retail panics, institutions are loading up.
+
+4/ 🏦 The 8 stocks with 100 institutional score:
+1. Tencent (digital empire)
+2. Alibaba (cloud growth)
+3. BYD (global EV expansion)
+4. CATL (battery king)
+5. Tonghuashun (AI+Fintech)
+6. IEIT (AI hardware supercycle)
+7. Longi Green (oversold solar)
+8. Aier Eye (recession-proof)
+
+5/ 💎 3 Hidden Gems nobody talks about:
+- 吉林碳谷 (carbon fiber, 军工 demand)
+- 贝特瑞 (battery materials, 北交所)
+- 中际旭创 (AI hardware breakout)
+
+6/ The difference between retail and institutions:
+📉 Retail: "Everything is falling!!"
+📈 Institutions: "This is cheap, I'm buying"
+
+Same market. Different interpretation.
+
+7/ This is what I analyze every week — institutional-grade China market data.
+
+Follow for more 🧠
+
+#ChinaStocks #Investing</div>
+        </div>
+
+        <!-- SECTION 12: KEY TAKEAWAYS -->
+        <div class="section content-block active" data-type="all">
+            <div class="section-header">
+                <div class="section-number">🎯</div>
+                <h2>Key Takeaways</h2>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="value" style="font-size:1.5em">Not a Crash</div>
+                    <div class="label">It's rotation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" style="font-size:1.5em">Institutions Buying</div>
+                    <div class="label">8 stocks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" style="font-size:1.5em">3 Sectors</div>
+                    <div class="label">AI + New Energy + Healthcare</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" style="font-size:1.5em">78%</div>
+                    <div class="label">Confidence</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>🧠 Super Brain V3 | Institutional-Grade China Market Analysis</p>
+            <p>Data: March 16-20, 2026 | Analysis generated by Super Brain V3</p>
+            <p style="margin-top:16px">🔗 <a href="#" style="color:#00d4ff">Follow for weekly analysis</a></p>
+        </div>
+
+    </div>
+
+    <script>
+        function showContent(type) {
+            // Update platform tags
+            document.querySelectorAll('.platform-tag').forEach(tag => {
+                tag.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show/hide content blocks
+            document.querySelectorAll('.content-block').forEach(block => {
+                const types = block.getAttribute('data-type');
+                if (type === 'all' || types.includes(type)) {
+                    block.classList.add('active');
+                } else {
+                    block.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

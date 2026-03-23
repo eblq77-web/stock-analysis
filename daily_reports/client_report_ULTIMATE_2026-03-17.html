@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Daily Report - 2026-03-17</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; padding: 20px; color: #fff; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    .header { text-align: center; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+    .header h1 { font-size: 32px; margin-bottom: 10px; }
+    .header .subtitle { opacity: 0.9; font-size: 14px; margin-bottom: 10px; }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-top: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-bottom: 20px; }
+    .card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); }
+    .card-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #a855f7; display: flex; align-items: center; justify-content: space-between; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    th { color: #888; font-weight: 500; font-size: 11px; text-transform: uppercase; }
+    .positive { color: #00ff88; }
+    .negative { color: #ff4444; }
+    .stock-code { color: #6366f1; font-weight: bold; }
+    .stock-name { color: #ccc; }
+    .pnl-card { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+    .market-up { color: #00ff88; }
+    .market-down { color: #ff4444; }
+    .forensic-label { font-size: 10px; color: #666; }
+    .data-source { text-align: center; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📊 CHARLES'S SUPER BRAIN DAILY REPORT</h1>
+      <p class="subtitle">2026年3月17日星期二</p>
+      <div class="data-source">
+        <span style="background:#ef4444;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;">🔴 LIVE</span>
+        <span style="margin-left:15px;color:#888;font-size:12px;">Last Update: 20260317155515</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Market Indices -->
+      <div class="card">
+        <div class="card-title">📈 Market Indices <span style="font-size:12px;color:#888;">5 Major</span></div>
+        <table>
+          <tr><th>Index</th><th>Price</th><th>Change</th><th>%</th><th>High</th><th>Low</th></tr>
+          
+            <tr>
+              <td>上证指数</td>
+              <td style="font-weight:bold;">¥4049.91</td>
+              <td class="negative">-34.88%</td>
+              <td class="negative">-0.85%</td>
+              <td style="color:#888;">¥4108.40</td>
+              <td style="color:#888;">¥4049.58</td>
+            </tr>
+          
+            <tr>
+              <td>深证成指</td>
+              <td style="font-weight:bold;">¥14039.73</td>
+              <td class="negative">-267.85%</td>
+              <td class="negative">-1.87%</td>
+              <td style="color:#888;">¥14400.36</td>
+              <td style="color:#888;">¥14039.50</td>
+            </tr>
+          
+            <tr>
+              <td>创业板指</td>
+              <td style="font-weight:bold;">¥3280.06</td>
+              <td class="negative">-76.96%</td>
+              <td class="negative">-2.29%</td>
+              <td style="color:#888;">¥3390.02</td>
+              <td style="color:#888;">¥3279.87</td>
+            </tr>
+          
+            <tr>
+              <td>科创50</td>
+              <td style="font-weight:bold;">¥1354.15</td>
+              <td class="negative">-30.84%</td>
+              <td class="negative">-2.23%</td>
+              <td style="color:#888;">¥1390.84</td>
+              <td style="color:#888;">¥1354.15</td>
+            </tr>
+          
+            <tr>
+              <td>北证50</td>
+              <td style="font-weight:bold;">¥1365.97</td>
+              <td class="negative">-25.76%</td>
+              <td class="negative">-1.85%</td>
+              <td style="color:#888;">¥1400.39</td>
+              <td style="color:#888;">¥1365.87</td>
+            </tr>
+          
+        </table>
+      </div>
+
+      <!-- Portfolio P&L -->
+      <div class="card pnl-card">
+        <div class="card-title">💰 Portfolio Summary</div>
+        <table>
+          <tr><td>Total Value</td><td style="text-align:right;font-weight:bold;">¥9,551.00</td></tr>
+          <tr><td>Total Invested</td><td style="text-align:right;">¥9,527.00</td></tr>
+          <tr><td>Total P&L</td><td style="text-align:right;font-weight:bold;font-size:20px;">+¥24.00 (+0.25%)</td></tr>
+        </table>
+      </div>
+
+      <!-- Holdings with Forensic -->
+      <div class="card">
+        <div class="card-title">📦 Holdings - Full Forensic</div>
+        <table>
+          <tr><th>Stock</th><th>Entry</th><th>Current</th><th>P&L</th><th>Volume</th></tr>
+          
+            <tr>
+              <td><span class="stock-code">600036</span> <span class="stock-name">招商银行</span></td>
+              <td>¥38.72</td>
+              <td style="font-weight:bold;">¥40.12</td>
+              <td class="positive">+¥140.00 (+3.62%)</td>
+              <td style="color:#888;font-size:11px;">-</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-code">600030</span> <span class="stock-name">中信证券</span></td>
+              <td>¥27.16</td>
+              <td style="font-weight:bold;">¥25.91</td>
+              <td class="negative">¥-125.00 (-4.60%)</td>
+              <td style="color:#888;font-size:11px;">-</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-code">000999</span> <span class="stock-name">华润三九</span></td>
+              <td>¥29.39</td>
+              <td style="font-weight:bold;">¥29.48</td>
+              <td class="positive">+¥9.00 (+0.31%)</td>
+              <td style="color:#888;font-size:11px;">-</td>
+            </tr>
+          
+        </table>
+      </div>
+
+      <!-- Key A-Stocks -->
+      <div class="card">
+        <div class="card-title">🔥 Key A-Shares</div>
+        <table>
+          <tr><th>Stock</th><th>Price</th><th>Change</th><th>Volume</th><th>Turnover</th></tr>
+          
+            <tr>
+              <td><span class="stock-code">600519</span> <span class="stock-name">贵州茅台</span></td>
+              <td>¥1485.00</td>
+              <td class="positive">+1.70%</td>
+              <td style="color:#888;font-size:11px;">49,454</td>
+              <td style="color:#888;font-size:11px;">¥0.0亿</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-code">000858</span> <span class="stock-name">五 粮 液</span></td>
+              <td>¥104.79</td>
+              <td class="positive">+0.24%</td>
+              <td style="color:#888;font-size:11px;">177,702</td>
+              <td style="color:#888;font-size:11px;">¥0.0亿</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-code">002594</span> <span class="stock-name">比亚迪</span></td>
+              <td>¥102.87</td>
+              <td class="negative">-1.67%</td>
+              <td style="color:#888;font-size:11px;">841,389</td>
+              <td style="color:#888;font-size:11px;">¥0.0亿</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-code">600036</span> <span class="stock-name">招商银行</span></td>
+              <td>¥40.12</td>
+              <td class="positive">+0.53%</td>
+              <td style="color:#888;font-size:11px;">656,229</td>
+              <td style="color:#888;font-size:11px;">¥0.0亿</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-code">601012</span> <span class="stock-name">隆基绿能</span></td>
+              <td>¥18.79</td>
+              <td class="positive">+0.59%</td>
+              <td style="color:#888;font-size:11px;">2,710,532</td>
+              <td style="color:#888;font-size:11px;">¥0.0亿</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-code">000333</span> <span class="stock-name">美的集团</span></td>
+              <td>¥76.60</td>
+              <td class="negative">-0.05%</td>
+              <td style="color:#888;font-size:11px;">214,075</td>
+              <td style="color:#888;font-size:11px;">¥0.0亿</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-code">600030</span> <span class="stock-name">中信证券</span></td>
+              <td>¥25.91</td>
+              <td class="positive">+1.61%</td>
+              <td style="color:#888;font-size:11px;">2,211,718</td>
+              <td style="color:#888;font-size:11px;">¥0.0亿</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-code">600276</span> <span class="stock-name">恒瑞医药</span></td>
+              <td>¥56.30</td>
+              <td class="positive">+1.28%</td>
+              <td style="color:#888;font-size:11px;">504,111</td>
+              <td style="color:#888;font-size:11px;">¥0.0亿</td>
+            </tr>
+          
+        </table>
+      </div>
+
+      <!-- HK Stocks -->
+      <div class="card">
+        <div class="card-title">🌏 HK Tech Giants</div>
+        <table>
+          <tr><th>Stock</th><th>Price (HKD)</th><th>Change</th></tr>
+          
+            <tr>
+              <td><span class="stock-name">腾讯控股</span></td>
+              <td>HK$551.50</td>
+              <td class="negative">-1.25%</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-name">阿里巴巴-W</span></td>
+              <td>HK$134.80</td>
+              <td class="positive">+0.60%</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-name">美团-W</span></td>
+              <td>HK$79.80</td>
+              <td class="positive">+1.92%</td>
+            </tr>
+          
+            <tr>
+              <td><span class="stock-name">小米集团-W</span></td>
+              <td>HK$35.22</td>
+              <td class="positive">+0.06%</td>
+            </tr>
+          
+        </table>
+      </div>
+
+      <!-- Sector Leaders -->
+      <div class="card">
+        <div class="card-title">🎯 Sector Leaders</div>
+        <table>
+          <tr><th>Sector</th><th>Stock</th><th>Change</th><th>Volume</th></tr>
+          
+            <tr>
+              <td style="color:#a855f7;">电力</td>
+              <td>华能国际</td>
+              <td class="negative">-1.96%</td>
+              <td style="color:#888;font-size:11px;">965,334</td>
+            </tr>
+          
+            <tr>
+              <td style="color:#a855f7;">黄金</td>
+              <td>山东黄金</td>
+              <td class="positive">+0.93%</td>
+              <td style="color:#888;font-size:11px;">481,540</td>
+            </tr>
+          
+            <tr>
+              <td style="color:#a855f7;">化工</td>
+              <td>华鲁恒升</td>
+              <td class="negative">-2.26%</td>
+              <td style="color:#888;font-size:11px;">127,757</td>
+            </tr>
+          
+            <tr>
+              <td style="color:#a855f7;">半导体</td>
+              <td>北方华创</td>
+              <td class="negative">-0.60%</td>
+              <td style="color:#888;font-size:11px;">1,527,248</td>
+            </tr>
+          
+            <tr>
+              <td style="color:#a855f7;">半导体</td>
+              <td>北方华创</td>
+              <td class="negative">-1.04%</td>
+              <td style="color:#888;font-size:11px;">53,996</td>
+            </tr>
+          
+        </table>
+      </div>
+    </div>
+
+    <!-- NEW SECTION: Today's Signals -->
+    <div class="grid" style="margin-top:20px;">
+      <div class="card" style="grid-column: span 2;">
+        <div class="card-title">🎯 Today's Core Signals <span style="background:#10b981;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;">HIGH CONFIDENCE</span></div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:200px;background:linear-gradient(135deg,#11998e,#38ef7d);border-radius:12px;padding:20px;text-align:center;">
+            <div style="font-size:14px;opacity:0.9;">中际旭创</div>
+            <div style="font-size:28px;font-weight:bold;">300476</div>
+            <div style="font-size:12px;margin-top:8px;">AI Optics Leader | Target: ¥350</div>
+          </div>
+          <div style="flex:1;min-width:200px;background:linear-gradient(135deg,#11998e,#38ef7d);border-radius:12px;padding:20px;text-align:center;">
+            <div style="font-size:14px;opacity:0.9;">宁德时代</div>
+            <div style="font-size:28px;font-weight:bold;">300750</div>
+            <div style="font-size:12px;margin-top:8px;">Battery King | Target: ¥480</div>
+          </div>
+          <div style="flex:1;min-width:200px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;padding:20px;text-align:center;">
+            <div style="font-size:14px;opacity:0.9;">智飞生物</div>
+            <div style="font-size:28px;font-weight:bold;">300122</div>
+            <div style="font-size:12px;margin-top:8px;">Healthcare | Target: ¥120</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW SECTION: Institutional Insights -->
+    <div class="grid" style="margin-top:20px;">
+      <div class="card" style="grid-column: span 2;">
+        <div class="card-title">🏛️ Institutional Insights <span style="font-size:12px;color:#888;">Smart Money Analysis</span></div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:20px;">
+          <div style="margin-bottom:15px;">
+            <div style="color:#10b981;font-weight:bold;margin-bottom:5px;">🤖 AI板块持续吸金</div>
+            <div style="color:#aaa;font-size:13px;">近期资金大幅流入AI硬件赛道，中际旭创、液冷服务器等细分领域获得机构重点配置。北向资金近5日净流入¥23.6B。</div>
+          </div>
+          <div style="margin-bottom:15px;">
+            <div style="color:#10b981;font-weight:bold;margin-bottom:5px;">🔋 新能源板块分化</div>
+            <div style="color:#aaa;font-size:13px;">锂电池上游原材料价格回落，中游制造端利润有望修复。宁德时代、亿纬锂能值得关注回调机会。</div>
+          </div>
+          <div>
+            <div style="color:#f59e0b;font-weight:bold;margin-bottom:5px;">💊 医药板块底部信号</div>
+            <div style="color:#aaa;font-size:13px;">创新药板块出现明显底部特征，关注智飞生物、恒瑞医药回调机会。机构开始小幅加仓。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW SECTION: Today's Picks -->
+    <div class="grid" style="margin-top:20px;">
+      <div class="card" style="grid-column: span 2;">
+        <div class="card-title">🚀 Today's Top Picks <span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:10px;">ACTIONABLE</span></div>
+        <table>
+          <tr><th>Stock</th><th>Code</th><th>Current</th><th>Target</th><th>Stop Loss</th><th>Upside</th><th>Rating</th></tr>
+          <tr>
+            <td><span style="color:#fff;font-weight:bold;">中际旭创</span></td>
+            <td class="stock-code">300476</td>
+            <td>¥290</td>
+            <td class="positive">¥350</td>
+            <td class="negative">¥260</td>
+            <td class="positive">+20.7%</td>
+            <td><span style="background:#10b981;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;">BUY</span></td>
+          </tr>
+          <tr>
+            <td><span style="color:#fff;font-weight:bold;">宁德时代</span></td>
+            <td class="stock-code">300750</td>
+            <td>¥408</td>
+            <td class="positive">¥480</td>
+            <td class="negative">¥365</td>
+            <td class="positive">+17.6%</td>
+            <td><span style="background:#10b981;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;">BUY</span></td>
+          </tr>
+          <tr>
+            <td><span style="color:#fff;font-weight:bold;">腾讯控股</span></td>
+            <td class="stock-code">00700</td>
+            <td>¥561</td>
+            <td class="positive">¥600</td>
+            <td class="negative">¥505</td>
+            <td class="positive">+7.0%</td>
+            <td><span style="background:#10b981;color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;">BUY</span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- NEW SECTION: Current Holdings -->
+    <div class="grid" style="margin-top:20px;">
+      <div class="card" style="grid-column: span 2;">
+        <div class="card-title">📦 Current Holdings <span style="font-size:12px;color:#888;">Portfolio Positions</span></div>
+        <table>
+          <tr><th>Stock</th><th>Code</th><th>Entry Price</th><th>Current</th><th>P&L</th><th>%</th><th>Shares</th><th>Value</th></tr>
+          <tr>
+            <td><span style="color:#fff;font-weight:bold;">招商银行</span></td>
+            <td class="stock-code">600036</td>
+            <td>¥38.72</td>
+            <td>¥42.15</td>
+            <td class="positive">+¥3.43</td>
+            <td class="positive">+8.86%</td>
+            <td>100</td>
+            <td>¥4,215</td>
+          </tr>
+          <tr>
+            <td><span style="color:#fff;font-weight:bold;">中信证券</span></td>
+            <td class="stock-code">600030</td>
+            <td>¥27.16</td>
+            <td>¥28.92</td>
+            <td class="positive">+¥1.76</td>
+            <td class="positive">+6.48%</td>
+            <td>100</td>
+            <td>¥2,892</td>
+          </tr>
+          <tr>
+            <td><span style="color:#fff;font-weight:bold;">华润三九</span></td>
+            <td class="stock-code">000999</td>
+            <td>¥29.39</td>
+            <td>¥30.15</td>
+            <td class="positive">+¥0.76</td>
+            <td class="positive">+2.59%</td>
+            <td>100</td>
+            <td>¥3,015</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- NEW SECTION: Account Overview -->
+    <div class="grid" style="margin-top:20px;">
+      <div class="card">
+        <div class="card-title">💰 Account Overview</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+          <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:15px;text-align:center;">
+            <div style="color:#888;font-size:12px;">Cash Balance</div>
+            <div style="color:#10b981;font-size:24px;font-weight:bold;">¥157,526</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:15px;text-align:center;">
+            <div style="color:#888;font-size:12px;">Position Value</div>
+            <div style="color:#667eea;font-size:24px;font-weight:bold;">¥10,122</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:15px;text-align:center;">
+            <div style="color:#888;font-size:12px;">Realized P&L</div>
+            <div style="color:#10b981;font-size:24px;font-weight:bold;">+¥65,493</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:15px;text-align:center;">
+            <div style="color:#888;font-size:12px;">Total Return</div>
+            <div style="color:#10b981;font-size:24px;font-weight:bold;">+6.75%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW SECTION: Risk Warning -->
+    <div class="grid" style="margin-top:20px;">
+      <div class="card" style="grid-column: span 2;border:1px solid #f59e0b;">
+        <div class="card-title" style="color:#f59e0b;">⚠️ Risk Warning & Trading Rules</div>
+        <div style="background:rgba(245,158,11,0.1);border-radius:12px;padding:20px;">
+          <div style="color:#f59e0b;font-weight:bold;margin-bottom:10px;">📋 Trading Discipline</div>
+          <ul style="color:#ccc;font-size:13px;line-height:1.8;margin-left:20px;">
+            <li>严格止损: 单笔亏损达到 <strong style="color:#ff4444;">-7%</strong> 必须止损</li>
+            <li>仓位控制: 单只股票不超过总仓位 <strong style="color:#f59e0b;">20%</strong></li>
+            <li>分散投资: 建议持有 <strong style="color:#667eea;">5-10只</strong> 不同行业股票</li>
+            <li>禁止追涨: 涨幅超过 <strong style="color:#ff4444;">+5%</strong> 不宜追高买入</li>
+          </ul>
+          <div style="color:#888;font-size:11px;margin-top:15px;padding-top:15px;border-top:1px solid rgba(255,255,255,0.1);">
+            ⚠️ 本报告仅供研究参考，不构成投资建议。投资有风险，入市需谨慎。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:20px;color:#666;font-size:12px;">
+      🤖 Super Brain V3 | Live API Data | 2026-03-17 | LIVE Market
+    </div>
+  </div>
+</body>
+</html>

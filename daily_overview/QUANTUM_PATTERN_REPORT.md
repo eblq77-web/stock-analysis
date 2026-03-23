@@ -1,5 +1,5 @@
 # 🧠 CHARLES'S QUANTUM PATTERN ENGINE
-## 2026/2/26 21:26:01
+## 2026/3/21 09:57:25
 
 ### Philosophy
 *"Think like a hunter, not a grazer"*
@@ -8,14 +8,15 @@
 - Chaos is opportunity
 
 ### Patterns Detected
-1. **300476 中际旭创** - BUY_DIP (65.0%)
+1. **300476 中际旭创** - BUY_DIP (50.0%)
 
 ### Institutional Flows
-- 835670 数字人: strong_buy
+- 002594 比亚迪: strong_buy
+- 9988 阿里巴巴: strong_buy
 
 ### Market Regime
-- Trending: 4 stocks
-- Mean-reverting: 6 stocks
+- Trending: 3 stocks
+- Mean-reverting: 7 stocks
 
 ### Quantum Strategy
 | Pattern | Description | When to Use |

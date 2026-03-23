@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>寒锐钴业 300618 - 机构研报</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neuei', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .card {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+        }
+        .stock-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .stock-code {
+            color: #888;
+            font-size: 14px;
+        }
+        .price-row {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4ade80;
+        }
+        .change {
+            font-size: 18px;
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .score-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .score-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+        .score-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        .score-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .score-value.green { color: #4ade80; }
+        .score-value.yellow { color: #fbbf24; }
+        .score-value.blue { color: #60a5fa; }
+        
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .tag {
+            background: rgba(74, 222, 128, 0.15);
+            color: #4ade80;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-label { color: #888; }
+        .info-value { font-weight: 500; }
+        
+        .strategy-box {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+        .strategy-title {
+            color: #4ade80;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .strategy-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .strategy-label { font-size: 11px; color: #888; }
+        .strategy-value { font-size: 16px; font-weight: bold; }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card header">
+        <div class="stock-name">🔥 寒锐钴业</div>
+        <div class="stock-code">300618 | 创业板</div>
+        <div class="price-row">
+            <div class="price">¥42.67</div>
+            <div class="change">+0.90%</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title">🏆 机构评分</div>
+        <div class="score-grid">
+            <div class="score-item">
+                <div class="score-label">Super Brain V3</div>
+                <div class="score-value green">74/100</div>
+                <div style="font-size:12px;color:#4ade80;">✅ BUY</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Hidden Gem</div>
+                <div class="score-value yellow">135/100</div>
+                <div style="font-size:12px;color:#fbbf24;">💎💎💎 SUPER</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Institutional</div>
+                <div class="score-value blue">90/100</div>
+                <div style="font-size:12px;color:#60a5fa;">🏆 STRONG</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">目标价</div>
+                <div class="score-value green">¥50</div>
+                <div style="font-size:12px;color:#4ade80;">+17.8%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title">✅ 投资亮点</div>
+        <div class="tag-row">
+            <span class="tag">🔋 锂电板块轮动</span>
+            <span class="tag">📈 领涨同行</span>
+            <span class="tag">💎 隐藏钻石</span>
+            <span class="tag">📊 机构买入</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">钴产品营收</span>
+            <span class="info-value">60%</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">PE(TTM)</span>
+            <span class="info-value">48.3x</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">流通市值</span>
+            <span class="info-value">~640亿</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">换手率</span>
+            <span class="info-value">1.45%</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title">📋 交易策略</div>
+        <div class="strategy-box">
+            <div class="strategy-title">🎯 建议买入</div>
+            <div class="strategy-grid">
+                <div class="strategy-item">
+                    <div class="strategy-label">买入区</div>
+                    <div class="strategy-value">¥42.30-50</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-label">止损</div>
+                    <div class="strategy-value" style="color:#f87171;">¥39.50</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-label">目标1</div>
+                    <div class="strategy-value" style="color:#4ade80;">¥44.50</div>
+                </div>
+                <div class="strategy-item">
+                    <div class="strategy-label">目标2</div>
+                    <div class="strategy-value" style="color:#4ade80;">¥46.70</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>⚠️ 仅供参考，不构成投资建议</p>
+        <p>🧠 Super Brain AI</p>
+    </div>
+</body>
+</html>
