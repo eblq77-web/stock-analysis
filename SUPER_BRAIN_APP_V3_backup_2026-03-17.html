@@ -3353,15 +3353,6 @@ const reportTemplates = [
 
 // Auto-generated report list - shows only files that exist
 const availableReports = [
-  { date: '2026-03-20', type: 'ULTIMATE (AUTO)', file: 'client_report_ULTIMATE_2026-03-20.html', color: '#00ff88' },
-  { date: '2026-03-20', type: 'PRO', file: 'client_report_PRO_2026-03-20.html', color: '#6366f1' },
-  { date: '2026-03-20', type: 'STANDARD', file: 'client_report_2026-03-20.html', color: '#666' },
-  { date: '2026-03-19', type: 'ULTIMATE (AUTO)', file: 'client_report_ULTIMATE_2026-03-19.html', color: '#00ff88' },
-  { date: '2026-03-19', type: 'PRO', file: 'client_report_PRO_2026-03-19.html', color: '#6366f1' },
-  { date: '2026-03-19', type: 'STANDARD', file: 'client_report_2026-03-19.html', color: '#666' },
-  { date: '2026-03-18', type: 'ULTIMATE (AUTO)', file: 'client_report_ULTIMATE_2026-03-18.html', color: '#00ff88' },
-  { date: '2026-03-18', type: 'PRO', file: 'client_report_PRO_2026-03-18.html', color: '#6366f1' },
-  { date: '2026-03-18', type: 'STANDARD', file: 'client_report_2026-03-18.html', color: '#666' },
   { date: '2026-03-17', type: 'ULTIMATE (AUTO)', file: 'client_report_ULTIMATE_2026-03-17.html', color: '#00ff88' },
   { date: '2026-03-17', type: 'PRO', file: 'client_report_PRO_2026-03-17.html', color: '#6366f1' },
   { date: '2026-03-17', type: 'STANDARD', file: 'client_report_2026-03-17.html', color: '#666' },
@@ -3390,7 +3381,7 @@ function loadDailyReports() {
   // Available Daily Reports - grouped by date with visual separation
   Object.keys(reportsByDate).sort().reverse().forEach((date, idx) => {
     const reports = reportsByDate[date];
-    const isToday = date === '2026-03-19';
+    const isToday = date === '2026-03-16';
     
     html += `
       <div style="background:rgba(30,30,60,0.5);border:2px solid ${isToday ? '#00ff88' : '#444'};border-radius:12px;padding:15px;">

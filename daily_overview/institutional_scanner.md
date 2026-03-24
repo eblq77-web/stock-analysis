@@ -1,5 +1,5 @@
 # 🏦 INSTITUTIONAL MOMENTUM SCANNER
-## 2026-03-22
+## 2026-03-24
 
 ## 🎯 STRONG BUY SIGNALS (Score >= 80)
 | Code | Name | Sector | Score | Smart Money | Large Orders | Accumulating |

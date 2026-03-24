@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Super Brain Report - 2026-03-24</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #1a1a2e; padding: 16px; color: #ccc; font-size: 13px; }
+    .header { text-align: center; padding: 15px 0; border-bottom: 1px solid #333; margin-bottom: 15px; }
+    .header h1 { font-size: 22px; color: #888; }
+    .badge { background: #444; color: #aaa; padding: 2px 8px; border-radius: 10px; font-size: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+    .card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 8px; padding: 12px; }
+    .card-title { font-size: 13px; font-weight: bold; color: #666; margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    th, td { padding: 6px 4px; border-bottom: 1px solid #222; }
+    th { color: #555; }
+    .positive { color: #10b981; }
+    .negative { color: #ef4444; }
+    .footer { text-align: center; padding: 10px; color: #444; font-size: 10px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📋 Daily Report - 2026-03-24</h1>
+    <span class="badge">STANDARD</span>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Market Summary</div>
+      <table><tr><th>Index</th><th>Price</th><th>%</th></tr><tr><td>上证指数</td><td style="font-weight:bold;">¥3881.28</td><td class="positive">+68.00</td><td class="positive">+1.78%</td><td style="color:#888;">¥3881.42</td><td style="color:#888;">¥3807.99</td></tr><tr><td>深证成指</td><td style="font-weight:bold;">¥13536.56</td><td class="positive">+191.05</td><td class="positive">+1.43%</td><td style="color:#888;">¥13536.56</td><td style="color:#888;">¥13169.25</td></tr><tr><td>创业板指</td><td style="font-weight:bold;">¥3251.55</td><td class="positive">+16.33</td><td class="positive">+0.50%</td><td style="color:#888;">¥3270.19</td><td style="color:#888;">¥3155.27</td></tr><tr><td>科创50</td><td style="font-weight:bold;">¥1290.79</td><td class="positive">+29.35</td><td class="positive">+2.33%</td><td style="color:#888;">¥1291.92</td><td style="color:#888;">¥1249.01</td></tr></table>
+    </div>
+    <div class="card">
+      <div class="card-title">Portfolio</div>
+      <table>
+        <tr><td>Value</td><td style="text-align:right;">¥126593</td></tr>
+        <tr><td>P&L</td><td style="text-align:right;" class="negative">¥-13082</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="footer">Super Brain V3 | 2026-03-24</div>
+</body>
+</html>
