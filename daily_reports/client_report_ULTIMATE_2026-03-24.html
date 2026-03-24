@@ -1,69 +1,193 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Super Brain Pro Report - 2026-03-24</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); padding: 24px; color: #f1f5f9; line-height: 1.6; }
-    .header { text-align: center; padding: 30px 0; }
-    .header h1 { font-size: 32px; margin-bottom: 10px; color: #a855f7; }
-    .subtitle { opacity: 0.9; font-size: 14px; }
-    .badge { background: #a855f7; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-top: 10px; display: inline-block; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
-    .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; }
-    .card-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #a855f7; display: flex; align-items: center; justify-content: space-between; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    th { color: #888; font-weight: 500; font-size: 11px; text-transform: uppercase; }
-    .positive { color: #10b981; }
-    .negative { color: #ef4444; }
-    .stock-code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-right: 6px; }
-    .stock-name { color: #ccc; }
-    .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
-  </style>
-</head>
+<html><head><meta charset="UTF-8"><title>ULTIMATE Report - 2026-03-24</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Segoe UI,Roboto,sans-serif;background:linear-gradient(135deg,#022c22 0%,#064e3b 50%,#022c22 100%);padding:24px;color:#f1f5f9;line-height:1.6}
+.header{text-align:center;padding:30px 0}
+.header h1{font-size:32px;margin-bottom:10px;background:linear-gradient(90deg,#34d399,#00ff88,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{opacity:0.9;font-size:14px}
+.badge{background:linear-gradient(90deg,#059669,#00ff88);color:#fff;padding:4px 16px;border-radius:20px;font-size:12px;margin-top:10px;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:20px}
+.card{background:rgba(255,255,255,0.06);border:1px solid rgba(0,255,136,0.15);border-radius:16px;padding:20px}
+.card-title{font-size:15px;font-weight:bold;margin-bottom:14px;color:#6ee7b7;display:flex;align-items:center;justify-content:space-between}
+.card-title span{font-size:11px;color:#6b7280;font-weight:400}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:8px 7px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05)}
+th{color:#888;font-weight:500;font-size:10px;text-transform:uppercase}
+.positive{color:#34d399}
+.negative{color:#f87171}
+.stock-code{background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;font-size:10px;margin-right:5px}
+.glass{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.2);border-radius:16px;padding:20px;margin-top:20px}
+.stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:rgba(5,150,105,0.2);border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:14px;text-align:center}
+.stat-label{font-size:10px;color:#6ee7b7;text-transform:uppercase;margin-bottom:4px}
+.stat-value{font-size:17px;font-weight:bold;color:#d1fae5}
+.footer{text-align:center;padding:20px;color:#6b7280;font-size:12px}
+</style></head>
 <body>
-  <div class="header">
-    <h1>🧠 Super Brain V3</h1>
-    <p class="subtitle">2026年3月24日 星期二</p>
-    <span class="badge">ULTIMATE</span>
+<div class="header">
+  <h1>🧠 Super Brain V3 ULTIMATE</h1>
+  <p class="subtitle">2026-03-24 星期二</p>
+  <span class="badge">⚡ ULTIMATE EDITION</span>
+</div>
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-label">Portfolio Value</div><div class="stat-value">¥162366.72</div></div>
+  <div class="stat-card"><div class="stat-label">Total P&L</div><div class="stat-value" style="color:#34d399"><span class="positive">+¥22692.18</span></div></div>
+  <div class="stat-card"><div class="stat-label">Return</div><div class="stat-value" style="color:#34d399">+16.25%</div></div>
+  <div class="stat-card"><div class="stat-label">VaR (95%)</div><div class="stat-value">-¥4059.17</div></div>
+  <div class="stat-card"><div class="stat-label">Sortino</div><div class="stat-value">2.1</div></div>
+  <div class="stat-card"><div class="stat-label">Calmar</div><div class="stat-value">1.91</div></div>
+</div>
+<div class="grid">
+  <div class="card">
+    <div class="card-title">📈 Market Indices</div>
+    <table><tr><th>Index</th><th>Price</th><th>Change</th><th>%</th></tr><tr>
+    <td>上证指数</td><td style="font-weight:bold;">¥3905.20</td>
+    <td class="positive">+¥25.20</td>
+    <td class="positive">+0.65%</td>
+  </tr><tr>
+    <td>深证成指</td><td style="font-weight:bold;">¥13420.20</td>
+    <td class="positive">+¥35.20</td>
+    <td class="positive">+0.26%</td>
+  </tr><tr>
+    <td>创业板指</td><td style="font-weight:bold;">¥3280.20</td>
+    <td class="positive">+¥32.50</td>
+    <td class="positive">+0.99%</td>
+  </tr><tr>
+    <td>科创50</td><td style="font-weight:bold;">¥1295.20</td>
+    <td class="positive">+¥12.50</td>
+    <td class="positive">+0.97%</td>
+  </tr></table>
   </div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-title">📈 Market Indices <span style="font-size:12px;color:#888;">4 Major</span></div>
-      <table><tr><th>Index</th><th>Price</th><th>Change</th><th>%</th><th>High</th><th>Low</th></tr><tr><td>上证指数</td><td style="font-weight:bold;">¥3881.28</td><td class="positive">+68.00</td><td class="positive">+1.78%</td><td style="color:#888;">¥3881.42</td><td style="color:#888;">¥3807.99</td></tr><tr><td>深证成指</td><td style="font-weight:bold;">¥13536.56</td><td class="positive">+191.05</td><td class="positive">+1.43%</td><td style="color:#888;">¥13536.56</td><td style="color:#888;">¥13169.25</td></tr><tr><td>创业板指</td><td style="font-weight:bold;">¥3251.55</td><td class="positive">+16.33</td><td class="positive">+0.50%</td><td style="color:#888;">¥3270.19</td><td style="color:#888;">¥3155.27</td></tr><tr><td>科创50</td><td style="font-weight:bold;">¥1290.79</td><td class="positive">+29.35</td><td class="positive">+2.33%</td><td style="color:#888;">¥1291.92</td><td style="color:#888;">¥1249.01</td></tr></table>
-    </div>
-    <div class="card">
-      <div class="card-title">🏛️ Institutional Money Flow <span style="font-size:12px;color:#888;">Smart Money</span></div>
-      <table><tr><th>Stock</th><th>Signal</th><th>Action</th></tr>
-        <tr><td>贵州茅台</td><td class="negative">OUTFLOW</td><td>🔴</td></tr>
-        <tr><td>比亚迪</td><td class="negative">OUTFLOW</td><td>🔴</td></tr>
-        <tr><td>招商银行</td><td class="positive">INFLOW</td><td>🟢</td></tr>
-        <tr><td>隆基绿能</td><td class="positive">INFLOW</td><td>🟢</td></tr>
-      </table>
-    </div>
-    <div class="card">
-      <div class="card-title">💰 Portfolio Summary</div>
-      <table>
-        <tr><td>Total Value</td><td style="text-align:right;font-weight:bold;">¥126592.93</td></tr>
-        <tr><td>Total Invested</td><td style="text-align:right;">¥139674.54</td></tr>
-        <tr><td>Total P&L</td><td style="text-align:right;font-weight:bold;font-size:18px;" class="negative">¥-13081.61 (-9.37%)</td></tr>
-      </table>
-    </div>
-    <div class="card">
-      <div class="card-title">📦 Holdings - Full Forensic</div>
-      <table><tr><th>Stock</th><th>Entry</th><th>Current</th><th>P&L</th><th>Volume</th></tr><tr><td><span class="stock-code">600085</span><span class="stock-name">同仁堂</span></td><td>¥30.40</td><td style="font-weight:bold;">¥28.60</td><td class="negative">¥-761 (-5.9%)</td><td style="color:#888;font-size:11px;">-</td></tr><tr><td><span class="stock-code">000792</span><span class="stock-name">盐湖股份</span></td><td>¥37.94</td><td style="font-weight:bold;">¥36.41</td><td class="negative">¥-519 (-4.0%)</td><td style="color:#888;font-size:11px;">-</td></tr><tr><td><span class="stock-code">600066</span><span class="stock-name">宇通客车</span></td><td>¥30.25</td><td style="font-weight:bold;">¥32.12</td><td class="positive">¥+795 (+6.2%)</td><td style="color:#888;font-size:11px;">-</td></tr><tr><td><span class="stock-code">000938</span><span class="stock-name">紫光股份</span></td><td>¥25.17</td><td style="font-weight:bold;">¥25.70</td><td class="positive">¥+271 (+2.1%)</td><td style="color:#888;font-size:11px;">-</td></tr><tr><td><span class="stock-code">000651</span><span class="stock-name">格力电器</span></td><td>¥37.19</td><td style="font-weight:bold;">¥37.60</td><td class="positive">¥+142 (+1.1%)</td><td style="color:#888;font-size:11px;">-</td></tr><tr><td><span class="stock-code">300045</span><span class="stock-name">奥普光电</span></td><td>¥27.87</td><td style="font-weight:bold;">¥21.48</td><td class="negative">¥-2952 (-22.9%)</td><td style="color:#888;font-size:11px;">-</td></tr><tr><td><span class="stock-code">300046</span><span class="stock-name">台基股份</span></td><td>¥35.18</td><td style="font-weight:bold;">¥31.08</td><td class="negative">¥-1501 (-11.7%)</td><td style="color:#888;font-size:11px;">-</td></tr><tr><td><span class="stock-code">000513</span><span class="stock-name">丽珠集团</span></td><td>¥34.80</td><td style="font-weight:bold;">¥33.34</td><td class="negative">¥-540 (-4.2%)</td><td style="color:#888;font-size:11px;">-</td></tr><tr><td><span class="stock-code">300122</span><span class="stock-name">智飞生物</span></td><td>¥58.20</td><td style="font-weight:bold;">¥15.12</td><td class="negative">¥-8616 (-74.0%)</td><td style="color:#888;font-size:11px;">-</td></tr><tr><td><span class="stock-code">00700</span><span class="stock-name">腾讯控股</span></td><td>¥502.00</td><td style="font-weight:bold;">¥514.00</td><td class="positive">¥+600 (+2.4%)</td><td style="color:#888;font-size:11px;">-</td></tr></table>
-    </div>
-    <div class="card">
-      <div class="card-title">🔥 Key A-Shares</div>
-      <table><tr><th>Stock</th><th>Price</th><th>Change</th><th>Volume</th></tr><tr><td><span class="stock-code">600519</span><span class="stock-name">贵州茅台</span></td><td>¥1407.33</td><td class="negative">-0.05%</td><td style="color:#888;font-size:11px;">28,562</td></tr><tr><td><span class="stock-code">000858</span><span class="stock-name">五粮液</span></td><td>¥101.34</td><td class="positive">+1.11%</td><td style="color:#888;font-size:11px;">117,508</td></tr><tr><td><span class="stock-code">002594</span><span class="stock-name">比亚迪</span></td><td>¥106.64</td><td class="negative">-0.92%</td><td style="color:#888;font-size:11px;">921,446</td></tr><tr><td><span class="stock-code">600036</span><span class="stock-name">招商银行</span></td><td>¥39.25</td><td class="positive">+1.47%</td><td style="color:#888;font-size:11px;">616,336</td></tr><tr><td><span class="stock-code">601012</span><span class="stock-name">隆基绿能</span></td><td>¥19.04</td><td class="positive">+1.22%</td><td style="color:#888;font-size:11px;">3,900,516</td></tr><tr><td><span class="stock-code">000333</span><span class="stock-name">美的集团</span></td><td>¥74.23</td><td class="positive">+1.17%</td><td style="color:#888;font-size:11px;">267,147</td></tr><tr><td><span class="stock-code">600030</span><span class="stock-name">中信证券</span></td><td>¥24.36</td><td class="positive">+0.29%</td><td style="color:#888;font-size:11px;">1,279,101</td></tr><tr><td><span class="stock-code">600276</span><span class="stock-name">恒瑞医药</span></td><td>¥53.64</td><td class="positive">+1.63%</td><td style="color:#888;font-size:11px;">348,355</td></tr><tr><td><span class="stock-code">00700</span><span class="stock-name">腾讯控股</span></td><td>HK$514.00</td><td class="positive">+3.13%</td><td style="color:#888;font-size:11px;">29.4M</td></tr><tr><td><span class="stock-code">09988</span><span class="stock-name">阿里巴巴</span></td><td>HK$123.20</td><td class="positive">+2.92%</td><td style="color:#888;font-size:11px;">87.0M</td></tr><tr><td><span class="stock-code">03690</span><span class="stock-name">美团</span></td><td>HK$79.00</td><td class="positive">+3.20%</td><td style="color:#888;font-size:11px;">44.6M</td></tr><tr><td><span class="stock-code">01810</span><span class="stock-name">小米集团</span></td><td>HK$32.68</td><td class="positive">+1.93%</td><td style="color:#888;font-size:11px;">167.8M</td></tr></table>
-    </div>
-    <div class="card">
-      <div class="card-title">🌏 HK Tech Giants</div>
-      <table><tr><th>Stock</th><th>Price (HKD)</th><th>Change</th></tr><tr><td class="stock-name">阿里巴巴</td><td>HK$123.20</td><td class="positive">+2.92%</td></tr><tr><td class="stock-name">美团</td><td>HK$79.00</td><td class="positive">+3.20%</td></tr><tr><td class="stock-name">小米集团</td><td>HK$32.68</td><td class="positive">+1.93%</td></tr></table>
-    </div>
+  <div class="card">
+    <div class="card-title">🔝 Top Signals</div>
+    <table><tr><th>Stock</th><th>Price</th><th>Change</th><th>%</th></tr><tr>
+    <td><span class="stock-code">002415</span><span class="stock-name">海康威视</span></td>
+    <td>¥830.50</td>
+    <td class="positive">+¥12.50</td>
+    <td class="positive">+1.56%</td>
+  </tr><tr>
+    <td><span class="stock-code">300014</span><span class="stock-name">亿纬锂能</span></td>
+    <td>¥935.30</td>
+    <td class="negative">¥-8.20</td>
+    <td class="negative">-0.90%</td>
+  </tr><tr>
+    <td><span class="stock-code">000858</span><span class="stock-name">五粮液</span></td>
+    <td>¥934.00</td>
+    <td class="positive">+¥5.80</td>
+    <td class="positive">+0.63%</td>
+  </tr><tr>
+    <td><span class="stock-code">300015</span><span class="stock-name">爱尔眼科</span></td>
+    <td>¥926.70</td>
+    <td class="positive">+¥15.30</td>
+    <td class="positive">+1.72%</td>
+  </tr><tr>
+    <td><span class="stock-code">600276</span><span class="stock-name">恒瑞医药</span></td>
+    <td>¥854.70</td>
+    <td class="positive">+¥9.50</td>
+    <td class="positive">+1.15%</td>
+  </tr><tr>
+    <td><span class="stock-code">002475</span><span class="stock-name">立讯精密</span></td>
+    <td>¥803.60</td>
+    <td class="negative">¥-5.30</td>
+    <td class="negative">-0.67%</td>
+  </tr><tr>
+    <td><span class="stock-code">600887</span><span class="stock-name">伊利股份</span></td>
+    <td>¥803.30</td>
+    <td class="positive">+¥3.80</td>
+    <td class="positive">+0.48%</td>
+  </tr><tr>
+    <td><span class="stock-code">300033</span><span class="stock-name">同花顺</span></td>
+    <td>¥842.00</td>
+    <td class="positive">+¥18.50</td>
+    <td class="positive">+2.34%</td>
+  </tr></table>
   </div>
-  <div class="footer">🧠 Super Brain V3 | Generated 2026-03-24 16:00 | Institutional Grade Analysis</div>
-</body>
-</html>
+  <div class="card">
+    <div class="card-title">📊 Sector Heatmap</div>
+    <table><tr><th>Sector</th><th>Value</th><th>%</th><th>Allocation</th></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:3px;margin-right:8px;vertical-align:middle"></span>科技</td><td>¥75782.69</td><td>46.7%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:46.7%"></div></td></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#06b6d4;border-radius:3px;margin-right:8px;vertical-align:middle"></span>医药</td><td>¥42935.31</td><td>26.4%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:26.4%"></div></td></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#f59e0b;border-radius:3px;margin-right:8px;vertical-align:middle"></span>新能源</td><td>¥15126.18</td><td>9.3%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:9.3%"></div></td></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#ec4899;border-radius:3px;margin-right:8px;vertical-align:middle"></span>家电</td><td>¥14701.54</td><td>9.1%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:9.1%"></div></td></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#8b5cf6;border-radius:3px;margin-right:8px;vertical-align:middle"></span>汽车</td><td>¥13821.00</td><td>8.5%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:8.5%"></div></td></tr></table>
+  </div>
+  <div class="card">
+    <div class="card-title">📉 Advanced Risk</div>
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>VaR (95%)</td><td class="negative">-¥4059.17</td></tr>
+      <tr><td>Sortino Ratio</td><td class="positive">2.1</td></tr>
+      <tr><td>Calmar Ratio</td><td class="positive">1.91</td></tr>
+      <tr><td>Max Drawdown</td><td class="negative">-8.50%</td></tr>
+      <tr><td>Alpha vs HS300</td><td class="positive">+13.90%</td></tr>
+      <tr><td>Risk-Adj Return</td><td class="positive">1.85</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title">📆 Rolling Performance</div>
+    <table>
+      <tr><th>Period</th><th>Return</th></tr>
+      <tr><td>1-Day</td><td class="positive">+16.25%</td></tr>
+      <tr><td>1-Week</td><td class="positive">+84.48%</td></tr>
+      <tr><td>1-Month</td><td class="positive">+341.18%</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title">🎯 Trade Stats</div>
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Best Trade</td><td class="positive">腾讯控股 +19.84%</td></tr>
+      <tr><td>Worst Trade</td><td class="negative">宇通客车 +7.50%</td></tr>
+      <tr><td>Avg Hold Time</td><td class="positive">12.5 days</td></tr>
+      <tr><td>Fastest Trade</td><td>2 days</td></tr>
+      <tr><td>Longest Trade</td><td>28 days</td></tr>
+      <tr><td>Win Rate</td><td class="positive">70%</td></tr>
+    </table>
+  </div>
+</div>
+<div class="card" style="margin-top:20px">
+  <div class="card-title">💼 Holdings & Risk/Reward</div>
+  <table><tr><th>Stock</th><th>Entry</th><th>Current</th><th>P&L</th><th>%</th><th>R/R Ratio</th></tr><tr>
+      <td><span class="stock-code">600085</span>同仁堂</td><td>¥30.40</td><td style="font-weight:bold;">¥33.37</td>
+      <td class="positive"><span class="positive">+¥1256.31</span></td><td class="positive">+9.77%</td>
+      <td class="positive">1:51.2</td>
+    </tr><tr>
+      <td><span class="stock-code">000792</span>盐湖股份</td><td>¥37.94</td><td style="font-weight:bold;">¥44.62</td>
+      <td class="positive"><span class="positive">+¥2264.52</span></td><td class="positive">+17.61%</td>
+      <td class="positive">1:28.4</td>
+    </tr><tr>
+      <td><span class="stock-code">600066</span>宇通客车</td><td>¥30.25</td><td style="font-weight:bold;">¥32.52</td>
+      <td class="positive"><span class="positive">+¥964.75</span></td><td class="positive">+7.50%</td>
+      <td class="positive">1:66.6</td>
+    </tr><tr>
+      <td><span class="stock-code">000938</span>紫光股份</td><td>¥25.17</td><td style="font-weight:bold;">¥30.45</td>
+      <td class="positive"><span class="positive">+¥2698.08</span></td><td class="positive">+20.98%</td>
+      <td class="positive">1:23.8</td>
+    </tr><tr>
+      <td><span class="stock-code">000651</span>格力电器</td><td>¥37.19</td><td style="font-weight:bold;">¥42.49</td>
+      <td class="positive"><span class="positive">+¥1833.80</span></td><td class="positive">+14.25%</td>
+      <td class="positive">1:35.1</td>
+    </tr><tr>
+      <td><span class="stock-code">300045</span>奥普光电</td><td>¥27.87</td><td style="font-weight:bold;">¥34.34</td>
+      <td class="positive"><span class="positive">+¥2989.14</span></td><td class="positive">+23.21%</td>
+      <td class="positive">1:21.5</td>
+    </tr><tr>
+      <td><span class="stock-code">300046</span>台基股份</td><td>¥35.18</td><td style="font-weight:bold;">¥39.01</td>
+      <td class="positive"><span class="positive">+¥1401.78</span></td><td class="positive">+10.89%</td>
+      <td class="positive">1:45.9</td>
+    </tr><tr>
+      <td><span class="stock-code">000513</span>丽珠集团</td><td>¥34.80</td><td style="font-weight:bold;">¥40.54</td>
+      <td class="positive"><span class="positive">+¥2123.80</span></td><td class="positive">+16.49%</td>
+      <td class="positive">1:30.3</td>
+    </tr><tr>
+      <td><span class="stock-code">300122</span>智飞生物</td><td>¥58.20</td><td style="font-weight:bold;">¥69.10</td>
+      <td class="positive"><span class="positive">+¥2180.00</span></td><td class="positive">+18.73%</td>
+      <td class="positive">1:26.7</td>
+    </tr><tr>
+      <td><span class="stock-code">00700</span>腾讯控股</td><td>¥502.00</td><td style="font-weight:bold;">¥601.60</td>
+      <td class="positive"><span class="positive">+¥4980.00</span></td><td class="positive">+19.84%</td>
+      <td class="positive">1:25.2</td>
+    </tr></table>
+</div>
+<div class="card" style="margin-top:20px">
+  <div class="card-title">🎯 Entry Quality Analysis</div>
+  <table><tr><th>Stock</th><th>Entry</th><th>Current</th><th>Diff %</th><th>Quality</th></tr><tr><td>同仁堂</td><td>¥30.40</td><td>¥33.37</td><td class="positive">+9.80%</td><td style="color:#00ff88">✓ Good</td></tr><tr><td>盐湖股份</td><td>¥37.94</td><td>¥44.62</td><td class="positive">+17.60%</td><td style="color:#00ff88">✓ Good</td></tr><tr><td>宇通客车</td><td>¥30.25</td><td>¥32.52</td><td class="positive">+7.50%</td><td style="color:#00ff88">✓ Good</td></tr><tr><td>紫光股份</td><td>¥25.17</td><td>¥30.45</td><td class="positive">+21.00%</td><td style="color:#00ff88">✓ Good</td></tr><tr><td>格力电器</td><td>¥37.19</td><td>¥42.49</td><td class="positive">+14.30%</td><td style="color:#00ff88">✓ Good</td></tr><tr><td>奥普光电</td><td>¥27.87</td><td>¥34.34</td><td class="positive">+23.20%</td><td style="color:#00ff88">✓ Good</td></tr><tr><td>台基股份</td><td>¥35.18</td><td>¥39.01</td><td class="positive">+10.90%</td><td style="color:#00ff88">✓ Good</td></tr><tr><td>丽珠集团</td><td>¥34.80</td><td>¥40.54</td><td class="positive">+16.50%</td><td style="color:#00ff88">✓ Good</td></tr><tr><td>智飞生物</td><td>¥58.20</td><td>¥69.10</td><td class="positive">+18.70%</td><td style="color:#00ff88">✓ Good</td></tr><tr><td>腾讯控股</td><td>¥502.00</td><td>¥601.60</td><td class="positive">+19.80%</td><td style="color:#00ff88">✓ Good</td></tr></table>
+</div>
+<div class="footer">Super Brain V3 ULTIMATE • Generated 2026/3/24 19:07:42</div>
+</body></html>

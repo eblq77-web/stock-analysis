@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>FORENSIC Report - 2026-03-23</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Segoe UI,Roboto,sans-serif;background:linear-gradient(135deg,#0c0c0c 0%,#1a0a0a 50%,#0c0c0c 100%);padding:20px;color:#f1f5f9;line-height:1.5}
+.header{text-align:center;padding:24px 0}
+.header h1{font-size:28px;margin-bottom:8px;background:linear-gradient(90deg,#ef4444,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{opacity:0.8;font-size:13px}
+.badge{background:linear-gradient(90deg,#991b1b,#ef4444);color:#fff;padding:4px 16px;border-radius:20px;font-size:12px;margin-top:8px;display:inline-block;border:1px solid #ef4444}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(239,68,68,0.15);border-radius:14px;padding:16px}
+.card-title{font-size:14px;font-weight:bold;margin-bottom:12px;color:#fca5a5;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(239,68,68,0.1);padding-bottom:8px}
+.card-title span{font-size:11px;color:#6b7280;font-weight:400}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:7px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.04)}
+th{color:#888;font-weight:500;font-size:9px;text-transform:uppercase}
+.positive{color:#34d399}
+.negative{color:#f87171}
+.stock-code{background:rgba(255,255,255,0.1);padding:2px 5px;border-radius:3px;font-size:10px;margin-right:5px}
+.glass{background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);border-radius:16px;padding:16px;margin-top:16px}
+.stats-row{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin-bottom:16px}
+.stat-card{background:rgba(153,27,27,0.2);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:12px;text-align:center}
+.stat-label{font-size:9px;color:#fca5a5;text-transform:uppercase;margin-bottom:3px}
+.stat-value{font-size:15px;font-weight:bold;color:#fee2e2}
+.alerts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.alert-card{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:12px;padding:14px}
+.alert-title{font-size:13px;font-weight:bold;margin-bottom:8px;color:#fca5a5}
+.footer{text-align:center;padding:16px;color:#4b5563;font-size:11px}
+</style></head>
+<body>
+<div class="header">
+  <h1>🧠 Super Brain V3 FORENSIC</h1>
+  <p class="subtitle">2026-03-23 星期一 • Institutional-Grade Analysis</p>
+  <span class="badge">🔬 FORENSIC EDITION</span>
+</div>
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-label">Portfolio</div><div class="stat-value">¥16.09W</div></div>
+  <div class="stat-card"><div class="stat-label">P&L</div><div class="stat-value" style="color:#34d399">+</div></div>
+  <div class="stat-card"><div class="stat-label">Return</div><div class="stat-value" style="color:#34d399">+15.20%</div></div>
+  <div class="stat-card"><div class="stat-label">VaR 95%</div><div class="stat-value" style="color:#f87171">-¥4022.64</div></div>
+  <div class="stat-card"><div class="stat-label">Beta</div><div class="stat-value">1.12</div></div>
+  <div class="stat-card"><div class="stat-label">Alpha</div><div class="stat-value" style="color:#34d399">+12.85%</div></div>
+  <div class="stat-card"><div class="stat-label">Sharpe</div><div class="stat-value">1.5</div></div>
+  <div class="stat-card"><div class="stat-label">Sortino</div><div class="stat-value">2.1</div></div>
+</div>
+<div class="grid">
+  <div class="card">
+    <div class="card-title">📊 Market Indices <span>with Beta</span></div>
+    <table><tr><th>Index</th><th>Price</th><th>Chg</th><th>%</th><th>Beta</th></tr><tr>
+    <td>上证指数</td><td style="font-weight:bold;">¥3895.60</td>
+    <td class="positive">+¥18.50</td>
+    <td class="positive">+0.47%</td>
+    <td>1.19</td>
+  </tr><tr>
+    <td>深证成指</td><td style="font-weight:bold;">¥13350.80</td>
+    <td class="positive">+¥28.50</td>
+    <td class="positive">+0.21%</td>
+    <td>0.88</td>
+  </tr><tr>
+    <td>创业板指</td><td style="font-weight:bold;">¥3260.80</td>
+    <td class="positive">+¥25.30</td>
+    <td class="positive">+0.78%</td>
+    <td>0.44</td>
+  </tr><tr>
+    <td>科创50</td><td style="font-weight:bold;">¥1285.80</td>
+    <td class="positive">+¥8.50</td>
+    <td class="positive">+0.66%</td>
+    <td>1.45</td>
+  </tr></table>
+  </div>
+  <div class="card">
+    <div class="card-title">🔥 Sector Rotation Matrix</div>
+    <table><tr><th>Sector</th><th>Hotness</th><th>Status</th><th>Action</th></tr>
+      <tr>
+        <td><span style="display:inline-block;width:10px;height:10px;background:#10b981;border-radius:2px;margin-right:6px"></span>科技</td>
+        <td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:6px;width:80px"><div style="background:#10b981;border-radius:4px;height:6px;width:85%"></div></div>85</td>
+        <td style="color:#10b981">🔥 HOT</td>
+        <td>OVERWEIGHT</td>
+      </tr><tr>
+        <td><span style="display:inline-block;width:10px;height:10px;background:#06b6d4;border-radius:2px;margin-right:6px"></span>医药</td>
+        <td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:6px;width:80px"><div style="background:#06b6d4;border-radius:4px;height:6px;width:72%"></div></div>72</td>
+        <td style="color:#06b6d4">📈 CHOP</td>
+        <td>HOLD</td>
+      </tr><tr>
+        <td><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:6px"></span>新能源</td>
+        <td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:6px;width:80px"><div style="background:#f59e0b;border-radius:4px;height:6px;width:68%"></div></div>68</td>
+        <td style="color:#f59e0b">📈 CHOP</td>
+        <td>HOLD</td>
+      </tr><tr>
+        <td><span style="display:inline-block;width:10px;height:10px;background:#8b5cf6;border-radius:2px;margin-right:6px"></span>汽车</td>
+        <td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:6px;width:80px"><div style="background:#8b5cf6;border-radius:4px;height:6px;width:45%"></div></div>45</td>
+        <td style="color:#8b5cf6">❄️ COLD</td>
+        <td>UNDERWEIGHT</td>
+      </tr><tr>
+        <td><span style="display:inline-block;width:10px;height:10px;background:#ec4899;border-radius:2px;margin-right:6px"></span>家电</td>
+        <td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:6px;width:80px"><div style="background:#ec4899;border-radius:4px;height:6px;width:52%"></div></div>52</td>
+        <td style="color:#ec4899">📉 COOL</td>
+        <td>NEUTRAL</td>
+      </tr>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title">📈 Price Momentum</div>
+    <table><tr><th>Stock</th><th>RSI</th><th>MACD</th><th>MA Signal</th></tr><tr><td>同仁堂</td><td class="positive">64</td><td style="color:#34d399">Bullish ▲</td><td style="color:#34d399">Above MA20 ▲</td></tr><tr><td>盐湖股份</td><td class="positive">64</td><td style="color:#f87171">Bearish ▼</td><td style="color:#34d399">Above MA20 ▲</td></tr><tr><td>宇通客车</td><td class="negative">56</td><td style="color:#f87171">Bearish ▼</td><td style="color:#34d399">Above MA20 ▲</td></tr><tr><td>紫光股份</td><td class="positive">66</td><td style="color:#34d399">Bullish ▲</td><td style="color:#34d399">Above MA20 ▲</td></tr><tr><td>格力电器</td><td class="positive">75</td><td style="color:#f87171">Bearish ▼</td><td style="color:#34d399">Above MA20 ▲</td></tr><tr><td>奥普光电</td><td class="positive">65</td><td style="color:#34d399">Bullish ▲</td><td style="color:#34d399">Above MA20 ▲</td></tr><tr><td>台基股份</td><td class="negative">56</td><td style="color:#f87171">Bearish ▼</td><td style="color:#34d399">Above MA20 ▲</td></tr><tr><td>丽珠集团</td><td class="positive">76</td><td style="color:#f87171">Bearish ▼</td><td style="color:#34d399">Above MA20 ▲</td></tr><tr><td>智飞生物</td><td class="positive">84</td><td style="color:#f87171">Bearish ▼</td><td style="color:#34d399">Above MA20 ▲</td></tr><tr><td>腾讯控股</td><td class="positive">79</td><td style="color:#f87171">Bearish ▼</td><td style="color:#34d399">Above MA20 ▲</td></tr></table>
+  </div>
+  <div class="card">
+    <div class="card-title">💰 Smart Money Flow</div>
+    <table><tr><th>Stock</th><th>Score</th><th>Signal</th></tr><tr><td>同仁堂</td><td>63</td><td style="color:#f59e0b">Neutral 🟡</td></tr><tr><td>盐湖股份</td><td>74</td><td style="color:#34d399">Accumulating 🟢</td></tr><tr><td>宇通客车</td><td>78</td><td style="color:#34d399">Accumulating 🟢</td></tr><tr><td>紫光股份</td><td>50</td><td style="color:#f87171">Distributing 🔴</td></tr><tr><td>格力电器</td><td>82</td><td style="color:#34d399">Accumulating 🟢</td></tr><tr><td>奥普光电</td><td>70</td><td style="color:#f59e0b">Neutral 🟡</td></tr><tr><td>台基股份</td><td>73</td><td style="color:#34d399">Accumulating 🟢</td></tr><tr><td>丽珠集团</td><td>80</td><td style="color:#34d399">Accumulating 🟢</td></tr><tr><td>智飞生物</td><td>69</td><td style="color:#f59e0b">Neutral 🟡</td></tr><tr><td>腾讯控股</td><td>83</td><td style="color:#34d399">Accumulating 🟢</td></tr></table>
+  </div>
+  <div class="card">
+    <div class="card-title">📊 Volume Anomaly</div>
+    <table><tr><th>Stock</th><th>Volume</th><th>Status</th></tr><tr><td>同仁堂</td><td>262M</td><td style="color:#ef4444">⚠️ HIGH</td></tr><tr><td>盐湖股份</td><td>118M</td><td style="color:#34d399">✓ Normal</td></tr><tr><td>宇通客车</td><td>217M</td><td style="color:#ef4444">⚠️ HIGH</td></tr><tr><td>紫光股份</td><td>297M</td><td style="color:#ef4444">⚠️ HIGH</td></tr><tr><td>格力电器</td><td>356M</td><td style="color:#ef4444">⚠️ HIGH</td></tr></table>
+  </div>
+  <div class="card">
+    <div class="card-title">⚖️ Bid/Ask Pressure</div>
+    <table><tr><th>Stock</th><th>Ratio</th><th>Pressure</th></tr><tr><td>同仁堂</td><td>1.14</td><td style="color:#34d399">📈 Buying Pressure</td></tr><tr><td>盐湖股份</td><td>0.96</td><td style="color:#f59e0b">⚖️ Balanced</td></tr><tr><td>宇通客车</td><td>1.09</td><td style="color:#34d399">📈 Buying Pressure</td></tr><tr><td>紫光股份</td><td>0.98</td><td style="color:#f59e0b">⚖️ Balanced</td></tr><tr><td>格力电器</td><td>1.09</td><td style="color:#34d399">📈 Buying Pressure</td></tr></table>
+  </div>
+</div>
+<div class="alerts">
+  <div class="alert-card">
+    <div class="alert-title">⚠️ Earnings Risk (30 Days)</div>
+    <table><tr><th>Stock</th><th>Days</th><th>Risk</th></tr><tr><td>同仁堂</td><td>10 days</td><td style="color:#f59e0b">MONITOR</td></tr><tr><td>盐湖股份</td><td>13 days</td><td style="color:#f59e0b">MONITOR</td></tr><tr><td>宇通客车</td><td>24 days</td><td style="color:#34d399">OK</td></tr><tr><td>紫光股份</td><td>22 days</td><td style="color:#34d399">OK</td></tr><tr><td>格力电器</td><td>16 days</td><td style="color:#34d399">OK</td></tr></table>
+  </div>
+  <div class="alert-card">
+    <div class="alert-title">📰 News Sentiment</div>
+    <table><tr><th>Source</th><th>Score</th><th>Signal</th></tr>
+      <tr><td>Reuters China</td><td>72</td><td style="color:#34d399">Positive</td></tr><tr><td>SCMP Markets</td><td>65</td><td style="color:#34d399">Positive</td></tr><tr><td>CCTV Finance</td><td>58</td><td style="color:#f59e0b">Neutral</td></tr><tr><td>Securities Times</td><td>70</td><td style="color:#34d399">Positive</td></tr><tr><td>NDRC Brief</td><td>55</td><td style="color:#f59e0b">Neutral</td></tr>
+    </table>
+  </div>
+</div>
+<div class="glass">
+  <div style="font-size:14px;font-weight:bold;color:#fca5a5;margin-bottom:12px;border-bottom:1px solid rgba(239,68,68,0.15);padding-bottom:8px">📋 Full Forensic Analysis</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div>
+      <div style="font-size:12px;color:#888;margin-bottom:8px">🏛️ Market Breadth</div>
+      <table><tr><td>Above MA20</td><td class="positive">62%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:3px;height:6px;width:60px"><div style="background:#34d399;border-radius:3px;height:6px;width:62%"></div></div></td></tr><tr><td>Above MA50</td><td class="positive">48%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:3px;height:6px;width:60px"><div style="background:#06b6d4;border-radius:3px;height:6px;width:48%"></div></div></td></tr><tr><td>Above MA200</td><td class="positive">38%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:3px;height:6px;width:60px"><div style="background:#f59e0b;border-radius:3px;height:6px;width:38%"></div></div></td></tr></table>
+    </div>
+    <div>
+      <div style="font-size:12px;color:#888;margin-bottom:8px">💼 Liquidity Risk</div>
+      <table><tr><th>Stock</th><th>Exposure</th><th>Risk</th></tr><tr><td>同仁堂</td><td>¥13989</td><td style="color:#34d399">🟢 LOW</td></tr><tr><td>盐湖股份</td><td>¥14991</td><td style="color:#34d399">🟢 LOW</td></tr><tr><td>宇通客车</td><td>¥13698</td><td style="color:#34d399">🟢 LOW</td></tr><tr><td>紫光股份</td><td>¥15417</td><td style="color:#34d399">🟢 LOW</td></tr><tr><td>格力电器</td><td>¥14570</td><td style="color:#34d399">🟢 LOW</td></tr><tr><td>奥普光电</td><td>¥15722</td><td style="color:#34d399">🟢 LOW</td></tr><tr><td>台基股份</td><td>¥14150</td><td style="color:#34d399">🟢 LOW</td></tr><tr><td>丽珠集团</td><td>¥14863</td><td style="color:#34d399">🟢 LOW</td></tr><tr><td>智飞生物</td><td>¥13696</td><td style="color:#34d399">🟢 LOW</td></tr><tr><td>腾讯控股</td><td>¥29812</td><td style="color:#f59e0b">🟡 MED</td></tr></table>
+    </div>
+    <div>
+      <div style="font-size:12px;color:#888;margin-bottom:8px">👤 Insider Activity</div>
+      <table><tr><th>Stock</th><th>Signal</th><th>Vol</th></tr><tr><td>同仁堂</td><td style="color:#34d399">Buy ↑</td><td>2.1M</td></tr><tr><td>盐湖股份</td><td style="color:#f87171">Sell ↓</td><td>1.3M</td></tr><tr><td>宇通客车</td><td style="color:#34d399">Buy ↑</td><td>4.7M</td></tr><tr><td>紫光股份</td><td style="color:#34d399">Buy ↑</td><td>1.1M</td></tr><tr><td>格力电器</td><td style="color:#f87171">Sell ↓</td><td>3.3M</td></tr><tr><td>奥普光电</td><td style="color:#f87171">Sell ↓</td><td>4.2M</td></tr><tr><td>台基股份</td><td style="color:#34d399">Buy ↑</td><td>2.2M</td></tr><tr><td>丽珠集团</td><td style="color:#34d399">Buy ↑</td><td>0.2M</td></tr><tr><td>智飞生物</td><td style="color:#34d399">Buy ↑</td><td>1.2M</td></tr><tr><td>腾讯控股</td><td style="color:#34d399">Buy ↑</td><td>2.4M</td></tr></table>
+    </div>
+  </div>
+</div>
+<div class="card" style="margin-top:16px">
+  <div class="card-title">💼 Holdings & Position Sizing</div>
+  <table><tr><th>Stock</th><th>Entry</th><th>Current</th><th>P&L</th><th>%</th><th>Dir</th></tr><tr>
+      <td><span class="stock-code">600085</span>同仁堂</td>
+      <td>¥30.40</td><td style="font-weight:bold;">¥33.07</td>
+      <td class="positive"><span class="positive">+¥1129.41</span></td>
+      <td class="positive">+8.78%</td>
+      <td>🟢</td>
+    </tr><tr>
+      <td><span class="stock-code">000792</span>盐湖股份</td>
+      <td>¥37.94</td><td style="font-weight:bold;">¥44.22</td>
+      <td class="positive"><span class="positive">+¥2128.92</span></td>
+      <td class="positive">+16.55%</td>
+      <td>🟢</td>
+    </tr><tr>
+      <td><span class="stock-code">600066</span>宇通客车</td>
+      <td>¥30.25</td><td style="font-weight:bold;">¥32.23</td>
+      <td class="positive"><span class="positive">+¥841.50</span></td>
+      <td class="positive">+6.55%</td>
+      <td>🟢</td>
+    </tr><tr>
+      <td><span class="stock-code">000938</span>紫光股份</td>
+      <td>¥25.17</td><td style="font-weight:bold;">¥30.17</td>
+      <td class="positive"><span class="positive">+¥2555.00</span></td>
+      <td class="positive">+19.86%</td>
+      <td>🟢</td>
+    </tr><tr>
+      <td><span class="stock-code">000651</span>格力电器</td>
+      <td>¥37.19</td><td style="font-weight:bold;">¥42.11</td>
+      <td class="positive"><span class="positive">+¥1702.32</span></td>
+      <td class="positive">+13.23%</td>
+      <td>🟢</td>
+    </tr><tr>
+      <td><span class="stock-code">300045</span>奥普光电</td>
+      <td>¥27.87</td><td style="font-weight:bold;">¥34.03</td>
+      <td class="positive"><span class="positive">+¥2845.92</span></td>
+      <td class="positive">+22.10%</td>
+      <td>🟢</td>
+    </tr><tr>
+      <td><span class="stock-code">300046</span>台基股份</td>
+      <td>¥35.18</td><td style="font-weight:bold;">¥38.66</td>
+      <td class="positive"><span class="positive">+¥1273.68</span></td>
+      <td class="positive">+9.89%</td>
+      <td>🟢</td>
+    </tr><tr>
+      <td><span class="stock-code">000513</span>丽珠集团</td>
+      <td>¥34.80</td><td style="font-weight:bold;">¥40.17</td>
+      <td class="positive"><span class="positive">+¥1986.90</span></td>
+      <td class="positive">+15.43%</td>
+      <td>🟢</td>
+    </tr><tr>
+      <td><span class="stock-code">300122</span>智飞生物</td>
+      <td>¥58.20</td><td style="font-weight:bold;">¥68.48</td>
+      <td class="positive"><span class="positive">+¥2056.00</span></td>
+      <td class="positive">+17.66%</td>
+      <td>🟢</td>
+    </tr><tr>
+      <td><span class="stock-code">00700</span>腾讯控股</td>
+      <td>¥502.00</td><td style="font-weight:bold;">¥596.23</td>
+      <td class="positive"><span class="positive">+¥4711.50</span></td>
+      <td class="positive">+18.77%</td>
+      <td>🟢</td>
+    </tr></table>
+</div>
+<div class="card" style="margin-top:16px">
+  <div class="card-title">📐 Position Sizing Recommendations</div>
+  <table><tr><th>Stock</th><th>Current %</th><th>Optimal Shares</th><th>Action</th></tr><tr><td>同仁堂</td><td>8.7%</td><td>63 shares</td><td style="color:#f59e0b">HOLD</td></tr><tr><td>盐湖股份</td><td>9.3%</td><td>50 shares</td><td style="color:#f59e0b">HOLD</td></tr><tr><td>宇通客车</td><td>8.5%</td><td>63 shares</td><td style="color:#f59e0b">HOLD</td></tr><tr><td>紫光股份</td><td>9.6%</td><td>76 shares</td><td style="color:#f59e0b">HOLD</td></tr><tr><td>格力电器</td><td>9.1%</td><td>51 shares</td><td style="color:#f59e0b">HOLD</td></tr><tr><td>奥普光电</td><td>9.8%</td><td>69 shares</td><td style="color:#f59e0b">HOLD</td></tr><tr><td>台基股份</td><td>8.8%</td><td>54 shares</td><td style="color:#f59e0b">HOLD</td></tr><tr><td>丽珠集团</td><td>9.2%</td><td>55 shares</td><td style="color:#f59e0b">HOLD</td></tr><tr><td>智飞生物</td><td>8.5%</td><td>30 shares</td><td style="color:#f59e0b">HOLD</td></tr><tr><td>腾讯控股</td><td>18.5%</td><td>7 shares</td><td style="color:#f59e0b">HOLD</td></tr></table>
+</div>
+<div class="card" style="margin-top:16px">
+  <div class="card-title">🔝 Top Signals with Volume</div>
+  <table><tr><th>Stock</th><th>Price</th><th>Chg</th><th>%</th><th>Volume</th></tr><tr>
+    <td><span class="stock-code">002415</span>海康威视</td>
+    <td>¥828.50</td><td class="positive">+¥12.50</td>
+    <td class="positive">+1.56%</td><td>1053M</td>
+  </tr><tr>
+    <td><span class="stock-code">300014</span>亿纬锂能</td>
+    <td>¥932.30</td><td class="negative">¥-8.20</td>
+    <td class="negative">-0.90%</td><td>830M</td>
+  </tr><tr>
+    <td><span class="stock-code">000858</span>五粮液</td>
+    <td>¥932.50</td><td class="positive">+¥5.80</td>
+    <td class="positive">+0.63%</td><td>1087M</td>
+  </tr><tr>
+    <td><span class="stock-code">300015</span>爱尔眼科</td>
+    <td>¥924.20</td><td class="positive">+¥15.30</td>
+    <td class="positive">+1.72%</td><td>1010M</td>
+  </tr><tr>
+    <td><span class="stock-code">600276</span>恒瑞医药</td>
+    <td>¥852.90</td><td class="positive">+¥9.50</td>
+    <td class="positive">+1.15%</td><td>950M</td>
+  </tr><tr>
+    <td><span class="stock-code">002475</span>立讯精密</td>
+    <td>¥801.40</td><td class="negative">¥-5.30</td>
+    <td class="negative">-0.67%</td><td>1077M</td>
+  </tr><tr>
+    <td><span class="stock-code">600887</span>伊利股份</td>
+    <td>¥802.10</td><td class="positive">+¥3.80</td>
+    <td class="positive">+0.48%</td><td>943M</td>
+  </tr><tr>
+    <td><span class="stock-code">300033</span>同花顺</td>
+    <td>¥838.50</td><td class="positive">+¥18.50</td>
+    <td class="positive">+2.34%</td><td>801M</td>
+  </tr></table>
+</div>
+<div class="card" style="margin-top:16px">
+  <div class="card-title">🏭 Sector Allocation</div>
+  <table><tr><th>Sector</th><th>Value</th><th>%</th><th>Heatmap</th></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:3px;margin-right:8px;vertical-align:middle"></span>科技</td><td>¥75099.79</td><td>46.7%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:46.7%"></div></td></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#06b6d4;border-radius:3px;margin-right:8px;vertical-align:middle"></span>医药</td><td>¥42547.51</td><td>26.4%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:26.4%"></div></td></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#f59e0b;border-radius:3px;margin-right:8px;vertical-align:middle"></span>新能源</td><td>¥14990.58</td><td>9.3%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:9.3%"></div></td></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#ec4899;border-radius:3px;margin-right:8px;vertical-align:middle"></span>家电</td><td>¥14570.06</td><td>9.1%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:9.1%"></div></td></tr><tr><td><span style="display:inline-block;width:12px;height:12px;background:#8b5cf6;border-radius:3px;margin-right:8px;vertical-align:middle"></span>汽车</td><td>¥13697.75</td><td>8.5%</td><td><div style="background:rgba(255,255,255,0.08);border-radius:4px;height:8px;width:8.5%"></div></td></tr></table>
+</div>
+<div class="footer">Super Brain V3 FORENSIC • Institutional-Grade Analysis • Generated 2026/3/24 19:07:42</div>
+</body></html>

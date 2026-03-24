@@ -1,714 +1,179 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Super Brain Daily Report - 2026-03-17</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; 
-      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); 
-      min-height: 100vh; 
-      padding: 24px; 
-      color: #e6edf3;
-    }
-    .container { max-width: 800px; margin: 0 auto; }
-    
-    /* Header */
-    .header { 
-      background: linear-gradient(135deg, #1a1f2e 0%, #252d3d 100%); 
-      border-radius: 20px; 
-      padding: 32px; 
-      margin-bottom: 24px;
-      border: 1px solid #30363d;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .header-left h1 { 
-      font-size: 28px; 
-      color: #58a6ff; 
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .header-left .subtitle { 
-      color: #8b949e; 
-      font-size: 14px; 
-      margin-top: 6px; 
-    }
-    .header-right { text-align: right; }
-    .report-date { 
-      font-size: 24px; 
-      font-weight: 600; 
-      color: #e6edf3;
-    }
-    .report-time { 
-      color: #8b949e; 
-      font-size: 12px;
-      margin-top: 4px;
-    }
-    .report-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #238636, #2ea043);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-      margin-top: 8px;
-    }
-    
-    /* Cards */
-    .card { 
-      background: #161b22; 
-      border-radius: 16px; 
-      padding: 24px; 
-      margin-bottom: 20px; 
-      border: 1px solid #30363d;
-    }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #30363d;
-    }
-    .card-title { 
-      font-size: 16px; 
-      font-weight: 600; 
-      color: #e6edf3;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card-badge {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 12px;
-      background: #21262d;
-      color: #8b949e;
-    }
-    
-    /* Executive Summary Grid */
-    .exec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .exec-item {
-      background: #21262d;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-    .exec-label { font-size: 12px; color: #8b949e; margin-bottom: 8px; }
-    .exec-value { font-size: 24px; font-weight: 700; }
-    .exec-value.green { color: #3fb950; }
-    .exec-value.red { color: #f85149; }
-    .exec-value.yellow { color: #d29922; }
-    .exec-value.blue { color: #58a6ff; }
-    .exec-change { font-size: 11px; margin-top: 4px; }
-    .exec-change.up { color: #3fb950; }
-    .exec-change.down { color: #f85149; }
-    
-    /* Market Overview */
-    .market-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .metric-box {
-      background: #21262d;
-      border-radius: 12px;
-      padding: 16px;
-      border-left: 3px solid;
-    }
-    .metric-box.bull { border-color: #3fb950; }
-    .metric-box.bear { border-color: #f85149; }
-    .metric-box.neutral { border-color: #d29922; }
-    .metric-label { font-size: 12px; color: #8b949e; margin-bottom: 6px; }
-    .metric-value { font-size: 18px; font-weight: 600; color: #e6edf3; }
-    .metric-desc { font-size: 11px; color: #8b949e; margin-top: 4px; }
-    
-    /* Sector Table */
-    .sector-table { width: 100%; border-collapse: collapse; }
-    .sector-table th { 
-      text-align: left; 
-      padding: 12px; 
-      color: #8b949e; 
-      font-weight: 500; 
-      font-size: 12px;
-      border-bottom: 1px solid #30363d;
-    }
-    .sector-table td { padding: 14px 12px; border-bottom: 1px solid #21262d; }
-    .sector-table tr:last-child td { border-bottom: none; }
-    .sector-name { font-weight: 500; color: #e6edf3; }
-    .sector-status { 
-      display: inline-block; 
-      padding: 3px 10px; 
-      border-radius: 12px; 
-      font-size: 11px; 
-      font-weight: 500;
-    }
-    .sector-status.hot { background: rgba(63, 185, 80, 0.2); color: #3fb950; }
-    .sector-status.warming { background: rgba(210, 153, 34, 0.2); color: #d29922; }
-    .sector-status.cold { background: rgba(139, 148, 158, 0.2); color: #8b949e; }
-    .flow-arrow { font-size: 14px; }
-    .flow-arrow.up { color: #3fb950; }
-    .flow-arrow.down { color: #f85149; }
-    
-    /* Stock Table */
-    .stock-table { width: 100%; border-collapse: collapse; }
-    .stock-table th { 
-      text-align: left; 
-      padding: 12px; 
-      color: #8b949e; 
-      font-weight: 500; 
-      font-size: 12px;
-      border-bottom: 1px solid #30363d;
-    }
-    .stock-table td { padding: 14px 12px; border-bottom: 1px solid #21262d; }
-    .stock-name { font-weight: 500; color: #e6edf3; }
-    .stock-code { color: #8b949e; font-size: 12px; }
-    .pnl-tag { 
-      display: inline-block; 
-      padding: 4px 10px; 
-      border-radius: 12px; 
-      font-size: 12px; 
-      font-weight: 600;
-    }
-    .pnl-tag.up { background: rgba(63, 185, 80, 0.2); color: #3fb950; }
-    .pnl-tag.down { background: rgba(248, 81, 73, 0.2); color: #f85149; }
-    .pnl-tag.warning { background: rgba(210, 153, 34, 0.2); color: #d29922; }
-    .stop-loss-tag {
-      display: inline-block;
-      background: rgba(248, 81, 73, 0.2);
-      color: #f85149;
-      padding: 2px 8px;
-      border-radius: 8px;
-      font-size: 10px;
-      font-weight: 600;
-      margin-left: 8px;
-    }
-    
-    /* Signal Box */
-    .signal-box {
-      background: linear-gradient(135deg, #1a1f2e 0%, #252d3d 100%);
-      border-radius: 16px;
-      padding: 28px;
-      text-align: center;
-      border: 1px solid #30363d;
-    }
-    .signal-title { font-size: 14px; color: #8b949e; margin-bottom: 12px; }
-    .signal-stocks { 
-      font-size: 22px; 
-      font-weight: 600; 
-      color: #58a6ff;
-      letter-spacing: 1px;
-    }
-    .signal-meta { 
-      display: flex; 
-      justify-content: center; 
-      gap: 24px; 
-      margin-top: 16px;
-    }
-    .signal-meta-item { font-size: 12px; color: #8b949e; }
-    .signal-meta-item span { color: #e6edf3; font-weight: 600; }
-    
-    /* Confidence Bars */
-    .confidence-bar {
-      height: 6px;
-      background: #21262d;
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-    .confidence-fill {
-      height: 100%;
-      border-radius: 3px;
-      background: linear-gradient(90deg, #58a6ff, #3fb950);
-    }
-    
-    /* Pick Cards */
-    .pick-card {
-      background: #21262d;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      border-left: 4px solid;
-    }
-    .pick-card.buy { border-color: #3fb950; }
-    .pick-card.watch { border-color: #d29922; }
-    .pick-header { display: flex; justify-content: space-between; align-items: flex-start; }
-    .pick-name { font-size: 18px; font-weight: 600; color: #e6edf3; }
-    .pick-code { color: #8b949e; font-size: 12px; margin-top: 2px; }
-    .pick-price { text-align: right; }
-    .pick-current { font-size: 14px; color: #8b949e; }
-    .pick-target { font-size: 20px; font-weight: 600; color: #3fb950; }
-    .pick-reason { 
-      color: #8b949e; 
-      font-size: 13px; 
-      margin: 12px 0; 
-      line-height: 1.6;
-    }
-    .pick-metrics { display: flex; gap: 20px; font-size: 12px; }
-    .pick-metric { color: #8b949e; }
-    .pick-metric span { color: #e6edf3; font-weight: 600; }
-    
-    /* Risk Metrics */
-    .risk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .risk-item {
-      background: #21262d;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-    }
-    .risk-label { font-size: 11px; color: #8b949e; margin-bottom: 6px; }
-    .risk-value { font-size: 20px; font-weight: 700; }
-    .risk-value.green { color: #3fb950; }
-    .risk-value.yellow { color: #d29922; }
-    .risk-value.red { color: #f85149; }
-    
-    /* Calendar Effect */
-    .calendar-box {
-      background: linear-gradient(135deg, #1a1f2e 0%, #252d3d 100%);
-      border-radius: 16px;
-      padding: 24px;
-      border: 1px solid #30363d;
-    }
-    .calendar-title { font-size: 14px; color: #8b949e; margin-bottom: 16px; }
-    .calendar-items { display: flex; gap: 12px; flex-wrap: wrap; }
-    .calendar-item {
-      background: #21262d;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 12px;
-    }
-    .calendar-item .label { color: #8b949e; }
-    .calendar-item .value { color: #e6edf3; font-weight: 600; margin-left: 6px; }
-    
-    /* Institutional Flow */
-    .institutional-box {
-      background: linear-gradient(135deg, #1a1f2e 0%, #252d3d 100%);
-      border-radius: 16px;
-      padding: 24px;
-      border: 1px solid #30363d;
-    }
-    .inst-flow { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .inst-icon { font-size: 24px; }
-    .inst-name { font-size: 14px; color: #e6edf3; font-weight: 600; }
-    .inst-change { font-size: 12px; }
-    .inst-change.positive { color: #3fb950; }
-    .inst-change.negative { color: #f85149; }
-    
-    /* Footer */
-    .footer { 
-      text-align: center; 
-      color: #8b949e; 
-      margin-top: 30px; 
-      padding: 20px; 
-      font-size: 11px; 
-      border-top: 1px solid #30363d;
-    }
-    .footer strong { color: #58a6ff; }
-    
-    /* Two Column Layout */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    
-    @media (max-width: 768px) {
-      .exec-grid { grid-template-columns: repeat(2, 1fr); }
-      .two-col { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
+<html><head><meta charset="UTF-8"><title>PRO Report - 2026-03-15</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Segoe UI,Roboto,sans-serif;background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#1e1b4b 100%);padding:24px;color:#f1f5f9;line-height:1.6}
+.header{text-align:center;padding:30px 0}
+.header h1{font-size:32px;margin-bottom:10px;background:linear-gradient(90deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{opacity:0.9;font-size:14px}
+.badge{background:linear-gradient(90deg,#6366f1,#8b5cf6);color:#fff;padding:4px 16px;border-radius:20px;font-size:12px;margin-top:10px;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:20px}
+.card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:20px}
+.card-title{font-size:16px;font-weight:bold;margin-bottom:15px;color:#a5b4fc;display:flex;align-items:center;justify-content:space-between}
+.card-title span{font-size:12px;color:#6b7280;font-weight:400}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06)}
+th{color:#888;font-weight:500;font-size:10px;text-transform:uppercase}
+.positive{color:#34d399}
+.negative{color:#f87171}
+.stock-code{background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;font-size:11px;margin-right:6px}
+.stock-name{color:#ccc}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);border-radius:12px;padding:14px;text-align:center}
+.stat-label{font-size:10px;color:#a5b4fc;text-transform:uppercase;margin-bottom:4px}
+.stat-value{font-size:18px;font-weight:bold;color:#e0e7ff}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.footer{text-align:center;padding:20px;color:#6b7280;font-size:12px}
+</style></head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <div class="header-left">
-        <h1>🧠 Super Brain</h1>
-        <div class="subtitle">Institutional-Grade Quantitative Analysis Report</div>
-      </div>
-      <div class="header-right">
-        <div class="report-date">2026-03-17</div>
-        <div class="report-time">Market Close Edition</div>
-        <div class="report-badge">VOLUME 128</div>
-      </div>
-    </div>
-    
-    <!-- Executive Summary -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">📊 Executive Summary</div>
-        <div class="card-badge">Daily Snapshot</div>
-      </div>
-      <div class="exec-grid">
-        <div class="exec-item">
-          <div class="exec-label">Portfolio Value</div>
-          <div class="exec-value blue">¥1,200,000</div>
-          <div class="exec-change up">📈 +6.75% MTD</div>
-        </div>
-        <div class="exec-item">
-          <div class="exec-label">Cash Available</div>
-          <div class="exec-value yellow">¥159,488</div>
-          <div class="exec-change">13.3%</div>
-        </div>
-        <div class="exec-item">
-          <div class="exec-label">Positions</div>
-          <div class="exec-value">12</div>
-          <div class="exec-change">Active</div>
-        </div>
-        <div class="exec-item">
-          <div class="exec-label">Win Rate (30d)</div>
-          <div class="exec-value green">68%</div>
-          <div class="exec-change up">↑ 5%</div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Market Overview -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">🌊 Market Overview</div>
-        <div class="card-badge">Technical Analysis</div>
-      </div>
-      <div class="market-metrics">
-        <div class="metric-box bull">
-          <div class="metric-label">Market Trend</div>
-          <div class="metric-value">Uptrend ⬆</div>
-          <div class="metric-desc">MA20 > MA60 > MA120</div>
-        </div>
-        <div class="metric-box neutral">
-          <div class="metric-label">Volatility (ATR)</div>
-          <div class="metric-value">2.34%</div>
-          <div class="metric-desc">Moderate - Normal</div>
-        </div>
-        <div class="metric-box bull">
-          <div class="metric-label">RSI (14)</div>
-          <div class="metric-value">58.6</div>
-          <div class="metric-desc">Bullish Zone</div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Sector Rotation -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">🔥 Sector Rotation Analysis</div>
-        <div class="card-badge">Flow Tracking</div>
-      </div>
-      <table class="sector-table">
-        <thead>
-          <tr>
-            <th>Sector</th>
-            <th>Status</th>
-            <th>Flow</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="sector-name">🤖 AI / Technology</span></td>
-            <td><span class="sector-status hot">🔥 Leading</span></td>
-            <td><span class="flow-arrow up">▲ ¥2.8B</span></td>
-            <td>Accelerate</td>
-          </tr>
-          <tr>
-            <td><span class="sector-name">🔋 New Energy</span></td>
-            <td><span class="sector-status hot">🔥 Strong</span></td>
-            <td><span class="flow-arrow up">▲ ¥1.9B</span></td>
-            <td>Buy Dips</td>
-          </tr>
-          <tr>
-            <td><span class="sector-name">💊 Healthcare</span></td>
-            <td><span class="sector-status warming">📈 Warming</span></td>
-            <td><span class="flow-arrow up">▲ ¥420M</span></td>
-            <td>Watch</td>
-          </tr>
-          <tr>
-            <td><span class="sector-name">🏠 Real Estate</span></td>
-            <td><span class="sector-status warming">📈 Bottom</span></td>
-            <td><span class="flow-arrow up">▲ ¥180M</span></td>
-            <td>Accumulate</td>
-          </tr>
-          <tr>
-            <td><span class="sector-name">🐔 Consumer</span></td>
-            <td><span class="sector-status cold">⏳ Consolidation</span></td>
-            <td><span class="flow-arrow down">▼ ¥320M</span></td>
-            <td>Avoid</td>
-          </tr>
-          <tr>
-            <td><span class="sector-name">💰 Finance</span></td>
-            <td><span class="sector-status cold">⏳ Sideways</span></td>
-            <td><span class="flow-arrow down">▼ ¥150M</span></td>
-            <td>Avoid</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    
-    <!-- Institutional Money Flow -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">🏛️ Institutional Money Flow</div>
-        <div class="card-badge">Smart Money Tracking</div>
-      </div>
-      <div class="institutional-box">
-        <div class="inst-flow">
-          <div class="inst-icon">📈</div>
-          <div>
-            <div class="inst-name">Northbound Capital (北向资金)</div>
-            <div class="inst-change positive">+¥4.82B today | 5-day net: +¥23.6B</div>
-          </div>
-        </div>
-        <div class="inst-flow">
-          <div class="inst-icon">👥</div>
-          <div>
-            <div class="inst-name">Retail Sentiment</div>
-            <div class="inst-change positive">Fear → Greed (62 → 71)</div>
-          </div>
-        </div>
-        <div class="inst-flow">
-          <div class="inst-icon">⚖️</div>
-          <div>
-            <div class="inst-name">Buy/Sell Ratio</div>
-            <div class="inst-change positive">1.42 (Bullish Territory >1.2)</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Top Signals -->
-    <div class="signal-box">
-      <div class="signal-title">🎯 TODAY'S HIGH-CONFIDENCE SIGNALS</div>
-      <div class="signal-stocks">中际旭创 · 宁德时代 · 智飞生物</div>
-      <div class="signal-meta">
-        <div class="signal-meta-item">Confidence: <span>92%</span></div>
-        <div class="signal-meta-item">Risk/Reward: <span>1:3.5</span></div>
-        <div class="signal-meta-item">Time Horizon: <span>2-4 weeks</span></div>
-      </div>
-      <div class="confidence-bar">
-        <div class="confidence-fill" style="width: 92%;"></div>
-      </div>
-    </div>
-    
-    <!-- Two Column: Positions + Risk -->
-    <div class="two-col">
-      <!-- Current Positions -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">📦 Current Positions</div>
-          <div class="card-badge">Active</div>
-        </div>
-        <table class="stock-table">
-          <thead>
-            <tr>
-              <th>Stock</th>
-              <th>P&L</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="stock-name">腾讯控股</div>
-                <div class="stock-code">00700</div>
-              </td>
-              <td><span class="pnl-tag up">+11.75%</span></td>
-              <td>Hold</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="stock-name">宇通客车</div>
-                <div class="stock-code">600066</div>
-              </td>
-              <td><span class="pnl-tag up">+3.67%</span></td>
-              <td>Hold</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="stock-name">同仁堂</div>
-                <div class="stock-code">600085</div>
-              </td>
-              <td><span class="pnl-tag up">+0.10%</span></td>
-              <td>Hold</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="stock-name">盐湖股份</div>
-                <div class="stock-code">000792</div>
-              </td>
-              <td><span class="pnl-tag down">-2.05%</span></td>
-              <td>Watch</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="stock-name">中直股份</div>
-                <div class="stock-code">600038</div>
-              </td>
-              <td><span class="pnl-tag warning">-7.25%</span></td>
-              <td><span class="stop-loss-tag">STOP</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="stock-name">云天化</div>
-                <div class="stock-code">600096</div>
-              </td>
-              <td><span class="pnl-tag warning">-8.00%</span></td>
-              <td><span class="stop-loss-tag">STOP</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      
-      <!-- Risk Metrics -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">⚠️ Risk Management</div>
-          <div class="card-badge">Portfolio Health</div>
-        </div>
-        <div class="risk-grid">
-          <div class="risk-item">
-            <div class="risk-label">Max Drawdown</div>
-            <div class="risk-value yellow">-8.2%</div>
-          </div>
-          <div class="risk-item">
-            <div class="risk-label">Sharpe Ratio</div>
-            <div class="risk-value green">1.42</div>
-          </div>
-          <div class="risk-item">
-            <div class="risk-label">Beta</div>
-            <div class="risk-value">1.08</div>
-          </div>
-          <div class="risk-item">
-            <div class="risk-label">VaR (95%)</div>
-            <div class="risk-value yellow">-3.2%</div>
-          </div>
-          <div class="risk-item">
-            <div class="risk-label">Win/Loss Ratio</div>
-            <div class="risk-value green">2.4</div>
-          </div>
-          <div class="risk-item">
-            <div class="risk-label">Position Concen.</div>
-            <div class="risk-value yellow">18%</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Calendar Effects -->
-    <div class="calendar-box">
-      <div class="calendar-title">📅 Calendar & Seasonal Factors (March)</div>
-      <div class="calendar-items">
-        <div class="calendar-item">
-          <span class="label">Month-end effect:</span>
-          <span class="value">Strong (3/31)</span>
-        </div>
-        <div class="calendar-item">
-          <span class="label">Q1 momentum:</span>
-          <span class="value">Positive</span>
-        </div>
-        <div class="calendar-item">
-          <span class="label">Fed meeting:</span>
-          <span class="value">Mar 19</span>
-        </div>
-        <div class="calendar-item">
-          <span class="label">Earnings season:</span>
-          <span class="value">Peak Week 3</span>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Top Picks -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">🚀 Institutional Top Picks</div>
-        <div class="card-badge">High Conviction</div>
-      </div>
-      
-      <div class="pick-card buy">
-        <div class="pick-header">
-          <div>
-            <div class="pick-name">中际旭创</div>
-            <div class="pick-code">300476 · AI Hardware · Institutional Heavy</div>
-          </div>
-          <div class="pick-price">
-            <div class="pick-current">Current: ¥290</div>
-            <div class="pick-target">Target: ¥350</div>
-          </div>
-        </div>
-        <div class="pick-reason">AI optical module leader, liquid cooling tech, Q4 earnings beat, northbound capital持续流入</div>
-        <div class="pick-metrics">
-          <div class="pick-metric">Stop Loss: <span>¥260</span></div>
-          <div class="pick-metric">Space: <span>+20%</span></div>
-          <div class="pick-metric">RSI: <span>62</span></div>
-          <div class="pick-metric">MACD: <span>Golden Cross</span></div>
-        </div>
-      </div>
-      
-      <div class="pick-card buy">
-        <div class="pick-header">
-          <div>
-            <div class="pick-name">宁德时代</div>
-            <div class="pick-code">300750 · New Energy · Market Leader</div>
-          </div>
-          <div class="pick-price">
-            <div class="pick-current">Current: ¥408</div>
-            <div class="pick-target">Target: ¥480</div>
-          </div>
-        </div>
-        <div class="pick-reason">Li-ion leader, raw material cost decline, storage business爆发, global market share expansion</div>
-        <div class="pick-metrics">
-          <div class="pick-metric">Stop Loss: <span>¥365</span></div>
-          <div class="pick-metric">Space: <span>+18%</span></div>
-          <div class="pick-metric">RSI: <span>55</span></div>
-          <div class="pick-metric">MACD: <span>Turning Bullish</span></div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Action Items -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">⚡ Action Items</div>
-        <div class="card-badge">Required Today</div>
-      </div>
-      <table class="stock-table">
-        <thead>
-          <tr>
-            <th>Stock</th>
-            <th>Action</th>
-            <th>Reason</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="stock-name">中直股份</div>
-              <div class="stock-code">600038</div>
-            </td>
-            <td><span class="pnl-tag warning">STOP LOSS</span></td>
-            <td>-7.25% hit hard stop (-7%)</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="stock-name">云天化</div>
-              <div class="stock-code">600096</div>
-            </td>
-            <td><span class="pnl-tag warning">STOP LOSS</span></td>
-            <td>-8.00% exceed limit</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    
-    <!-- Footer -->
-    <div class="footer">
-      <p><strong>🧠 Super Brain</strong> Institutional-Grade Quantitative Trading System</p>
-      <p>AI-Powered · Institutional Analysis · Daily Updates</p>
-      <p style="margin-top: 12px;">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
-      <p style="margin-top: 12px;">
-        <strong>DISCLAIMER:</strong> This report is for research purposes only and does not constitute investment advice.<br>
-        Past performance does not guarantee future results. All investments involve risk.<br>
-        Please consult with a qualified financial advisor before making investment decisions.
-      </p>
-      <p style="margin-top: 16px; color: #484f58;">Generated by Super Brain V3 | 2026-03-17 15:03 CST</p>
-    </div>
+<div class="header">
+  <h1>🧠 Super Brain V3 PRO</h1>
+  <p class="subtitle">2026-03-15 星期日</p>
+  <span class="badge">PRO EDITION</span>
+</div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="stat-label">Portfolio Value</div><div class="stat-value">¥147861.27</div></div>
+  <div class="stat-card"><div class="stat-label">Total P&L</div><div class="stat-value" style="color:#34d399"><span class="positive">+¥8186.73</span></div></div>
+  <div class="stat-card"><div class="stat-label">Return</div><div class="stat-value" style="color:#34d399">+5.86%</div></div>
+  <div class="stat-card"><div class="stat-label">Sharpe Ratio</div><div class="stat-value">1.5</div></div>
+</div>
+<div class="grid">
+  <div class="card">
+    <div class="card-title">📈 Market Indices</div>
+    <table><tr><th>Index</th><th>Price</th><th>Change</th><th>%</th></tr><tr>
+    <td>上证指数</td><td style="font-weight:bold;">¥3820.50</td>
+    <td class="negative">¥-22.50</td>
+    <td class="negative">-0.59%</td>
+  </tr><tr>
+    <td>深证成指</td><td style="font-weight:bold;">¥13100.40</td>
+    <td class="negative">¥-35.20</td>
+    <td class="negative">-0.27%</td>
+  </tr><tr>
+    <td>创业板指</td><td style="font-weight:bold;">¥3180.50</td>
+    <td class="positive">+¥18.50</td>
+    <td class="positive">+0.58%</td>
+  </tr><tr>
+    <td>科创50</td><td style="font-weight:bold;">¥1260.50</td>
+    <td class="negative">¥-8.50</td>
+    <td class="negative">-0.67%</td>
+  </tr></table>
   </div>
-</body>
-</html>
+  <div class="card">
+    <div class="card-title">🔝 Top Signals</div>
+    <table><tr><th>Stock</th><th>Price</th><th>Change</th><th>%</th></tr><tr>
+    <td><span class="stock-code">002415</span><span class="stock-name">海康威视</span></td>
+    <td>¥812.50</td>
+    <td class="positive">+¥12.50</td>
+    <td class="positive">+1.56%</td>
+  </tr><tr>
+    <td><span class="stock-code">300014</span><span class="stock-name">亿纬锂能</span></td>
+    <td>¥908.30</td>
+    <td class="negative">¥-8.20</td>
+    <td class="negative">-0.90%</td>
+  </tr><tr>
+    <td><span class="stock-code">000858</span><span class="stock-name">五粮液</span></td>
+    <td>¥920.50</td>
+    <td class="positive">+¥5.80</td>
+    <td class="positive">+0.63%</td>
+  </tr><tr>
+    <td><span class="stock-code">300015</span><span class="stock-name">爱尔眼科</span></td>
+    <td>¥904.20</td>
+    <td class="positive">+¥15.30</td>
+    <td class="positive">+1.72%</td>
+  </tr><tr>
+    <td><span class="stock-code">600276</span><span class="stock-name">恒瑞医药</span></td>
+    <td>¥838.50</td>
+    <td class="positive">+¥9.50</td>
+    <td class="positive">+1.15%</td>
+  </tr><tr>
+    <td><span class="stock-code">002475</span><span class="stock-name">立讯精密</span></td>
+    <td>¥783.80</td>
+    <td class="negative">¥-5.30</td>
+    <td class="negative">-0.67%</td>
+  </tr><tr>
+    <td><span class="stock-code">600887</span><span class="stock-name">伊利股份</span></td>
+    <td>¥792.50</td>
+    <td class="positive">+¥3.80</td>
+    <td class="positive">+0.48%</td>
+  </tr><tr>
+    <td><span class="stock-code">300033</span><span class="stock-name">同花顺</span></td>
+    <td>¥810.50</td>
+    <td class="positive">+¥18.50</td>
+    <td class="positive">+2.34%</td>
+  </tr></table>
+  </div>
+  <div class="card">
+    <div class="card-title">📊 Sector Allocation</div>
+    <table><tr><th>Sector</th><th>Value</th><th>%</th></tr><tr><td><span style="display:inline-block;width:10px;height:10px;background:#6366f1;border-radius:2px;margin-right:8px"></span>科技</td><td>¥69011.09</td><td>46.7%</td></tr><tr><td><span style="display:inline-block;width:10px;height:10px;background:#8b5cf6;border-radius:2px;margin-right:8px"></span>医药</td><td>¥39101.37</td><td>26.4%</td></tr><tr><td><span style="display:inline-block;width:10px;height:10px;background:#10b981;border-radius:2px;margin-right:8px"></span>新能源</td><td>¥13773.57</td><td>9.3%</td></tr><tr><td><span style="display:inline-block;width:10px;height:10px;background:#ef4444;border-radius:2px;margin-right:8px"></span>家电</td><td>¥13386.74</td><td>9.1%</td></tr><tr><td><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:8px"></span>汽车</td><td>¥12588.50</td><td>8.5%</td></tr></table>
+  </div>
+  <div class="card">
+    <div class="card-title">📉 Risk Metrics</div>
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Max Drawdown</td><td class="negative">-8.5%</td></tr>
+      <tr><td>Win Rate</td><td class="positive">70%</td></tr>
+      <tr><td>Risk-Adj Return</td><td class="positive">1.85</td></tr>
+      <tr><td>Best Trade</td><td class="positive">腾讯控股 +9.14%</td></tr>
+      <tr><td>Worst Trade</td><td class="negative">宇通客车 -2.08%</td></tr>
+      <tr><td>Avg Win / Avg Loss</td><td class="positive">2.16</td></tr>
+      <tr><td>Trades/Day</td><td>1.2</td></tr>
+      <tr><td>Consecutive Streak</td><td class="positive">4 Wins</td></tr>
+    </table>
+  </div>
+</div>
+<div class="card" style="margin-top:20px">
+  <div class="card-title">💼 Holdings</div>
+  <table><tr><th>Stock</th><th>Entry</th><th>Current</th><th>P&L</th><th>%</th></tr><tr>
+    <td><span class="stock-code">600085</span><span class="stock-name">同仁堂</span></td>
+    <td>¥30.40</td><td style="font-weight:bold;">¥30.39</td>
+    <td class="negative"><span class="negative">-¥4.23</span></td>
+    <td class="negative">-0.03%</td>
+  </tr><tr>
+    <td><span class="stock-code">000792</span><span class="stock-name">盐湖股份</span></td>
+    <td>¥37.94</td><td style="font-weight:bold;">¥40.63</td>
+    <td class="positive"><span class="positive">+¥911.91</span></td>
+    <td class="positive">+7.09%</td>
+  </tr><tr>
+    <td><span class="stock-code">600066</span><span class="stock-name">宇通客车</span></td>
+    <td>¥30.25</td><td style="font-weight:bold;">¥29.62</td>
+    <td class="negative"><span class="negative">-¥267.75</span></td>
+    <td class="negative">-2.08%</td>
+  </tr><tr>
+    <td><span class="stock-code">000938</span><span class="stock-name">紫光股份</span></td>
+    <td>¥25.17</td><td style="font-weight:bold;">¥27.73</td>
+    <td class="positive"><span class="positive">+¥1308.16</span></td>
+    <td class="positive">+10.17%</td>
+  </tr><tr>
+    <td><span class="stock-code">000651</span><span class="stock-name">格力电器</span></td>
+    <td>¥37.19</td><td style="font-weight:bold;">¥38.69</td>
+    <td class="positive"><span class="positive">+¥519.00</span></td>
+    <td class="positive">+4.03%</td>
+  </tr><tr>
+    <td><span class="stock-code">300045</span><span class="stock-name">奥普光电</span></td>
+    <td>¥27.87</td><td style="font-weight:bold;">¥31.27</td>
+    <td class="positive"><span class="positive">+¥1570.80</span></td>
+    <td class="positive">+12.20%</td>
+  </tr><tr>
+    <td><span class="stock-code">300046</span><span class="stock-name">台基股份</span></td>
+    <td>¥35.18</td><td style="font-weight:bold;">¥35.52</td>
+    <td class="positive"><span class="positive">+¥124.44</span></td>
+    <td class="positive">+0.97%</td>
+  </tr><tr>
+    <td><span class="stock-code">000513</span><span class="stock-name">丽珠集团</span></td>
+    <td>¥34.80</td><td style="font-weight:bold;">¥36.92</td>
+    <td class="positive"><span class="positive">+¥784.40</span></td>
+    <td class="positive">+6.09%</td>
+  </tr><tr>
+    <td><span class="stock-code">300122</span><span class="stock-name">智飞生物</span></td>
+    <td>¥58.20</td><td style="font-weight:bold;">¥62.93</td>
+    <td class="positive"><span class="positive">+¥946.00</span></td>
+    <td class="positive">+8.13%</td>
+  </tr><tr>
+    <td><span class="stock-code">00700</span><span class="stock-name">腾讯控股</span></td>
+    <td>¥502.00</td><td style="font-weight:bold;">¥547.88</td>
+    <td class="positive"><span class="positive">+¥2294.00</span></td>
+    <td class="positive">+9.14%</td>
+  </tr></table>
+</div>
+<div class="footer">Super Brain V3 PRO • Generated 2026/3/24 19:07:42</div>
+</body></html>

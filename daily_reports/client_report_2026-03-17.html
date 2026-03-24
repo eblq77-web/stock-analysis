@@ -1,365 +1,171 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Standard Report - 2026-03-17</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --primary: #3b82f6;
-      --primary-dark: #1d4ed8;
-      --secondary: #10b981;
-      --accent: #f59e0b;
-      --danger: #ef4444;
-      --dark: #0f172a;
-      --darker: #020617;
-      --glass: rgba(255,255,255,0.08);
-      --glass-border: rgba(255,255,255,0.12);
-    }
-    body { 
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%); 
-      min-height: 100vh; 
-      padding: 20px; 
-      color: #f1f5f9; 
-      line-height: 1.6;
-    }
-    .container { max-width: 900px; margin: 0 auto; }
-    
-    /* Header */
-    .header { 
-      background: linear-gradient(135deg, #1e3a5f 0%, #172554 50%, #1e3a5f 100%); 
-      border-radius: 16px; 
-      padding: 32px; 
-      margin-bottom: 24px; 
-      border: 1px solid var(--glass-border);
-      position: relative;
-      overflow: hidden;
-    }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
-    }
-    .header-top { display: flex; justify-content: space-between; align-items: flex-start; }
-    .header-left h1 { 
-      font-size: 28px; 
-      font-weight: 700; 
-      background: linear-gradient(135deg, #fff, #94a3b8); 
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 6px;
-    }
-    .header-left .subtitle { color: #94a3b8; font-size: 14px; }
-    .header-right { text-align: right; }
-    .report-date { font-size: 24px; font-weight: 700; color: #fff; }
-    .report-day { color: #64748b; font-size: 13px; margin-top: 4px; }
-    .badge { 
-      display: inline-block; 
-      padding: 6px 16px; 
-      border-radius: 20px; 
-      font-size: 12px; 
-      font-weight: 600;
-      margin-top: 12px;
-      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    }
-    
-    /* Cards */
-    .card { 
-      background: var(--glass); 
-      border: 1px solid var(--glass-border);
-      border-radius: 14px; 
-      padding: 24px; 
-      margin-bottom: 20px; 
-    }
-    .card-title { 
-      font-size: 18px; 
-      font-weight: 600; 
-      margin-bottom: 20px; 
-      color: #e2e8f0; 
-      display: flex; 
-      align-items: center; 
-      gap: 10px;
-    }
-    .card-title::before {
-      content: '';
-      width: 4px;
-      height: 20px;
-      background: linear-gradient(180deg, var(--primary), var(--secondary));
-      border-radius: 2px;
-    }
-    
-    /* Tables */
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { padding: 14px 12px; text-align: left; border-bottom: 1px solid var(--glass-border); }
-    th { 
-      color: #64748b; 
-      font-weight: 600; 
-      font-size: 11px; 
-      text-transform: uppercase; 
-      letter-spacing: 0.5px;
-    }
-    tr:last-child td { border-bottom: none; }
-    tr:hover { background: rgba(255,255,255,0.02); }
-    .stock-name { color: #f1f5f9; font-weight: 600; }
-    .stock-code { color: #3b82f6; font-weight: 600; }
-    .positive { color: #10b981; font-weight: 600; }
-    .negative { color: #ef4444; font-weight: 600; }
-    
-    /* Grid for stats */
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .stat-box { 
-      background: rgba(0,0,0,0.2); 
-      border-radius: 10px; 
-      padding: 16px; 
-      text-align: center;
-      border: 1px solid var(--glass-border);
-    }
-    .stat-label { font-size: 11px; color: #64748b; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .stat-value { font-size: 22px; font-weight: 700; color: #fff; }
-    .stat-change { font-size: 12px; margin-top: 4px; }
-    
-    /* Sector badges */
-    .sector-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
-    .sector-row:last-child { border-bottom: none; }
-    .sector-icon { font-size: 18px; margin-right: 10px; }
-    .sector-name { font-weight: 500; color: #e2e8f0; flex: 1; }
-    .sector-tag { 
-      padding: 4px 12px; 
-      border-radius: 12px; 
-      font-size: 11px; 
-      font-weight: 600;
-    }
-    .sector-tag.hot { background: rgba(239,68,68,0.2); color: #ef4444; }
-    .sector-tag.warming { background: rgba(245,158,11,0.2); color: #f59e0b; }
-    .sector-tag.cold { background: rgba(100,116,139,0.2); color: #64748b; }
-    
-    /* Risk box */
-    .risk-box { 
-      background: rgba(245,158,11,0.08); 
-      border: 1px solid rgba(245,158,11,0.2); 
-      border-radius: 12px; 
-      padding: 20px; 
-    }
-    .risk-title { 
-      color: #fbbf24; 
-      font-weight: 600; 
-      font-size: 14px; 
-      margin-bottom: 12px; 
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .risk-list { color: #cbd5e1; font-size: 13px; line-height: 1.9; margin-left: 8px; }
-    .risk-list li strong { color: #f87171; }
-    .risk-list li:nth-child(2) strong { color: #fbbf24; }
-    
-    /* Footer */
-    .footer { 
-      text-align: center; 
-      padding: 24px; 
-      color: #475569; 
-      font-size: 12px; 
-    }
-    .footer strong { color: #64748b; }
-  </style>
-</head>
+<html><head><meta charset="UTF-8"><title>Standard Report - 2026-03-17</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Segoe UI,Roboto,sans-serif;background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f172a 100%);padding:24px;color:#f1f5f9;line-height:1.6}
+.header{text-align:center;padding:30px 0}
+.header h1{font-size:32px;margin-bottom:10px;color:#3b82f6}
+.subtitle{opacity:0.9;font-size:14px}
+.badge{background:#3b82f6;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;margin-top:10px;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:20px}
+.card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:20px}
+.card-title{font-size:18px;font-weight:bold;margin-bottom:15px;color:#3b82f6;display:flex;align-items:center}
+.card-title span{font-size:12px;color:#888;font-weight:400}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:10px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05)}
+th{color:#888;font-weight:500;font-size:11px;text-transform:uppercase}
+.positive{color:#10b981}
+.negative{color:#ef4444}
+.stock-code{background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;font-size:11px;margin-right:6px}
+.stock-name{color:#ccc}
+.portfolio-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.stat-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;text-align:center}
+.stat-label{font-size:11px;color:#888;text-transform:uppercase;margin-bottom:6px}
+.stat-value{font-size:22px;font-weight:bold;color:#3b82f6}
+.stat-value.positive{color:#10b981}
+.stat-value.negative{color:#ef4444}
+.footer{text-align:center;padding:20px;color:#666;font-size:12px}
+</style></head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <div class="header-top">
-        <div class="header-left">
-          <h1>📊 CHARLES'S SUPER BRAIN</h1>
-          <p class="subtitle">Standard Daily Report</p>
-        </div>
-        <div class="header-right">
-          <div class="report-date">2026-03-17</div>
-          <div class="report-day">星期二 Tuesday</div>
-          <span class="badge">🔰 STANDARD</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Market Overview -->
-    <div class="card">
-      <div class="card-title">📈 Market Overview</div>
-      <div class="stats-grid">
-        <div class="stat-box">
-          <div class="stat-label">上证指数</div>
-          <div class="stat-value">3,456.78</div>
-          <div class="stat-change positive">+0.36%</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">深证成指</div>
-          <div class="stat-value">11,234.56</div>
-          <div class="stat-change positive">+0.41%</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">创业板指</div>
-          <div class="stat-value">2,345.67</div>
-          <div class="stat-change negative">-0.38%</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">科创50</div>
-          <div class="stat-value">1,023.45</div>
-          <div class="stat-change positive">+0.52%</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sector Rotation -->
-    <div class="card">
-      <div class="card-title">🔥 Sector Rotation</div>
-      <div class="sector-row">
-        <span><span class="sector-icon">🤖</span><span class="sector-name">AI / Technology</span></span>
-        <span class="sector-tag hot">🔥 Leading</span>
-      </div>
-      <div class="sector-row">
-        <span><span class="sector-icon">🔋</span><span class="sector-name">New Energy</span></span>
-        <span class="sector-tag hot">🔥 Strong</span>
-      </div>
-      <div class="sector-row">
-        <span><span class="sector-icon">💊</span><span class="sector-name">Healthcare</span></span>
-        <span class="sector-tag warming">📈 Warming</span>
-      </div>
-      <div class="sector-row">
-        <span><span class="sector-icon">🏠</span><span class="sector-name">Real Estate</span></span>
-        <span class="sector-tag warming">📈 Bottom</span>
-      </div>
-    </div>
-
-    <!-- Today's Top Picks -->
-    <div class="card">
-      <div class="card-title">🎯 Today's Top Picks</div>
-      <table>
-        <tr>
-          <th>Stock</th>
-          <th>Code</th>
-          <th>Current</th>
-          <th>Target</th>
-          <th>Stop Loss</th>
-          <th>Upside</th>
-          <th>Rating</th>
-        </tr>
-        <tr>
-          <td><span class="stock-name">中际旭创</span></td>
-          <td class="stock-code">300476</td>
-          <td>¥290</td>
-          <td class="positive">¥350</td>
-          <td class="negative">¥260</td>
-          <td class="positive">+20.7%</td>
-          <td><span style="background:#10b981;color:#fff;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600;">BUY</span></td>
-        </tr>
-        <tr>
-          <td><span class="stock-name">宁德时代</span></td>
-          <td class="stock-code">300750</td>
-          <td>¥408</td>
-          <td class="positive">¥480</td>
-          <td class="negative">¥365</td>
-          <td class="positive">+17.6%</td>
-          <td><span style="background:#10b981;color:#fff;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600;">BUY</span></td>
-        </tr>
-        <tr>
-          <td><span class="stock-name">腾讯控股</span></td>
-          <td class="stock-code">00700</td>
-          <td>¥561</td>
-          <td class="positive">¥600</td>
-          <td class="negative">¥505</td>
-          <td class="positive">+7.0%</td>
-          <td><span style="background:#3b82f6;color:#fff;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600;">HOLD</span></td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Portfolio Summary -->
-    <div class="card">
-      <div class="card-title">📦 Portfolio Summary</div>
-      <table>
-        <tr>
-          <th>Stock</th>
-          <th>Entry Price</th>
-          <th>Current</th>
-          <th>P&L</th>
-          <th>%</th>
-          <th>Shares</th>
-          <th>Value</th>
-        </tr>
-        <tr>
-          <td><span class="stock-name">招商银行</span></td>
-          <td>¥38.72</td>
-          <td>¥42.15</td>
-          <td class="positive">+¥3.43</td>
-          <td class="positive">+8.86%</td>
-          <td>100</td>
-          <td>¥4,215</td>
-        </tr>
-        <tr>
-          <td><span class="stock-name">中信证券</span></td>
-          <td>¥27.16</td>
-          <td>¥28.92</td>
-          <td class="positive">+¥1.76</td>
-          <td class="positive">+6.48%</td>
-          <td>100</td>
-          <td>¥2,892</td>
-        </tr>
-        <tr>
-          <td><span class="stock-name">华润三九</span></td>
-          <td>¥29.39</td>
-          <td>¥30.15</td>
-          <td class="positive">+¥0.76</td>
-          <td class="positive">+2.59%</td>
-          <td>100</td>
-          <td>¥3,015</td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Account Summary -->
-    <div class="card">
-      <div class="card-title">💰 Account Summary</div>
-      <div class="stats-grid">
-        <div class="stat-box">
-          <div class="stat-label">Cash Balance</div>
-          <div class="stat-value" style="color:#10b981;">¥157,526</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Position Value</div>
-          <div class="stat-value" style="color:#3b82f6;">¥10,122</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Realized P&L</div>
-          <div class="stat-value" style="color:#10b981;">+¥65,493</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Total Return</div>
-          <div class="stat-value" style="color:#10b981;">+6.75%</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Risk Warning -->
-    <div class="card">
-      <div class="risk-box">
-        <div class="risk-title">⚠️ Trading Rules & Risk Warning</div>
-        <ul class="risk-list">
-          <li>严格止损: 单笔亏损达到 <strong>-7%</strong> 必须止损</li>
-          <li>仓位控制: 单只股票不超过总仓位 <strong>20%</strong></li>
-          <li>分散投资: 建议持有 <strong>5-10只</strong> 不同行业股票</li>
-          <li>禁止追涨: 涨幅超过 <strong>+5%</strong> 不宜追高买入</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <strong>🤖 Super Brain V3</strong> | Standard Report | 2026-03-17<br>
-      <span style="color:#475569;margin-top:8px;display:inline-block;">本报告仅供研究参考，不构成投资建议 | 投资有风险，入市需谨慎</span>
-    </div>
+<div class="header">
+  <h1>🧠 Super Brain V3</h1>
+  <p class="subtitle">2026-03-17 星期二</p>
+  <span class="badge">STANDARD</span>
+</div>
+<div class="grid">
+  <div class="card">
+    <div class="card-title">📈 Market Indices</div>
+    <table><tr><th>Index</th><th>Price</th><th>Change</th><th>%</th></tr><tr>
+    <td>上证指数</td><td style="font-weight:bold;">¥3850.80</td>
+    <td class="negative">¥-12.40</td>
+    <td class="negative">-0.32%</td>
+  </tr><tr>
+    <td>深证成指</td><td style="font-weight:bold;">¥13200.20</td>
+    <td class="negative">¥-25.30</td>
+    <td class="negative">-0.19%</td>
+  </tr><tr>
+    <td>创业板指</td><td style="font-weight:bold;">¥3220.20</td>
+    <td class="positive">+¥25.30</td>
+    <td class="positive">+0.79%</td>
+  </tr><tr>
+    <td>科创50</td><td style="font-weight:bold;">¥1275.20</td>
+    <td class="negative">¥-4.20</td>
+    <td class="negative">-0.33%</td>
+  </tr></table>
   </div>
-</body>
-</html>
+  <div class="card">
+    <div class="card-title">🔝 Top Stocks <span>Recommended</span></div>
+    <table><tr><th>Stock</th><th>Price</th><th>Change</th><th>%</th></tr><tr>
+    <td><span class="stock-code">002415</span><span class="stock-name">海康威视</span></td>
+    <td>¥816.50</td>
+    <td class="positive">+¥12.50</td>
+    <td class="positive">+1.56%</td>
+  </tr><tr>
+    <td><span class="stock-code">300014</span><span class="stock-name">亿纬锂能</span></td>
+    <td>¥914.30</td>
+    <td class="negative">¥-8.20</td>
+    <td class="negative">-0.90%</td>
+  </tr><tr>
+    <td><span class="stock-code">000858</span><span class="stock-name">五粮液</span></td>
+    <td>¥923.50</td>
+    <td class="positive">+¥5.80</td>
+    <td class="positive">+0.63%</td>
+  </tr><tr>
+    <td><span class="stock-code">300015</span><span class="stock-name">爱尔眼科</span></td>
+    <td>¥909.20</td>
+    <td class="positive">+¥15.30</td>
+    <td class="positive">+1.72%</td>
+  </tr><tr>
+    <td><span class="stock-code">600276</span><span class="stock-name">恒瑞医药</span></td>
+    <td>¥842.10</td>
+    <td class="positive">+¥9.50</td>
+    <td class="positive">+1.15%</td>
+  </tr><tr>
+    <td><span class="stock-code">002475</span><span class="stock-name">立讯精密</span></td>
+    <td>¥788.20</td>
+    <td class="negative">¥-5.30</td>
+    <td class="negative">-0.67%</td>
+  </tr><tr>
+    <td><span class="stock-code">600887</span><span class="stock-name">伊利股份</span></td>
+    <td>¥794.90</td>
+    <td class="positive">+¥3.80</td>
+    <td class="positive">+0.48%</td>
+  </tr><tr>
+    <td><span class="stock-code">300033</span><span class="stock-name">同花顺</span></td>
+    <td>¥817.50</td>
+    <td class="positive">+¥18.50</td>
+    <td class="positive">+2.34%</td>
+  </tr></table>
+  </div>
+</div>
+<div class="card" style="margin-top:20px">
+  <div class="card-title">💼 Portfolio Summary</div>
+  <div class="portfolio-summary">
+    <div class="stat-card"><div class="stat-label">Total Value</div><div class="stat-value">¥153657.80</div></div>
+    <div class="stat-card"><div class="stat-label">Total P&L</div><div class="stat-value positive"><span class="positive">+¥13983.26</span></div></div>
+    <div class="stat-card"><div class="stat-label">Return</div><div class="stat-value positive">+10.01%</div></div>
+  </div>
+  <table style="margin-top:10px"><tr><th>Stock</th><th>Entry</th><th>Current</th><th>P&L</th><th>%</th></tr><tr>
+      <td><span class="stock-code">600085</span><span class="stock-name">同仁堂</span></td>
+      <td>¥30.40</td>
+      <td style="font-weight:bold;">¥31.58</td>
+      <td><span class="positive">+¥499.14</span></td>
+      <td class="positive">+3.88%</td>
+    </tr><tr>
+      <td><span class="stock-code">000792</span><span class="stock-name">盐湖股份</span></td>
+      <td>¥37.94</td>
+      <td style="font-weight:bold;">¥42.23</td>
+      <td><span class="positive">+¥1454.31</span></td>
+      <td class="positive">+11.31%</td>
+    </tr><tr>
+      <td><span class="stock-code">600066</span><span class="stock-name">宇通客车</span></td>
+      <td>¥30.25</td>
+      <td style="font-weight:bold;">¥30.78</td>
+      <td><span class="positive">+¥225.25</span></td>
+      <td class="positive">+1.75%</td>
+    </tr><tr>
+      <td><span class="stock-code">000938</span><span class="stock-name">紫光股份</span></td>
+      <td>¥25.17</td>
+      <td style="font-weight:bold;">¥28.81</td>
+      <td><span class="positive">+¥1860.04</span></td>
+      <td class="positive">+14.46%</td>
+    </tr><tr>
+      <td><span class="stock-code">000651</span><span class="stock-name">格力电器</span></td>
+      <td>¥37.19</td>
+      <td style="font-weight:bold;">¥40.21</td>
+      <td><span class="positive">+¥1044.92</span></td>
+      <td class="positive">+8.12%</td>
+    </tr><tr>
+      <td><span class="stock-code">300045</span><span class="stock-name">奥普光电</span></td>
+      <td>¥27.87</td>
+      <td style="font-weight:bold;">¥32.50</td>
+      <td><span class="positive">+¥2139.06</span></td>
+      <td class="positive">+16.61%</td>
+    </tr><tr>
+      <td><span class="stock-code">300046</span><span class="stock-name">台基股份</span></td>
+      <td>¥35.18</td>
+      <td style="font-weight:bold;">¥36.92</td>
+      <td><span class="positive">+¥636.84</span></td>
+      <td class="positive">+4.95%</td>
+    </tr><tr>
+      <td><span class="stock-code">000513</span><span class="stock-name">丽珠集团</span></td>
+      <td>¥34.80</td>
+      <td style="font-weight:bold;">¥38.36</td>
+      <td><span class="positive">+¥1317.20</span></td>
+      <td class="positive">+10.23%</td>
+    </tr><tr>
+      <td><span class="stock-code">300122</span><span class="stock-name">智飞生物</span></td>
+      <td>¥58.20</td>
+      <td style="font-weight:bold;">¥65.39</td>
+      <td><span class="positive">+¥1438.00</span></td>
+      <td class="positive">+12.35%</td>
+    </tr><tr>
+      <td><span class="stock-code">00700</span><span class="stock-name">腾讯控股</span></td>
+      <td>¥502.00</td>
+      <td style="font-weight:bold;">¥569.37</td>
+      <td><span class="positive">+¥3368.50</span></td>
+      <td class="positive">+13.42%</td>
+    </tr></table>
+</div>
+<div class="footer">Super Brain V3 • Generated 2026/3/24 19:07:42</div>
+</body></html>
