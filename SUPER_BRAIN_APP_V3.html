@@ -2633,14 +2633,20 @@ async function getPrice(code) {
   let prefix = 'sh';
   code = code.toString();
   
-  if(code.length === 4) prefix = 'hk'; // HK stocks
-  else if(code.startsWith('0') || code.startsWith('3')) prefix = 'sz'; // SZ or CY
-  else if(code.startsWith('8')) prefix = 'bj'; // BSE Beijing
+  // HK stocks: 5-digit codes starting with 0 (e.g. 00700, 09988, 03690)
+  // but NOT Shenzhen codes (000xxx, 002xxx, 300xxx, 001xxx)
+  if(/^0[0-9]{4}$/.test(code) && !code.startsWith('000') && !code.startsWith('002') && !code.startsWith('300') && !code.startsWith('001')) {
+    prefix = 'hk';
+  } else if(code.startsWith('8')) {
+    prefix = 'bj'; // BSE Beijing (83xxxx, 87xxxx)
+  } else if(code.startsWith('0') || code.startsWith('3')) {
+    prefix = 'sz'; // SZ or CY
+  }
   
   try {
     const res = await fetch('https://qt.gtimg.cn/q=' + prefix + code);
     const text = await res.text();
-    if(!text || text.length < 10) return {price:0,pct:0,vol:0};
+    if(!text || text.length < 10 || text.includes('none_match')) return {price:0,pct:0,vol:0};
     const p = text.split('~');
     return {
       price: parseFloat(p[3]) || 0,
