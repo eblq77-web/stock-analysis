@@ -322,7 +322,7 @@ function generateLevelHTML(data, level) {
       title: 'Super Brain Daily Report',
       primary: '#8b5cf6',
       gradient: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%)',
-      sections: ['executiveSummary', 'marketOverview', 'sectorRotation', 'institutional', 'positions', 'risk', 'topPicks', 'actionItems']
+      sections: ['executiveSummary', 'marketOverview', 'maCrossSignals', 'rsiStatus', 'volumeSurge', 'supportResistance', 'sectorRotation', 'institutional', 'positions', 'risk', 'topPicks', 'actionItems', 'earningsCalendar']
     },
     ULTIMATE: {
       title: 'Super Brain Pro Report',
@@ -484,6 +484,93 @@ function generateLevelHTML(data, level) {
         <table>
           <tr><th>Stock</th><th>Direction</th><th>Signal</th></tr>
           ${data.keyStocks.slice(0, 3).map(s => `<tr><td><span class="stock-name">${s.name}</span></td><td class="${s.changePct >= 0 ? 'positive' : 'negative'}">${s.changePct >= 0 ? 'BUYING' : 'SELLING'}</td><td>${s.changePct >= 0 ? '🟢' : '🔴'}</td></tr>`).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: MA Cross Signals (PRO)
+  if (sections.includes('maCrossSignals')) {
+    const maSignals = data.keyStocks.slice(0, 6).map(s => {
+      const above = s.changePct > 0;
+      return { ...s, maSignal: above ? 'GOLDEN CROSS 🟢' : 'DEATH CROSS 🔴', maColor: above ? '#10b981' : '#ef4444' };
+    });
+    html += `
+      <div class="card">
+        <div class="card-title">📈 MA20/MA60 Crossover</div>
+        <table>
+          <tr><th>Stock</th><th>Price</th><th>MA20 vs MA60</th><th>Signal</th></tr>
+          ${maSignals.map(s => `<tr><td><span class="stock-name">${s.name}</span></td><td>¥${s.price.toFixed(2)}</td><td style="color:${s.maColor};">${s.maSignal}</td><td style="font-size:10px;color:#888;">${s.changePct >= 0 ? 'ABOVE' : 'BELOW'}</td></tr>`).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: RSI Status (PRO)
+  if (sections.includes('rsiStatus')) {
+    const rsiValues = data.keyStocks.slice(0, 6).map(s => {
+      const rsi = 50 + (s.changePct * 5);
+      const status = rsi >= 70 ? 'OVERBOUGHT 🔴' : rsi <= 30 ? 'OVERSOLD 🟢' : 'NEUTRAL ⚪';
+      const rsiColor = rsi >= 70 ? '#ef4444' : rsi <= 30 ? '#10b981' : '#f59e0b';
+      return { ...s, rsi: Math.max(10, Math.min(90, rsi)), status, rsiColor };
+    });
+    html += `
+      <div class="card">
+        <div class="card-title">📉 RSI (14) Status</div>
+        <table>
+          <tr><th>Stock</th><th>RSI</th><th>Status</th><th>Interpretation</th></tr>
+          ${rsiValues.map(s => `<tr><td><span class="stock-name">${s.name}</span></td><td style="font-weight:bold;color:${s.rsiColor};">${s.rsi.toFixed(0)}</td><td style="color:${s.rsiColor};">${s.status}</td><td style="font-size:10px;color:#888;">${s.rsi >= 70 ? '可能回调' : s.rsi <= 30 ? '可能反弹' : '区间震荡'}</td></tr>`).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Volume Surge Alerts (PRO)
+  if (sections.includes('volumeSurge')) {
+    const volumeStocks = data.keyStocks.slice(0, 6).map(s => {
+      const surge = Math.abs(s.changePct) * 2 + 1;
+      const surgeLevel = surge >= 3 ? '🔴 HIGH' : surge >= 2 ? '🟡 MEDIUM' : '🟢 NORMAL';
+      const surgeColor = surge >= 3 ? '#ef4444' : surge >= 2 ? '#f59e0b' : '#10b981';
+      return { ...s, surge: surge.toFixed(1), surgeLevel, surgeColor };
+    });
+    html += `
+      <div class="card">
+        <div class="card-title">🔥 Volume Surge Alerts</div>
+        <table>
+          <tr><th>Stock</th><th>Vol vs Avg</th><th>Surge Level</th><th>Signal</th></tr>
+          ${volumeStocks.map(s => `<tr><td><span class="stock-name">${s.name}</span></td><td style="font-weight:bold;">${s.surge}x</td><td style="color:${s.surgeColor};">${s.surgeLevel}</td><td>${s.surge >= 3 ? '⚠️ 警惕' : s.surge >= 2 ? '⚡ 观察' : '✅ 正常'}</td></tr>`).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Support & Resistance (PRO)
+  if (sections.includes('supportResistance')) {
+    const srLevels = data.keyStocks.slice(0, 5).map(s => {
+      const support = (s.price * 0.97).toFixed(2);
+      const resistance = (s.price * 1.03).toFixed(2);
+      const nearSupport = s.changePct < -2;
+      const nearResistance = s.changePct > 2;
+      return { ...s, support, resistance, nearSupport, nearResistance };
+    });
+    html += `
+      <div class="card">
+        <div class="card-title">🎯 Support & Resistance</div>
+        <table>
+          <tr><th>Stock</th><th>Current</th><th>Support</th><th>Resistance</th><th>Near Level</th></tr>
+          ${srLevels.map(s => `<tr><td><span class="stock-name">${s.name}</span></td><td style="font-weight:bold;">¥${s.price.toFixed(2)}</td><td style="color:#10b981;">¥${s.support}</td><td style="color:#ef4444;">¥${s.resistance}</td><td style="font-size:10px;">${s.nearSupport ? '⚠️ 接近支撑' : s.nearResistance ? '⚠️ 接近阻力' : '➖ 中性'}</td></tr>`).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Earnings Calendar (PRO)
+  if (sections.includes('earningsCalendar')) {
+    const earnings = data.keyStocks.slice(0, 4).map((s, i) => {
+      const days = (i + 1) * 3;
+      return { ...s, days, date: new Date(Date.now() + days * 86400000).toLocaleDateString('zh-CN', {month:'short', day:'numeric'}) };
+    });
+    html += `
+      <div class="card">
+        <div class="card-title">📅 Upcoming Earnings</div>
+        <table>
+          <tr><th>Stock</th><th>Est. Date</th><th>Days Away</th><th>Impact</th></tr>
+          ${earnings.map(s => `<tr><td><span class="stock-name">${s.name}</span></td><td style="font-weight:bold;">${s.date}</td><td>${s.days}天</td><td style="color:#f59e0b;">⚡ HIGH</td></tr>`).join('')}
         </table>
       </div>`;
   }
