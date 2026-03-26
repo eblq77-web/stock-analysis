@@ -979,6 +979,94 @@
           <tbody id="trend-results"></tbody>
         </table>
       </div>
+      
+      <!-- MAY OUTLOOK CARD -->
+      <div class="card" style="border:2px solid rgba(0,217,255,0.4);background:linear-gradient(135deg,rgba(0,30,60,0.5),rgba(0,60,40,0.3));">
+        <div class="card-header">
+          <span class="card-title">📅 May Seasonal Outlook</span>
+          <button class="btn btn-yellow" onclick="runMayOutlook()">🔄 Refresh May</button>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:15px;">
+          <div class="stat"><div class="stat-value" id="may-direction" style="color:#ffaa00;">NEUTRAL</div><div class="stat-label">🎯 Direction</div></div>
+          <div class="stat"><div class="stat-value" id="may-bias" style="color:#00d9ff;">--</div><div class="stat-label">⚖️ Bias</div></div>
+          <div class="stat"><div class="stat-value" id="may-volatility" style="color:#a855f7;">MED</div><div class="stat-label">📊 Volatility</div></div>
+          <div class="stat"><div class="stat-value" id="may-top-sector" style="color:#00ff88;">--</div><div class="stat-label">🏆 Top Sector</div></div>
+          <div class="stat"><div class="stat-value" id="may-risk" style="color:#ff4444;">LOW</div><div class="stat-label">⚠️ Risk</div></div>
+        </div>
+        
+        <!-- May Pre-Market Check -->
+        <div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:12px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="color:#00d9ff;font-weight:bold;">🕗 Pre-Market Signals</span>
+            <span id="may-premarket-time" style="color:#888;font-size:10px;">--</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:11px;">
+            <div style="background:rgba(0,255,136,0.1);padding:8px;border-radius:6px;border:1px solid rgba(0,255,136,0.3);">
+              <span style="color:#888;">US Futures</span><br>
+              <span id="may-us-futures" style="color:#fff;font-weight:bold;">--</span>
+            </div>
+            <div style="background:rgba(0,255,136,0.1);padding:8px;border-radius:6px;border:1px solid rgba(0,255,136,0.3);">
+              <span style="color:#888;">ADR Overnight</span><br>
+              <span id="may-adr" style="color:#fff;font-weight:bold;">--</span>
+            </div>
+            <div style="background:rgba(0,217,255,0.1);padding:8px;border-radius:6px;border:1px solid rgba(0,217,255,0.3);">
+              <span style="color:#888;">RMB Direction</span><br>
+              <span id="may-rmb" style="color:#fff;font-weight:bold;">--</span>
+            </div>
+            <div style="background:rgba(168,85,247,0.1);padding:8px;border-radius:6px;border:1px solid rgba(168,85,247,0.3);">
+              <span style="color:#888;">CN Night News</span><br>
+              <span id="may-news" style="color:#fff;font-weight:bold;">--</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- May Seasonal Factors -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div style="background:rgba(0,255,136,0.08);padding:12px;border-radius:8px;border:1px solid rgba(0,255,136,0.2);">
+            <span style="color:#00ff88;font-weight:bold;font-size:12px;">🟢 Bullish Factors</span>
+            <ul style="color:#ccc;font-size:10px;margin-top:6px;padding-left:12px;">
+              <li>Consumer discretionary seasonal strength</li>
+              <li>Pre-summer travel/leisure demand</li>
+              <li>Q1 earnings momentum carry-over</li>
+            </ul>
+          </div>
+          <div style="background:rgba(255,68,68,0.08);padding:12px;border-radius:8px;border:1px solid rgba(255,68,68,0.2);">
+            <span style="color:#ff4444;font-weight:bold;font-size:12px;">🔴 Bearish Factors</span>
+            <ul style="color:#ccc;font-size:10px;margin-top:6px;padding-left:12px;">
+              <li>"Sell in May" historical pattern</li>
+              <li>Fed rate uncertainty</li>
+              <li>Profit-taking mid-year</li>
+            </ul>
+          </div>
+          <div style="background:rgba(255,170,0,0.08);padding:12px;border-radius:8px;border:1px solid rgba(255,170,0,0.2);">
+            <span style="color:#ffaa00;font-weight:bold;font-size:12px;">🟡 Key Catalysts</span>
+            <ul style="color:#ccc;font-size:10px;margin-top:6px;padding-left:12px;">
+              <li>China stimulus announcements</li>
+              <li>US Fed meeting (mid-May)</li>
+              <li>Q1 earnings reports</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- May Sector Rotation -->
+        <div style="margin-top:12px;">
+          <span style="color:#a855f7;font-weight:bold;font-size:12px;">📊 May Sector Rotation</span>
+          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+            <span class="tag tag-buy" style="background:rgba(0,255,136,0.2);color:#00ff88;">✅ 消费</span>
+            <span class="tag tag-buy" style="background:rgba(0,255,136,0.2);color:#00ff88;">✅ 旅游/航空</span>
+            <span class="tag tag-buy" style="background:rgba(0,255,136,0.2);color:#00ff88;">✅ 医药</span>
+            <span class="tag tag-mid" style="background:rgba(255,170,0,0.2);color:#ffaa00;">⚠️ 科技</span>
+            <span class="tag tag-mid" style="background:rgba(255,170,0,0.2);color:#ffaa00;">⚠️ 新能源</span>
+            <span class="tag tag-sell" style="background:rgba(255,68,68,0.2);color:#ff4444;">❌ 金融</span>
+            <span class="tag tag-sell" style="background:rgba(255,68,68,0.2);color:#ff4444;">❌ 地产</span>
+          </div>
+        </div>
+        
+        <div id="may-output" class="output" style="margin-top:10px;color:#00d9ff;">
+          📅 May Outlook ready. Click "Refresh May" to run pre-market analysis at 8:30 AM.
+        </div>
+      </div>
     </div>
     
     <!-- EXPORT -->
@@ -4598,6 +4686,86 @@ function runTrendPredictions(predResults) {
       <td><button class="btn">TRADE</button></td>
     </tr>`;
   }).join('');
+}
+
+// ==================== MAY OUTLOOK ====================
+async function runMayOutlook() {
+  const output = document.getElementById('may-output');
+  output.innerHTML = '🔄 Scanning May seasonal factors...';
+  
+  const now = new Date();
+  document.getElementById('may-premarket-time').innerText = now.toLocaleTimeString();
+  
+  // Simulate pre-market data fetch (in production would call real APIs)
+  await new Promise(r => setTimeout(r, 1000));
+  
+  // US Futures (simulated - in production would check S&P, Nasdaq futures)
+  const usFutures = ['S&P +0.3%', 'Nasdaq +0.5%', 'Dow -0.1%'];
+  const usDirection = usFutures.some(f => f.includes('+')) ? 'BULLISH' : usFutures.some(f => f.includes('-')) ? 'BEARISH' : 'NEUTRAL';
+  document.getElementById('may-us-futures').innerText = usDirection;
+  
+  // ADR Overnight (simulated)
+  const adrList = [
+    {name:'BABA', change:'+2.1%'},
+    {name:'PDD', change:'-0.8%'},
+    {name:'JD', change:'+1.2%'},
+    {name:'NVDA', change:'+1.5%'}
+  ];
+  const adrPositive = adrList.filter(a => a.change.includes('+')).length;
+  const adrDirection = adrPositive > adrList.length/2 ? 'POSITIVE' : adrPositive < adrList.length/2 ? 'NEGATIVE' : 'MIXED';
+  document.getElementById('may-adr').innerHTML = `<span style="color:${adrDirection === 'POSITIVE' ? '#00ff88' : adrDirection === 'NEGATIVE' ? '#ff4444' : '#ffaa00'};">${adrDirection}</span>`;
+  
+  // RMB Direction (simulated)
+  const rmbRate = 7.248;
+  const rmbDirection = rmbRate > 7.25 ? 'WEAK 📉' : rmbRate < 7.24 ? 'STRONG 📈' : 'STABLE ➡️';
+  document.getElementById('may-rmb').innerText = rmbDirection;
+  
+  // CN Night News (simulated)
+  const newsItems = ['Stimulus talk', 'Fed rate pause', 'Q1 GDP beat', 'Tech regulation'];
+  const newsSignal = newsItems.length > 2 ? 'POSITIVE ✅' : 'NEUTRAL ⚪';
+  document.getElementById('may-news').innerHTML = `<span style="color:${newsSignal.includes('POSITIVE') ? '#00ff88' : '#ffaa00'};">${newsSignal}</span>`;
+  
+  // Determine overall May direction
+  let bullishSignals = 0;
+  if (usDirection === 'BULLISH') bullishSignals++;
+  if (adrDirection === 'POSITIVE') bullishSignals++;
+  if (!rmbDirection.includes('WEAK')) bullishSignals++;
+  if (newsSignal.includes('POSITIVE')) bullishSignals++;
+  
+  const mayDirection = bullishSignals >= 3 ? 'BULLISH 🟢' : bullishSignals <= 1 ? 'BEARISH 🔴' : 'NEUTRAL ⚪';
+  const mayColor = bullishSignals >= 3 ? '#00ff88' : bullishSignals <= 1 ? '#ff4444' : '#ffaa00';
+  document.getElementById('may-direction').innerHTML = `<span style="color:${mayColor};">${mayDirection}</span>`;
+  
+  // May Bias
+  const mayBias = bullishSignals >= 3 ? 'AGGRESSIVE BUY' : bullishSignals === 2 ? 'SELECTIVE BUY' : bullishSignals === 1 ? 'HOLD / DEFENSIVE' : 'CASH / REDUCE';
+  document.getElementById('may-bias').innerText = mayBias;
+  
+  // May Top Sector (based on seasonal patterns)
+  const topSector = bullishSignals >= 2 ? '消费/旅游' : '医药/防守';
+  document.getElementById('may-top-sector').innerText = topSector;
+  
+  // Output summary
+  const summary = `
+📅 MAY SEASONAL ANALYSIS - ${now.toLocaleDateString()}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 Overall Direction: ${mayDirection}
+⚖️ Portfolio Bias: ${mayBias}
+🏆 Top Sector: ${topSector}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🕗 PRE-MARKET SIGNALS:
+   • US Futures: ${usDirection}
+   • ADR Overnight: ${adrDirection}
+   • RMB Rate: ${rmbRate} (${rmbDirection})
+   • CN News Catalyst: ${newsSignal}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💡 MAY STRATEGY:
+${bullishSignals >= 3 ? '✅ Aggressive: 消费/旅游 momentum plays\n✅ 持有Q1 winners直到5月中\n✅ 关注中国刺激政策公告' : bullishSignals === 2 ? '⚠️ Selective: 关注个股机会\n⚠️ 分散持仓，不重仓\n⚠️ 设置严格止损' : '🔴 Defensive: 减少仓位\n🔴 关注医药/必需消费\n🔴 等待方向明确'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ Risk Note: May historically volatile - "Sell in May" applies to some A-shares. Adjust position sizing accordingly.
+  `.trim();
+  
+  output.innerHTML = summary.replace(/\n/g, '<br>');
+  showAlert('📅 May Outlook refreshed!', 'success');
 }
 
 // ==================== EXPORT & REPORTS ====================
