@@ -329,6 +329,12 @@ function generateLevelHTML(data, level) {
       primary: '#a855f7',
       gradient: 'linear-gradient(135deg, #0d1117 0%, #161b22 100%)',
       sections: ['indices', 'portfolio', 'holdingsForensic', 'keyAshares', 'hkTech', 'sectorLeaders', 'coreSignals', 'institutional', 'topPicks', 'currentHoldings', 'account', 'riskWarning']
+    },
+    FORENSIC: {
+      title: 'Forensic Deep Dive Report',
+      primary: '#ef4444',
+      gradient: 'linear-gradient(135deg, #1a0a0a 0%, #2d0f0f 50%, #1a0a0a 100%)',
+      sections: ['indices', 'forensicOverview', 'smartMoney', 'volumeAnalysis', 'institutionalDeep', 'sectorFlow', 'topPicksForensic', 'riskLevels', 'account']
     }
   };
   
@@ -612,6 +618,154 @@ function generateLevelHTML(data, level) {
       </div>`;
   }
 
+  // SECTION: Forensic Overview (FORENSIC)
+  if (sections.includes('forensicOverview')) {
+    const avgChange = data.keyStocks.reduce((sum, s) => sum + s.changePct, 0) / data.keyStocks.length;
+    const positive = data.keyStocks.filter(s => s.changePct > 0).length;
+    html += `
+      <div class="card">
+        <div class="card-title">🔬 Forensic Market Overview</div>
+        <table>
+          <tr><td>Market Status</td><td style="font-weight:bold;color:${avgChange >= 0 ? '#10b981' : '#ef4444'};">${avgChange >= 0 ? 'POSITIVE' : 'NEGATIVE'}</td></tr>
+          <tr><td>Stocks Analyzed</td><td>${data.keyStocks.length}</td></tr>
+          <tr><td>Positive</td><td style="color:#10b981;">${positive} (${(positive/data.keyStocks.length*100).toFixed(0)}%)</td></tr>
+          <tr><td>Negative</td><td style="color:#ef4444;">${data.keyStocks.length - positive}</td></tr>
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Smart Money Detection (FORENSIC)
+  if (sections.includes('smartMoney')) {
+    html += `
+      <div class="card">
+        <div class="card-title">💰 Smart Money Detection</div>
+        <table>
+          <tr><th>Stock</th><th>Price</th><th>Change</th><th>Volume</th><th>Verdict</th></tr>
+          ${data.keyStocks.slice(0,6).map(s => {
+            const vol = s.volume > 500000 ? 'HIGH' : 'NORMAL';
+            const flow = s.changePct > 0 ? 'INFLOW' : 'OUTFLOW';
+            const color = s.changePct > 0 ? '#10b981' : '#ef4444';
+            return `<tr>
+              <td>${s.name}</td>
+              <td>¥${s.price.toFixed(2)}</td>
+              <td style="color:${color};">${fmtPct(s.changePct)}</td>
+              <td style="color:#888;">${fmt(s.volume)}</td>
+              <td style="color:${color};font-weight:bold;">${flow}</td>
+            </tr>`;
+          }).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Volume Analysis (FORENSIC)
+  if (sections.includes('volumeAnalysis')) {
+    html += `
+      <div class="card">
+        <div class="card-title">📊 Volume Analysis</div>
+        <table>
+          <tr><th>Stock</th><th>Volume</th><th>Turnover</th><th>Signal</th></tr>
+          ${data.keyStocks.slice(0,6).map(s => {
+            const turnover = (s.amount / 100000000).toFixed(1);
+            const signal = s.volume > 300000 ? '⚠️ UNUSUAL' : '✅ NORMAL';
+            return `<tr>
+              <td>${s.name}</td>
+              <td>${fmt(s.volume)}</td>
+              <td>¥${turnover}亿</td>
+              <td>${signal}</td>
+            </tr>`;
+          }).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Institutional Deep Dive (FORENSIC)
+  if (sections.includes('institutionalDeep')) {
+    html += `
+      <div class="card">
+        <div class="card-title">🏛️ Institutional Deep Dive</div>
+        <table>
+          <tr><th>Stock</th><th>Flow</th><th>Score</th><th>Signal</th></tr>
+          ${data.keyStocks.slice(0,5).map(s => {
+            const score = Math.min(100, Math.floor((s.changePct + 5) * 10));
+            const signal = score >= 70 ? '✅ BUY' : score >= 50 ? '🟡 WATCH' : '❌ AVOID';
+            const color = signal.includes('BUY') ? '#10b981' : signal.includes('WATCH') ? '#f59e0b' : '#ef4444';
+            return `<tr>
+              <td>${s.name}</td>
+              <td style="color:${s.changePct >= 0 ? '#10b981' : '#ef4444'};">${s.changePct >= 0 ? 'INFLOW' : 'OUTFLOW'}</td>
+              <td>${score}</td>
+              <td style="color:${color};font-weight:bold;">${signal}</td>
+            </tr>`;
+          }).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Sector Flow (FORENSIC)
+  if (sections.includes('sectorFlow')) {
+    html += `
+      <div class="card">
+        <div class="card-title">🔥 Sector Flow Analysis</div>
+        <table>
+          <tr><th>Sector</th><th>Leader</th><th>Change</th><th>Signal</th></tr>
+          ${data.sectors.map(s => {
+            const signal = s.changePct > 2 ? '🚀 LEADING' : s.changePct > 0 ? '📈 POSITIVE' : '📉 NEGATIVE';
+            const color = s.changePct > 0 ? '#10b981' : '#ef4444';
+            return `<tr>
+              <td style="color:#a855f7;">${s.sector}</td>
+              <td>${s.name}</td>
+              <td style="color:${color};">${fmtPct(s.changePct)}</td>
+              <td>${signal}</td>
+            </tr>`;
+          }).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Top Forensic Picks (FORENSIC)
+  if (sections.includes('topPicksForensic')) {
+    const forensicPicks = [...data.keyStocks].sort((a, b) => b.changePct - a.changePct).slice(0, 5);
+    html += `
+      <div class="card">
+        <div class="card-title">🎯 Top Forensic Picks</div>
+        <table>
+          <tr><th>#</th><th>Stock</th><th>Change</th><th>Volume</th><th>Score</th></tr>
+          ${forensicPicks.map((s, i) => {
+            const score = Math.min(100, Math.floor((s.changePct + 5) * 10));
+            return `<tr>
+              <td>${i + 1}</td>
+              <td>${s.name}</td>
+              <td style="color:${s.changePct >= 0 ? '#10b981' : '#ef4444'};font-weight:bold;">${fmtPct(s.changePct)}</td>
+              <td>${fmt(s.volume)}</td>
+              <td style="color:#a855f7;font-weight:bold;">${score}</td>
+            </tr>`;
+          }).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Risk Levels (FORENSIC)
+  if (sections.includes('riskLevels')) {
+    html += `
+      <div class="card">
+        <div class="card-title">⚠️ Risk Level Assessment</div>
+        <table>
+          <tr><th>Stock</th><th>Change</th><th>Volume</th><th>Risk</th></tr>
+          ${data.keyStocks.slice(0,5).map(s => {
+            let risk = 'LOW';
+            let riskColor = '#10b981';
+            if (s.changePct < -3 || s.volume > 800000) { risk = 'HIGH'; riskColor = '#ef4444'; }
+            else if (s.changePct < 0 || s.volume > 500000) { risk = 'MEDIUM'; riskColor = '#f59e0b'; }
+            return `<tr>
+              <td>${s.name}</td>
+              <td style="color:${s.changePct >= 0 ? '#10b981' : '#ef4444'};">${fmtPct(s.changePct)}</td>
+              <td>${fmt(s.volume)}</td>
+              <td style="color:${riskColor};font-weight:bold;">${risk}</td>
+            </tr>`;
+          }).join('')}
+        </table>
+      </div>`;
+  }
+
   // Close HTML
   html += `
     </div>
@@ -637,8 +791,8 @@ async function main() {
   
   const data = await fetchAllData();
   
-  // Generate all 3 levels
-  const levels = ['STANDARD', 'PRO', 'ULTIMATE'];
+  // Generate all 4 levels
+  const levels = ['STANDARD', 'PRO', 'ULTIMATE', 'FORENSIC'];
   for (const level of levels) {
     const html = generateLevelHTML(data, level);
     const filename = level === 'STANDARD' ? 'client_report' : `client_report_${level}`;
@@ -655,7 +809,7 @@ async function main() {
   // Update SUPER_BRAIN_APP_V3.html with new reports
   updateSuperBrainApp(DATE);
   
-  console.log('\n🎉 All 3 Reports Generated Successfully!');
+  console.log('\n🎉 All 4 Reports Generated Successfully!');
 }
 
 // Update Super Brain V3 app with new report entries
@@ -675,9 +829,10 @@ function updateSuperBrainApp(date) {
   }
   
   // New report entries to add
-  const newEntries = `  { date: '${date}', type: 'ULTIMATE (AUTO)', file: 'client_report_ULTIMATE_${date}.html', color: '#00ff88' },
-  { date: '${date}', type: 'PRO', file: 'client_report_PRO_${date}.html', color: '#6366f1' },
-  { date: '${date}', type: 'STANDARD', file: 'client_report_${date}.html', color: '#666' },`;
+  const newEntries = `  { date: '${date}', type: '🔬 FORENSIC', file: 'client_report_FORENSIC_${date}.html', color: '#ef4444' },
+  { date: '${date}', type: '🟢 ULTIMATE', file: 'client_report_ULTIMATE_${date}.html', color: '#00ff88' },
+  { date: '${date}', type: '🟡 PRO', file: 'client_report_PRO_${date}.html', color: '#6366f1' },
+  { date: '${date}', type: '⚪ STANDARD', file: 'client_report_${date}.html', color: '#666' },`;
   
   // Insert after the first entry in availableReports
   const insertPoint = "const availableReports = [";

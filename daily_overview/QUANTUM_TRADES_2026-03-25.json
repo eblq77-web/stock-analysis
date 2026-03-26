@@ -1,0 +1,184 @@
+{
+  "date": "2026-03-25",
+  "recommendations": [
+    {
+      "code": "300476",
+      "name": "中际旭创",
+      "sector": "AI硬件",
+      "entryPrice": 266.44,
+      "targetPrice": "306.41",
+      "stopLoss": "247.79",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "300033",
+      "name": "同花顺",
+      "sector": "科技",
+      "entryPrice": 311.61,
+      "targetPrice": "358.35",
+      "stopLoss": "289.80",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "300308",
+      "name": "中际旭创",
+      "sector": "AI硬件",
+      "entryPrice": 628.4,
+      "targetPrice": "722.66",
+      "stopLoss": "584.41",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "300018",
+      "name": "中科创达",
+      "sector": "科技",
+      "entryPrice": 12.73,
+      "targetPrice": "14.64",
+      "stopLoss": "11.84",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "300502",
+      "name": "新易盛",
+      "sector": "科技",
+      "entryPrice": 476.2,
+      "targetPrice": "547.63",
+      "stopLoss": "442.87",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "300750",
+      "name": "宁德时代",
+      "sector": "新能源",
+      "entryPrice": 397.81,
+      "targetPrice": "457.48",
+      "stopLoss": "369.96",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "002594",
+      "name": "比亚迪",
+      "sector": "新能源",
+      "entryPrice": 106.6,
+      "targetPrice": "122.59",
+      "stopLoss": "99.14",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "601012",
+      "name": "隆基绿能",
+      "sector": "新能源",
+      "entryPrice": 18.89,
+      "targetPrice": "21.72",
+      "stopLoss": "17.57",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "300014",
+      "name": "亿纬锂能",
+      "sector": "新能源",
+      "entryPrice": 70.37,
+      "targetPrice": "80.93",
+      "stopLoss": "65.44",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "300122",
+      "name": "智飞生物",
+      "sector": "医药",
+      "entryPrice": 15.11,
+      "targetPrice": "17.38",
+      "stopLoss": "14.05",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "600276",
+      "name": "恒瑞医药",
+      "sector": "医药",
+      "entryPrice": 54.1,
+      "targetPrice": "62.21",
+      "stopLoss": "50.31",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "300015",
+      "name": "爱尔眼科",
+      "sector": "医药",
+      "entryPrice": 9.72,
+      "targetPrice": "11.18",
+      "stopLoss": "9.04",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "600519",
+      "name": "贵州茅台",
+      "sector": "消费",
+      "entryPrice": 1410.27,
+      "targetPrice": "1621.81",
+      "stopLoss": "1311.55",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "000858",
+      "name": "五粮液",
+      "sector": "消费",
+      "entryPrice": 10631.33,
+      "targetPrice": "12226.03",
+      "stopLoss": "9887.14",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "000333",
+      "name": "美的集团",
+      "sector": "家电",
+      "entryPrice": 74.8,
+      "targetPrice": "86.02",
+      "stopLoss": "69.56",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    },
+    {
+      "code": "000651",
+      "name": "格力电器",
+      "sector": "家电",
+      "entryPrice": 38.13,
+      "targetPrice": "43.85",
+      "stopLoss": "35.46",
+      "quantumScore": 80,
+      "signal": "STRONG_BUY",
+      "status": "PENDING"
+    }
+  ],
+  "watchList": [],
+  "marketRegime": "BULL",
+  "generatedAt": "2026-03-25T09:50:02.074Z"
+}

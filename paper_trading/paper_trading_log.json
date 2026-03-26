@@ -1,5 +1,5 @@
 {
-  "capital": 157526.2876922554,
+  "capital": 126034.4476922554,
   "positions": [
     {
       "code": "600085",
@@ -100,6 +100,16 @@
       "sector": "科技",
       "period": "Daily",
       "score": 100
+    },
+    {
+      "code": "601012",
+      "name": "隆基绿能",
+      "entryPrice": 18.88,
+      "shares": 1668,
+      "entryDate": "2026-03-25",
+      "sector": "新能源",
+      "period": "Daily",
+      "score": 95
     }
   ],
   "closedTrades": [

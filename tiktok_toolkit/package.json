@@ -1,0 +1,17 @@
+{
+  "name": "Super Brain TikTok Toolkit",
+  "version": "1.0.0",
+  "description": "TikTok automation toolkit for Super Brain live streams",
+  "main": "scheduler.js",
+  "scripts": {
+    "start": "node scheduler.js",
+    "clip": "node clipper.js",
+    "post": "node crossposter.js",
+    "analytics": "node analytics.js"
+  },
+  "dependencies": {
+    "node-schedule": "^2.1.0",
+    "axios": "^1.6.0",
+    "fs-extra": "^11.1.0"
+  }
+}
