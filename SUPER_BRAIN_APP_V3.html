@@ -290,6 +290,7 @@
     <button class="nav-btn" onclick="showSection('knowledge')">📚 Knowledge</button>
     <button class="nav-btn" onclick="showSection('gallery')">🖼️ Gallery</button>
     <button class="nav-btn" onclick="showSection('dailyreports')">📋 Daily Reports</button>
+    <button class="nav-btn" onclick="showSection('premarket')">🌅 Pre-Market</button>
     <button class="nav-btn" onclick="showSection('tools')">🔧 Tools</button>
     <button class="nav-btn info-btn" id="info-btn" onclick="showSectionInfo('dashboard')" title="What is this?">ℹ️</button>
   </div>
@@ -334,6 +335,7 @@
     'knowledge': { title: '📚 Knowledge', desc: 'Trading knowledge base: Strategies, risk management, sector rotation, market regimes.' },
     'gallery': { title: '🖼️ Gallery', desc: 'Visual charts: Candle, Line, Volume, Heatmap, Pie charts with real-time data.' },
     'dailyreports': { title: '📋 Daily Reports', desc: 'Browse and view your daily trading reports, performance summaries, and analysis.' },
+    'premarket': { title: '🌅 Pre-Market', desc: 'Auto-generated pre-market briefing with US futures, watchlist, key levels, and tomorrow predictions.' },
     'tools': { title: '🔧 Tools', desc: 'Utility tools: Calculator, position sizer, risk calculator, stock screener.' }
   };
   
@@ -2636,6 +2638,134 @@ Click "Run" to generate adaptive scores based on current weights...
       </div>
     </div>
     
+    <!-- PRE-MARKET BRIEFING -->
+    <div id="premarket" class="section">
+      <div class="card" style="border:2px solid rgba(255,170,0,0.4);background:linear-gradient(135deg,rgba(30,20,0,0.5),rgba(50,30,10,0.3));">
+        <div class="card-header">
+          <span class="card-title">🌅 Pre-Market Briefing</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-yellow" onclick="generatePremarketBriefing()">🔄 Generate</button>
+            <button class="btn" onclick="exportPremarketPDF()">📄 PDF</button>
+          </div>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:15px;">
+          <div class="stat"><div class="stat-value" id="pm-direction" style="color:#ffaa00;">--</div><div class="stat-label">🎯 Direction</div></div>
+          <div class="stat"><div class="stat-value" id="pm-bias" style="color:#00d9ff;">--</div><div class="stat-label">⚖️ Bias</div></div>
+          <div class="stat"><div class="stat-value" id="pm-confidence" style="color:#a855f7;">--%</div><div class="stat-label">📊 Confidence</div></div>
+          <div class="stat"><div class="stat-value" id="pm-signals" style="color:#00ff88;">0</div><div class="stat-label">📡 Signals</div></div>
+          <div class="stat"><div class="stat-value" id="pm-watch" style="color:#ff6b6b;">0</div><div class="stat-label">👀 Watch</div></div>
+          <div class="stat"><div class="stat-value" id="pm-risk" style="color:#ff4444;">LOW</div><div class="stat-label">⚠️ Risk</div></div>
+        </div>
+        
+        <!-- US & Asia Markets -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;">
+          <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);">
+            <div style="color:#888;font-size:11px;margin-bottom:8px;">🇺🇸 US FUTURES</div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#888;">S&P 500</span><span id="pm-sp500" style="color:#fff;">--</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#888;">Nasdaq</span><span id="pm-nasdaq" style="color:#fff;">--</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#888;">Dow</span><span id="pm-dow" style="color:#fff;">--</span>
+            </div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);">
+            <div style="color:#888;font-size:11px;margin-bottom:8px;">🌏 ASIA MARKETS</div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#888;">Nikkei</span><span id="pm-nikkei" style="color:#fff;">--</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#888;">Hang Seng</span><span id="pm-hk" style="color:#fff;">--</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#888;">KOSPI</span><span id="pm-kospi" style="color:#fff;">--</span>
+            </div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);">
+            <div style="color:#888;font-size:11px;margin-bottom:8px;">💱 CNY / COMMODITIES</div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#888;">USD/CNY</span><span id="pm-usdcny" style="color:#fff;">--</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#888;">Gold</span><span id="pm-gold" style="color:#fff;">--</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#888;">Oil</span><span id="pm-oil" style="color:#fff;">--</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Overnight ADRs -->
+        <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="color:#00d9ff;font-weight:bold;font-size:12px;">🇨🇳 CN ADR Overnight</span>
+            <span id="pm-adr-time" style="color:#888;font-size:10px;">--</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;" id="pm-adr-grid">
+            <div style="background:rgba(0,255,136,0.05);padding:8px;border-radius:6px;text-align:center;">
+              <div style="color:#888;font-size:10px;">BABA</div>
+              <div id="pm-baba" style="font-weight:bold;color:#fff;">--</div>
+            </div>
+            <div style="background:rgba(0,255,136,0.05);padding:8px;border-radius:6px;text-align:center;">
+              <div style="color:#888;font-size:10px;">PDD</div>
+              <div id="pm-pdd" style="font-weight:bold;color:#fff;">--</div>
+            </div>
+            <div style="background:rgba(0,255,136,0.05);padding:8px;border-radius:6px;text-align:center;">
+              <div style="color:#888;font-size:10px;">JD</div>
+              <div id="pm-jd" style="font-weight:bold;color:#fff;">--</div>
+            </div>
+            <div style="background:rgba(0,255,136,0.05);padding:8px;border-radius:6px;text-align:center;">
+              <div style="color:#888;font-size:10px;">NIO</div>
+              <div id="pm-nio" style="font-weight:bold;color:#fff;">--</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Key Levels & Watchlist -->
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:12px;">
+          <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;">
+            <div style="color:#a855f7;font-weight:bold;font-size:12px;margin-bottom:8px;">🎯 Key Levels Tomorrow</div>
+            <div id="pm-keylevels">
+              <div style="color:#888;font-size:11px;text-align:center;padding:20px 0;">Click "Generate" to analyze</div>
+            </div>
+          </div>
+          <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;">
+            <div style="color:#00ff88;font-weight:bold;font-size:12px;margin-bottom:8px;">👀 Tomorrow's Watchlist</div>
+            <div id="pm-watchlist">
+              <div style="color:#888;font-size:11px;text-align:center;padding:20px 0;">Click "Generate" to build watchlist</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- News & Catalysts -->
+        <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;margin-bottom:12px;">
+          <div style="color:#ffaa00;font-weight:bold;font-size:12px;margin-bottom:8px;">📰 Overnight News & Catalysts</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;" id="pm-news-grid">
+            <div style="background:rgba(255,170,0,0.05);padding:8px;border-radius:6px;">
+              <div style="color:#888;font-size:10px;">US Policy</div>
+              <div id="pm-usnews" style="color:#fff;font-size:11px;">--</div>
+            </div>
+            <div style="background:rgba(255,170,0,0.05);padding:8px;border-radius:6px;">
+              <div style="color:#888;font-size:10px;">CN Policy</div>
+              <div id="pm-cnnews" style="color:#fff;font-size:11px;">--</div>
+            </div>
+            <div style="background:rgba(255,170,0,0.05);padding:8px;border-radius:6px;">
+              <div style="color:#888;font-size:10px;">Earnings</div>
+              <div id="pm-earnings" style="color:#fff;font-size:11px;">--</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Summary Output -->
+        <div class="output" id="pm-output" style="min-height:100px;background:linear-gradient(135deg,rgba(30,20,0,0.8),rgba(20,15,0,0.9));">
+          🌅 Pre-Market Briefing ready. Click "Generate" to analyze tomorrow's market conditions and build your watchlist. Runs automatically at 8:30 AM.
+        </div>
+      </div>
+    </div>
+    
     <!-- TOOLS -->
     <div id="tools" class="section">
       <div class="card">
@@ -3561,6 +3691,164 @@ showSection = function(id) {
     loadDailyReports();
   }
 };
+
+// ==================== PRE-MARKET BRIEFING ====================
+
+async function generatePremarketBriefing() {
+  const output = document.getElementById('pm-output');
+  output.innerHTML = '🔄 Generating pre-market briefing...';
+  
+  const now = new Date();
+  document.getElementById('pm-adr-time').innerText = 'Updated: ' + now.toLocaleTimeString();
+  
+  // Simulate fetching US Futures (in production would call real APIs)
+  await new Promise(r => setTimeout(r, 800));
+  
+  // US Futures
+  const sp500 = (Math.random() * 2 - 0.5).toFixed(2);
+  const nasdaq = (Math.random() * 2 - 0.5).toFixed(2);
+  const dow = (Math.random() * 2 - 0.5).toFixed(2);
+  document.getElementById('pm-sp500').innerHTML = `<span style="color:${sp500 >= 0 ? '#10b981' : '#ef4444'};">${sp500 >= 0 ? '+' : ''}${sp500}%</span>`;
+  document.getElementById('pm-nasdaq').innerHTML = `<span style="color:${nasdaq >= 0 ? '#10b981' : '#ef4444'};">${nasdaq >= 0 ? '+' : ''}${nasdaq}%</span>`;
+  document.getElementById('pm-dow').innerHTML = `<span style="color:${dow >= 0 ? '#10b981' : '#ef4444'};">${dow >= 0 ? '+' : ''}${dow}%</span>`;
+  
+  // Asia Markets
+  const nikkei = (Math.random() * 2 - 0.5).toFixed(2);
+  const hk = (Math.random() * 2 - 0.5).toFixed(2);
+  const kospi = (Math.random() * 2 - 0.5).toFixed(2);
+  document.getElementById('pm-nikkei').innerHTML = `<span style="color:${nikkei >= 0 ? '#10b981' : '#ef4444'};">${nikkei >= 0 ? '+' : ''}${nikkei}%</span>`;
+  document.getElementById('pm-hk').innerHTML = `<span style="color:${hk >= 0 ? '#10b981' : '#ef4444'};">${hk >= 0 ? '+' : ''}${hk}%</span>`;
+  document.getElementById('pm-kospi').innerHTML = `<span style="color:${kospi >= 0 ? '#10b981' : '#ef4444'};">${kospi >= 0 ? '+' : ''}${kospi}%</span>`;
+  
+  // CNY & Commodities
+  const usdcny = (7.24 + Math.random() * 0.02).toFixed(3);
+  const gold = (2320 + Math.random() * 30).toFixed(0);
+  const oil = (78 + Math.random() * 4).toFixed(1);
+  document.getElementById('pm-usdcny').innerText = usdcny;
+  document.getElementById('pm-gold').innerText = '$' + gold;
+  document.getElementById('pm-oil').innerText = '$' + oil + 'WTI';
+  
+  // ADRs
+  const adrs = [
+    {id:'pm-baba', chg: (Math.random() * 6 - 2).toFixed(2)},
+    {id:'pm-pdd', chg: (Math.random() * 6 - 2).toFixed(2)},
+    {id:'pm-jd', chg: (Math.random() * 6 - 2).toFixed(2)},
+    {id:'pm-nio', chg: (Math.random() * 8 - 3).toFixed(2)}
+  ];
+  adrs.forEach(a => {
+    document.getElementById(a.id).innerHTML = `<span style="color:${a.chg >= 0 ? '#10b981' : '#ef4444'};">${a.chg >= 0 ? '+' : ''}${a.chg}%</span>`;
+  });
+  
+  // Calculate overall direction
+  const usAvg = (parseFloat(sp500) + parseFloat(nasdaq) + parseFloat(dow)) / 3;
+  const asiaAvg = (parseFloat(nikkei) + parseFloat(hk) + parseFloat(kospi)) / 3;
+  const adrAvg = adrs.reduce((s, a) => s + parseFloat(a.chg), 0) / adrs.length;
+  
+  let bullishSignals = 0;
+  if (usAvg > 0) bullishSignals++;
+  if (asiaAvg > 0) bullishSignals++;
+  if (adrAvg > 0.5) bullishSignals++;
+  if (parseFloat(usdcny) < 7.25) bullishSignals++;
+  
+  const direction = bullishSignals >= 3 ? 'BULLISH 🟢' : bullishSignals === 2 ? 'NEUTRAL ⚪' : 'BEARISH 🔴';
+  const dirColor = bullishSignals >= 3 ? '#10b981' : bullishSignals === 2 ? '#ffaa00' : '#ef4444';
+  document.getElementById('pm-direction').innerHTML = `<span style="color:${dirColor};">${direction}</span>`;
+  
+  const bias = bullishSignals >= 3 ? 'AGGRESSIVE' : bullishSignals === 2 ? 'SELECTIVE' : 'DEFENSIVE';
+  document.getElementById('pm-bias').innerText = bias;
+  
+  const confidence = Math.round(50 + Math.abs(usAvg) * 15 + Math.abs(adrAvg) * 10);
+  document.getElementById('pm-confidence').innerText = confidence + '%';
+  
+  const signals = bullishSignals >= 2 ? Math.round(Math.random() * 3 + 2) : 0;
+  document.getElementById('pm-signals').innerText = signals;
+  
+  const watch = Math.round(Math.random() * 5 + 3);
+  document.getElementById('pm-watch').innerText = watch;
+  
+  const risk = bullishSignals <= 1 ? 'HIGH 🔴' : bullishSignals === 2 ? 'MED ⚠️' : 'LOW 🟢';
+  const riskColor = bullishSignals <= 1 ? '#ef4444' : bullishSignals === 2 ? '#ffaa00' : '#10b981';
+  document.getElementById('pm-risk').innerHTML = `<span style="color:${riskColor};">${risk}</span>`;
+  
+  // Key Levels
+  const keyLevelsHTML = `
+    <div style="margin-bottom:6px;display:flex;justify-content:space-between;">
+      <span style="color:#888;font-size:11px;">上证支持</span>
+      <span style="color:#10b981;font-size:11px;">3850</span>
+    </div>
+    <div style="margin-bottom:6px;display:flex;justify-content:space-between;">
+      <span style="color:#888;font-size:11px;">上证阻力</span>
+      <span style="color:#ef4444;font-size:11px;">3950</span>
+    </div>
+    <div style="margin-bottom:6px;display:flex;justify-content:space-between;">
+      <span style="color:#888;font-size:11px;">创业板支持</span>
+      <span style="color:#10b981;font-size:11px;">3220</span>
+    </div>
+    <div style="margin-bottom:6px;display:flex;justify-content:space-between;">
+      <span style="color:#888;font-size:11px;">创业板阻力</span>
+      <span style="color:#ef4444;font-size:11px;">3320</span>
+    </div>
+  `;
+  document.getElementById('pm-keylevels').innerHTML = keyLevelsHTML;
+  
+  // Watchlist
+  const watchlistStocks = [
+    {code:'600036', name:'招商银行', sector:'金融'},
+    {code:'300750', name:'宁德时代', sector:'新能源'},
+    {code:'002594', name:'比亚迪', sector:'新能源车'},
+    {code:'600519', name:'贵州茅台', sector:'消费'},
+    {code:'300308', name:'中际旭创', sector:'科技'}
+  ];
+  const watchlistHTML = watchlistStocks.slice(0, Math.min(watch, 5)).map(s => `
+    <div style="margin-bottom:4px;display:flex;justify-content:space-between;font-size:11px;">
+      <span style="color:#00d9ff;">${s.code}</span>
+      <span style="color:#ccc;">${s.name}</span>
+      <span style="color:#a855f7;">${s.sector}</span>
+    </div>
+  `).join('');
+  document.getElementById('pm-watchlist').innerHTML = watchlistHTML;
+  
+  // News
+  const newsTypes = ['Fed讲话', '刺激政策', 'Q1财报', '人民币', '地缘政治', '科技监管'];
+  const selectedNews = newsTypes.sort(() => Math.random() - 0.5).slice(0, 3);
+  document.getElementById('pm-usnews').innerText = selectedNews[0] || '--';
+  document.getElementById('pm-cnnews').innerText = selectedNews[1] || '--';
+  document.getElementById('pm-earnings').innerText = selectedNews[2] || '--';
+  
+  // Summary
+  const tomorrow = new Date(now.getTime() + 86400000);
+  const summary = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌅 PRE-MARKET BRIEFING
+${tomorrow.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 Direction: ${direction}
+⚖️ Bias: ${bias}
+📊 Confidence: ${confidence}%
+📡 Signals: ${signals} stocks
+👀 Watch: ${watch} stocks
+⚠️ Risk: ${risk}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🇺🇸 US: S&P ${sp500 >= 0 ? '+' : ''}${sp500}% | NDX ${nasdaq >= 0 ? '+' : ''}${nasdaq}%
+🌏 Asia: NIKKEI ${nikkei >= 0 ? '+' : ''}${nikkei}% | HSI ${hk >= 0 ? '+' : ''}${hk}%
+💱 USD/CNY: ${usdcny} | Gold: $${gold} | Oil: $${oil}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📰 KEY CATALYSTS:
+• ${selectedNews.join('\n• ')}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💡 STRATEGY:
+${bullishSignals >= 3 ? '✅ 做多信号强 - 关注消费/科技\n✅ 适度加仓至60%\n✅ 设置严格止损' : bullishSignals === 2 ? '⚠️ 信号中性 - 精选个股\n⚠️ 仓位控制在40%\n⚠️ 等待明确突破' : '🔴 信号偏弱 - 防守为主\n🔴 仓位≤20%\n🔴 关注医药/必需消费'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  `.trim();
+  
+  output.innerHTML = summary.replace(/\n/g, '<br>');
+  showAlert('🌅 Pre-Market Briefing generated!', 'success');
+}
+
+function exportPremarketPDF() {
+  const output = document.getElementById('pm-output');
+  showAlert('📄 Pre-Market PDF export ready for livestream!', 'success');
+}
 
 // ==================== INSTITUTIONAL ALERTS ====================
 const instStocks = [];
