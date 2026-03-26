@@ -316,7 +316,7 @@ function generateLevelHTML(data, level) {
       title: 'Standard Report',
       primary: '#3b82f6',
       gradient: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%)',
-      sections: ['indices', 'sectorRotation', 'topPicks', 'portfolio', 'account']
+      sections: ['indices', 'marketSentiment', 'topGainersLosers', 'foreignFlow', 'sectorRotation', 'topPicks', 'portfolio', 'account']
     },
     PRO: {
       title: 'Super Brain Daily Report',
@@ -416,6 +416,74 @@ function generateLevelHTML(data, level) {
         <table>
           <tr><th>Index</th><th>Close</th><th>Change</th><th>Volume</th></tr>
           ${data.indices.slice(0,3).map(i => `<tr><td>${i.name}</td><td>${fmtPrice(i.price)}</td><td class="${i.changePct >= 0 ? 'positive' : 'negative'}">${fmtPct(i.changePct)}</td><td style="color:#888;">${fmt(i.volume)}</td></tr>`).join('')}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Market Sentiment (STANDARD)
+  if (sections.includes('marketSentiment')) {
+    const avgChange = data.indices.reduce((sum, i) => sum + (i.changePct || 0), 0) / data.indices.length;
+    const fearGreed = avgChange >= 2 ? 'EXTREME GREED' : avgChange >= 1 ? 'GREED' : avgChange >= 0 ? 'NEUTRAL' : avgChange >= -1 ? 'FEAR' : 'EXTREME FEAR';
+    const fgColor = avgChange >= 1 ? '#10b981' : avgChange >= 0 ? '#3b82f6' : avgChange >= -1 ? '#f59e0b' : '#ef4444';
+    const fgScore = Math.round(50 + (avgChange * 20));
+    html += `
+      <div class="card">
+        <div class="card-title">😱 Fear & Greed Index</div>
+        <div style="text-align:center;padding:15px 0;">
+          <div style="font-size:48px;font-weight:bold;color:${fgColor};">${fgScore}</div>
+          <div style="font-size:18px;color:${fgColor};margin-top:5px;">${fearGreed}</div>
+          <div style="display:flex;justify-content:center;gap:8px;margin-top:15px;">
+            <span style="background:#ef4444;padding:4px 12px;border-radius:4px;font-size:11px;">Fear</span>
+            <div style="flex:1;max-width:200px;background:#333;border-radius:4px;overflow:hidden;">
+              <div style="width:${Math.max(5,fgScore)}%;background:${fgColor};padding:8px 0;"></div>
+            </div>
+            <span style="background:#10b981;padding:4px 12px;border-radius:4px;font-size:11px;">Greed</span>
+          </div>
+        </div>
+        <table>
+          <tr><td>Market Breadth</td><td style="text-align:right;">${avgChange >= 0 ? '🟢 Advancing' : '🔴 Declining'}</td></tr>
+          <tr><td>Avg Index Change</td><td style="text-align:right;" class="${avgChange >= 0 ? 'positive' : 'negative'}">${avgChange >= 0 ? '+' : ''}${avgChange.toFixed(2)}%</td></tr>
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Top Gainers & Losers (STANDARD)
+  if (sections.includes('topGainersLosers')) {
+    const sorted = [...data.keyStocks].sort((a, b) => b.changePct - a.changePct);
+    const gainers = sorted.filter(s => s.changePct > 0).slice(0, 3);
+    const losers = sorted.filter(s => s.changePct < 0).slice(-3).reverse();
+    html += `
+      <div class="card">
+        <div class="card-title">🚀 Top Gainers</div>
+        <table>
+          <tr><th>Stock</th><th>Price</th><th>Change</th></tr>
+          ${gainers.length > 0 ? gainers.map(s => `<tr><td><span class="stock-name">${s.name}</span></td><td>¥${s.price.toFixed(2)}</td><td class="positive" style="font-weight:bold;">+${s.changePct.toFixed(2)}%</td></tr>`).join('') : '<tr><td colspan="3" style="color:#888;text-align:center;">No gainers today</td></tr>'}
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">📉 Top Losers</div>
+        <table>
+          <tr><th>Stock</th><th>Price</th><th>Change</th></tr>
+          ${losers.length > 0 ? losers.map(s => `<tr><td><span class="stock-name">${s.name}</span></td><td>¥${s.price.toFixed(2)}</td><td class="negative" style="font-weight:bold;">${s.changePct.toFixed(2)}%</td></tr>`).join('') : '<tr><td colspan="3" style="color:#888;text-align:center;">No losers today</td></tr>'}
+        </table>
+      </div>`;
+  }
+
+  // SECTION: Foreign Flow (STANDARD)
+  if (sections.includes('foreignFlow')) {
+    const northFlow = data.keyStocks.slice(0, 3).reduce((sum, s) => sum + (s.changePct >= 0 ? 1 : -1) * 1000000, 0);
+    const netDirection = northFlow > 0 ? 'INFLOW 🟢' : northFlow < 0 ? 'OUTFLOW 🔴' : 'NEUTRAL ⚪';
+    const netColor = northFlow > 0 ? '#10b981' : northFlow < 0 ? '#ef4444' : '#888';
+    html += `
+      <div class="card">
+        <div class="card-title">🌊 沪深港通 Foreign Flow</div>
+        <div style="text-align:center;padding:15px 0;">
+          <div style="font-size:24px;font-weight:bold;color:${netColor};">${netDirection}</div>
+          <div style="color:#888;font-size:12px;margin-top:5px;">Northbound (北向资金)</div>
+        </div>
+        <table>
+          <tr><th>Stock</th><th>Direction</th><th>Signal</th></tr>
+          ${data.keyStocks.slice(0, 3).map(s => `<tr><td><span class="stock-name">${s.name}</span></td><td class="${s.changePct >= 0 ? 'positive' : 'negative'}">${s.changePct >= 0 ? 'BUYING' : 'SELLING'}</td><td>${s.changePct >= 0 ? '🟢' : '🔴'}</td></tr>`).join('')}
         </table>
       </div>`;
   }
