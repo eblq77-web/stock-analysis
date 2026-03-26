@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Forensic Deep Dive Report - 2026-03-26</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; 
+      background: linear-gradient(135deg, #1a0a0a 0%, #2d0f0f 50%, #1a0a0a 100%); 
+      padding: 24px;
+      color: #f1f5f9;
+      line-height: 1.6;
+    }
+    .header { text-align: center; padding: 30px 0; }
+    .header h1 { font-size: 32px; margin-bottom: 10px; color: #ef4444; }
+    .subtitle { opacity: 0.9; font-size: 14px; }
+    .badge { background: #ef4444; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-top: 10px; display: inline-block; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+    .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; }
+    .card-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #ef4444; display: flex; align-items: center; justify-content: space-between; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    th { color: #888; font-weight: 500; font-size: 11px; text-transform: uppercase; }
+    .positive { color: #10b981; }
+    .negative { color: #ef4444; }
+    .stock-code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-right: 6px; }
+    .stock-name { color: #ccc; }
+    .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🧠 Super Brain V3</h1>
+    <p class="subtitle">2026年3月26日星期四</p>
+    <span class="badge">FORENSIC</span>
+  </div>
+  <div class="grid">
+      <div class="card">
+        <div class="card-title">📈 Market Indices <span style="font-size:12px;color:#888;">5 Major</span></div>
+        <table>
+          <tr><th>Index</th><th>Price</th><th>Change</th><th>%</th><th>High</th><th>Low</th></tr>
+          <tr><td>上证指数</td><td style="font-weight:bold;">¥3889.08</td><td class="negative">-42.76%</td><td class="negative">-1.09%</td><td style="color:#888;">¥3937.10</td><td style="color:#888;">¥3880.57</td></tr><tr><td>深证成指</td><td style="font-weight:bold;">¥13606.44</td><td class="negative">-194.56%</td><td class="negative">-1.41%</td><td style="color:#888;">¥13853.10</td><td style="color:#888;">¥13573.12</td></tr><tr><td>创业板指</td><td style="font-weight:bold;">¥3272.49</td><td class="negative">-44.48%</td><td class="negative">-1.34%</td><td style="color:#888;">¥3347.23</td><td style="color:#888;">¥3264.00</td></tr><tr><td>科创50</td><td style="font-weight:bold;">¥1288.81</td><td class="negative">-26.60%</td><td class="negative">-2.02%</td><td style="color:#888;">¥1316.46</td><td style="color:#888;">¥1285.38</td></tr><tr><td>北证50</td><td style="font-weight:bold;">¥1266.68</td><td class="negative">-20.26%</td><td class="negative">-1.57%</td><td style="color:#888;">¥1302.30</td><td style="color:#888;">¥1262.88</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">💰 Portfolio Summary</div>
+        <table>
+          <tr><td>Total Value</td><td style="text-align:right;font-weight:bold;">¥9,168.00</td></tr>
+          <tr><td>Total Invested</td><td style="text-align:right;">¥9,527.00</td></tr>
+          <tr><td>Total P&L</td><td style="text-align:right;font-weight:bold;font-size:18px;" class="negative">¥-359.00 (-3.77%)</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">💰 Account Overview</div>
+        <table>
+          <tr><td>Cash Balance</td><td style="text-align:right;">¥500,397</td></tr>
+          <tr><td>Positions Value</td><td style="text-align:right;">¥156,840</td></tr>
+          <tr><td>Total Assets</td><td style="text-align:right;font-weight:bold;">¥657,237</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🔬 Forensic Market Overview</div>
+        <table>
+          <tr><td>Market Status</td><td style="font-weight:bold;color:#ef4444;">NEGATIVE</td></tr>
+          <tr><td>Stocks Analyzed</td><td>10</td></tr>
+          <tr><td>Positive</td><td style="color:#10b981;">1 (10%)</td></tr>
+          <tr><td>Negative</td><td style="color:#ef4444;">9</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">💰 Smart Money Detection</div>
+        <table>
+          <tr><th>Stock</th><th>Price</th><th>Change</th><th>Volume</th><th>Verdict</th></tr>
+          <tr>
+              <td>贵州茅台</td>
+              <td>¥1401.18</td>
+              <td style="color:#ef4444;">-0.64%</td>
+              <td style="color:#888;">23,093</td>
+              <td style="color:#ef4444;font-weight:bold;">OUTFLOW</td>
+            </tr><tr>
+              <td>五 粮 液</td>
+              <td>¥101.28</td>
+              <td style="color:#ef4444;">-1.14%</td>
+              <td style="color:#888;">95,924</td>
+              <td style="color:#ef4444;font-weight:bold;">OUTFLOW</td>
+            </tr><tr>
+              <td>比亚迪</td>
+              <td>¥103.14</td>
+              <td style="color:#ef4444;">-3.25%</td>
+              <td style="color:#888;">828,121</td>
+              <td style="color:#ef4444;font-weight:bold;">OUTFLOW</td>
+            </tr><tr>
+              <td>招商银行</td>
+              <td>¥39.56</td>
+              <td style="color:#10b981;">+0.76%</td>
+              <td style="color:#888;">616,790</td>
+              <td style="color:#10b981;font-weight:bold;">INFLOW</td>
+            </tr><tr>
+              <td>隆基绿能</td>
+              <td>¥18.37</td>
+              <td style="color:#ef4444;">-2.75%</td>
+              <td style="color:#888;">2,458,952</td>
+              <td style="color:#ef4444;font-weight:bold;">OUTFLOW</td>
+            </tr><tr>
+              <td>美的集团</td>
+              <td>¥74.32</td>
+              <td style="color:#ef4444;">-0.64%</td>
+              <td style="color:#888;">177,085</td>
+              <td style="color:#ef4444;font-weight:bold;">OUTFLOW</td>
+            </tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">📊 Volume Analysis</div>
+        <table>
+          <tr><th>Stock</th><th>Volume</th><th>Turnover</th><th>Signal</th></tr>
+          <tr>
+              <td>贵州茅台</td>
+              <td>23,093</td>
+              <td>¥0.0亿</td>
+              <td>✅ NORMAL</td>
+            </tr><tr>
+              <td>五 粮 液</td>
+              <td>95,924</td>
+              <td>¥0.0亿</td>
+              <td>✅ NORMAL</td>
+            </tr><tr>
+              <td>比亚迪</td>
+              <td>828,121</td>
+              <td>¥0.0亿</td>
+              <td>⚠️ UNUSUAL</td>
+            </tr><tr>
+              <td>招商银行</td>
+              <td>616,790</td>
+              <td>¥0.0亿</td>
+              <td>⚠️ UNUSUAL</td>
+            </tr><tr>
+              <td>隆基绿能</td>
+              <td>2,458,952</td>
+              <td>¥0.0亿</td>
+              <td>⚠️ UNUSUAL</td>
+            </tr><tr>
+              <td>美的集团</td>
+              <td>177,085</td>
+              <td>¥0.0亿</td>
+              <td>✅ NORMAL</td>
+            </tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🏛️ Institutional Deep Dive</div>
+        <table>
+          <tr><th>Stock</th><th>Flow</th><th>Score</th><th>Signal</th></tr>
+          <tr>
+              <td>贵州茅台</td>
+              <td style="color:#ef4444;">OUTFLOW</td>
+              <td>43</td>
+              <td style="color:#ef4444;font-weight:bold;">❌ AVOID</td>
+            </tr><tr>
+              <td>五 粮 液</td>
+              <td style="color:#ef4444;">OUTFLOW</td>
+              <td>38</td>
+              <td style="color:#ef4444;font-weight:bold;">❌ AVOID</td>
+            </tr><tr>
+              <td>比亚迪</td>
+              <td style="color:#ef4444;">OUTFLOW</td>
+              <td>17</td>
+              <td style="color:#ef4444;font-weight:bold;">❌ AVOID</td>
+            </tr><tr>
+              <td>招商银行</td>
+              <td style="color:#10b981;">INFLOW</td>
+              <td>57</td>
+              <td style="color:#f59e0b;font-weight:bold;">🟡 WATCH</td>
+            </tr><tr>
+              <td>隆基绿能</td>
+              <td style="color:#ef4444;">OUTFLOW</td>
+              <td>22</td>
+              <td style="color:#ef4444;font-weight:bold;">❌ AVOID</td>
+            </tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🔥 Sector Flow Analysis</div>
+        <table>
+          <tr><th>Sector</th><th>Leader</th><th>Change</th><th>Signal</th></tr>
+          <tr>
+              <td style="color:#a855f7;">电力</td>
+              <td>华能国际</td>
+              <td style="color:#ef4444;">-1.95%</td>
+              <td>📉 NEGATIVE</td>
+            </tr><tr>
+              <td style="color:#a855f7;">黄金</td>
+              <td>山东黄金</td>
+              <td style="color:#ef4444;">-3.87%</td>
+              <td>📉 NEGATIVE</td>
+            </tr><tr>
+              <td style="color:#a855f7;">化工</td>
+              <td>华鲁恒升</td>
+              <td style="color:#ef4444;">-2.41%</td>
+              <td>📉 NEGATIVE</td>
+            </tr><tr>
+              <td style="color:#a855f7;">半导体</td>
+              <td>北方华创</td>
+              <td style="color:#10b981;">+0.59%</td>
+              <td>📈 POSITIVE</td>
+            </tr><tr>
+              <td style="color:#a855f7;">半导体</td>
+              <td>北方华创</td>
+              <td style="color:#ef4444;">-3.90%</td>
+              <td>📉 NEGATIVE</td>
+            </tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 Top Forensic Picks</div>
+        <table>
+          <tr><th>#</th><th>Stock</th><th>Change</th><th>Volume</th><th>Score</th></tr>
+          <tr>
+              <td>1</td>
+              <td>招商银行</td>
+              <td style="color:#10b981;font-weight:bold;">+0.76%</td>
+              <td>616,790</td>
+              <td style="color:#a855f7;font-weight:bold;">57</td>
+            </tr><tr>
+              <td>2</td>
+              <td>格力电器</td>
+              <td style="color:#ef4444;font-weight:bold;">-0.50%</td>
+              <td>192,844</td>
+              <td style="color:#a855f7;font-weight:bold;">45</td>
+            </tr><tr>
+              <td>3</td>
+              <td>贵州茅台</td>
+              <td style="color:#ef4444;font-weight:bold;">-0.64%</td>
+              <td>23,093</td>
+              <td style="color:#a855f7;font-weight:bold;">43</td>
+            </tr><tr>
+              <td>4</td>
+              <td>美的集团</td>
+              <td style="color:#ef4444;font-weight:bold;">-0.64%</td>
+              <td>177,085</td>
+              <td style="color:#a855f7;font-weight:bold;">43</td>
+            </tr><tr>
+              <td>5</td>
+              <td>五 粮 液</td>
+              <td style="color:#ef4444;font-weight:bold;">-1.14%</td>
+              <td>95,924</td>
+              <td style="color:#a855f7;font-weight:bold;">38</td>
+            </tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">⚠️ Risk Level Assessment</div>
+        <table>
+          <tr><th>Stock</th><th>Change</th><th>Volume</th><th>Risk</th></tr>
+          <tr>
+              <td>贵州茅台</td>
+              <td style="color:#ef4444;">-0.64%</td>
+              <td>23,093</td>
+              <td style="color:#f59e0b;font-weight:bold;">MEDIUM</td>
+            </tr><tr>
+              <td>五 粮 液</td>
+              <td style="color:#ef4444;">-1.14%</td>
+              <td>95,924</td>
+              <td style="color:#f59e0b;font-weight:bold;">MEDIUM</td>
+            </tr><tr>
+              <td>比亚迪</td>
+              <td style="color:#ef4444;">-3.25%</td>
+              <td>828,121</td>
+              <td style="color:#ef4444;font-weight:bold;">HIGH</td>
+            </tr><tr>
+              <td>招商银行</td>
+              <td style="color:#10b981;">+0.76%</td>
+              <td>616,790</td>
+              <td style="color:#f59e0b;font-weight:bold;">MEDIUM</td>
+            </tr><tr>
+              <td>隆基绿能</td>
+              <td style="color:#ef4444;">-2.75%</td>
+              <td>2,458,952</td>
+              <td style="color:#ef4444;font-weight:bold;">HIGH</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+    <div class="footer">
+      🤖 Super Brain V3 | FORENSIC Report | 2026-03-26 | LIVE Market
+    </div>
+  </body>
+</html>
