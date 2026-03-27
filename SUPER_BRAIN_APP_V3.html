@@ -3524,29 +3524,43 @@ function showAlert(msg, type = '') {
 }
 
 function runQuickScan() {
-  showAlert('⚡ Running Quick Scan...', '');
-  refreshAll().then(() => {
-    const positives = [...portfolio.daily, ...portfolio.mid, ...portfolio.long].filter(s => s.pct > 0).sort((a,b) => b.pct - a.pct);
-    const negatives = [...portfolio.daily, ...portfolio.mid, ...portfolio.long].filter(s => s.pct <= 0).sort((a,b) => a.pct - b.pct);
-    
-    let html = `<b>⚡ Quick Scan Results</b><br><br>
-    <b>✅ Positive Signals (${positives.length}):</b><br><br>`;
-    
-    positives.forEach((s,i) => {
-      const cls = s.pct >= 0 ? 'positive' : 'negative';
-      html += `<span style="color:#00ff88;">📈 ${s.code}</span> ${s.n||s.name} ${s.exchange||''} <span class="${cls}">${s.pct >= 0 ? '+' : ''}${(s.pct||0).toFixed(2)}%</span><br>`;
+  showAlert('⚡ Running Quick Scan...', 'info');
+  
+  // Ensure portfolio has data
+  if (!portfolio.daily.length && !portfolio.mid.length && !portfolio.long.length) {
+    pickFromDB();
+  }
+  
+  const allStocks = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
+  if (allStocks.length === 0) {
+    showResults('⚡ Quick Scan', '<b>No stock data available.</b><br>Please wait for data to load or refresh.');
+    return;
+  }
+  
+  const positives = allStocks.filter(s => (s.pct||0) > 0).sort((a,b) => (b.pct||0) - (a.pct||0));
+  const negatives = allStocks.filter(s => (s.pct||0) <= 0).sort((a,b) => (a.pct||0) - (b.pct||0));
+  
+  let html = `<b>⚡ Quick Scan Results</b><br><br>
+  <b>✅ Positive Signals (${positives.length}):</b><br><br>`;
+  
+  if (positives.length === 0) {
+    html += '<span style="color:#888;">No positive signals found</span><br>';
+  } else {
+    positives.slice(0,10).forEach((s,i) => {
+      const cls = (s.pct||0) >= 0 ? 'positive' : 'negative';
+      html += `<span style="color:#00ff88;">📈 ${s.code}</span> ${s.name||s.n||'--'} ${s.exchange||''} <span class="${cls}">${(s.pct||0) >= 0 ? '+' : ''}${(s.pct||0).toFixed(2)}%</span><br>`;
     });
-    
-    if(negatives.length > 0) {
-      html += `<br><b>❌ Negative (${negatives.length}):</b><br><br>`;
-      negatives.slice(0,5).forEach(s => {
-        html += `<span style="color:#ff4444;">📉 ${s.code}</span> ${s.n||s.name} ${s.exchange||''} <span style="color:#ff4444;">${(s.pct||0).toFixed(2)}%</span><br>`;
-      });
-      if(negatives.length > 5) html += `...and ${negatives.length - 5} more`;
-    }
-    
-    showResults('⚡ Quick Scan', html);
-  });
+  }
+  
+  if (negatives.length > 0) {
+    html += `<br><b>❌ Negative (${negatives.length}):</b><br><br>`;
+    negatives.slice(0,5).forEach(s => {
+      html += `<span style="color:#ff4444;">📉 ${s.code}</span> ${s.name||s.n||'--'} ${s.exchange||''} <span style="color:#ff4444;">${(s.pct||0).toFixed(2)}%</span><br>`;
+    });
+    if (negatives.length > 5) html += `...and ${negatives.length - 5} more`;
+  }
+  
+  showResults('⚡ Quick Scan', html);
 }
 
 function showResults(title, html) {
@@ -3556,24 +3570,53 @@ function showResults(title, html) {
 }
 
 function checkSignals() {
-  const daily = portfolio.daily.filter(s => s.pct > 2);
-  const mid = portfolio.mid.filter(s => s.pct > 0);
-  const long = portfolio.long.filter(s => s.pct > 0);
-  let html = `<b>📊 Signal Summary</b><br><br>
-    🚀 Daily (>2%): ${daily.length}<br>
-    📅 Mid-term (>0%): ${mid.length}<br>
-    📈 Long-term (>0%): ${long.length}<br><br>`;
-  if(daily[0]) html += `<b>🔥 Top Signal:</b><br>${daily[0].code} ${daily[0].name}<br>${daily[0].pct.toFixed(2)}%`;
-  else html += '<b>No strong signals yet</b>';
+  // Ensure portfolio has data
+  if (!portfolio.daily.length && !portfolio.mid.length && !portfolio.long.length) {
+    pickFromDB();
+  }
+  
+  const allStocks = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
+  const daily = allStocks.filter(s => (s.pct||0) > 2);
+  const mid = allStocks.filter(s => (s.pct||0) > 0 && (s.pct||0) <= 2);
+  const long = allStocks.filter(s => (s.pct||0) < -2);
+  
+  let html = `<b>📊 Signal Summary</b><br><br>`;
+  html += `🚀 Daily Momentum (>2%): <b style="color:#00ff88;">${daily.length}</b><br>`;
+  html += `📅 Mid-Term (0-2%): <b style="color:#ffaa00;">${mid.length}</b><br>`;
+  html += `📈 Long-Term (<-2%): <b style="color:#ff4444;">${long.length}</b><br><br>`;
+  
+  if (daily.length > 0) {
+    html += `<b>🔥 Top Daily Signal:</b><br>`;
+    daily.slice(0,3).forEach(s => {
+      html += `${s.code} ${s.name||s.n||'--'} <span style="color:#00ff88;">+${(s.pct||0).toFixed(2)}%</span><br>`;
+    });
+  } else {
+    html += `<b>No strong momentum signals</b><br>`;
+  }
+  
   showResults('📊 Signals', html);
 }
 
 function showTopPicks() {
-  const all = [...portfolio.daily, ...portfolio.mid, ...portfolio.long].sort((a,b) => b.pct - a.pct).slice(0,5);
-  let html = '<b>🏆 Top 5 Picks</b><br><br>';
+  // Ensure portfolio has data
+  if (!portfolio.daily.length && !portfolio.mid.length && !portfolio.long.length) {
+    pickFromDB();
+  }
+  
+  const all = [...portfolio.daily, ...portfolio.mid, ...portfolio.long].sort((a,b) => (b.pct||0) - (a.pct||0)).slice(0,10);
+  
+  if (all.length === 0) {
+    showResults('🏆 Top Picks', '<b>No picks available.</b><br>Data loading...');
+    return;
+  }
+  
+  let html = `<b>🏆 Top Picks (${all.length})</b><br><br>`;
   all.forEach((s,i) => {
-    const cls = s.pct >= 0 ? 'positive' : 'negative';
-    html += `${i+1}. <b>${s.code}</b> ${s.name} ${s.exchange||''}<br><span class="${cls}">${s.pct >= 0 ? '+' : ''}${s.pct.toFixed(2)}%</span> | Score: ${(s.score||0).toFixed(0)}<br><br>`;
+    const pct = s.pct||0;
+    const cls = pct >= 0 ? 'positive' : 'negative';
+    const score = s.score||60;
+    html += `<b>${i+1}.</b> <span style="color:#00d9ff;">${s.code}</span> ${s.name||s.n||'--'} ${s.exchange||''}<br>`;
+    html += `<span class="${cls}">${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</span> | Score: <span style="color:#a855f7;">${score.toFixed(0)}</span><br><br>`;
   });
   showResults('🏆 Top Picks', html);
 }
@@ -3603,18 +3646,46 @@ function loadTodaysPick() {
 }
 
 function checkStops() {
+  // Ensure portfolio has data
+  if (!portfolio.daily.length && !portfolio.mid.length && !portfolio.long.length) {
+    pickFromDB();
+  }
+  
   let html = '<b>🛑 Stop Loss Check</b><br><br>';
   const all = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
-  const stops = all.filter(s => s.pct < -3);
-  if(stops.length === 0) {
-    html += '✅ <b>All positions safe!</b><br>No positions at stop loss (-3%)';
-    showAlert('All positions safe!', 'success');
-  } else {
-    stops.forEach(s => {
-      html += `⚠️ <b>${s.code}</b> ${s.name}: ${s.pct.toFixed(2)}%<br>`;
-    });
-    showAlert(`⚠️ ${stops.length} positions need attention!`, 'error');
+  
+  if (all.length === 0) {
+    html += '<b>No positions to check.</b><br>Data loading...';
+    showResults('🛑 Stop Loss', html);
+    return;
   }
+  
+  const stops = all.filter(s => (s.pct||0) < -3);
+  const warnings = all.filter(s => (s.pct||0) < 0 && (s.pct||0) >= -3);
+  
+  if (stops.length === 0) {
+    html += '✅ <b>All positions safe!</b><br>No positions at stop loss (-3%)<br><br>';
+  } else {
+    html += `⚠️ <b>${stops.length} positions at STOP LOSS:</b><br><br>`;
+    stops.forEach(s => {
+      html += `<span style="color:#ff4444;">🔴 ${s.code}</span> ${s.name||s.n||'--'}: <span style="color:#ff4444;">${(s.pct||0).toFixed(2)}%</span><br>`;
+    });
+    html += '<br>';
+  }
+  
+  if (warnings.length > 0) {
+    html += `<span style="color:#ffaa00;">⚠️ ${warnings.length} positions in danger zone (0 to -3%):</span><br><br>`;
+    warnings.forEach(s => {
+      html += `<span style="color:#ffaa00;">🟡 ${s.code}</span> ${s.name||s.n||'--'}: <span style="color:#ffaa00;">${(s.pct||0).toFixed(2)}%</span><br>`;
+    });
+  }
+  
+  if (stops.length > 0) {
+    showAlert(`⚠️ ${stops.length} positions need attention!`, 'error');
+  } else {
+    showAlert('✅ All positions safe!', 'success');
+  }
+  
   showResults('🛑 Stop Loss', html);
 }
 
@@ -3674,17 +3745,25 @@ function runScanner(t) {
 }
 
 function runOptimizer() { 
-  showAlert('🧠 Optimizing portfolio...', '');
+  showAlert('🧠 Optimizing portfolio...', 'info');
+  
+  // Re-pick from database to refresh
   pickFromDB();
-  refreshAll().then(() => { 
+  
+  // Small delay for visual feedback
+  setTimeout(() => {
+    const totalPicks = portfolio.daily.length + portfolio.mid.length + portfolio.long.length;
+    let html = `<b>🧠 Optimization Complete</b><br><br>`;
+    html += `<b>📊 Portfolio Summary:</b><br><br>`;
+    html += `🚀 Daily: <span style="color:#00ff88;">${portfolio.daily.length}</span> picks<br>`;
+    html += `📅 Mid: <span style="color:#00d9ff;">${portfolio.mid.length}</span> picks<br>`;
+    html += `📈 Long: <span style="color:#a855f7;">${portfolio.long.length}</span> picks<br><br>`;
+    html += `<b>Total:</b> ${totalPicks} stocks from 6 exchanges<br><br>`;
+    html += `<span style="color:#ffaa00;">✅ Portfolio refreshed!</span>`;
+    
     showAlert('✅ Portfolio optimized!', 'success');
-    let html = `<b>🧠 Optimization Complete</b><br><br>
-    ✅ Daily: ${portfolio.daily.length} picks<br>
-    📅 Mid: ${portfolio.mid.length} picks<br>
-    📈 Long: ${portfolio.long.length} picks<br><br>
-    <b>Portfolio refreshed from 6 exchanges!</b>`;
     showResults('🧠 Optimize', html);
-  }); 
+  }, 500);
 }
 
 function analyzeNow() { 
