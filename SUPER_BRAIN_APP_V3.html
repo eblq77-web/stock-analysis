@@ -3351,11 +3351,23 @@ tradingRecords.addBuy('000999', '华润三九', 29.39, 100);
 function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
+  const targetSection = document.getElementById(id);
+  if (targetSection) targetSection.classList.add('active');
+  // Find and activate the corresponding nav button
+  const navBtns = document.querySelectorAll('.nav-btn');
+  navBtns.forEach(btn => {
+    if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + id + "'")) {
+      btn.classList.add('active');
+    }
+  });
   currentSection = id;
   // Update info button to show current section
-  document.getElementById('info-btn').setAttribute('onclick', "showSectionInfo('" + id + "')");
+  const infoBtn = document.getElementById('info-btn');
+  if (infoBtn) infoBtn.setAttribute('onclick', "showSectionInfo('" + id + "')");
+  
+  // Initialize section if needed
+  if (id === 'dashboard') loadTodaysPick();
+  if (id === 'export') updateExportHistoryUI();
 }
 
 function out(id, txt) { document.getElementById(id).innerHTML = txt; }
