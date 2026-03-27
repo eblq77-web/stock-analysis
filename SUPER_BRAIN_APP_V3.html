@@ -3811,11 +3811,93 @@ function showSection(id) {
 function out(id, txt) { document.getElementById(id).innerHTML = txt; }
 
 function runBuyScan() { 
-  out('trading-output', '<h3 style="color:#00ff88;">🟢 BUY RECORDS</h3>' + tradingRecords.getBuyRecords()); 
+  const buys = tradingRecords.buys;
+  
+  if (buys.length === 0) {
+    showAlert('🟢 No BUY records yet!', 'info');
+    return;
+  }
+  
+  let html = `<div style="background:#1a1a2e;padding:20px;border-radius:12px;max-height:400px;overflow-y:auto;">
+    <h3 style="color:#00ff88;margin:0 0 15px 0;">🟢 BUY RECORDS (${buys.length})</h3>
+    <table style="width:100%;font-size:13px;">
+      <thead style="position:sticky;top:0;background:#1a1a3e;">
+        <tr style="border-bottom:2px solid #333;">
+          <th style="padding:10px;text-align:left;color:#888;">Time</th>
+          <th style="padding:10px;text-align:left;color:#888;">Code</th>
+          <th style="padding:10px;text-align:right;color:#888;">Price</th>
+          <th style="padding:10px;text-align:right;color:#888;">Shares</th>
+          <th style="padding:10px;text-align:right;color:#888;">Value</th>
+        </tr>
+      </thead>
+      <tbody>`;
+  
+  buys.forEach(b => {
+    html += `<tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+      <td style="padding:10px;color:#fff;">${b.time}</td>
+      <td style="padding:10px;color:#00d9ff;font-weight:bold;">${b.code}</td>
+      <td style="padding:10px;text-align:right;color:#00ff88;">¥${b.price}</td>
+      <td style="padding:10px;text-align:right;color:#fff;">${b.shares}</td>
+      <td style="padding:10px;text-align:right;color:#ffaa00;">¥${b.value.toLocaleString()}</td>
+    </tr>`;
+  });
+  
+  const total = buys.reduce((sum, b) => sum + b.value, 0);
+  html += `</tbody>
+    <tfoot style="background:rgba(0,255,136,0.1);">
+      <tr>
+        <td colspan="4" style="padding:10px;font-weight:bold;color:#888;">TOTAL INVESTED</td>
+        <td style="padding:10px;text-align:right;font-weight:bold;color:#00ff88;">¥${total.toLocaleString()}</td>
+      </tr>
+    </tfoot>
+  </table></div>`;
+  
+  showResults('🟢 BUY Records', html);
 }
 
 function checkSell() { 
-  out('trading-output', '<h3 style="color:#ff6b6b;">🔴 SELL RECORDS</h3>' + tradingRecords.getSellRecords()); 
+  const sells = tradingRecords.sells;
+  
+  if (sells.length === 0) {
+    showAlert('🔴 No SELL records yet!', 'info');
+    return;
+  }
+  
+  let html = `<div style="background:#1a1a2e;padding:20px;border-radius:12px;max-height:400px;overflow-y:auto;">
+    <h3 style="color:#ff4444;margin:0 0 15px 0;">🔴 SELL RECORDS (${sells.length})</h3>
+    <table style="width:100%;font-size:13px;">
+      <thead style="position:sticky;top:0;background:#1a1a3e;">
+        <tr style="border-bottom:2px solid #333;">
+          <th style="padding:10px;text-align:left;color:#888;">Time</th>
+          <th style="padding:10px;text-align:left;color:#888;">Code</th>
+          <th style="padding:10px;text-align:right;color:#888;">Price</th>
+          <th style="padding:10px;text-align:right;color:#888;">Shares</th>
+          <th style="padding:10px;text-align:right;color:#888;">Value</th>
+        </tr>
+      </thead>
+      <tbody>`;
+  
+  sells.forEach(s => {
+    html += `<tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+      <td style="padding:10px;color:#fff;">${s.time}</td>
+      <td style="padding:10px;color:#00d9ff;font-weight:bold;">${s.code}</td>
+      <td style="padding:10px;text-align:right;color:#ff4444;">¥${s.price}</td>
+      <td style="padding:10px;text-align:right;color:#fff;">${s.shares}</td>
+      <td style="padding:10px;text-align:right;color:#ffaa00;">¥${s.value.toLocaleString()}</td>
+    </tr>`;
+  });
+  
+  const total = sells.reduce((sum, s) => sum + s.value, 0);
+  html += `</tbody>
+    <tfoot style="background:rgba(255,68,68,0.1);">
+      <tr>
+        <td colspan="4" style="padding:10px;font-weight:bold;color:#888;">TOTAL SOLD</td>
+        <td style="padding:10px;text-align:right;font-weight:bold;color:#ff4444;">¥${total.toLocaleString()}</td>
+      </tr>
+    </tfoot>
+  </table></div>`;
+  
+  showResults('🔴 SELL Records', html);
 }
 
 // ==================== P&L TRACKER ====================
@@ -4128,7 +4210,56 @@ function checkStops() {
 }
 
 function showStatus() { 
-  out('trading-output', tradingRecords.getStatus()); 
+  const totalCapital = 1000000;
+  const buys = tradingRecords.buys;
+  const sells = tradingRecords.sells;
+  
+  const totalBuy = buys.reduce((sum, b) => sum + b.value, 0);
+  const totalSell = sells.reduce((sum, s) => sum + s.value, 0);
+  const netInvested = totalBuy - totalSell;
+  const availableCash = totalCapital - netInvested;
+  const pnl = totalSell - totalBuy; // Simple P&L
+  const pnlPct = totalBuy > 0 ? (pnl / totalBuy * 100).toFixed(2) : '0.00';
+  const pnlColor = pnl >= 0 ? '#00ff88' : '#ff4444';
+  
+  let html = `<div style="background:#1a1a2e;padding:20px;border-radius:12px;">
+    <h3 style="color:#00d9ff;margin:0 0 20px 0;text-align:center;">📊 TRADING STATUS</h3>
+    
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:20px;">
+      <div style="background:rgba(0,217,255,0.1);padding:15px;border-radius:8px;text-align:center;">
+        <div style="font-size:11px;color:#888;margin-bottom:5px;">TOTAL CAPITAL</div>
+        <div style="font-size:20px;font-weight:bold;color:#00d9ff;">¥${totalCapital.toLocaleString()}</div>
+      </div>
+      <div style="background:rgba(255,170,0,0.1);padding:15px;border-radius:8px;text-align:center;">
+        <div style="font-size:11px;color:#888;margin-bottom:5px;">INVESTED</div>
+        <div style="font-size:20px;font-weight:bold;color:#ffaa00;">¥${netInvested.toLocaleString()}</div>
+      </div>
+      <div style="background:rgba(0,255,136,0.1);padding:15px;border-radius:8px;text-align:center;">
+        <div style="font-size:11px;color:#888;margin-bottom:5px;">AVAILABLE</div>
+        <div style="font-size:20px;font-weight:bold;color:#00ff88;">¥${availableCash.toLocaleString()}</div>
+      </div>
+    </div>
+    
+    <div style="background:rgba(168,85,247,0.1);padding:20px;border-radius:8px;margin-bottom:20px;text-align:center;">
+      <div style="font-size:12px;color:#888;margin-bottom:5px;">TOTAL P&L</div>
+      <div style="font-size:32px;font-weight:bold;color:${pnlColor};">${pnl >= 0 ? '+' : ''}¥${pnl.toLocaleString()} (${pnlPct}%)</div>
+    </div>
+    
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;">
+      <div style="background:rgba(0,255,136,0.1);padding:15px;border-radius:8px;">
+        <div style="font-size:11px;color:#00ff88;margin-bottom:10px;">🟢 BUY ORDERS</div>
+        <div style="font-size:24px;font-weight:bold;color:#fff;">${buys.length}</div>
+        <div style="font-size:12px;color:#888;">Total: ¥${totalBuy.toLocaleString()}</div>
+      </div>
+      <div style="background:rgba(255,68,68,0.1);padding:15px;border-radius:8px;">
+        <div style="font-size:11px;color:#ff4444;margin-bottom:10px;">🔴 SELL ORDERS</div>
+        <div style="font-size:24px;font-weight:bold;color:#fff;">${sells.length}</div>
+        <div style="font-size:12px;color:#888;">Total: ¥${totalSell.toLocaleString()}</div>
+      </div>
+    </div>
+  </div>`;
+  
+  showResults('📋 Trading Status', html);
 }
 
 let currentFilter = 'all';
