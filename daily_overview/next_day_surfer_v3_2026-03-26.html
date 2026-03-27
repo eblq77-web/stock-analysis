@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Next Day Surfer V3 - 2026-03-26</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f23; color: #fff; padding: 20px; }
+    h1 { text-align: center; margin-bottom: 5px; font-size: 28px; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1600px; margin: 0 auto; }
+    .card { background: #1a1a2e; border-radius: 16px; padding: 20px; border: 1px solid #2a2a4e; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .code { font-size: 20px; font-weight: bold; color: #00d4ff; }
+    .name { font-size: 14px; color: #888; margin-left: 10px; }
+    .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+    .badge.super { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+    .badge.strong { background: linear-gradient(90deg, #10b981, #3b82f6); }
+    .stats { display: flex; gap: 20px; margin-bottom: 15px; }
+    .stat { text-align: center; flex: 1; }
+    .stat-label { font-size: 11px; color: #666; text-transform: uppercase; }
+    .stat-value { font-size: 22px; font-weight: bold; color: #10b981; }
+    .stat-value.high { color: #f59e0b; }
+    .chart-container { height: 200px; position: relative; }
+    .price-info { display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; color: #666; }
+    .exchange-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; margin-left: 8px; }
+    .ChiNext { background: #8b5cf6; }
+    .BSE { background: #10b981; }
+    .HK { background: #3b82f6; }
+    .HKTech { background: #06b6d4; }
+    .Shenzhen { background: #f59e0b; }
+    .Shanghai { background: #ef4444; }
+  </style>
+</head>
+<body>
+  <h1>🌊 Next Day Surfer V3</h1>
+  <p class="subtitle">2026-03-26 | 60-Day Candlestick History + Technical Analysis</p>
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">300308</span>
+          <span class="exchange-badge ChiNext">ChiNext</span>
+          <span class="name">中际旭创</span>
+        </div>
+        <span class="badge super">SUPER_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">69%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+6.4%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">85</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">6.5</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_300308"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥172.96</span>
+        <span>High: ¥176.37</span>
+        <span>Low: ¥156.37</span>
+        <span>Close: ¥170.48</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_300308'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [159.85,161.02,160.06,159.87,161.94,160.38,158.71,158.69,161.3,162.37,163.09,161.41,164.32,165.87,163.04,164.84,162.35,163.08,162.19,161.56,159.67,162.66,161.26,160.49,162.33,165.81,164.56,162.41,161.02,163.78,162.67,163.41,165.43,165.97,165.77,166.99,164.93,166.46,163.66,161.13,164.39,167.4,165.33,167.06,164.22,163.98,164.68,167.55,167.67,169.52,171.09,170.06,169.98,169.19,172.75,170.34,168.09,169.35,172.96,170.48],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">300476</span>
+          <span class="exchange-badge ChiNext">ChiNext</span>
+          <span class="name">中际旭创</span>
+        </div>
+        <span class="badge super">SUPER_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">69%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+6.4%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">83</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">6</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_300476"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥183.42</span>
+        <span>High: ¥187.16</span>
+        <span>Low: ¥147.23</span>
+        <span>Close: ¥182.67</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_300476'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [149.47,149.83,150.67,150.7,152.61,155.7,158.73,158.24,160.57,163.5,164.06,163.41,162.02,160.44,163.32,166.8,170.28,173.64,170.91,169.74,167.83,166.92,170.09,167.72,170.78,172.48,173.55,172.59,171.06,173.7,172.12,173.48,173.29,176.07,176.08,177.99,179.43,177.38,177.68,175.06,171.91,171.23,174.77,173.7,174.52,174.57,172.68,173.49,171.11,173.9,175.84,178.83,180.78,181.83,180.64,183.64,181.96,179.8,183.42,182.67],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">300033</span>
+          <span class="exchange-badge ChiNext">ChiNext</span>
+          <span class="name">同花顺</span>
+        </div>
+        <span class="badge strong">STRONG_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">67%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+6.2%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">80</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">5.2</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_300033"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥126.33</span>
+        <span>High: ¥131.73</span>
+        <span>Low: ¥103.32</span>
+        <span>Close: ¥124.84</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_300033'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [105.75,103.99,106.02,108.71,108.59,108.93,108.98,110.48,113.13,115.79,117.51,120.71,119.19,119.69,118.41,116.28,114.34,114.03,115.96,116.12,118.07,120.94,121.23,121.06,124.29,126.19,128.04,125.97,126.36,127.75,126.61,125.08,123.87,126.22,123.57,121.28,119.67,117.37,117.12,115.53,117.7,120.93,123.74,124.25,125.28,126.53,129.05,127.44,128.2,130.86,129.46,127.25,125.21,125.96,124.95,125.35,128.34,126.99,126.33,124.84],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">870299</span>
+          <span class="exchange-badge BSE">BSE</span>
+          <span class="name">吉林碳谷</span>
+        </div>
+        <span class="badge super">SUPER_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">65%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+6.1%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">82</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">4.5</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_870299"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥46.99</span>
+        <span>High: ¥47.62</span>
+        <span>Low: ¥34.59</span>
+        <span>Close: ¥47.25</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_870299'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [36.41,35.9,35.38,35.47,35.63,35.94,36.39,36.7,37.39,37.66,38.31,38.94,39.59,40.08,39.38,40.43,40.28,39.67,40.03,40.69,41.24,41.7,40.77,41.3,41.54,42.65,43.28,42.94,42.91,43.78,43.9,43.63,44.79,44.65,43.84,44.23,43.49,44.43,43.49,43.04,42.78,42.53,42.09,41.32,42.19,43.3,43.22,44.36,43.38,43.52,44.43,45.42,46.22,46.25,47.04,46.28,46.46,46.98,46.99,47.25],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">3638</span>
+          <span class="exchange-badge HKTech">HK Tech</span>
+          <span class="name">泡泡玛特</span>
+        </div>
+        <span class="badge super">SUPER_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">64%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+6%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">80</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">4</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_3638"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥59.27</span>
+        <span>High: ¥60.98</span>
+        <span>Low: ¥45.3</span>
+        <span>Close: ¥59.66</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_3638'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [46.34,46.38,46.11,46.43,46.8,47.01,46.66,46.93,47.17,47.12,46.91,47.1,46.45,47.38,47.6,48.63,47.88,48.78,48.73,49.54,50.47,50.71,50.61,49.92,49.35,48.35,47.97,48.52,48,49.13,49.11,48.84,48.5,49.2,49.94,50.43,49.75,50.51,50.74,50.88,51.35,50.97,52.02,52.63,51.69,52.07,52.91,54.02,53.61,54.4,54.14,54.94,55.82,55.83,56.82,57.02,57.56,58.16,59.27,59.66],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">872926</span>
+          <span class="exchange-badge BSE">BSE</span>
+          <span class="name">贝特瑞</span>
+        </div>
+        <span class="badge super">SUPER_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">64%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+6%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">80</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">4</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_872926"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥67.12</span>
+        <span>High: ¥68.58</span>
+        <span>Low: ¥54.18</span>
+        <span>Close: ¥67.82</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_872926'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [55.37,56.41,55.39,56.73,56.27,57.29,57.36,56.73,57,56.33,55.97,56.99,56.94,56.22,56.03,56.63,57.36,58.05,57.53,56.71,56.26,56.38,56.1,55.86,56.37,57.45,56.88,58.16,57.62,57.64,59.04,59.22,59.6,59.77,59.64,59.56,60.7,60.3,60.38,61.48,60.4,59.75,59.25,58.2,59.14,60.52,61.46,60.86,61.26,62.21,63.37,64.26,65.03,66.14,65.97,65.58,66.51,67.94,67.12,67.82],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">300750</span>
+          <span class="exchange-badge ChiNext">ChiNext</span>
+          <span class="name">宁德时代</span>
+        </div>
+        <span class="badge strong">STRONG_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">63%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+5.9%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">78</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">4.5</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_300750"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥150.65</span>
+        <span>High: ¥159.84</span>
+        <span>Low: ¥139.31</span>
+        <span>Close: ¥152.09</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_300750'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [157.56,157.2,156.36,154.31,156.99,158.43,156.36,153.9,155.36,154.67,154.18,156.6,154.97,154.22,152.02,150.57,151.17,151.7,151.39,151.8,151.92,150.77,152.06,149.77,149.47,148.81,149.69,148.31,146.28,146.43,146.76,145.95,148.09,145.84,144.66,142.93,142.02,141.53,140.64,141.11,143,143.38,142.03,143.09,145.37,144.47,146.15,145.5,145.3,146.58,148.64,147.11,148.57,146.81,146.57,149.09,150.52,151.56,150.65,152.09],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">300014</span>
+          <span class="exchange-badge ChiNext">ChiNext</span>
+          <span class="name">亿纬锂能</span>
+        </div>
+        <span class="badge strong">STRONG_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">62%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+5.8%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">76</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">3.8</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_300014"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥71.54</span>
+        <span>High: ¥77.88</span>
+        <span>Low: ¥69.6</span>
+        <span>Close: ¥71.72</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_300014'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [72.66,71.62,70.6,71.47,70.92,70.56,71.27,72.7,73.76,73.71,74.04,74.44,75.96,76.43,75.61,75.45,76.57,76.47,75.32,75.2,75.62,74.67,74.6,75.53,75.81,76.38,76.72,75.86,75.12,75.35,75.16,74.35,75.76,75.5,76.09,74.84,75.95,75.08,75.11,75.25,75.13,74.39,73.9,73.43,72.62,72.26,70.96,71.66,72.36,72.31,72.03,72.23,72.95,73.59,72.71,71.7,71.1,71.21,71.54,71.72],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">002594</span>
+          <span class="exchange-badge Shenzhen">Shenzhen</span>
+          <span class="name">比亚迪</span>
+        </div>
+        <span class="badge strong">STRONG_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">60%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+5.7%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">75</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">3.2</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_002594"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥251.89</span>
+        <span>High: ¥261.7</span>
+        <span>Low: ¥222.99</span>
+        <span>Close: ¥252.4</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_002594'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [225.86,227.44,227.22,225.59,228.02,229.06,232.54,234.23,236.19,237.56,234.08,234.11,230.55,234.96,239.45,237.29,234.86,232.37,236.76,233.29,234.44,238.62,241.52,239.62,236.11,232.93,234.25,230.57,231.83,229.83,226.46,229.27,233.63,234.9,236.63,233.46,236.16,235.78,239.49,243.72,246.39,244.84,243.4,242.97,242.05,241.21,244.35,245.69,249.45,254.02,253.88,257.02,259.88,256.86,254.78,252.65,253.44,253.41,251.89,252.4],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <span class="code">601012</span>
+          <span class="exchange-badge Shanghai">Shanghai</span>
+          <span class="name">隆基绿能</span>
+        </div>
+        <span class="badge strong">STRONG_BREAKOUT</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Surge Prob</div>
+          <div class="stat-value ">58%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Expected</div>
+          <div class="stat-value">+5.5%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">RSI</div>
+          <div class="stat-value">72</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">MACD</div>
+          <div class="stat-value">2.1</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart_601012"></canvas>
+      </div>
+      <div class="price-info">
+        <span>Open: ¥26.14</span>
+        <span>High: ¥26.79</span>
+        <span>Low: ¥23.04</span>
+        <span>Close: ¥26.53</span>
+      </div>
+    </div>
+    <script>
+      new Chart(document.getElementById('chart_601012'), {
+        type: 'line',
+        data: {
+          labels: ["01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26"],
+          datasets: [{
+            label: 'Price',
+            data: [23.61,23.5,23.64,23.98,23.61,24.03,23.66,24.16,24,23.76,23.91,23.57,23.82,23.72,23.59,23.9,23.79,24.28,24.07,23.95,23.92,23.65,23.62,23.52,23.4,23.91,24.16,23.94,23.58,24.07,23.76,24.24,24.05,23.7,24.2,24.26,24.23,24.12,23.96,24.04,24.17,24.32,24.36,24.85,24.7,25.02,24.87,25.08,24.79,25.3,25.26,25.47,25.43,25.3,25.12,25.31,25.5,25.83,26.14,26.53],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16,185,129,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true, grid: { color: '#222' }, ticks: { color: '#666', maxTicksLimit: 6 } },
+            y: { display: true, grid: { color: '#222' }, ticks: { color: '#666' } }
+          }
+        }
+      });
+    </script></div></body></html>
