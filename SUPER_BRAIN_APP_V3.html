@@ -707,13 +707,117 @@
     
     <!-- TRADING -->
     <div id="trading" class="section">
-      <div class="card">
-        <div class="card-header"><span class="card-title">📈 Trading System</span></div>
-        <button class="btn btn-green" onclick="runBuyScan()">🟢 Buy Scan</button>
-        <button class="btn btn-red" onclick="checkSell()">🔴 Sell</button>
-        <button class="btn" onclick="showStatus()">📋 Status</button>
-        <div class="output" id="trading-output">Ready...</div>
+      <!-- Trading Header -->
+      <div class="card" style="background:linear-gradient(135deg,rgba(0,255,136,0.1),rgba(0,217,255,0.1));border:2px solid rgba(0,255,136,0.3);margin-bottom:15px;">
+        <div class="card-header" style="margin-bottom:15px;">
+          <span class="card-title">📈 Trading System</span>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-green" onclick="runBuyScan()">🟢 Buy Scan</button>
+            <button class="btn btn-red" onclick="checkSell()">🔴 Sell</button>
+            <button class="btn" onclick="showStatus()">📋 Status</button>
+          </div>
+        </div>
+        
+        <!-- Capital Stats -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px;">
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Total Capital</div>
+            <div style="font-size:20px;font-weight:bold;color:#00d9ff;" id="trade-capital">¥1,000,000</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Invested</div>
+            <div style="font-size:20px;font-weight:bold;color:#ffaa00;" id="trade-invested">¥0</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Available Cash</div>
+            <div style="font-size:20px;font-weight:bold;color:#00ff88;" id="trade-cash">¥1,000,000</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Open Positions</div>
+            <div style="font-size:20px;font-weight:bold;color:#a855f7;" id="trade-positions">0</div>
+          </div>
+        </div>
       </div>
+      
+      <!-- Trade Entry Form -->
+      <div class="card" style="margin-bottom:15px;border:2px solid rgba(0,217,255,0.3);">
+        <div class="card-header">
+          <span class="card-title">📝 New Trade</span>
+          <span style="color:#888;font-size:11px;">Enter trade details</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:15px;">
+          <div>
+            <label style="font-size:11px;color:#888;display:block;margin-bottom:5px;">Stock Code</label>
+            <input type="text" id="trade-code" placeholder="e.g. 600036" style="width:100%;padding:10px;border-radius:6px;border:1px solid #444;background:#1a1a2e;color:#fff;font-size:14px;">
+          </div>
+          <div>
+            <label style="font-size:11px;color:#888;display:block;margin-bottom:5px;">Price (¥)</label>
+            <input type="number" id="trade-price" placeholder="0.00" step="0.01" style="width:100%;padding:10px;border-radius:6px;border:1px solid #444;background:#1a1a2e;color:#fff;font-size:14px;">
+          </div>
+          <div>
+            <label style="font-size:11px;color:#888;display:block;margin-bottom:5px;">Shares</label>
+            <input type="number" id="trade-shares" placeholder="0" style="width:100%;padding:10px;border-radius:6px;border:1px solid #444;background:#1a1a2e;color:#fff;font-size:14px;">
+          </div>
+          <div>
+            <label style="font-size:11px;color:#888;display:block;margin-bottom:5px;">Type</label>
+            <select id="trade-type" style="width:100%;padding:10px;border-radius:6px;border:1px solid #444;background:#1a1a2e;color:#fff;font-size:14px;">
+              <option value="BUY">🟢 BUY</option>
+              <option value="SELL">🔴 SELL</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px;color:#888;display:block;margin-bottom:5px;">Total Value</label>
+            <div id="trade-total" style="padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:16px;font-weight:bold;color:#00d9ff;">¥0.00</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-green" onclick="executeTrade()" style="flex:1;padding:12px;">⚡ Execute Trade</button>
+          <button class="btn" onclick="clearTradeForm()" style="padding:12px;">🗑️ Clear</button>
+          <button class="btn" onclick="calculatePosition()" style="padding:12px;">🧮 Calc Position</button>
+        </div>
+      </div>
+      
+      <!-- Current Positions -->
+      <div class="card" style="margin-bottom:15px;border-left:4px solid #00ff88;">
+        <div class="card-header">
+          <span class="card-title">📦 Open Positions</span>
+          <span style="color:#888;font-size:11px;" id="positions-count">0 positions</span>
+        </div>
+        <div id="positions-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;">
+          <div style="color:#666;text-align:center;padding:30px;background:rgba(0,0,0,0.2);border-radius:8px;">
+            No open positions yet
+          </div>
+        </div>
+      </div>
+      
+      <!-- Trade History -->
+      <div class="card" style="border-left:4px solid #a855f7;">
+        <div class="card-header">
+          <span class="card-title">📜 Trade History</span>
+          <button class="btn" onclick="exportTradeHistory()">📤 Export</button>
+        </div>
+        <div style="max-height:300px;overflow-y:auto;">
+          <table style="width:100%;font-size:12px;">
+            <thead style="position:sticky;top:0;background:#1a1a3e;">
+              <tr>
+                <th style="padding:10px;text-align:left;">Time</th>
+                <th style="padding:10px;text-align:left;">Code</th>
+                <th style="padding:10px;text-align:left;">Type</th>
+                <th style="padding:10px;text-align:right;">Price</th>
+                <th style="padding:10px;text-align:right;">Shares</th>
+                <th style="padding:10px;text-align:right;">Value</th>
+                <th style="padding:10px;text-align:right;">P&L</th>
+              </tr>
+            </thead>
+            <tbody id="trade-history">
+              <tr><td colspan="7" style="padding:20px;text-align:center;color:#666;">No trades yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Hidden output -->
+      <div class="output" id="trading-output" style="display:none;"></div>
     </div>
     
     <!-- P&L TRACKER -->
@@ -2993,6 +3097,15 @@ let portfolio = { daily: [], mid: [], long: [] };
 // On load, pick from DB
 pickFromDB();
 refreshPortfolio(); // Initialize portfolio UI
+refreshTradeUI(); // Initialize trade UI
+
+// Trade form auto-calculate
+document.addEventListener('DOMContentLoaded', function() {
+  const priceInput = document.getElementById('trade-price');
+  const sharesInput = document.getElementById('trade-shares');
+  if (priceInput) priceInput.addEventListener('input', updateTradeTotal);
+  if (sharesInput) sharesInput.addEventListener('input', updateTradeTotal);
+});
 
 // Clock
 setInterval(() => {
@@ -3417,7 +3530,166 @@ async function optimize() {
 }
 
 function buy(code, price) {
-  alert('BUY ' + code + ' at ¥' + price + '\n\nConnect to live trading API to execute');
+  document.getElementById('trade-code').value = code;
+  document.getElementById('trade-price').value = price;
+  document.getElementById('trade-type').value = 'BUY';
+  updateTradeTotal();
+  showAlert('📝 Trade loaded: BUY ' + code + ' at ¥' + price, 'success');
+}
+
+// Trade form handlers
+function updateTradeTotal() {
+  const price = parseFloat(document.getElementById('trade-price').value) || 0;
+  const shares = parseInt(document.getElementById('trade-shares').value) || 0;
+  const total = price * shares;
+  document.getElementById('trade-total').innerText = '¥' + total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+function clearTradeForm() {
+  document.getElementById('trade-code').value = '';
+  document.getElementById('trade-price').value = '';
+  document.getElementById('trade-shares').value = '';
+  document.getElementById('trade-type').value = 'BUY';
+  document.getElementById('trade-total').innerText = '¥0.00';
+  showAlert('🗑️ Trade form cleared', 'success');
+}
+
+function calculatePosition() {
+  const capital = 1000000;
+  const price = parseFloat(document.getElementById('trade-price').value);
+  if (!price || price <= 0) {
+    showAlert('⚠️ Enter a valid price first', 'error');
+    return;
+  }
+  const maxShares = Math.floor((capital * 0.2) / price); // Max 20% position
+  document.getElementById('trade-shares').value = maxShares;
+  updateTradeTotal();
+  showAlert('🧮 Max position (20%): ' + maxShares + ' shares @ ¥' + price, 'info');
+}
+
+function executeTrade() {
+  const code = document.getElementById('trade-code').value.trim();
+  const price = parseFloat(document.getElementById('trade-price').value);
+  const shares = parseInt(document.getElementById('trade-shares').value);
+  const type = document.getElementById('trade-type').value;
+  
+  if (!code) {
+    showAlert('⚠️ Enter stock code', 'error');
+    return;
+  }
+  if (!price || price <= 0) {
+    showAlert('⚠️ Enter valid price', 'error');
+    return;
+  }
+  if (!shares || shares <= 0) {
+    showAlert('⚠️ Enter valid shares', 'error');
+    return;
+  }
+  
+  const total = price * shares;
+  const now = new Date();
+  const timeStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+  
+  // Add to trading records
+  if (type === 'BUY') {
+    tradingRecords.addBuy(code, '', price, shares);
+    showAlert('✅ BUY order executed: ' + code + ' × ' + shares + ' @ ¥' + price + ' = ¥' + total.toLocaleString(), 'success');
+  } else {
+    tradingRecords.addSell(code, '', price, shares);
+    showAlert('✅ SELL order executed: ' + code + ' × ' + shares + ' @ ¥' + price + ' = ¥' + total.toLocaleString(), 'success');
+  }
+  
+  // Refresh UI
+  refreshTradeUI();
+  clearTradeForm();
+}
+
+function refreshTradeUI() {
+  // Update capital stats
+  const totalCapital = 1000000;
+  const buys = tradingRecords.buys;
+  const sells = tradingRecords.sells;
+  
+  const totalInvested = buys.reduce((sum, b) => sum + b.value, 0);
+  const totalSold = sells.reduce((sum, s) => sum + s.value, 0);
+  const netInvested = totalInvested - totalSold;
+  const availableCash = totalCapital - netInvested;
+  
+  document.getElementById('trade-capital').innerText = '¥' + totalCapital.toLocaleString();
+  document.getElementById('trade-invested').innerText = '¥' + netInvested.toLocaleString();
+  document.getElementById('trade-cash').innerText = '¥' + availableCash.toLocaleString();
+  document.getElementById('trade-positions').innerText = buys.length;
+  
+  // Update positions grid
+  const positionsGrid = document.getElementById('positions-grid');
+  if (buys.length === 0) {
+    positionsGrid.innerHTML = '<div style="color:#666;text-align:center;padding:30px;background:rgba(0,0,0,0.2);border-radius:8px;">No open positions yet</div>';
+  } else {
+    positionsGrid.innerHTML = buys.map(b => {
+      const soldQty = sells.filter(s => s.code === b.code).reduce((sum, s) => sum + s.shares, 0);
+      const remaining = b.shares - soldQty;
+      const currentValue = remaining * b.price;
+      return `<div style="background:rgba(0,0,0,0.4);border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,0.1);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <div><span style="font-weight:bold;color:#00d9ff;">${b.code}</span> <span style="color:#fff;">${b.name||'--'}</span></div>
+          <span style="background:#00ff88;color:#000;font-size:10px;padding:2px 8px;border-radius:10px;">HOLDING</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;font-size:11px;color:#888;">
+          <div>Qty: <span style="color:#fff;">${remaining}</span></div>
+          <div>Avg: <span style="color:#fff;">¥${b.price}</span></div>
+          <div>Value: <span style="color:#00ff88;">¥${currentValue.toLocaleString()}</span></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  document.getElementById('positions-count').innerText = buys.length + ' positions';
+  
+  // Update trade history
+  const historyBody = document.getElementById('trade-history');
+  const allTrades = [...buys.map(b => ({...b, type: 'BUY'})), ...sells.map(s => ({...s, type: 'SELL'}))].sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+  
+  if (allTrades.length === 0) {
+    historyBody.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#666;">No trades yet</td></tr>';
+  } else {
+    historyBody.innerHTML = allTrades.map(t => {
+      const typeColor = t.type === 'BUY' ? '#00ff88' : '#ff4444';
+      return `<tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+        <td style="padding:10px;color:#888;">${t.time}</td>
+        <td style="padding:10px;color:#00d9ff;font-weight:bold;">${t.code}</td>
+        <td style="padding:10px;color:${typeColor};font-weight:bold;">${t.type}</td>
+        <td style="padding:10px;text-align:right;color:#fff;">¥${t.price}</td>
+        <td style="padding:10px;text-align:right;color:#fff;">${t.shares}</td>
+        <td style="padding:10px;text-align:right;color:#ffaa00;">¥${t.value.toLocaleString()}</td>
+        <td style="padding:10px;text-align:right;">--</td>
+      </tr>`;
+    }).join('');
+  }
+}
+
+function exportTradeHistory() {
+  const buys = tradingRecords.buys;
+  const sells = tradingRecords.sells;
+  const allTrades = [...buys.map(b => ({...b, type: 'BUY'})), ...sells.map(s => ({...s, type: 'SELL'}))];
+  
+  if (allTrades.length === 0) {
+    showAlert('⚠️ No trades to export', 'error');
+    return;
+  }
+  
+  let csv = 'Date,Time,Code,Type,Price,Shares,Value\n';
+  allTrades.forEach(t => {
+    csv += `${t.date},${t.time},${t.code},${t.type},${t.price},${t.shares},${t.value}\n`;
+  });
+  
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'trade_history_' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  showAlert('📤 Trade history exported!', 'success');
 }
 
 // ==================== TRADING RECORDS SYSTEM ====================
