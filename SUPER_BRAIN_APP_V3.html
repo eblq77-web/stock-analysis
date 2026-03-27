@@ -816,6 +816,16 @@
         </div>
       </div>
       
+      <!-- Results Panel for Trading -->
+      <div class="card" id="trading-results-panel" style="display:none;margin-top:15px;border:2px solid #00d9ff;background:#0a0a1a;">
+        <div class="card-header">
+          <span class="card-title" id="trading-results-title" style="color:#00d9ff;">📊 Results</span>
+          <button class="btn" onclick="document.getElementById('trading-results-panel').style.display='none'">✕</button>
+        </div>
+        <div id="trading-results-content" style="padding:15px;min-height:100px;color:#fff;font-size:13px;line-height:1.6;max-height:400px;overflow-y:auto;">
+        </div>
+      </div>
+      
       <!-- Hidden output -->
       <div class="output" id="trading-output" style="display:none;"></div>
     </div>
@@ -3852,7 +3862,10 @@ function runBuyScan() {
     </tfoot>
   </table></div>`;
   
-  showResults('🟢 BUY Records', html);
+  // Show in trading results panel
+  document.getElementById('trading-results-panel').style.display = 'block';
+  document.getElementById('trading-results-title').innerHTML = '🟢 BUY Records';
+  document.getElementById('trading-results-content').innerHTML = html;
 }
 
 function checkSell() { 
@@ -3897,7 +3910,10 @@ function checkSell() {
     </tfoot>
   </table></div>`;
   
-  showResults('🔴 SELL Records', html);
+  // Show in trading results panel
+  document.getElementById('trading-results-panel').style.display = 'block';
+  document.getElementById('trading-results-title').innerHTML = '🔴 SELL Records';
+  document.getElementById('trading-results-content').innerHTML = html;
 }
 
 // ==================== P&L TRACKER ====================
@@ -4259,7 +4275,10 @@ function showStatus() {
     </div>
   </div>`;
   
-  showResults('📋 Trading Status', html);
+  // Show in trading results panel
+  document.getElementById('trading-results-panel').style.display = 'block';
+  document.getElementById('trading-results-title').innerHTML = '📋 Trading Status';
+  document.getElementById('trading-results-content').innerHTML = html;
 }
 
 let currentFilter = 'all';
