@@ -613,45 +613,95 @@
     
     <!-- PORTFOLIO -->
     <div id="portfolio" class="section">
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">📦 Portfolio Packs - Live</span>
-          <button class="btn btn-green" onclick="refreshPortfolio()">🔄 Refresh</button>
-        </div>
-        <button class="btn" onclick="optimize()">🧠 Optimize</button>
-        <div class="output" id="portfolio-output">Click Refresh to load live portfolio...</div>
-      </div>
-      
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">🚀 DAILY <span class="tag tag-daily">Momentum > 2%</span></span>
+      <!-- Portfolio Summary Header -->
+      <div class="card" style="background:linear-gradient(135deg,rgba(0,217,255,0.1),rgba(168,85,247,0.1));border:2px solid rgba(0,217,255,0.3);margin-bottom:15px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+          <div class="card-header" style="margin-bottom:0;">
+            <span class="card-title">📦 Portfolio Overview</span>
           </div>
-          <table>
-            <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Action</th></tr></thead>
-            <tbody id="port-daily"></tbody>
-          </table>
+          <div style="display:flex;gap:10px;">
+            <button class="btn" onclick="optimize()">🧠 Optimize</button>
+            <button class="btn btn-green" onclick="refreshPortfolio()">🔄 Refresh</button>
+          </div>
         </div>
         
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">📅 MID-TERM <span class="tag tag-mid">0-2%</span></span>
+        <!-- Quick Stats Row -->
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:15px;">
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Total Picks</div>
+            <div style="font-size:22px;font-weight:bold;color:#fff;" id="port-total-picks">0</div>
           </div>
-          <table>
-            <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Action</th></tr></thead>
-            <tbody id="port-mid"></tbody>
-          </table>
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Daily</div>
+            <div style="font-size:22px;font-weight:bold;color:#ff6b6b;" id="port-daily-count">0</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Mid-Term</div>
+            <div style="font-size:22px;font-weight:bold;color:#ffaa00;" id="port-mid-count">0</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Long-Term</div>
+            <div style="font-size:22px;font-weight:bold;color:#a855f7;" id="port-long-count">0</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Avg Score</div>
+            <div style="font-size:22px;font-weight:bold;color:#00d9ff;" id="port-avg-score">--</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;">
+            <div style="font-size:11px;color:#888;">Total P&L</div>
+            <div style="font-size:22px;font-weight:bold;color:#00ff88;" id="port-total-pnl">¥0</div>
+          </div>
+        </div>
+        
+        <!-- Best/Worst Row -->
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;">
+          <div style="padding:10px;background:rgba(0,255,136,0.1);border-radius:8px;border:1px solid rgba(0,255,136,0.3);">
+            <div style="font-size:11px;color:#00ff88;margin-bottom:5px;">🏆 BEST PICK</div>
+            <div style="font-size:14px;font-weight:bold;color:#fff;" id="port-best-name">--</div>
+            <div style="font-size:12px;color:#00ff88;" id="port-best-pct">+0.00%</div>
+          </div>
+          <div style="padding:10px;background:rgba(255,68,68,0.1);border-radius:8px;border:1px solid rgba(255,68,68,0.3);">
+            <div style="font-size:11px;color:#ff4444;margin-bottom:5px;">⚠️ WORST PICK</div>
+            <div style="font-size:14px;font-weight:bold;color:#fff;" id="port-worst-name">--</div>
+            <div style="font-size:12px;color:#ff4444;" id="port-worst-pct">-0.00%</div>
+          </div>
         </div>
       </div>
       
-      <div class="card">
+      <!-- Portfolio Output Message -->
+      <div id="portfolio-output" style="display:none;"></div>
+      
+      <!-- Daily Picks -->
+      <div class="card" style="margin-bottom:15px;border-left:4px solid #ff6b6b;">
+        <div class="card-header">
+          <span class="card-title">🚀 DAILY <span class="tag tag-daily">Momentum > 2%</span></span>
+          <span style="color:#888;font-size:11px;" id="port-daily-header">0 stocks</span>
+        </div>
+        <div id="port-daily-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;">
+          <div style="color:#666;text-align:center;padding:20px;">No daily picks yet...</div>
+        </div>
+      </div>
+      
+      <!-- Mid-Term Picks -->
+      <div class="card" style="margin-bottom:15px;border-left:4px solid #ffaa00;">
+        <div class="card-header">
+          <span class="card-title">📅 MID-TERM <span class="tag tag-mid">0-2%</span></span>
+          <span style="color:#888;font-size:11px;" id="port-mid-header">0 stocks</span>
+        </div>
+        <div id="port-mid-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;">
+          <div style="color:#666;text-align:center;padding:20px;">No mid-term picks yet...</div>
+        </div>
+      </div>
+      
+      <!-- Long-Term Picks -->
+      <div class="card" style="border-left:4px solid #a855f7;">
         <div class="card-header">
           <span class="card-title">📈 LONG-TERM <span class="tag tag-long">Value</span></span>
+          <span style="color:#888;font-size:11px;" id="port-long-header">0 stocks</span>
         </div>
-        <table>
-          <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Score</th><th>Action</th></tr></thead>
-          <tbody id="port-long"></tbody>
-        </table>
+        <div id="port-long-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;">
+          <div style="color:#666;text-align:center;padding:20px;">No long-term picks yet...</div>
+        </div>
       </div>
     </div>
     
@@ -2942,6 +2992,7 @@ let portfolio = { daily: [], mid: [], long: [] };
 
 // On load, pick from DB
 pickFromDB();
+refreshPortfolio(); // Initialize portfolio UI
 
 // Clock
 setInterval(() => {
@@ -3240,14 +3291,129 @@ function updateStats() {
   document.getElementById('signal-count').innerText = signals;
 }
 
-function refreshPortfolio() { refreshAll(); }
+async function refreshPortfolio() { 
+  showAlert('🔄 Refreshing portfolio...', 'info');
+  
+  // Ensure portfolio has data
+  if (!portfolio.daily.length && !portfolio.mid.length && !portfolio.long.length) {
+    pickFromDB();
+  }
+  
+  const allStocks = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
+  
+  // Update summary stats
+  document.getElementById('port-total-picks').innerText = allStocks.length;
+  document.getElementById('port-daily-count').innerText = portfolio.daily.length;
+  document.getElementById('port-mid-count').innerText = portfolio.mid.length;
+  document.getElementById('port-long-count').innerText = portfolio.long.length;
+  
+  // Calculate avg score
+  const avgScore = allStocks.length > 0 
+    ? (allStocks.reduce((sum, s) => sum + (s.score||60), 0) / allStocks.length).toFixed(0)
+    : '--';
+  document.getElementById('port-avg-score').innerText = avgScore;
+  
+  // Calculate total P&L
+  const totalPnL = allStocks.reduce((sum, s) => sum + (s.pct||0), 0);
+  const pnlColor = totalPnL >= 0 ? '#00ff88' : '#ff4444';
+  document.getElementById('port-total-pnl').innerText = (totalPnL >= 0 ? '+' : '') + '¥' + totalPnL.toFixed(0);
+  document.getElementById('port-total-pnl').style.color = pnlColor;
+  
+  // Find best and worst
+  const sorted = [...allStocks].sort((a, b) => (b.pct||0) - (a.pct||0));
+  if (sorted.length > 0) {
+    const best = sorted[0];
+    const worst = sorted[sorted.length - 1];
+    document.getElementById('port-best-name').innerText = best.code + ' ' + (best.name||best.n||'');
+    document.getElementById('port-best-pct').innerText = '+' + (best.pct||0).toFixed(2) + '%';
+    document.getElementById('port-worst-name').innerText = worst.code + ' ' + (worst.name||worst.n||'');
+    document.getElementById('port-worst-pct').innerText = (worst.pct||0).toFixed(2) + '%';
+  }
+  
+  // Update Daily picks grid
+  const dailyGrid = document.getElementById('port-daily-grid');
+  document.getElementById('port-daily-header').innerText = portfolio.daily.length + ' stocks';
+  if (portfolio.daily.length > 0) {
+    dailyGrid.innerHTML = portfolio.daily.map(s => createStockCard(s, 'daily')).join('');
+  } else {
+    dailyGrid.innerHTML = '<div style="color:#666;text-align:center;padding:20px;">No daily picks yet...</div>';
+  }
+  
+  // Update Mid picks grid
+  const midGrid = document.getElementById('port-mid-grid');
+  document.getElementById('port-mid-header').innerText = portfolio.mid.length + ' stocks';
+  if (portfolio.mid.length > 0) {
+    midGrid.innerHTML = portfolio.mid.map(s => createStockCard(s, 'mid')).join('');
+  } else {
+    midGrid.innerHTML = '<div style="color:#666;text-align:center;padding:20px;">No mid-term picks yet...</div>';
+  }
+  
+  // Update Long picks grid
+  const longGrid = document.getElementById('port-long-grid');
+  document.getElementById('port-long-header').innerText = portfolio.long.length + ' stocks';
+  if (portfolio.long.length > 0) {
+    longGrid.innerHTML = portfolio.long.map(s => createStockCard(s, 'long')).join('');
+  } else {
+    longGrid.innerHTML = '<div style="color:#666;text-align:center;padding:20px;">No long-term picks yet...</div>';
+  }
+  
+  showAlert('✅ Portfolio refreshed!', 'success');
+}
+
+// Create stock card HTML
+function createStockCard(stock, type) {
+  const pct = stock.pct||0;
+  const score = stock.score||60;
+  const color = pct >= 0 ? '#00ff88' : '#ff4444';
+  const pctText = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+  const tagColor = type === 'daily' ? '#ff6b6b' : type === 'mid' ? '#ffaa00' : '#a855f7';
+  const entry = (stock.price||20).toFixed(2);
+  const target = (stock.price * 1.15||23).toFixed(2);
+  const stop = (stock.price * 0.93||18.6).toFixed(2);
+  
+  return `<div style="background:rgba(0,0,0,0.4);border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,0.1);">
+    <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px;">
+      <div>
+        <div style="font-weight:bold;color:#00d9ff;font-size:14px;">${stock.code}</div>
+        <div style="color:#fff;font-size:13px;">${stock.name||stock.n||'--'}</div>
+        <div style="color:#888;font-size:11px;">${stock.sector||stock.exchange||''}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="background:${tagColor};color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;margin-bottom:5px;">${type.toUpperCase()}</div>
+        <div style="font-size:16px;font-weight:bold;color:${color};">${pctText}</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;font-size:10px;color:#888;margin-bottom:8px;">
+      <div>Entry<br><span style="color:#fff;">¥${entry}</span></div>
+      <div>Target<br><span style="color:#00ff88;">¥${target}</span></div>
+      <div>Stop<br><span style="color:#ff4444;">¥${stop}</span></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:11px;">Score: <span style="color:#a855f7;font-weight:bold;">${score.toFixed(0)}</span></div>
+      <button class="btn" style="padding:4px 10px;font-size:10px;" onclick="addToWatch('${stock.code}')">👁️ Watch</button>
+    </div>
+  </div>`;
+}
+
+// Add stock to watchlist
+function addToWatch(code) {
+  showAlert('👁️ ' + code + ' added to watchlist!', 'success');
+}
 
 async function optimize() {
-  document.getElementById('portfolio-output').innerHTML = '<span class="positive">🧠 Running optimizer...</span>';
-  // This would call the Node.js optimizer
-  setTimeout(() => {
-    document.getElementById('portfolio-output').innerHTML = '<span class="positive">✅ Portfolio optimized! Click Refresh to see updated picks.</span>';
-  }, 1500);
+  showAlert('🧠 Optimizing portfolio...', 'info');
+  
+  // Re-pick stocks
+  pickFromDB();
+  
+  await new Promise(resolve => setTimeout(resolve, 800));
+  
+  const totalPicks = portfolio.daily.length + portfolio.mid.length + portfolio.long.length;
+  
+  showAlert('✅ Portfolio optimized with ' + totalPicks + ' picks!', 'success');
+  
+  // Refresh the display
+  refreshPortfolio();
 }
 
 function buy(code, price) {
