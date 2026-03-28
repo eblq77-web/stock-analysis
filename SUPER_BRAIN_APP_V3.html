@@ -287,6 +287,58 @@
     .collapse-arrow.open { transform: rotate(180deg); }
     .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
     .collapsible-content.open { max-height: 2000px; }
+    
+    /* === PORTFOLIO OPTIMIZATIONS (8 enhancements) === */
+    
+    /* 1. Portfolio Health Score */
+    .health-card { background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,217,255,0.1)); border: 1px solid rgba(0,255,136,0.3); border-radius: 10px; padding: 15px; margin-bottom: 15px; }
+    .health-score { font-size: 36px; font-weight: bold; text-align: center; }
+    .health-label { font-size: 11px; color: #888; text-align: center; margin-top: 4px; }
+    .health-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+    .health-item { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; text-align: center; }
+    .health-item-value { font-size: 16px; font-weight: bold; }
+    .health-item-label { font-size: 9px; color: #666; margin-top: 3px; }
+    
+    /* 2. Sector Allocation Bar */
+    .sector-bar { display: flex; height: 24px; border-radius: 6px; overflow: hidden; margin: 10px 0; background: rgba(0,0,0,0.3); }
+    .sector-segment { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #fff; font-weight: bold; transition: all 0.3s; cursor: pointer; min-width: 20px; }
+    .sector-segment:hover { filter: brightness(1.3); }
+    .sector-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .sector-legend-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #888; }
+    .sector-dot { width: 8px; height: 8px; border-radius: 50%; }
+    
+    /* 3. Position Size + P&L */
+    .pos-pnl { font-weight: bold; font-size: 12px; }
+    .pos-pnl.positive { color: #00ff88; }
+    .pos-pnl.negative { color: #ff4444; }
+    .pos-size { font-size: 11px; color: #a855f7; }
+    .pos-pct { font-size: 9px; color: #666; }
+    
+    /* 4. Stop Loss Column */
+    .stop-loss { font-size: 11px; color: #ff4444; }
+    .stop-level { background: rgba(255,68,68,0.15); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(255,68,68,0.3); }
+    
+    /* 5. Holding Period Tracker */
+    .holding-badge { background: rgba(168,85,247,0.2); color: #a855f7; padding: 2px 6px; border-radius: 10px; font-size: 10px; font-weight: bold; }
+    .holding-badge.fresh { background: rgba(0,255,136,0.2); color: #00ff88; }
+    .holding-badge.warning { background: rgba(255,170,0,0.2); color: #ffaa00; }
+    .holding-badge.overdue { background: rgba(255,68,68,0.2); color: #ff4444; }
+    
+    /* 6. Quick Exit Button */
+    .btn-exit { background: rgba(255,68,68,0.2); border: 1px solid rgba(255,68,68,0.4); color: #ff6666; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 10px; transition: all 0.2s; }
+    .btn-exit:hover { background: rgba(255,68,68,0.4); color: #fff; }
+    .btn-buy { background: rgba(0,255,136,0.15); border: 1px solid rgba(0,255,136,0.4); color: #00ff88; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 10px; transition: all 0.2s; }
+    .btn-buy:hover { background: rgba(0,255,136,0.3); }
+    
+    /* 7. Portfolio Summary Bar */
+    .portfolio-summary { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 15px; }
+    .summary-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(100,100,255,0.15); border-radius: 8px; padding: 10px 8px; text-align: center; }
+    .summary-value { font-size: 16px; font-weight: bold; }
+    .summary-label { font-size: 9px; color: #666; margin-top: 3px; }
+    
+    /* 8. Optimize Progress Bar */
+    .optimize-bar { height: 6px; background: #333; border-radius: 3px; overflow: hidden; margin-top: 10px; }
+    .optimize-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #00d9ff); border-radius: 3px; transition: width 0.5s; }
   </style>
 </head>
 <body>
@@ -595,45 +647,150 @@
     
     <!-- PORTFOLIO -->
     <div id="portfolio" class="section">
-      <div class="card">
+      
+      <!-- PORTFOLIO OPTIMIZATION 1: Portfolio Health Score Card -->
+      <div class="health-card">
         <div class="card-header">
-          <span class="card-title">📦 Portfolio Packs - Live</span>
+          <span class="card-title">💪 Portfolio Health Score</span>
           <button class="btn btn-green" onclick="refreshPortfolio()">🔄 Refresh</button>
         </div>
-        <button class="btn" onclick="optimize()">🧠 Optimize</button>
-        <div class="output" id="portfolio-output">Click Refresh to load live portfolio...</div>
+        <div style="display:grid;grid-template-columns:80px 1fr;gap:20px;align-items:center;">
+          <div>
+            <div class="health-score" id="health-score" style="background:linear-gradient(90deg,#00ff88,#00d9ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">78</div>
+            <div class="health-label">/ 100</div>
+          </div>
+          <div>
+            <div class="health-grid">
+              <div class="health-item">
+                <div class="health-item-value" id="health-diversify" style="color:#a855f7;">OK</div>
+                <div class="health-item-label">Diversification</div>
+              </div>
+              <div class="health-item">
+                <div class="health-item-value" id="health-risk" style="color:#ffaa00;">MEDIUM</div>
+                <div class="health-item-label">Risk Level</div>
+              </div>
+              <div class="health-item">
+                <div class="health-item-value" id="health-exposure" style="color:#00d9ff;">25%</div>
+                <div class="health-item-label">Top Exposure</div>
+              </div>
+              <div class="health-item">
+                <div class="health-item-value" id="health-winners" style="color:#00ff88;">3/12</div>
+                <div class="health-item-label">Winners</div>
+              </div>
+            </div>
+            <div class="optimize-bar"><div class="optimize-fill" id="health-bar" style="width:78%;"></div></div>
+          </div>
+        </div>
       </div>
       
+      <!-- PORTFOLIO OPTIMIZATION 2: Portfolio Summary Bar -->
+      <div class="portfolio-summary">
+        <div class="summary-item">
+          <div class="summary-value" id="port-total-value" style="color:#00ff88;">¥0</div>
+          <div class="summary-label">Total Value</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value" id="port-total-pnl" style="color:#00ff88;">+¥0</div>
+          <div class="summary-label">Total P&L</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value" id="port-total-pos" style="color:#a855f7;">12</div>
+          <div class="summary-label">Positions</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value" id="port-cash" style="color:#ffd700;">¥250K</div>
+          <div class="summary-label">Available Cash</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value" id="port-allocated" style="color:#00d9ff;">75%</div>
+          <div class="summary-label">Allocated</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-value" id="port-winrate" style="color:#ffaa00;">50%</div>
+          <div class="summary-label">Win Rate</div>
+        </div>
+      </div>
+      
+      <!-- PORTFOLIO OPTIMIZATION 3: Sector Allocation Bar -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🏭 Sector Allocation</span>
+        </div>
+        <div class="sector-bar" id="sector-alloc-bar"></div>
+        <div class="sector-legend" id="sector-legend"></div>
+      </div>
+      
+      <!-- Optimize Button -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🧠 Portfolio Optimizer</span>
+          <button class="btn btn-purple" onclick="optimize()">🧠 Optimize Now</button>
+        </div>
+        <div id="portfolio-output" style="background:#0a0a1a;border-radius:6px;padding:10px;font-size:12px;min-height:40px;color:#00ff88;margin-top:8px;">
+          Click "Optimize Now" to rebalance portfolio based on risk/reward and sector concentration.
+        </div>
+      </div>
+      
+      <!-- PORTFOLIO OPTIMIZATIONS 4-8: Enhanced Tables (Daily + Mid) -->
       <div class="grid-2">
         <div class="card">
           <div class="card-header">
-            <span class="card-title">🚀 DAILY <span class="tag tag-daily">Momentum > 2%</span></span>
+            <span class="card-title">🚀 DAILY <span class="tag tag-daily">1-3 Days</span></span>
           </div>
-          <table>
-            <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Action</th></tr></thead>
+          <div style="overflow-x:auto;">
+          <table style="font-size:11px;white-space:nowrap;">
+            <thead>
+              <tr style="background:rgba(0,0,0,0.3);">
+                <th>Code</th><th>Name</th><th>Price</th><th>Change</th>
+                <th title="Position Size">Size</th><th title="P&L">P&L</th>
+                <th title="Stop Loss">Stop</th><th title="Holding Days">Held</th>
+                <th>Action</th>
+              </tr>
+            </thead>
             <tbody id="port-daily"></tbody>
           </table>
+          </div>
         </div>
         
         <div class="card">
           <div class="card-header">
-            <span class="card-title">📅 MID-TERM <span class="tag tag-mid">0-2%</span></span>
+            <span class="card-title">📅 MID-TERM <span class="tag tag-mid">2-4 Weeks</span></span>
           </div>
-          <table>
-            <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Action</th></tr></thead>
+          <div style="overflow-x:auto;">
+          <table style="font-size:11px;white-space:nowrap;">
+            <thead>
+              <tr style="background:rgba(0,0,0,0.3);">
+                <th>Code</th><th>Name</th><th>Price</th><th>Change</th>
+                <th title="Position Size">Size</th><th title="P&L">P&L</th>
+                <th title="Stop Loss">Stop</th><th title="Holding Days">Held</th>
+                <th>Action</th>
+              </tr>
+            </thead>
             <tbody id="port-mid"></tbody>
           </table>
+          </div>
         </div>
       </div>
       
+      <!-- LONG-TERM -->
       <div class="card">
         <div class="card-header">
-          <span class="card-title">📈 LONG-TERM <span class="tag tag-long">Value</span></span>
+          <span class="card-title">📈 LONG-TERM <span class="tag tag-long">1-3 Months</span></span>
         </div>
-        <table>
-          <thead><tr><th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th><th>Score</th><th>Action</th></tr></thead>
+        <div style="overflow-x:auto;">
+        <table style="font-size:11px;white-space:nowrap;">
+          <thead>
+            <tr style="background:rgba(0,0,0,0.3);">
+              <th>Code</th><th>Name</th><th>Sector</th><th>Price</th><th>Change</th>
+              <th title="Position Size">Size</th><th title="P&L">P&L</th>
+              <th title="Stop Loss">Stop</th><th title="Holding Days">Held</th>
+              <th title="Score">Score</th>
+              <th>Action</th>
+            </tr>
+          </thead>
           <tbody id="port-long"></tbody>
         </table>
+        </div>
       </div>
     </div>
     
@@ -2915,38 +3072,52 @@ function pickFromDB() {
   ['SH','SZ','CY','BSE','HK','HS'].forEach(e=>EXDB[e].forEach(s=>all.push({code:s.c,name:s.n,sector:s.s,exchange:e,price:0,pct:0,score:60+Math.random()*20})));
   all.sort(()=>Math.random()-.5);
   
-  // Demo entry prices (realistic buy-in prices for P&L tracking)
-  const entryPrices = {
-    // Daily picks - ¥25-40 range entry
-    '600036': {entry: 37.50, shares: 1000}, // 招商银行
-    '600030': {entry: 26.20, shares: 1000}, // 中信证券
-    '600009': {entry: 29.00, shares: 1000},  // 上海机场
-    '600019': {entry: 6.80,  shares: 1000},  // 宝钢股份
-    '000001': {entry: 12.80, shares: 1000},  // 平安银行
-    '000063': {entry: 32.50, shares: 1000},  // 中兴通讯
-    '300001': {entry: 38.20, shares: 1000},  // 锐科激光
-    '300003': {entry: 25.60, shares: 1000},  // 乐普医疗
-    '835670': {entry: 12.50, shares: 1000},  // 数字人
-    '835810': {entry: 8.90,  shares: 1000},  // 瑞华技术
-    '0700':   {entry: 380.00, shares: 100},  // 腾讯控股
-    '1810':   {entry: 12.80, shares: 1000},  // 小米集团
+  // Demo entry prices + holding period (for realistic P&L + days-held tracking)
+  // Daily = 1-3 days holding, Mid = 2-4 weeks, Long = 1-3 months
+  const now = new Date();
+  const daysAgo = (d) => { const t=new Date(now); t.setDate(t.getDate()-d); return t.toISOString().split('T')[0]; };
+  
+  const entryData = {
+    // Daily picks (1-3 days holding - very recent)
+    '600036': {entry:37.50,  shares:1000, daysAgo:1},  // 招商银行
+    '600030': {entry:26.20,  shares:1000, daysAgo:2},  // 中信证券
+    '600009': {entry:29.00,  shares:1000, daysAgo:1},  // 上海机场
+    '600019': {entry:6.80,   shares:1000, daysAgo:1},  // 宝钢股份
+    '000001': {entry:12.80,  shares:1000, daysAgo:2},  // 平安银行
+    '000063': {entry:32.50,  shares:1000, daysAgo:1},  // 中兴通讯
+    '300001': {entry:38.20,  shares:1000, daysAgo:2},  // 锐科激光
+    '300003': {entry:25.60,  shares:1000, daysAgo:3},  // 乐普医疗
+    '835670': {entry:12.50,  shares:1000, daysAgo:1},  // 数字人
+    '835810': {entry:8.90,   shares:1000, daysAgo:2},  // 瑞华技术
+    '0700':   {entry:380.00, shares:100,  daysAgo:1},  // 腾讯控股
+    '1810':   {entry:12.80,  shares:1000,  daysAgo:2},  // 小米集团
   };
   
-  // Helper to add entry data to stock
+  // Helper to add entry data + holding period to stock
   const addEntry = (s) => {
-    const e = entryPrices[s.code];
+    const e = entryData[s.code];
+    const entryPrice = e ? e.entry : (s.price > 0 ? s.price * 0.97 : 25 + Math.random() * 15);
+    const shares = e ? e.shares : 1000;
+    const daysHeld = e ? e.daysAgo : Math.floor(Math.random() * 10) + 1;
+    const entryDate = daysAgo(daysHeld);
+    
     return {
       ...s,
-      entry: e ? e.entry : (s.price > 0 ? s.price * 0.97 : 25 + Math.random() * 15),
-      shares: e ? e.shares : 1000,
-      buyPrice: e ? e.entry : (s.price > 0 ? s.price * 0.97 : 25 + Math.random() * 15),
-      category: s.category
+      entry: entryPrice,
+      shares: shares,
+      buyPrice: entryPrice,
+      entryDate: entryDate,
+      daysHeld: daysHeld,
+      category: s.category,
+      stopLoss: +(entryPrice * 0.93).toFixed(2),   // -7% hard stop
+      target: +(entryPrice * 1.10).toFixed(2),      // +10% take profit
+      positionValue: +(entryPrice * shares).toFixed(0),
     };
   };
   
   portfolio.daily = all.slice(0,4).map(s => addEntry({...s, category: 'daily'}));
-  portfolio.mid    = all.slice(4,8).map(s => addEntry({...s, category: 'mid'}));
-  portfolio.long   = all.slice(8,12).map(s => addEntry({...s, category: 'long'}));
+  portfolio.mid   = all.slice(4,8).map(s => addEntry({...s, category: 'mid'}));
+  portfolio.long  = all.slice(8,12).map(s => addEntry({...s, category: 'long'}));
   return portfolio;
 }
 
@@ -3306,32 +3477,199 @@ function renderDashboard() {
   renderTable('dash-long', portfolio.long);
 }
 
+// ==================== PORTFOLIO RENDERER (All 8 Optimizations) ====================
 function renderPortfolio() {
+  const all = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
+  
+  // --- OPTIMIZATION 2 & 3: Calculate P&L and Stop Loss for each stock ---
+  let totalValue = 0;
+  let totalPnL = 0;
+  let winners = 0;
+  
+  all.forEach(s => {
+    const entry = s.entry || 0;
+    const current = s.price || 0;
+    const shares = s.shares || 1000;
+    const pnl = (current - entry) * shares;
+    const pnlPct = entry > 0 ? ((current - entry) / entry * 100) : 0;
+    const posValue = current * shares;
+    
+    s._pnl = pnl;
+    s._pnlPct = pnlPct;
+    s._posValue = posValue;
+    s._posPct = 0; // % of total portfolio
+    s._stopLoss = s.stopLoss || +(entry * 0.93).toFixed(2);
+    s._target = s.target || +(entry * 1.10).toFixed(2);
+    
+    totalValue += posValue;
+    totalPnL += pnl;
+    if (pnl > 0) winners++;
+  });
+  
+  // Calculate position % of total
+  all.forEach(s => {
+    s._posPct = totalValue > 0 ? ((s._posValue / totalValue) * 100) : 0;
+  });
+  
+  // --- OPTIMIZATION 4: Sector Allocation ---
+  const sectorMap = {};
+  const sectorColors = {
+    '金融': '#ff4444', '科技': '#a855f7', '医药': '#00ff88', '消费': '#ffd700',
+    '新能源': '#00d9ff', '化工': '#ff9900', '军工': '#ff6666', '家电': '#66ff66',
+    '地产': '#ff55ff', '交运': '#55aaff', '电力': '#ffff00', 'AI教育': '#00ffcc',
+    '新能源车': '#00ddff', '半导体': '#dd66ff', '传媒': '#ff8866', '其他': '#888888'
+  };
+  
+  all.forEach(s => {
+    const sec = s.sector || '其他';
+    if (!sectorMap[sec]) sectorMap[sec] = 0;
+    sectorMap[sec] += s._posValue;
+  });
+  
+  // Sort by allocation
+  const sortedSectors = Object.entries(sectorMap).sort((a,b) => b[1]-a[1]);
+  const totalSectorVal = Object.values(sectorMap).reduce((sum,v)=>sum+v,0);
+  
+  // Render sector allocation bar
+  const sectorBarEl = document.getElementById('sector-alloc-bar');
+  const sectorLegendEl = document.getElementById('sector-legend');
+  
+  if (sectorBarEl) {
+    sectorBarEl.innerHTML = sortedSectors.map(([sec, val]) => {
+      const pct = totalSectorVal > 0 ? (val / totalSectorVal * 100) : 0;
+      const color = sectorColors[sec] || '#888888';
+      return `<div class="sector-segment" style="width:${pct.toFixed(1)}%;background:${color};" title="${sec}: ¥${val.toLocaleString()} (${pct.toFixed(1)}%)"></div>`;
+    }).join('');
+  }
+  
+  if (sectorLegendEl) {
+    sectorLegendEl.innerHTML = sortedSectors.map(([sec, val]) => {
+      const pct = totalSectorVal > 0 ? (val / totalSectorVal * 100) : 0;
+      const color = sectorColors[sec] || '#888888';
+      return `<div class="sector-legend-item"><div class="sector-dot" style="background:${color};"></div>${sec} ${pct.toFixed(0)}%</div>`;
+    }).join('');
+  }
+  
+  // --- OPTIMIZATION 1: Portfolio Summary Bar ---
+  const allocated = totalValue / 1000000 * 100; // % of 1M capital
+  const cash = 1000000 - totalValue;
+  const winRate = all.length > 0 ? Math.round(winners / all.length * 100) : 0;
+  const maxExposure = sortedSectors.length > 0 ? sortedSectors[0][1] / totalValue * 100 : 0;
+  
+  const el = (id, val, color) => { const e=document.getElementById(id); if(e){e.innerText=val; if(color)e.style.color=color;} };
+  el('port-total-value', '¥' + totalValue.toLocaleString(), totalValue > 0 ? '#00ff88' : '#666');
+  el('port-total-pnl', (totalPnL >= 0 ? '+' : '') + '¥' + Math.round(totalPnL).toLocaleString(), totalPnL >= 0 ? '#00ff88' : '#ff4444');
+  el('port-total-pos', all.length);
+  el('port-cash', '¥' + Math.max(0, cash).toLocaleString(), '#ffd700');
+  el('port-allocated', allocated.toFixed(0) + '%', '#00d9ff');
+  el('port-winrate', winRate + '%', winRate >= 50 ? '#00ff88' : '#ff4444');
+  
+  // --- OPTIMIZATION 1: Health Score ---
+  // Score = diversification (20) + risk (20) + win rate (30) + exposure control (30)
+  const sectorCount = sortedSectors.length;
+  const diversificationScore = Math.min(20, sectorCount * 4);
+  const riskScore = maxExposure > 30 ? 0 : (maxExposure > 20 ? 10 : 20);
+  const winRateScore = Math.min(30, winRate * 0.3);
+  const exposureScore = maxExposure > 40 ? 0 : (maxExposure > 25 ? 15 : 30);
+  const healthScore = Math.round(diversificationScore + riskScore + winRateScore + exposureScore);
+  
+  const healthEl = document.getElementById('health-score');
+  if (healthEl) {
+    healthEl.innerText = healthScore;
+    healthEl.style.background = healthScore >= 70 ? 'linear-gradient(90deg,#00ff88,#00d9ff)' : (healthScore >= 40 ? 'linear-gradient(90deg,#ffaa00,#ffd700)' : 'linear-gradient(90deg,#ff4444,#ff6666)');
+    healthEl.style.webkitBackgroundClip = 'text';
+    healthEl.style.webkitTextFillColor = 'transparent';
+  }
+  
+  const barEl = document.getElementById('health-bar');
+  if (barEl) barEl.style.width = healthScore + '%';
+  
+  const divEl = document.getElementById('health-diversify');
+  if (divEl) divEl.innerText = sectorCount >= 6 ? '✅' : (sectorCount >= 3 ? 'OK' : '⚠️');
+  
+  const riskEl = document.getElementById('health-risk');
+  if (riskEl) {
+    riskEl.innerText = maxExposure > 40 ? 'HIGH' : (maxExposure > 25 ? 'MEDIUM' : 'LOW');
+    riskEl.style.color = maxExposure > 40 ? '#ff4444' : (maxExposure > 25 ? '#ffaa00' : '#00ff88');
+  }
+  
+  const expEl = document.getElementById('health-exposure');
+  if (expEl) expEl.innerText = maxExposure.toFixed(0) + '%';
+  
+  const winEl = document.getElementById('health-winners');
+  if (winEl) winEl.innerText = winners + '/' + all.length;
+  
+  // --- OPTIMIZATION 4-8: Render Tables ---
   const renderPort = (id, data) => {
-    document.getElementById(id).innerHTML = data.map(s => {
-      const code = s.code || s.c || '';
-      const name = s.name || s.n || '';
-      const sector = s.sector || s.s || '';
+    const el = document.getElementById(id);
+    if (!el) return;
+    
+    if (!data || data.length === 0) {
+      el.innerHTML = '<tr><td colspan="9" style="padding:20px;text-align:center;color:#666;">No positions - click Optimize to select stocks</td></tr>';
+      return;
+    }
+    
+    el.innerHTML = data.map(s => {
+      const code = s.code || '';
+      const name = s.name || '';
+      const sector = s.sector || '';
       const pct = s.pct || 0;
       const price = s.price || 0;
-      const ex = s.exchange || s.e || '';
-      const cls = pct >= 0 ? 'positive' : 'negative';
-      const sign = pct >= 0 ? '+' : '';
-      return '<tr>' +
-        '<td><b>' + code + '</b></td>' +
-        '<td>' + name + '</td>' +
-        '<td style="color:#a855f7;font-size:10px;">' + ex + '</td>' +
-        '<td>' + sector + '</td>' +
-        '<td class="price">¥' + price.toFixed(2) + '</td>' +
-        '<td class="' + cls + '"><b>' + sign + pct.toFixed(2) + '%</b></td>' +
-        '<td><button class="btn" onclick="buy(\''+code+'\','+price+')">BUY</button></td>' +
-      '</tr>';
+      const entry = s.entry || 0;
+      const pnl = s._pnl || 0;
+      const pnlPct = s._pnlPct || 0;
+      const posValue = s._posValue || 0;
+      const posPct = s._posPct || 0;
+      const stopLoss = s._stopLoss || 0;
+      const daysHeld = s.daysHeld || 0;
+      const score = s.score || 0;
+      
+      const pctCls = pct >= 0 ? 'positive' : 'negative';
+      const pnlCls = pnl >= 0 ? 'pos-pnl positive' : 'pos-pnl negative';
+      const pnlSign = pnl >= 0 ? '+' : '';
+      
+      // Holding badge
+      let holdCls = 'holding-badge';
+      if (s.category === 'daily') holdCls += daysHeld <= 1 ? ' fresh' : (daysHeld <= 3 ? '' : ' warning');
+      else if (s.category === 'mid') holdCls += daysHeld <= 7 ? '' : (daysHeld <= 14 ? ' warning' : ' overdue');
+      else holdCls += daysHeld <= 30 ? '' : (daysHeld <= 60 ? ' warning' : ' overdue');
+      
+      const exchangeTag = s.exchange ? `<span style="font-size:9px;color:#666;">${s.exchange}</span>` : '';
+      
+      return `<tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+        <td style="padding:6px 4px;"><b>${code}</b><br>${exchangeTag}</td>
+        <td style="padding:6px 4px;max-width:80px;overflow:hidden;text-overflow:ellipsis;" title="${name}">${name}</td>
+        <td style="padding:6px 4px;">¥${price.toFixed(2)}</td>
+        <td style="padding:6px 4px;" class="${pctCls}">${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</td>
+        <td style="padding:6px 4px;">
+          <div class="pos-size">¥${posValue.toLocaleString()}</div>
+          <div class="pos-pct">${posPct.toFixed(1)}%</div>
+        </td>
+        <td style="padding:6px 4px;">
+          <div class="${pnlCls}">${pnlSign}¥${Math.round(pnl).toLocaleString()}</div>
+          <div style="font-size:9px;color:${pnlPct>=0?'#00ff88':'#ff4444'};">${pnlPct>=0?'+':''}${pnlPct.toFixed(2)}%</div>
+        </td>
+        <td style="padding:6px 4px;">
+          <div class="stop-loss"><div class="stop-level">🛑 ¥${stopLoss.toFixed(2)}</div></div>
+        </td>
+        <td style="padding:6px 4px;"><span class="${holdCls}">${daysHeld}d</span></td>
+        ${id === 'port-long' ? `<td style="padding:6px 4px;color:#a855f7;font-size:10px;">${sector || '-'}</td><td style="padding:6px 4px;"><span class="score-badge">${score.toFixed(0)}</span></td>` : ''}
+        <td style="padding:6px 4px;">
+          <button class="btn-exit" onclick="exitPosition('${code}')">EXIT</button>
+        </td>
+      </tr>`;
     }).join('');
   };
   
   renderPort('port-daily', portfolio.daily);
   renderPort('port-mid', portfolio.mid);
   renderPort('port-long', portfolio.long);
+  
+  // Store calculated values for optimize function
+  portfolio._totalValue = totalValue;
+  portfolio._totalPnL = totalPnL;
+  portfolio._winRate = winRate;
+  portfolio._healthScore = healthScore;
 }
 
 function updateStats() {
@@ -3360,12 +3698,118 @@ function updateStats() {
 
 function refreshPortfolio() { refreshAll(); }
 
+// ==================== OPTIMIZATION 6: Quick Exit ====================
+function exitPosition(code) {
+  if (!confirm('EXIT position ' + code + '?\n\nThis will remove it from your portfolio.')) return;
+  
+  let removed = null;
+  const pools = [portfolio.daily, portfolio.mid, portfolio.long];
+  for (let pool of pools) {
+    const idx = pool.findIndex(s => (s.code || s.c || '') === code);
+    if (idx !== -1) {
+      removed = pool.splice(idx, 1)[0];
+      break;
+    }
+  }
+  
+  if (removed) {
+    renderPortfolio();
+    const pnl = removed._pnl || 0;
+    showAlert(`✅ ${removed.code} ${removed.name} exited | P&L: ${pnl >= 0 ? '+' : ''}¥${Math.round(pnl).toLocaleString()}`, pnl >= 0 ? 'success' : 'error');
+  }
+}
+
+// ==================== OPTIMIZATION 8: Real Portfolio Optimizer ====================
 async function optimize() {
-  document.getElementById('portfolio-output').innerHTML = '<span class="positive">🧠 Running optimizer...</span>';
-  // This would call the Node.js optimizer
-  setTimeout(() => {
-    document.getElementById('portfolio-output').innerHTML = '<span class="positive">✅ Portfolio optimized! Click Refresh to see updated picks.</span>';
-  }, 1500);
+  const out = document.getElementById('portfolio-output');
+  if (!out) return;
+  
+  out.innerHTML = '<span style="color:#a855f7;">🧠 Analyzing portfolio...</span>';
+  
+  // Simulate analysis time
+  await new Promise(r => setTimeout(r, 1000));
+  
+  const all = [...portfolio.daily, ...portfolio.mid, portfolio.long];
+  const totalVal = portfolio._totalValue || 0;
+  const capital = 1000000;
+  const cash = capital - totalVal;
+  
+  // 1. Check sector concentration
+  const sectorMap = {};
+  all.forEach(s => {
+    const sec = s.sector || '其他';
+    sectorMap[sec] = (sectorMap[sec] || 0) + (s._posValue || 0);
+  });
+  
+  const sortedSectors = Object.entries(sectorMap).sort((a,b) => b[1]-a[1]);
+  const maxSector = sortedSectors[0];
+  const maxExposure = maxSector ? (maxSector[1] / totalVal * 100) : 0;
+  
+  // 2. Check losers that need stop-loss
+  const losers = all.filter(s => (s._pnl || 0) < 0 && (s._pnlPct || 0) < -5);
+  
+  // 3. Check winners for partial profit
+  const bigWinners = all.filter(s => (s._pnlPct || 0) > 10);
+  
+  // 4. Calculate rebalance recommendations
+  const targetPerPos = capital / 12; // Equal weight across 12 positions
+  const overweights = all.filter(s => (s._posValue || 0) > targetPerPos * 1.3);
+  const underweights = all.filter(s => (s._posValue || 0) < targetPerPos * 0.7 && (s.pct || 0) > 0);
+  
+  let report = '';
+  
+  // Risk alerts
+  if (maxExposure > 40) {
+    report += `⚠️ <span style="color:#ff4444;">HIGH CONCENTRATION: ${maxSector[0]} = ${maxExposure.toFixed(0)}% of portfolio (limit: 40%)</span><br>`;
+    report += `   → Rebalance: reduce ${maxSector[0]} by ¥${Math.round(maxSector[1] - totalVal * 0.35).toLocaleString()}<br><br>`;
+  } else {
+    report += `✅ <span style="color:#00ff88;">Sector allocation OK (${maxSector ? maxSector[0] + ': ' + maxExposure.toFixed(0) + '%' : 'N/A'})</span><br>`;
+  }
+  
+  // Stop loss alerts
+  if (losers.length > 0) {
+    report += `🛑 <span style="color:#ff4444;">STOP LOSS TRIGGERS (${losers.length}):</span><br>`;
+    losers.slice(0,3).forEach(s => {
+      report += `   ${s.code} ${s.name}: ${s._pnlPct.toFixed(1)}% (${s._pnl >= 0 ? '+' : ''}¥${Math.round(s._pnl).toLocaleString()}) → EXIT recommended<br>`;
+    });
+    report += '<br>';
+  }
+  
+  // Take profit alerts
+  if (bigWinners.length > 0) {
+    report += `🎯 <span style="color:#ffd700;">TAKE PROFIT ALERT (${bigWinners.length}):</span><br>`;
+    bigWinners.slice(0,3).forEach(s => {
+      report += `   ${s.code} ${s.name}: +${s._pnlPct.toFixed(1)}% → Consider partial sell at +${(s._pnlPct - 5).toFixed(0)}%<br>`;
+    });
+    report += '<br>';
+  }
+  
+  // Rebalance
+  if (overweights.length > 0 || underweights.length > 0) {
+    report += `⚖️ <span style="color:#00d9ff;">REBALANCE RECOMMENDATIONS:</span><br>`;
+    overweights.slice(0,3).forEach(s => {
+      const reduce = Math.round((s._posValue - targetPerPos) / 2);
+      report += `   ${s.code}: Overweight by ¥${reduce.toLocaleString()} → Reduce half<br>`;
+    });
+    underweights.slice(0,3).forEach(s => {
+      const add = Math.round((targetPerPos - s._posValue) / 2);
+      report += `   ${s.code}: Underweight by ¥${add.toLocaleString()} → Add more<br>`;
+    });
+    report += '<br>';
+  }
+  
+  // Overall health
+  const health = portfolio._healthScore || 50;
+  if (health >= 70) {
+    report += `💪 <span style="color:#00ff88;">Portfolio Health: ${health}/100 - WELL BALANCED ✓</span>`;
+  } else if (health >= 40) {
+    report += `⚠️ <span style="color:#ffaa00;">Portfolio Health: ${health}/100 - NEEDS IMPROVEMENT</span>`;
+  } else {
+    report += `🔴 <span style="color:#ff4444;">Portfolio Health: ${health}/100 - REBALANCE NEEDED!</span>`;
+  }
+  
+  out.innerHTML = report;
+  showAlert('🧠 Optimization complete!', 'success');
 }
 
 function buy(code, price) {
