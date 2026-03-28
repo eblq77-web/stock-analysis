@@ -653,7 +653,7 @@
       <div class="card">
         <div class="card-header">
           <span class="card-title">📊 P&L Tracker</span>
-          <button class="btn btn-green" onclick="refreshPnL()">🔄 Refresh</button>
+          <button class="btn btn-green" onclick="refreshPnLSection()">🔄 Refresh</button>
         </div>
         <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);">
           <div class="stat"><div class="stat-value" id="pnl-total">¥0</div><div class="stat-label">Total P&L</div></div>
@@ -2914,9 +2914,39 @@ function pickFromDB() {
   let all=[];
   ['SH','SZ','CY','BSE','HK','HS'].forEach(e=>EXDB[e].forEach(s=>all.push({code:s.c,name:s.n,sector:s.s,exchange:e,price:0,pct:0,score:60+Math.random()*20})));
   all.sort(()=>Math.random()-.5);
-  portfolio.daily=all.slice(0,4).map(s=>({...s,category:'daily'}));
-  portfolio.mid=all.slice(4,8).map(s=>({...s,category:'mid'}));
-  portfolio.long=all.slice(8,12).map(s=>({...s,category:'long'}));
+  
+  // Demo entry prices (realistic buy-in prices for P&L tracking)
+  const entryPrices = {
+    // Daily picks - ¥25-40 range entry
+    '600036': {entry: 37.50, shares: 1000}, // 招商银行
+    '600030': {entry: 26.20, shares: 1000}, // 中信证券
+    '600009': {entry: 29.00, shares: 1000},  // 上海机场
+    '600019': {entry: 6.80,  shares: 1000},  // 宝钢股份
+    '000001': {entry: 12.80, shares: 1000},  // 平安银行
+    '000063': {entry: 32.50, shares: 1000},  // 中兴通讯
+    '300001': {entry: 38.20, shares: 1000},  // 锐科激光
+    '300003': {entry: 25.60, shares: 1000},  // 乐普医疗
+    '835670': {entry: 12.50, shares: 1000},  // 数字人
+    '835810': {entry: 8.90,  shares: 1000},  // 瑞华技术
+    '0700':   {entry: 380.00, shares: 100},  // 腾讯控股
+    '1810':   {entry: 12.80, shares: 1000},  // 小米集团
+  };
+  
+  // Helper to add entry data to stock
+  const addEntry = (s) => {
+    const e = entryPrices[s.code];
+    return {
+      ...s,
+      entry: e ? e.entry : (s.price > 0 ? s.price * 0.97 : 25 + Math.random() * 15),
+      shares: e ? e.shares : 1000,
+      buyPrice: e ? e.entry : (s.price > 0 ? s.price * 0.97 : 25 + Math.random() * 15),
+      category: s.category
+    };
+  };
+  
+  portfolio.daily = all.slice(0,4).map(s => addEntry({...s, category: 'daily'}));
+  portfolio.mid    = all.slice(4,8).map(s => addEntry({...s, category: 'mid'}));
+  portfolio.long   = all.slice(8,12).map(s => addEntry({...s, category: 'long'}));
   return portfolio;
 }
 
@@ -2965,71 +2995,6 @@ async function getPrice(code) {
   } catch(e) { 
     console.log('Price error:', code, e);
     return {price:0,pct:0,vol:0}; 
-  }
-}
-
-// ============================================
-// 💰 P&L Summary Functions
-// ============================================
-async function refreshPnL() {
-  // Get portfolio data
-  const allStocks = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
-  
-  let totalPnL = 0;
-  let winners = 0;
-  let losers = 0;
-  let details = [];
-  
-  for (let s of allStocks) {
-    try {
-      const d = await getPrice(s.code || s.c);
-      const entry = s.entry || s.buyPrice || 0;
-      const current = d.price || 0;
-      const shares = s.shares || 1000;
-      const pnl = (current - entry) * shares;
-      const pct = entry > 0 ? ((current - entry) / entry * 100) : 0;
-      
-      totalPnL += pnl;
-      if (pnl > 0) winners++;
-      else if (pnl < 0) losers++;
-      
-      details.push({
-        code: s.code || s.c,
-        name: s.name || s.n || '',
-        entry: entry,
-        current: current,
-        pnl: pnl,
-        pct: pct,
-        status: pnl > 0 ? 'profit' : (pnl < 0 ? 'loss' : 'flat')
-      });
-    } catch(e) {
-      console.log('Error getting P&L for', s.code);
-    }
-  }
-  
-  const winRate = (winners + losers) > 0 ? (winners / (winners + losers) * 100).toFixed(0) : 0;
-  
-  // Update UI
-  document.getElementById('pnl-total').innerHTML = `<span style="color:${totalPnL >= 0 ? '#00ff00' : '#ff0000'}">${totalPnL >= 0 ? '+' : ''}¥${totalPnL.toLocaleString()}</span>`;
-  document.getElementById('pnl-winners').innerText = winners;
-  document.getElementById('pnl-losers').innerText = losers;
-  document.getElementById('pnl-winrate').innerText = winRate + '%';
-  
-  // Update details table
-  const tbody = document.getElementById('pnl-details');
-  if (details.length > 0) {
-    tbody.innerHTML = details.map(d => `
-      <tr style="border-bottom:1px solid #333;">
-        <td style="padding:8px;"><strong>${d.code}</strong></td>
-        <td style="padding:8px;">¥${d.entry.toFixed(2)}</td>
-        <td style="padding:8px;">¥${d.current.toFixed(2)}</td>
-        <td style="padding:8px;color:${d.pnl >= 0 ? '#00ff00' : '#ff0000'}">${d.pnl >= 0 ? '+' : ''}¥${d.pnl.toLocaleString()}</td>
-        <td style="padding:8px;color:${d.pct >= 0 ? '#00ff00' : '#ff0000'}">${d.pct.toFixed(2)}%</td>
-        <td style="padding:8px;"><span style="background:${d.status === 'profit' ? 'rgba(0,255,0,0.2)' : (d.status === 'loss' ? 'rgba(255,0,0,0.2)' : '#333')};padding:2px 8px;border-radius:4px;">${d.status === 'profit' ? '🚀' : (d.status === 'loss' ? '🛑' : '➖')}</span></td>
-      </tr>
-    `).join('');
-  } else {
-    tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:#666;">No positions to show</td></tr>';
   }
 }
 
@@ -3533,7 +3498,7 @@ const pnlHistory = [
   {date:'2026-03-09',code:'600519',name:'贵州茅台',type:'SELL',price:1410.00,shares:10,pl:-140,plPct:-0.98},
 ];
 
-async function refreshPnL() {
+async function refreshPnLSection() {
   const tbody = document.getElementById('pnl-positions');
   tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;">🔄 Loading...</td></tr>';
   
@@ -3624,7 +3589,7 @@ function addPosition() {
   
   const name = 'Stock ' + code;
   pnlPositions.push({code,name,entry,shares});
-  refreshPnL();
+  refreshPnLSection();
   showAlert('Position added!', 'success');
 }
 
@@ -3650,7 +3615,7 @@ function sellPosition(code) {
   
   // Remove from positions
   pnlPositions.splice(idx, 1);
-  refreshPnL();
+  refreshPnLSection();
   showAlert(`Sold ${code} | P&L: ¥${pnl.toFixed(0)}`, pnl >= 0 ? 'success' : 'error');
 }
 
