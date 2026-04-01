@@ -87,6 +87,60 @@ async function handle(req, res) {
     return;
   }
 
+  // GET /api/paper - read from paper_trading_log.json
+  if (url === '/api/paper' && method === 'GET') {
+    const PAPER_FILE = '/Users/liu/Desktop/Stock_Analysis/paper_trading/paper_trading_log.json';
+    try {
+      const paperData = JSON.parse(fs.readFileSync(PAPER_FILE, 'utf8'));
+      const positions = (paperData.positions || []).map(p => ({
+        code: p.code,
+        name: p.name,
+        entryPrice: p.entryPrice,
+        shares: p.shares,
+        entryDate: p.entryDate,
+        sector: p.sector,
+        period: p.period,
+        score: p.score,
+        currentPrice: p.entryPrice,
+        change: 0,
+        pnl: 0,
+        pnlPct: 0
+      }));
+
+      // Fetch live prices for all positions
+      for (let p of positions) {
+        const code6 = String(p.code).padStart(6, '0');
+        // Don't pad HK codes (they use 4-5 digits like 0700, 00700)
+        const isHKStock = HK_STOCKS.includes(String(p.code));
+        const fetchCode = isHKStock ? String(p.code) : code6;
+        try {
+          const live = await fetchPrice(fetchCode);
+          if (live.price > 0) {
+            p.currentPrice = live.price;
+            p.change = live.change;
+            p.pnl = (live.price - p.entryPrice) * p.shares;
+            p.pnlPct = p.entryPrice > 0 ? ((live.price - p.entryPrice) / p.entryPrice * 100).toFixed(2) : 0;
+          }
+        } catch(e) { /* skip */ }
+      }
+
+      const closedPnL = (paperData.closedTrades || []).reduce((s, t) => s + (t.pnl || 0), 0);
+      res.end(JSON.stringify({
+        success: true,
+        data: {
+          capital: paperData.capital || 126034,
+          positions,
+          closedTrades: paperData.closedTrades || [],
+          closedPnL,
+          totalPnL: closedPnL + positions.reduce((s, p) => s + (p.pnl || 0), 0)
+        }
+      }));
+    } catch(e) {
+      res.end(JSON.stringify({ success: false, error: e.message }));
+    }
+    return;
+  }
+
   // POST /buy
   if (url === '/api/buy' && method === 'POST') {
     let body = '';
