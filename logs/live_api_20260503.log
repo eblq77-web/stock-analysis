@@ -1,0 +1,18 @@
+🚀 Live API: http://localhost:3898
+🚀 Live API: http://localhost:3898
+🚀 Live API: http://localhost:3898
+🚀 Live API: http://localhost:3898
+/Users/liu/Desktop/Stock_Analysis/live_trading/live_api.js:216
+      const p = spawn('node', [scripts[type]], {cwd: SCAN_DIR});
+                ^
+
+ReferenceError: spawn is not defined
+    at output (/Users/liu/Desktop/Stock_Analysis/live_trading/live_api.js:216:17)
+    at new Promise (<anonymous>)
+    at Server.handle (/Users/liu/Desktop/Stock_Analysis/live_trading/live_api.js:215:26)
+    at Server.emit (node:events:508:28)
+    at parserOnIncoming (node:_http_server:1210:12)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)
+
+Node.js v24.13.1
+🚀 Live API: http://localhost:3898

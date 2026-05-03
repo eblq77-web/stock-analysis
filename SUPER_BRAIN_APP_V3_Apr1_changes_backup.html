@@ -3137,27 +3137,16 @@ startAutoRefresh();
 updateSectorHeatmap(); // OPTIMIZATION 3: Initial sector heatmap
 
 // Get live price from Tencent API (handles SH/SZ/CY/BSE/HK)
-// OPTIMIZATION #3: Price cache with TTL (30s)
-// Structure: Map<code, {data: {price,pct,vol}, ts: timestamp}>
-const priceCache = new Map();
-const PRICE_CACHE_TTL = 30000;
-
 async function getPrice(code) {
   if(!code) return {price:0,pct:0,vol:0};
-  code = code.toString();
-  
-  // OPTIMIZATION #3a: Return fresh cache if available
-  const cached = priceCache.get(code);
-  if (cached && (Date.now() - cached.ts < PRICE_CACHE_TTL)) {
-    return cached.data;
-  }
   
   let prefix = 'sh';
+  code = code.toString();
   
-  // OPTIMIZATION #3b: HK stocks - fix 5-digit code format (0700 -> hk00700)
+  // HK stocks: 5-digit codes starting with 0 (e.g. 00700, 09988, 03690)
+  // but NOT Shenzhen codes (000xxx, 002xxx, 300xxx, 001xxx)
   if(/^0[0-9]{4}$/.test(code) && !code.startsWith('000') && !code.startsWith('002') && !code.startsWith('300') && !code.startsWith('001')) {
     prefix = 'hk';
-    code = '0' + code; // 0700 -> 00700 (5 digits for Tencent API)
   } else if(code.startsWith('8')) {
     prefix = 'bj'; // BSE Beijing (83xxxx, 87xxxx)
   } else if(code.startsWith('0') || code.startsWith('3')) {
@@ -3165,36 +3154,29 @@ async function getPrice(code) {
   }
   
   try {
-    // Use CORS proxy so it works when opened from file:// (double-click)
-    const res = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://qt.gtimg.cn/q=' + prefix + code));
+    const res = await fetch('https://qt.gtimg.cn/q=' + prefix + code);
     const text = await res.text();
     if(!text || text.length < 10 || text.includes('none_match')) return {price:0,pct:0,vol:0};
     const p = text.split('~');
-    const data = {
+    return {
       price: parseFloat(p[3]) || 0,
       pct: parseFloat(p[32]) || 0,
       vol: parseFloat(p[4]) || 0
     };
-    // OPTIMIZATION #3c: Store in cache with timestamp
-    priceCache.set(code, { data, ts: Date.now() });
-    return data;
   } catch(e) { 
     console.log('Price error:', code, e);
     return {price:0,pct:0,vol:0}; 
   }
 }
 
-// Cache moved into getPrice() below (OPTIMIZATION #3)
-
-// Main refresh function - get live prices for portfolio (OPTIMIZED: PARALLEL batch)
+// Main refresh function - get live prices for portfolio
 async function refreshAll() {
   console.log('🔄 Refreshing portfolio...');
   
-  // Get prices for all stocks in portfolio - PARALLEL fetch
+  // Get prices for all stocks in portfolio
   let allStocks = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
   
-  // OPTIMIZATION #1: Batch parallel fetch - all prices fetched simultaneously
-  await Promise.all(allStocks.map(async (s) => {
+  for (let s of allStocks) {
     try {
       const d = await getPrice(s.code || s.c);
       s.price = d.price || 0;
@@ -3203,7 +3185,7 @@ async function refreshAll() {
     } catch(e) {
       console.log('Error getting price for', s.code);
     }
-  }));
+  }
   
   // Sort by pct
   portfolio.daily = [...portfolio.daily].sort((a,b) => (b.pct||0) - (a.pct||0));
@@ -3216,28 +3198,11 @@ async function refreshAll() {
   refreshPnL(); // Also refresh P&L summary
   updateSectorHeatmap(); // OPTIMIZATION 3: Update sector heatmap
   
-  // Show cache stats
-  const cacheSize = priceCache.size;
-  const cacheAge = cacheSize > 0 ? Math.round((Date.now() - (priceCache.values().next().value?.ts || Date.now())) / 1000) : 0;
-  console.log(`📦 Cache: ${cacheSize} stocks, ${cacheAge}s old`);
-  showAlert(`✅ Portfolio updated! (${cacheSize} cached)`, 'success');
+  showAlert('✅ Portfolio updated!', 'success');
 }
 
 // ==================== OPTIMIZATION 1: MARKET COUNTDOWN TIMER ====================
-// OPTIMIZATION #2: Market hours check helper
-function isMarketHours() {
-  const now = new Date();
-  const hour = now.getHours();
-  const min = now.getMinutes();
-  const day = now.getDay();
-  const isWeekend = day === 0 || day === 6;
-  if (isWeekend) return false;
-  const totalMin = hour * 60 + min;
-  return (totalMin >= 9*60+30 && totalMin < 11*60+30) || (totalMin >= 13*60 && totalMin < 15*60);
-}
-
 let countdownInterval = null;
-let countdownRunning = false;
 function startCountdown() {
   function updateCountdown() {
     const now = new Date();
@@ -3328,13 +3293,6 @@ function startAutoRefresh() {
   if (autoRefreshInterval) clearInterval(autoRefreshInterval);
   refreshCountdown = REFRESH_INTERVAL;
   
-  // OPTIMIZATION #2: Pause intervals outside market hours
-  if (!isMarketHours()) {
-    const el = document.getElementById('refresh-status');
-    if (el) el.innerText = 'Market Closed';
-    return; // Don't start interval on weekends/off-hours
-  }
-  
   autoRefreshInterval = setInterval(() => {
     refreshCountdown--;
     const el = document.getElementById('refresh-status');
@@ -3342,14 +3300,21 @@ function startAutoRefresh() {
     
     if (refreshCountdown <= 0) {
       refreshCountdown = REFRESH_INTERVAL;
+      // Only refresh during market hours
+      const now = new Date();
+      const hour = now.getHours();
+      const min = now.getMinutes();
+      const day = now.getDay();
+      const isWeekend = day === 0 || day === 6;
+      const totalMin = hour * 60 + min;
+      const isMarketHours = !isWeekend && ((totalMin >= 9*60+30 && totalMin < 11*60+30) || (totalMin >= 13*60 && totalMin < 15*60));
       
-      if (isMarketHours()) {
+      if (isMarketHours) {
         console.log('🔄 Auto-refreshing prices...');
         refreshAll();
       } else {
-        // Market closed - pause auto-refresh
-        if (autoRefreshInterval) { clearInterval(autoRefreshInterval); autoRefreshInterval = null; }
-        if (el) el.innerText = 'Market Closed';
+        // Still update sector heatmap even when market is closed
+        updateSectorHeatmap();
       }
     }
   }, 1000);
@@ -3417,75 +3382,43 @@ function generateSparkline(entry, current, bars = 12) {
 }
 
 // Update P&L details with sparklines
-// ============================================================
-// OPTIMIZED: refreshPnL - PARALLEL price fetch + LIVE API positions
-// ============================================================
-let livePositions = []; // Cache live positions from API
-
-async function loadLivePositions() {
-  const data = await fetchLiveAPI('/api/paper');
-  if (data && data.success && data.data) return data.data;
-  return null;
-}
-
 async function refreshPnL() {
-  // Try LIVE positions from API server first
-  const liveData = await loadLivePositions();
+  let allStocks = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
   
   let totalPnL = 0;
   let winners = 0;
   let losers = 0;
   let details = [];
   
-  let positions = [];
-  if (liveData && liveData.positions && liveData.positions.length > 0) {
-    positions = liveData.positions;
-    // Update capital from live data
-    const capitalEl = document.querySelector('.market-item .market-value');
-    if (capitalEl) capitalEl.innerText = '¥' + Math.round(liveData.capital).toLocaleString();
-  } else {
-    // Fallback to portfolio picks
-    positions = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
-  }
-  
-  // OPTIMIZED: Parallel price fetch for all positions
-  const pricePromises = positions.map(async (s) => {
+  for (let s of allStocks) {
     try {
-      const code = s.code || s.c;
-      const d = await getPrice(code);
-      return { s, price: d.price || 0, pct: d.pct || 0 };
+      const d = await getPrice(s.code || s.c);
+      const entry = s.entry || s.buyPrice || 0;
+      const current = d.price || 0;
+      const shares = s.shares || 1000;
+      const pnl = (current - entry) * shares;
+      const pct = entry > 0 ? ((current - entry) / entry * 100) : 0;
+      
+      totalPnL += pnl;
+      if (pnl > 0) winners++;
+      else if (pnl < 0) losers++;
+      
+      // Generate sparkline path (simulated intraday path)
+      const sparkPath = generateSparkline(entry, current, 12);
+      
+      details.push({
+        code: s.code || s.c,
+        name: s.name || s.n || '',
+        entry: entry,
+        current: current,
+        pnl: pnl,
+        pct: pct,
+        status: pnl > 0 ? 'profit' : (pnl < 0 ? 'loss' : 'flat'),
+        sparkPath: sparkPath
+      });
     } catch(e) {
-      return { s, price: s.currentPrice || s.price || 0, pct: s.change ? ((s.currentPrice - s.entryPrice) / s.entryPrice * 100) : 0 };
+      console.log('Error getting P&L for', s.code);
     }
-  });
-  
-  const priceResults = await Promise.all(pricePromises);
-  
-  for (const { s, price } of priceResults) {
-    // Use LIVE entry price from API if available
-    const entry = s.entryPrice || s.entry || s.buyPrice || 0;
-    const current = s.currentPrice || price || 0;
-    const shares = s.shares || 1000;
-    const pnl = (current - entry) * shares;
-    const pct = entry > 0 ? ((current - entry) / entry * 100) : (s.pnlPct || 0);
-    
-    totalPnL += pnl;
-    if (pnl > 0) winners++;
-    else if (pnl < 0) losers++;
-    
-    // Generate sparkline path
-    const sparkPath = generateSparkline(entry, current, 12);
-    
-    details.push({
-      code: s.code || s.c,
-      name: s.name || s.n || '',
-      entry: entry,
-      current: current,
-      pnl: pnl,
-      pct: pct,
-      status: pnl > 0 ? 'profit' : (pnl < 0 ? 'loss' : 'flat'),
-      sparkPath: sparkPath
-    });
   }
   
   const winRate = (winners + losers) > 0 ? (winners / (winners + losers) * 100).toFixed(0) : 0;
@@ -3998,17 +3931,6 @@ function checkSell() {
 }
 
 // ==================== P&L TRACKER ====================
-// LIVE API: reads from paper_trading_log.json via live_api.js (port 3898)
-const LIVE_API = 'http://localhost:3898';
-async function fetchLiveAPI(path) {
-  try {
-    const res = await fetch(LIVE_API + path);
-    if (!res.ok) throw new Error('API error');
-    return await res.json();
-  } catch(e) { return null; }
-}
-
-// Positions loaded live from paper_trading_log.json (see refreshPnLSection)
 const pnlPositions = [
   {code:'600036',name:'招商银行',entry:38.72,shares:100},
   {code:'600030',name:'中信证券',entry:27.16,shares:100},
@@ -4022,111 +3944,84 @@ const pnlHistory = [
 
 async function refreshPnLSection() {
   const tbody = document.getElementById('pnl-positions');
-  if (!tbody) return;
-  tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;color:#00d9ff;">Loading real positions...</td></tr>';
-
-  const status = await fetchLiveAPI('/api/paper');
-
-  let positions = [];
-  let closedTrades = [];
-  let capital = 126034;
-  let closedPnL = 0;
-
-  if (status && status.success && status.data) {
-    const d = status.data;
-    capital = d.capital || 126034;
-    positions = d.positions || [];
-    closedTrades = d.closedTrades || [];
-    closedPnL = d.closedPnL || 0;
-  } else {
-    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;color:#ffaa00;">API offline - start live_api.js</td></tr>';
-    const el = document.getElementById('pnl-total');
-    const pctEl = document.getElementById('pnl-pct');
-    const winEl = document.getElementById('pnl-winners');
-    const loseEl = document.getElementById('pnl-losers');
-    if (el) el.innerText = '--';
-    if (pctEl) pctEl.innerText = '--%';
-    if (winEl) winEl.innerText = '--';
-    if (loseEl) loseEl.innerText = '--';
-    return;
-  }
-
-  let totalOpenPnL = 0;
+  tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;">🔄 Loading...</td></tr>';
+  
+  let totalPnL = 0;
   let winners = 0;
   let losers = 0;
   let totalInvested = 0;
-
-  if (positions.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#666;padding:20px;">No open positions</td></tr>';
-  } else {
-    tbody.innerHTML = positions.map(pos => {
-      const entry = parseFloat(pos.entryPrice) || 0;
-      const current = parseFloat(pos.currentPrice) || entry;
-      const shares = parseInt(pos.shares) || 0;
-      const pnl = (current - entry) * shares;
-      const pnlPct = entry > 0 ? ((current - entry) / entry * 100) : 0;
-      const value = current * shares;
-      const pnlColor = pnl >= 0 ? '#00ff88' : '#ff4444';
-      const pnlSign = pnl >= 0 ? '+' : '';
-      const atStop = pnlPct <= -7;
-
-      if (pnl > 0) winners++;
-      else if (pnl < 0) losers++;
-
-      totalOpenPnL += pnl;
-      totalInvested += entry * shares;
-
-      const rowStyle = atStop ? ' style="background:rgba(255,68,68,0.15);"' : '';
-      const stopBadge = atStop ? '<br><span style="color:#ff4444;font-size:10px;">STOP</span>' : '';
-
-      return '<tr' + rowStyle + '>' +
-        '<td><b>' + pos.code + '</b><br><span style="color:#888;font-size:11px;">' + (pos.name || '') + '</span><br><span style="color:#666;font-size:10px;">' + (pos.period || '') + ' | ' + (pos.sector || '') + '</span></td>' +
-        '<td>' + entry.toFixed(2) + '</td>' +
-        '<td>' + current.toFixed(2) + '</td>' +
-        '<td style="color:' + (pnlPct>=0?'#00ff88':'#ff4444') + ';">' + (pnlPct>=0?'+':'') + pnlPct.toFixed(2) + '%</td>' +
-        '<td>' + shares + '</td>' +
-        '<td>' + value.toFixed(0) + '</td>' +
-        '<td style="color:' + pnlColor + ';font-weight:bold;">' + pnlSign + pnl.toFixed(0) + '</td>' +
-        '<td style="color:' + pnlColor + ';">' + pnlSign + pnlPct.toFixed(2) + '%</td>' +
-        '<td><button class="btn btn-red" onclick="sellPosition(' + String(pos.code).replace(/'/g, "\'") + ')">SELL</button>' + stopBadge + '</td>' +
-      '</tr>';
-    }).join('');
-  }
-
-  const historyBody = document.getElementById('pnl-history');
-  if (historyBody) {
-    if (closedTrades.length === 0) {
-      historyBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#666;">No closed trades</td></tr>';
-    } else {
-      historyBody.innerHTML = closedTrades.map(h => {
-        const pnlColor = (h.pnl || 0) >= 0 ? '#00ff88' : '#ff4444';
-        const pnlPct = h.pnlPct || 0;
-        return '<tr>' +
-          '<td>' + (h.exitDate || h.entryDate || '') + '</td>' +
-          '<td><b>' + h.code + '</b> ' + (h.name || '') + '</td>' +
-          '<td style="color:#ff4444">CLOSED</td>' +
-          '<td>' + (h.exitPrice || 0).toFixed(2) + '</td>' +
-          '<td>' + h.shares + '</td>' +
-          '<td>' + ((h.exitPrice || 0) * h.shares).toFixed(0) + '</td>' +
-          '<td style="color:' + pnlColor + ';">' + ((h.pnl||0)>=0?'+':'') + (h.pnl||0).toFixed(0) + '</td>' +
-          '<td style="color:' + pnlColor + ';">' + (pnlPct>=0?'+':'') + pnlPct.toFixed(2) + '%</td>' +
-        '</tr>';
-      }).join('');
+  
+  // Get live prices
+  for(let pos of pnlPositions) {
+    try {
+      const d = await getPrice(pos.code);
+      pos.current = d.price || pos.entry;
+      pos.pct = d.pct || 0;
+      pos.pnl = (pos.current - pos.entry) * pos.shares;
+      pos.pnlPct = ((pos.current - pos.entry) / pos.entry * 100);
+      
+      totalPnL += pos.pnl;
+      totalInvested += pos.entry * pos.shares;
+      if(pos.pnl > 0) winners++;
+      else if(pos.pnl < 0) losers++;
+    } catch(e) {
+      pos.current = pos.entry;
+      pos.pnl = 0;
+      pos.pnlPct = 0;
     }
   }
-
-  const finalTotalPnL = closedPnL + totalOpenPnL;
-  const finalPct = (capital + totalInvested) > 0 ? (finalTotalPnL / (capital + totalInvested) * 100) : 0;
-  const el = document.getElementById('pnl-total');
-  const pctEl = document.getElementById('pnl-pct');
-  const winEl = document.getElementById('pnl-winners');
-  const loseEl = document.getElementById('pnl-losers');
-  if (el) { el.innerText = (finalTotalPnL >= 0 ? '+¥' : '-¥') + Math.abs(finalTotalPnL).toFixed(0); el.style.color = finalTotalPnL >= 0 ? '#00ff88' : '#ff4444'; }
-  if (pctEl) { pctEl.innerText = (finalPct >= 0 ? '+' : '') + finalPct.toFixed(2) + '%'; pctEl.style.color = finalPct >= 0 ? '#00ff88' : '#ff4444'; }
-  if (winEl) winEl.innerText = winners;
-  if (loseEl) loseEl.innerText = losers;
+  
+  // Update stats
+  document.getElementById('pnl-total').innerText = (totalPnL >= 0 ? '¥' : '-¥') + Math.abs(totalPnL).toFixed(0);
+  document.getElementById('pnl-total').style.color = totalPnL >= 0 ? '#00ff88' : '#ff4444';
+  
+  const totalPct = totalInvested > 0 ? (totalPnL / totalInvested * 100) : 0;
+  document.getElementById('pnl-pct').innerText = (totalPct >= 0 ? '+' : '') + totalPct.toFixed(2) + '%';
+  document.getElementById('pnl-pct').style.color = totalPct >= 0 ? '#00ff88' : '#ff4444';
+  
+  document.getElementById('pnl-winners').innerText = winners;
+  document.getElementById('pnl-losers').innerText = losers;
+  
+  // Render positions
+  tbody.innerHTML = pnlPositions.map(pos => {
+    const pnlColor = pos.pnl >= 0 ? '#00ff88' : '#ff4444';
+    const pnlSign = pos.pnl >= 0 ? '+' : '';
+    const value = pos.current * pos.shares;
+    
+    return `<tr>
+      <td><b>${pos.code}</b></td>
+      <td>¥${pos.entry.toFixed(2)}</td>
+      <td>¥${pos.current.toFixed(2)}</td>
+      <td style="color:${pos.pct>=0?'#00ff88':'#ff4444'}">${pos.pct>=0?'+':''}${pos.pct.toFixed(2)}%</td>
+      <td>${pos.shares}</td>
+      <td>¥${value.toFixed(0)}</td>
+      <td style="color:${pnlColor};font-weight:bold;">${pnlSign}¥${pos.pnl.toFixed(0)}</td>
+      <td style="color:${pnlColor}">${pnlSign}${pos.pnlPct.toFixed(2)}%</td>
+      <td><button class="btn" onclick="sellPosition('${pos.code}')">SELL</button></td>
+    </tr>`;
+  }).join('');
+  
+  // Render history
+  const historyBody = document.getElementById('pnl-history');
+  if(pnlHistory.length === 0) {
+    historyBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#666;">No closed trades</td></tr>';
+  } else {
+    historyBody.innerHTML = pnlHistory.map(h => {
+      const typeColor = h.type === 'BUY' ? '#00ff88' : '#ff4444';
+      const pnlColor = h.pl >= 0 ? '#00ff88' : '#ff4444';
+      return `<tr>
+        <td>${h.date}</td>
+        <td><b>${h.code}</b> ${h.name}</td>
+        <td style="color:${typeColor}">${h.type}</td>
+        <td>¥${h.price.toFixed(2)}</td>
+        <td>${h.shares}</td>
+        <td>¥${(h.price*h.shares).toFixed(0)}</td>
+        <td style="color:${pnlColor}">${h.pl>=0?'+':''}¥${h.pl.toFixed(0)}</td>
+        <td style="color:${pnlColor}">${h.plPct>=0?'+':''}${h.plPct.toFixed(2)}%</td>
+      </tr>`;
+    }).join('');
+  }
 }
-
 
 function addPosition() {
   const code = prompt('Enter stock code (e.g., 600036):');
@@ -4168,14 +4063,6 @@ function sellPosition(code) {
   showAlert(`Sold ${code} | P&L: ¥${pnl.toFixed(0)}`, pnl >= 0 ? 'success' : 'error');
 }
 
-// Auto-refresh P&L tab every 30s when active
-const origShowSection = window.showSection;
-window.showSection = function(id) {
-  if (origShowSection) origShowSection(id);
-  if (id === 'pnl') {
-    refreshPnLSection();
-  }
-};
 // Initial load
 refreshPnL();
 
@@ -4269,60 +4156,47 @@ function setFilter(f) {
   runScanner('mega');
 }
 
-async function runScanner(t) {
+function runScanner(t) {
   const out = document.getElementById('scanner-output');
-  out.innerHTML = '<div style="text-align:center;padding:30px;color:#00d9ff;">⚡ Running ' + t + ' scanner...<br><br><div style="font-size:24px;">⏳</div></div>';
-
-  try {
-    const res = await fetch(LIVE_API + '/api/scan/' + t);
-    const data = await res.json();
-
-    if (!data.success) {
-      out.innerHTML = '<div style="color:#ff4444;padding:20px;">❌ Error: ' + (data.error || 'Scanner failed') + '<br><br><button class="btn" onclick="runScanner(\'' + t + '\')">🔄 Retry</button></div>';
-      return;
-    }
-
-    const stocks = data.stocks || [];
-    const scannerNames = { mega: 'MEGA', institutional: 'INSTITUTIONAL', smart: 'SMART MONEY', quantum: 'QUANTUM', breakout: 'BREAKOUT', bottom: 'BOTTOM' };
-
-    let html = '<div style="margin-bottom:10px;"><b>🔍 ' + (scannerNames[t] || t.toUpperCase()) + ' SCANNER</b> — ' + data.count + ' signals found<br><br></div>';
-
-    if (stocks.length === 0) {
-      html += '<div style="color:#ffaa00;padding:20px;">⚠️ No signals found. Market may be closed or no opportunities match criteria.</div>';
-    } else {
-      html += '<table style="width:100%;border-collapse:collapse;font-size:12px;">' +
-        '<thead><tr style="background:rgba(99,102,241,0.3);">' +
-        '<th style="padding:8px;text-align:left;">Stock</th>' +
-        '<th style="padding:8px;text-align:right;">Price</th>' +
-        '<th style="padding:8px;text-align:right;">Change</th>' +
-        '<th style="padding:8px;text-align:center;">Signal</th>' +
-        '</tr></thead><tbody>';
-
-      stocks.slice(0, 20).forEach((s, i) => {
-        const price = s.price || s.currentPrice || 0;
-        const change = s.change || s.pct || 0;
-        const changeColor = change >= 0 ? '#00ff88' : '#ff4444';
-        const changeSign = change >= 0 ? '+' : '';
-        const rowBg = i % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)';
-        const scoreColor = (s.score || 50) >= 80 ? '#00ff88' : (s.score || 50) >= 50 ? '#ffaa00' : '#ff4444';
-
-        html += '<tr style="background:' + rowBg + ';border-bottom:1px solid rgba(255,255,255,0.05);">' +
-          '<td style="padding:8px;"><b>' + (s.code || s.rank || '') + '</b> ' + (s.name || '') + '<br><span style="color:#888;font-size:10px;">' + (s.sector || s.smartMoney || s.signal || '') + '</span></td>' +
-          '<td style="padding:8px;text-align:right;color:#fff;">¥' + price.toFixed(2) + '</td>' +
-          '<td style="padding:8px;text-align:right;font-weight:bold;color:' + changeColor + ';">' + changeSign + change.toFixed(2) + '%</td>' +
-          '<td style="padding:8px;text-align:center;"><span style="background:' + scoreColor + ';color:#000;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:bold;">' + (s.score || (change >= 0 ? '📈' : '📉')) + '</span></td>' +
-          '</tr>';
-      });
-
-      html += '</tbody></table>';
-    }
-
-    html += '<div style="margin-top:15px;text-align:center;"><button class="btn" onclick="runScanner(\'' + t + '\')">🔄 Refresh</button></div>';
-    out.innerHTML = html;
-
-  } catch(e) {
-    out.innerHTML = '<div style="color:#ff4444;padding:20px;">❌ Error: ' + e.message + '<br><br><button class="btn" onclick="runScanner(\'' + t + '\')">🔄 Retry</button></div>';
+  out.innerHTML = `Running ${t} scanner...<br>`;
+  
+  // Show results based on filter
+  let results = [];
+  if(t === 'mega' || t === 'institutional') {
+    results = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
+  } else if(t === 'smart') {
+    results = portfolio.daily;
+  } else if(t === 'breakout') {
+    results = portfolio.daily.filter(s => s.pct > 1);
+  } else if(t === 'bottom') {
+    results = portfolio.mid.filter(s => s.pct < 0);
   }
+  
+  // Apply filter
+  if(currentFilter === 'daily') results = results.filter(r => portfolio.daily.find(d => d.code === r.code));
+  if(currentFilter === 'mid') results = results.filter(r => portfolio.mid.find(m => m.code === r.code));
+  if(currentFilter === 'long') results = results.filter(r => portfolio.long.find(l => l.code === r.code));
+  
+  // Sort by score
+  results.sort((a,b) => (b.score||0) - (a.score||0));
+  
+  let html = `<b>🔍 ${t.toUpperCase()} Scanner Results</b> (${results.length} found)<br><br>`;
+  results.slice(0,10).forEach((s,i) => {
+    const cls = s.pct >= 0 ? 'positive' : 'negative';
+    const scoreColor = (s.score||0) >= 70 ? '#00ff88' : (s.score||0) >= 50 ? '#ffaa00' : '#ff4444';
+    html += `<div class="stock-row">
+      <div class="stock-info">
+        <div class="stock-code">${s.code}</div>
+        <div class="stock-name">${s.name} | ${s.sector}</div>
+      </div>
+      <div class="stock-price">
+        <div class="stock-pct ${cls}">${s.pct >= 0 ? '+' : ''}${s.pct.toFixed(2)}%</div>
+        <div class="stock-name">¥${s.price.toFixed(2)}</div>
+      </div>
+      <div class="score-badge" style="background:${scoreColor}">${s.score||'--'}</div>
+    </div>`;
+  });
+  out.innerHTML = html;
 }
 
 function runOptimizer() { 
@@ -4846,25 +4720,19 @@ async function checkInstitutional() {
   let signals = [];
   
   try {
-    // OPTIMIZED: Fetch ALL candidates in parallel
-    const results = await Promise.all(
-      instCandidates.map(async (s) => {
-        try {
-          const d = await getPrice(s.code);
-          return { ...s, price: d.price, pct: d.pct, vol: d.vol };
-        } catch(e) { return null; }
-      })
-    );
-    
-    for (const s of results) {
-      if (s && s.price > 0) {
-        const isStrong = s.pct > 1 && s.vol > 50000;
-        const isVeryStrong = s.pct > 3 && s.vol > 100000;
+    // Fetch live data for all candidates
+    for(const s of instCandidates) {
+      const d = await getPrice(s.code);
+      if(d.price > 0) {
+        // Institutional criteria: volume > 2x avg, positive momentum, large volume
+        const volRatio = d.vol / 50000; // Simplified volume ratio
+        const isStrong = d.pct > 1 && d.vol > 50000;
+        const isVeryStrong = d.pct > 3 && d.vol > 100000;
         
-        if (isVeryStrong) {
-          signals.push({...s, strength:'🔥 STRONG'});
-        } else if (isStrong) {
-          signals.push({...s, strength:'🟢 ACTIVE'});
+        if(isVeryStrong) {
+          signals.push({...s, price:d.price, pct:d.pct, vol:d.vol, strength:'🔥 STRONG'});
+        } else if(isStrong) {
+          signals.push({...s, price:d.price, pct:d.pct, vol:d.vol, strength:'🟢 ACTIVE'});
         }
       }
     }
@@ -6747,67 +6615,34 @@ async function runHiddenGemsScan() {
     const output = document.getElementById('hidden-gems-output');
     if (!output) { console.error('Hidden gems output not found'); return; }
 
-    // OPTIMIZED: Progress bar with animated spinner
-    output.innerHTML = `<div class="loading" style="text-align:center;padding:40px;">
-        <div style="font-size:48px;margin-bottom:15px;">💎</div>
-        <div style="color:#a855f7;margin-bottom:10px;">Scanning 40 stocks in parallel...</div>
-        <div style="background:#333;border-radius:6px;height:8px;width:300px;margin:0 auto;overflow:hidden;">
-            <div id="hg-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#a855f7,#00d9ff);transition:width 0.3s;border-radius:6px;"></div>
-        </div>
-        <div id="hg-progress-text" style="margin-top:8px;color:#888;font-size:12px;">Fetching prices...</div>
-    </div>`;
+    output.innerHTML = '<div class="loading" style="text-align:center;padding:40px;">🔍 Scanning for hidden gems...<br><span id="hg-progress">0%</span></div>';
 
-    // STEP 1: PARALLEL price fetch for ALL 40 stocks at once
-    const stockCodes = HIDDEN_GEMS_STOCKS;
-    const priceResults = await Promise.all(
-        stockCodes.map(async (code) => {
-            try {
-                const d = await getPrice(code);
-                return { code, price: d.price, pct: d.pct, vol: d.vol };
-            } catch(e) { return { code, price: 0, pct: 0, vol: 0 }; }
-        })
-    );
+    const results = [];
     
-    // Update progress bar
-    const barEl = document.getElementById('hg-progress-bar');
-    const textEl = document.getElementById('hg-progress-text');
-    if (barEl) barEl.style.width = '50%';
-    if (textEl) textEl.innerText = 'Computing scores...';
+    for (let i = 0; i < HIDDEN_GEMS_STOCKS.length; i++) {
+        const stock = HIDDEN_GEMS_STOCKS[i];
+        const progress = Math.round((i / HIDDEN_GEMS_STOCKS.length) * 100);
+        
+        const progEl = document.getElementById('hg-progress');
+        if (progEl) progEl.innerText = progress + '%';
 
-    // STEP 2: Build full data + score ALL stocks in parallel
-    const scoredResults = await Promise.all(
-        priceResults.map(async (pr) => {
-            const data = {
-                price: pr.price,
-                change: pr.pct,
-                volume: pr.vol,
-                // Derived metrics computed from real data (not random)
-                volumeSurge: (pr.vol > 1000000 && Math.abs(pr.pct) > 1) ? 1.5 + Math.random() * 1.5 : 0.5 + Math.random(),
-                institutionalBuy: pr.pct > 0 && pr.vol > 500000 ? 0.5 + Math.random() * 0.3 : 0.2 + Math.random() * 0.4,
-                accumulationDays: pr.pct > 0 ? Math.floor(Math.random() * 5) + 2 : Math.floor(Math.random() * 4),
-                bidAskRatio: pr.pct > 0 ? 1.2 + Math.random() * 0.8 : 0.5 + Math.random() * 0.7,
-                orderFlow: Math.floor(pr.vol * (pr.price > 0 ? pr.price / 100 : 1)),
-                dailyTrend: pr.pct >= 0 ? 'up' : 'down',
-                weeklyTrend: pr.pct >= 1 ? 'up' : pr.pct <= -1 ? 'down' : (Math.random() > 0.5 ? 'up' : 'down'),
-                confidence: pr.price > 0 ? 0.65 + Math.random() * 0.25 : 0.3 + Math.random() * 0.3,
-                patternMatch: pr.vol > 0 && pr.price > 0 ? 0.6 + Math.random() * 0.3 : 0.3 + Math.random() * 0.3,
-            };
-            const analysis = calculateHiddenGemScore(pr.code, data);
-            const rec = getHGRecommendation(analysis.score);
-            return { ...analysis, ...rec, price: pr.price, change: pr.pct, volume: pr.vol };
-        })
-    );
+        try {
+            const data = await fetchStockData(stock);
+            if (data) {
+                const analysis = calculateHiddenGemScore(stock, data);
+                const rec = getHGRecommendation(analysis.score);
+                results.push({ ...analysis, ...rec, price: data.price, change: data.change, volume: data.volume });
+            }
+        } catch (e) { console.log(`Error scanning ${stock}:`, e.message); }
+    }
 
-    if (barEl) barEl.style.width = '100%';
-    if (textEl) textEl.innerText = 'Done! Rendering results...';
-
-    scoredResults.sort((a, b) => b.score - a.score);
+    results.sort((a, b) => b.score - a.score);
 
     let html = `
         <div style="margin-bottom:15px;padding:10px;background:rgba(0,0,0,0.3);border-radius:8px;">
             <span style="color:#00ff00;">✓ Scanned ${HIDDEN_GEMS_STOCKS.length} stocks</span> | 
-            <span style="color:#00ccff;">${scoredResults.filter(r => r.score >= 60).length} Gems Found</span> | 
-            <span style="color:#ffff00;">${scoredResults.filter(r => r.score >= 40 && r.score < 60).length} Watching</span>
+            <span style="color:#00ccff;">${results.filter(r => r.score >= 60).length} Gems Found</span> | 
+            <span style="color:#ffff00;">${results.filter(r => r.score >= 40 && r.score < 60).length} Watching</span>
         </div>
         <table style="width:100%;font-size:12px;">
             <thead>
@@ -6819,7 +6654,7 @@ async function runHiddenGemsScan() {
             <tbody>
     `;
 
-    scoredResults.slice(0, 25).forEach(r => {
+    results.slice(0, 25).forEach(r => {
         const stockName = getStockName(r.stock);
         html += `
             <tr style="border-bottom:1px solid #333;">
@@ -7776,43 +7611,11 @@ function scanRumors() {
     showAlert(`🚨 Rumor scan complete: ${high} high risk, ${medium} medium`, high > 0 ? 'error' : 'success');
 }
 
-// ============================================================
-// OPTIMIZED: Dashboard-only refresh (lightweight)
-// Only refreshes dashboard widgets, skips expensive portfolio re-render
-// ============================================================
-async function refreshDashboard() {
-  const liveData = await loadLivePositions();
-  
-  // Update capital from live API
-  if (liveData) {
-    const marketItems = document.querySelectorAll('.market-item .market-value');
-    // Capital is 5th market-item child
-    if (marketItems[4]) marketItems[4].innerText = '¥' + Math.round(liveData.capital).toLocaleString();
-  }
-  
-  // Refresh P&L (now parallel, fast)
-  await refreshPnL();
-  
-  // Update stats and market status
-  updateStats();
-  updateSectorHeatmap();
-  updateCountdown();
-  
-  // Refresh the daily/mid/long pick tables with latest prices
-  const allStocks = [...portfolio.daily, ...portfolio.mid, ...portfolio.long];
-  if (allStocks.some(s => s.price > 0)) {
-    renderDashboard();
-  }
-  
-  const cacheSize = priceCache.size;
-  showAlert(`✅ Dashboard refreshed! (${cacheSize} cached)`, 'success');
-}
-
 // Initial load
 refreshAll();
 
-// Auto-refresh: Dashboard-only every 30s (lightweight, no full portfolio re-render)
-setInterval(refreshDashboard, 30000);
+// Auto-refresh every 30 seconds
+setInterval(refreshAll, 30000);
 </script>
 </body>
 </html>

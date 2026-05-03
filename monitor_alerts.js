@@ -1,8 +1,28 @@
 // 📊 AUTOMATED STOCK ALERT MONITOR
 // Monitors institutional picks for buy signals
+// ⚠️ Runs ONLY on weekdays during market hours (9:30 AM - 3 PM)
 
 const https = require('https');
 const fs = require('fs');
+
+// Check if within market hours (Mon-Fri, 9:30 AM - 3:00 PM)
+function isMarketTime() {
+  const now = new Date();
+  const day = now.getDay();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const timeMinutes = hours * 60 + minutes;
+  
+  // 0=Sun, 1=Mon, ..., 6=Sat
+  // Market: Mon-Fri (1-5), 9:30-15:00 (570-900 minutes)
+  const isWeekday = day >= 1 && day <= 5;
+  const isMarketHours = timeMinutes >= 570 && timeMinutes <= 900;
+  
+  return isWeekday && isMarketHours;
+}
+
+const SKIP_MSG = '⏰ Outside market hours (Mon-Fri 9:30 AM - 3 PM) - skipping check';
+const MARKET_MSG = '📊 INSTITUTIONAL ALERT CHECK - Market Open';
 
 // Watchlist - stocks to monitor
 const WATCHLIST = {
@@ -38,7 +58,13 @@ function fetchPrices() {
 }
 
 async function checkSignals() {
-  console.log('🔔 CHECKING ALERTS - ' + new Date().toLocaleTimeString('zh-CN'));
+  // Only run during market hours
+  if (!isMarketTime()) {
+    console.log(SKIP_MSG + ' - ' + new Date().toLocaleTimeString('zh-CN'));
+    return;
+  }
+  
+  console.log('🔔 ' + MARKET_MSG + ' - ' + new Date().toLocaleTimeString('zh-CN'));
   console.log('='.repeat(50));
   
   const data = await fetchPrices();

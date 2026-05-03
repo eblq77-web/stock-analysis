@@ -6,6 +6,7 @@
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const { spawn } = require('child_process');
 
 const PORT = 3898;
 const DATA_FILE = '/Users/liu/Desktop/Stock_Analysis/live_trading/live_positions.json';
@@ -196,6 +197,71 @@ async function handle(req, res) {
     const code = url.split('/')[3];
     const live = await fetchPrice(code);
     res.end(JSON.stringify({ success: true, price: live }));
+    return;
+  }
+
+  // GET /api/scan/:type - run actual scanner scripts
+  if (url.startsWith('/api/scan/') && method === 'GET') {
+    const type = url.split('/')[3];
+    const SCAN_DIR = '/Users/liu/Desktop/Stock_Analysis';
+    const scripts = {
+      mega: 'mega_scanner.js',
+      institutional: 'institutional_scanner.js',
+      smart: 'sonar_detection.js',
+      quantum: 'quantum_engine_v2.js',
+      breakout: 'live_breakout_alert.js',
+      bottom: 'live_breakout_alert.js',
+    };
+    if (!scripts[type]) { res.end(JSON.stringify({success:false,error:'Unknown scanner'})); return; }
+    const output = await new Promise((resolve, reject) => {
+      const p = spawn('node', [scripts[type]], {cwd: SCAN_DIR});
+      let out = '';
+      p.stdout.on('data', d => out += d);
+      p.stderr.on('data', d => out += d);
+      p.on('close', () => resolve(out));
+      p.on('error', reject);
+      setTimeout(() => { try { p.kill(); } catch(e){} reject(new Error('timeout')); }, 25000);
+    });
+
+    const stocks = [];
+
+    // Parse institutional: "   1. 1024 快手 | Score: 100 | Smart Money: INFLOW |"
+    if (type === 'institutional') {
+      output.split('\n').forEach(line => {
+        const parts = line.split(' | ');
+        if (parts.length >= 3 && parts[1].includes('Score:')) {
+          const first = parts[0];
+          const scoreM = parts[1].match(/Score:s*(d+)/);
+          const rankM = first.match(/(d+).s*(d{4})s*(.+)/);
+          if (rankM && scoreM) {
+            stocks.push({rank:parseInt(rankM[1]),code:rankM[2],name:rankM[3].trim(),score:parseInt(scoreM[1]),smartMoney:parts[2].includes('INFLOW')?'INFLOW':'OUTFLOW'});
+          }
+        }
+      });
+      res.end(JSON.stringify({success:true,type,count:stocks.length,stocks}));
+      return;
+    }
+
+    // Parse breakout/bottom: "  601012 隆基绿能: ¥17.89 (+17.7%)"
+    if (type === 'breakout' || type === 'bottom') {
+      const re = /([0-9]{6})s+([^:]+):s+¥?([0-9.]+)s+(([+-][0-9.]+)%)/g;
+      let m;
+      while ((m = re.exec(output)) !== null) stocks.push({code:m[1],name:m[2].trim(),price:parseFloat(m[3]),change:parseFloat(m[4])});
+      res.end(JSON.stringify({success:true,type,count:stocks.length,stocks}));
+      return;
+    }
+
+    // Parse quantum: "300476 丰元股份 Price: ¥257.16 | Change: 260.00%"
+    if (type === 'quantum') {
+      const re = /([0-9]{6})\s+([^\n]+?)\s+Price:\s+¥?([0-9.]+)\s+\|\s+Change:\s+([0-9.]+)%/g;
+      let m;
+      while ((m = re.exec(output)) !== null) stocks.push({code:m[1],name:m[2].trim(),price:parseFloat(m[3]),change:parseFloat(m[4])});
+      res.end(JSON.stringify({success:true,type,count:stocks.length,stocks}));
+      return;
+    }
+
+    // Default: return raw text
+    res.end(JSON.stringify({success:true,type,output:output.substring(0,3000)}));
     return;
   }
 

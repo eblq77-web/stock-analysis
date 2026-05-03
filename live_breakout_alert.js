@@ -7,6 +7,7 @@ const http = require('http');
 const fs = require('fs');
 
 const WATCH_LIST = [
+    { code: '601012', name: '隆基绿能', sector: '新能源', market: 'sh', alertPrice: 18.74, breakout: true },
     { code: '002841', name: '视源股份', sector: '电子', market: 'sz', alertPrice: 39.5 },
     { code: '002812', name: '恩捷股份', sector: '新能源', market: 'sz', alertPrice: 63 },
     { code: '601601', name: '中国太保', sector: '保险', market: 'sh', alertPrice: 41.5 },

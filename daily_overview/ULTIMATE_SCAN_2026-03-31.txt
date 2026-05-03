@@ -1,0 +1,94 @@
+# 🧠 CHARLES'S SUPER BRAIN - ULTIMATE SCANNER V3
+## 2026-03-31 | 77 Stocks - DEEP COMPREHENSIVE ANALYSIS
+
+## ⚡ ADVANCED ANALYTICS
+| Metric | Description |
+|--------|-------------|
+| R&D Innovation | R&D intensity + New products + Strategic planning |
+| Debt/Credit | D/E ratio, Interest coverage, Current ratio, DSCR, Credit rating |
+| Bankruptcy Risk | Altman Z-Score (Short/Medium/Long term) |
+| Insider Intelligence | Insider holdings + Confidence level |
+| Strategic Planning | New products + Expansion + R&D commitment |
+| Quarterly Trend | Growth trajectory and momentum |
+| Hidden Gem Alpha | Strategic value + Low coverage + Catalysts |
+
+## 🏆 TOP 30 ULTIMATE PICKS
+| Rank | Code | Name | Sector | Score | Alpha | Classification | R&D | Credit | Risk | Strategic |
+|------|------|------|--------|-------|-------|----------------|-----|--------|------|----------|
+| 1 | 300476 | 中际旭创 | AI硬件 | **97.8** | 99 | 💎 SUPER GEM | 100 | AAA | LOW | EXCELLENT |
+| 2 | 300308 | 中际旭创 | AI硬件 | **97.4** | 99 | 💎 SUPER GEM | 100 | AAA | LOW | EXCELLENT |
+| 3 | 300033 | 同花顺 | 科技 | **96.5** | 99 | 💎 SUPER GEM | 100 | AAA | LOW | EXCELLENT |
+| 4 | 300122 | 智飞生物 | 医药 | **95.2** | 98 | 💎 SUPER GEM | 100 | AAA | LOW | EXCELLENT |
+| 5 | 300750 | 宁德时代 | 新能源 | **94.7** | 97 | 💎 SUPER GEM | 92 | AAA | MEDIUM | EXCELLENT |
+| 6 | 300018 | 中科创达 | 科技 | **93.7** | 96 | 💎 SUPER GEM | 100 | AAA | LOW | EXCELLENT |
+| 7 | 300502 | 新易盛 | 科技 | **93.6** | 96 | 💎 SUPER GEM | 91 | AAA | LOW | EXCELLENT |
+| 8 | 300014 | 亿纬锂能 | 新能源 | **93.4** | 96 | 💎 SUPER GEM | 89 | AAA | MEDIUM | EXCELLENT |
+| 9 | 3690 | 美团 | 科技 | **92.1** | 96 | 💎 SUPER GEM | 100 | AAA | MEDIUM | EXCELLENT |
+| 10 | 600276 | 恒瑞医药 | 医药 | **91.8** | 93 | 💎 SUPER GEM | 100 | AAA | LOW | EXCELLENT |
+| 11 | 9988 | 阿里巴巴 | 科技 | **90.5** | 91 | 💎 SUPER GEM | 95 | AAA | LOW | EXCELLENT |
+| 12 | 601012 | 隆基绿能 | 新能源 | **90.5** | 95 | 💎 SUPER GEM | 86 | AAA | MEDIUM | EXCELLENT |
+| 13 | 300672 | NOVA科技 | 科技 | **89.8** | 92 | 💎 SUPER GEM | 100 | AAA | LOW | EXCELLENT |
+| 14 | 600309 | 万华化学 | 化工 | **87.7** | 88 | 💎 SUPER GEM | 76 | AAA | LOW | EXCELLENT |
+| 15 | 600519 | 贵州茅台 | 消费 | **87.1** | 83 | 💎 HIDDEN GEM | 60 | AAA | LOW | EXCELLENT |
+| 16 | 1024 | 快手 | 科技 | **86.3** | 87 | 💎 SUPER GEM | 83 | AAA | LOW | EXCELLENT |
+| 17 | 300003 | 乐普医疗 | 医药 | **86.3** | 86 | 💎 SUPER GEM | 90 | AAA | LOW | EXCELLENT |
+| 18 | 300015 | 爱尔眼科 | 医药 | **86.3** | 82 | 💎 HIDDEN GEM | 54 | AAA | LOW | EXCELLENT |
+| 19 | 300339 | 润和软件 | 科技 | **86** | 89 | 💎 SUPER GEM | 100 | AAA | LOW | EXCELLENT |
+| 20 | 1810 | 小米集团 | 科技 | **82.1** | 82 | 💎 HIDDEN GEM | 75 | AAA | LOW | EXCELLENT |
+| 21 | 300059 | 东方财富 | 金融 | **80.4** | 81 | 💎 HIDDEN GEM | 83 | A | MEDIUM | EXCELLENT |
+| 22 | 9618 | 京东集团 | 科技 | **73.6** | 69 | 🟡 OPPORTUNITY | 51 | AAA | MEDIUM | STRONG |
+| 23 | 2318 | 中国平安 | 金融 | **61.4** | 59 | ⚪ STANDARD | 54 | BB | HIGH | STRONG |
+| 24 | 300055 | 万邦达 | 环保 | **NaN** | NaN | ⚪ STANDARD | NaN | AAA | LOW | WEAK |
+| 25 | 300088 | 长盈精密 | 电子 | **NaN** | NaN | ⚪ STANDARD | NaN | AAA | LOW | WEAK |
+| 26 | 300124 | 汇川技术 | 设备 | **NaN** | NaN | ⚪ STANDARD | NaN | AAA | LOW | WEAK |
+| 27 | 300142 | 沃森生物 | 医药 | **NaN** | NaN | ⚪ STANDARD | NaN | AAA | MEDIUM | WEAK |
+| 28 | 300166 | 东方国信 | 软件 | **NaN** | NaN | ⚪ STANDARD | NaN | AAA | LOW | WEAK |
+| 29 | 300207 | 欣旺达 | 新能源 | **NaN** | NaN | ⚪ STANDARD | NaN | AAA | MEDIUM | WEAK |
+| 30 | 300274 | 阳光电源 | 光伏 | **NaN** | NaN | ⚪ STANDARD | NaN | AAA | LOW | WEAK |
+
+## 💎 TOP HIDDEN GEMS (High Alpha + Strategic Value)
+| Code | Name | Alpha | Catalyst | Risk | Quarter Trend |
+|------|------|-------|----------|------|---------------|
+| 300476 | 中际旭创 | 99 | New Products | LOW | 💥 Surging |
+| 300308 | 中际旭创 | 99 | New Products | LOW | 💥 Surging |
+| 300033 | 同花顺 | 99 | New Products | LOW | 💥 Surging |
+| 300122 | 智飞生物 | 98 | New Products | LOW | 💥 Surging |
+| 300750 | 宁德时代 | 97 | New Products | MEDIUM | 💥 Surging |
+| 300018 | 中科创达 | 96 | New Products | LOW | 💥 Surging |
+| 300502 | 新易盛 | 96 | R&D Breakthrough | LOW | 💥 Surging |
+| 300014 | 亿纬锂能 | 96 | New Products | MEDIUM | 💥 Surging |
+| 3690 | 美团 | 96 | New Products | MEDIUM | 💥 Surging |
+| 600276 | 恒瑞医药 | 93 | New Products | LOW | 🚀 Accelerating |
+| 9988 | 阿里巴巴 | 91 | New Products | LOW | 📈 Growing |
+| 601012 | 隆基绿能 | 95 | R&D Breakthrough | MEDIUM | 💥 Surging |
+| 300672 | NOVA科技 | 92 | New Products | LOW | 💥 Surging |
+| 600309 | 万华化学 | 88 | New Products | LOW | 💥 Surging |
+| 600519 | 贵州茅台 | 83 | Expansion | LOW | 🚀 Accelerating |
+
+## ⚠️ BANKRUPTCY RISK ANALYSIS
+| Code | Name | Z-Score | Short | Medium | Long | Overall |
+|------|------|---------|-------|--------|------|---------|
+| 300476 | 中际旭创 | 32.7 | LOW | LOW | LOW | **LOW** |
+| 300308 | 中际旭创 | 30.6 | LOW | LOW | LOW | **LOW** |
+| 300033 | 同花顺 | 25.3 | LOW | LOW | LOW | **LOW** |
+| 300122 | 智飞生物 | 31 | LOW | LOW | LOW | **LOW** |
+| 300750 | 宁德时代 | 30.5 | MEDIUM | LOW | LOW | **MEDIUM** |
+| 300018 | 中科创达 | 20.9 | LOW | LOW | LOW | **LOW** |
+| 300502 | 新易盛 | 24.7 | LOW | LOW | LOW | **LOW** |
+| 300014 | 亿纬锂能 | 25.5 | MEDIUM | LOW | LOW | **MEDIUM** |
+| 3690 | 美团 | 19.9 | MEDIUM | LOW | LOW | **MEDIUM** |
+| 600276 | 恒瑞医药 | 18.2 | LOW | LOW | LOW | **LOW** |
+| 9988 | 阿里巴巴 | 16 | LOW | LOW | LOW | **LOW** |
+| 601012 | 隆基绿能 | 22 | MEDIUM | LOW | LOW | **MEDIUM** |
+| 300672 | NOVA科技 | 18.1 | LOW | LOW | LOW | **LOW** |
+| 600309 | 万华化学 | 24.2 | LOW | LOW | LOW | **LOW** |
+| 600519 | 贵州茅台 | 28.6 | LOW | LOW | LOW | **LOW** |
+| 1024 | 快手 | 16.7 | LOW | LOW | LOW | **LOW** |
+| 300003 | 乐普医疗 | 16.2 | LOW | LOW | LOW | **LOW** |
+| 300015 | 爱尔眼科 | 22.5 | LOW | LOW | LOW | **LOW** |
+| 300339 | 润和软件 | 13.8 | LOW | LOW | LOW | **LOW** |
+| 1810 | 小米集团 | 14.3 | LOW | LOW | LOW | **LOW** |
+
+---
+*🧠 Charles's Super Brain - Ultimate Scanner V3*
+*Deep comprehensive analysis: R&D, Debt, Risk, Strategy, Insider, Growth*
