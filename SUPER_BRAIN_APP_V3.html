@@ -797,11 +797,74 @@
     <!-- TRADING -->
     <div id="trading" class="section">
       <div class="card">
-        <div class="card-header"><span class="card-title">📈 Trading System</span></div>
-        <button class="btn btn-green" onclick="runBuyScan()">🟢 Buy Scan</button>
-        <button class="btn btn-red" onclick="checkSell()">🔴 Sell</button>
-        <button class="btn" onclick="showStatus()">📋 Status</button>
-        <div class="output" id="trading-output">Ready...</div>
+        <div class="card-header">
+          <span class="card-title">📈 Trading Command Center</span>
+          <button class="btn btn-green" onclick="refreshTrading()">🔄 Refresh</button>
+        </div>
+        
+        <!-- Live Capital & Key Stats -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px;">
+          <div style="background:rgba(0,255,136,0.1);padding:12px;border-radius:8px;text-align:center;border:1px solid #00ff88;">
+            <div style="font-size:10px;color:#888;">Available Capital</div>
+            <div style="font-size:20px;font-weight:bold;color:#00ff88;" id="trade-capital">¥126K</div>
+          </div>
+          <div style="background:rgba(168,85,247,0.1);padding:12px;border-radius:8px;text-align:center;border:1px solid #a855f7;">
+            <div style="font-size:10px;color:#888;">Invested</div>
+            <div style="font-size:20px;font-weight:bold;color:#a855f7;" id="trade-invested">¥0</div>
+          </div>
+          <div style="background:rgba(0,217,255,0.1);padding:12px;border-radius:8px;text-align:center;border:1px solid #00d9ff;">
+            <div style="font-size:10px;color:#888;">Day P&L</div>
+            <div style="font-size:20px;font-weight:bold;color:#00d9ff;" id="trade-pnl">+¥0</div>
+          </div>
+          <div style="background:rgba(255,170,0,0.1);padding:12px;border-radius:8px;text-align:center;border:1px solid #ffaa00;">
+            <div style="font-size:10px;color:#888;">Risk Level</div>
+            <div style="font-size:20px;font-weight:bold;color:#ffaa00;" id="trade-risk">MEDIUM</div>
+          </div>
+        </div>
+        
+        <!-- Scanner Action Buttons -->
+        <div style="display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap;">
+          <button class="btn btn-green" onclick="runTradingScan('mega')">🚀 Buy Scan</button>
+          <button class="btn btn-red" onclick="runTradingScan('institutional')">🏦 Sell Alert</button>
+          <button class="btn" onclick="runTradingScan('breakout')">⚡ Breakout</button>
+          <button class="btn" onclick="showTradingStatus()">📋 Status</button>
+        </div>
+      </div>
+      
+      <!-- Live Positions Table -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📊 Open Positions</span>
+          <span style="font-size:11px;color:#888;" id="trade-pos-count">0 positions</span>
+        </div>
+        <table style="font-size:12px;width:100%;">
+          <thead style="background:rgba(0,0,0,0.3);">
+            <tr>
+              <th>Code</th><th>Name</th><th>Entry</th><th>Current</th><th>Change</th>
+              <th>Shares</th><th>Value</th><th>P&L</th><th>P&L %</th><th>Sector</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="trade-positions"></tbody>
+        </table>
+      </div>
+      
+      <!-- Sector Exposure -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🏭 Sector Exposure</span>
+        </div>
+        <div id="trade-sector-bar" style="height:24px;display:flex;border-radius:4px;overflow:hidden;margin-bottom:8px;"></div>
+        <div id="trade-sector-legend" style="display:flex;flex-wrap:wrap;gap:8px;font-size:11px;"></div>
+      </div>
+      
+      <!-- Trading Signals Output -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📡 Trading Signals</span>
+        </div>
+        <div id="trading-output" style="background:#0a0a1a;border-radius:6px;padding:12px;min-height:120px;color:#00ff88;font-size:12px;">
+          Click "Buy Scan" or "Sell Alert" to generate trading signals...
+        </div>
       </div>
     </div>
     
@@ -829,15 +892,15 @@
         <div class="grid-3" style="gap:10px;margin-bottom:10px;">
           <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;text-align:center;">
             <div style="font-size:11px;color:#888;">Total Capital</div>
-            <div style="font-size:18px;font-weight:bold;color:#fff;">¥1,000,000</div>
+            <div style="font-size:18px;font-weight:bold;color:#fff;" id="pnl-capital">¥126K</div>
           </div>
           <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;text-align:center;">
             <div style="font-size:11px;color:#888;">Max Position (20%)</div>
-            <div style="font-size:18px;font-weight:bold;color:#ffaa00;">¥200,000</div>
+            <div style="font-size:18px;font-weight:bold;color:#ffaa00;">¥25K</div>
           </div>
           <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;text-align:center;">
             <div style="font-size:11px;color:#888;">Stop Loss (-7%)</div>
-            <div style="font-size:18px;font-weight:bold;color:#ff4444;">¥14,000</div>
+            <div style="font-size:18px;font-weight:bold;color:#ff4444;">¥8,822</div>
           </div>
         </div>
         <div style="background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;">
@@ -3987,14 +4050,215 @@ function showSection(id) {
   document.getElementById('info-btn').setAttribute('onclick', "showSectionInfo('" + id + "')");
 }
 
-function out(id, txt) { document.getElementById(id).innerHTML = txt; }
+// ==================== TRADING COMMAND CENTER ====================
 
-function runBuyScan() { 
-  out('trading-output', '<h3 style="color:#00ff88;">🟢 BUY RECORDS</h3>' + tradingRecords.getBuyRecords()); 
+async function refreshTrading() {
+  const data = await loadLivePositions();
+  if (!data) {
+    out('trading-output', '<span style="color:#ff4444;">❌ API offline - start live_api.js</span>');
+    return;
+  }
+  
+  const { capital = 126034, positions = [], closedPnL = 0 } = data;
+  
+  // Update capital displays
+  document.getElementById('trade-capital').innerText = '¥' + Math.round(capital / 1000) + 'K';
+  document.getElementById('trade-pos-count').innerText = positions.length + ' positions';
+  
+  // Calculate invested and day P&L
+  let invested = 0;
+  let dayPnL = 0;
+  let winners = 0;
+  let losers = 0;
+  
+  const sectorMap = {};
+  const sectorColors = {
+    '金融': '#ff4444', '科技': '#a855f7', '医药': '#00ff88', '消费': '#ffd700',
+    '新能源': '#00d9ff', '化工': '#ff9900', '军工': '#ff6666', '家电': '#66ff66',
+    '地产': '#ff55ff', '交运': '#55aaff', '电力': '#ffff00', '其他': '#888888'
+  };
+  
+  // Fetch live prices for all positions in parallel
+  const pricePromises = positions.map(async (pos) => {
+    try {
+      const d = await getPrice(pos.code);
+      return { ...pos, livePrice: d.price || pos.currentPrice, livePct: d.pct || pos.change };
+    } catch(e) {
+      return { ...pos, livePrice: pos.currentPrice, livePct: pos.change };
+    }
+  });
+  
+  const updated = await Promise.all(pricePromises);
+  
+  updated.forEach(p => {
+    const entry = p.entryPrice || 0;
+    const current = p.livePrice || entry;
+    const shares = p.shares || 0;
+    const pnl = (current - entry) * shares;
+    const value = current * shares;
+    invested += value;
+    dayPnL += pnl;
+    if (pnl > 0) winners++;
+    else if (pnl < 0) losers++;
+    
+    const sec = p.sector || '其他';
+    if (!sectorMap[sec]) sectorMap[sec] = 0;
+    sectorMap[sec] += value;
+  });
+  
+  document.getElementById('trade-invested').innerText = '¥' + Math.round(invested / 1000) + 'K';
+  document.getElementById('trade-pnl').innerText = (dayPnL >= 0 ? '+' : '') + '¥' + Math.round(dayPnL);
+  document.getElementById('trade-pnl').style.color = dayPnL >= 0 ? '#00d9ff' : '#ff4444';
+  
+  // Risk level
+  const risk = winners + losers > 0 ? (winners / (winners + losers) * 100).toFixed(0) : 0;
+  document.getElementById('trade-risk').innerText = risk >= 60 ? 'LOW' : (risk >= 40 ? 'MEDIUM' : 'HIGH');
+  document.getElementById('trade-risk').style.color = risk >= 60 ? '#00ff88' : (risk >= 40 ? '#ffaa00' : '#ff4444');
+  
+  // Render positions table
+  const tbody = document.getElementById('trade-positions');
+  if (!tbody) return;
+  
+  tbody.innerHTML = updated.map(p => {
+    const entry = p.entryPrice || 0;
+    const current = p.livePrice || entry;
+    const shares = p.shares || 0;
+    const pnl = (current - entry) * shares;
+    const pnlPct = entry > 0 ? ((current - entry) / entry * 100) : 0;
+    const value = current * shares;
+    const pnlColor = pnl >= 0 ? '#00ff88' : '#ff4444';
+    const pctColor = pnlPct >= 0 ? '#00ff88' : '#ff4444';
+    const atStop = pnlPct <= -7;
+    const rowStyle = atStop ? 'background:rgba(255,68,68,0.15);' : '';
+    
+    return '<tr style="' + rowStyle + 'border-bottom:1px solid #333;">' +
+      '<td style="padding:6px;"><b>' + p.code + '</b></td>' +
+      '<td style="padding:6px;color:#888;">' + (p.name || '') + '</td>' +
+      '<td style="padding:6px;">¥' + entry.toFixed(2) + '</td>' +
+      '<td style="padding:6px;font-weight:bold;">¥' + current.toFixed(2) + '</td>' +
+      '<td style="padding:6px;color:' + pctColor + ';">' + (pnlPct >= 0 ? '+' : '') + pnlPct.toFixed(2) + '%</td>' +
+      '<td style="padding:6px;">' + shares + '</td>' +
+      '<td style="padding:6px;">¥' + Math.round(value).toLocaleString() + '</td>' +
+      '<td style="padding:6px;color:' + pnlColor + ';font-weight:bold;">' + (pnl >= 0 ? '+' : '') + '¥' + Math.round(pnl) + '</td>' +
+      '<td style="padding:6px;color:' + pnlColor + ';">' + (pnlPct >= 0 ? '+' : '') + pnlPct.toFixed(2) + '%</td>' +
+      '<td style="padding:6px;color:#888;">' + (p.sector || '') + '</td>' +
+      '<td style="padding:6px;"><button class="btn btn-red" style="padding:4px 8px;font-size:11px;" onclick="sellFromTrading(\'' + p.code + '\')">SELL</button></td>' +
+    '</tr>';
+  }).join('');
+  
+  // Render sector bar
+  const sortedSectors = Object.entries(sectorMap).sort((a,b) => b[1]-a[1]);
+  const totalSector = Object.values(sectorMap).reduce((s,v)=>s+v,0);
+  
+  const sectorBar = document.getElementById('trade-sector-bar');
+  const sectorLegend = document.getElementById('trade-sector-legend');
+  
+  if (sectorBar) {
+    sectorBar.innerHTML = sortedSectors.map(([sec, val]) => {
+      const pct = totalSector > 0 ? (val / totalSector * 100) : 0;
+      const color = sectorColors[sec] || '#888888';
+      return '<div style="width:' + pct.toFixed(1) + '%;background:' + color + ';" title="' + sec + ': ' + pct.toFixed(1) + '%"></div>';
+    }).join('');
+  }
+  
+  if (sectorLegend) {
+    sectorLegend.innerHTML = sortedSectors.map(([sec, val]) => {
+      const pct = totalSector > 0 ? (val / totalSector * 100) : 0;
+      const color = sectorColors[sec] || '#888888';
+      return '<div style="display:flex;align-items:center;gap:4px;"><div style="width:10px;height:10px;background:' + color + ';border-radius:2px;"></div>' + sec + ' ' + pct.toFixed(0) + '%</div>';
+    }).join('');
+  }
 }
 
-function checkSell() { 
-  out('trading-output', '<h3 style="color:#ff6b6b;">🔴 SELL RECORDS</h3>' + tradingRecords.getSellRecords()); 
+async function runTradingScan(type) {
+  const out = document.getElementById('trading-output');
+  out.innerHTML = '<span style="color:#a855f7;">🔄 Scanning ' + type + '...</span>';
+  
+  try {
+    const res = await fetch(LIVE_API + '/api/scan/' + type);
+    const data = await res.json();
+    
+    if (!data.stocks || data.stocks.length === 0) {
+      out.innerHTML = '<span style="color:#ffaa00;">⚠️ No signals found for ' + type + '</span>';
+      return;
+    }
+    
+    const buySignals = data.stocks.filter(s => s.score >= 70 || (s.signal && s.signal.includes('BUY')));
+    const sellSignals = data.stocks.filter(s => s.score < 50 || (s.signal && (s.signal.includes('SELL') || s.signal.includes('BEARISH'))));
+    
+    let html = '<div style="margin-bottom:10px;"><b style="color:#00ff88;">🚀 BUY SIGNALS (' + buySignals.length + ')</b></div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">';
+    buySignals.slice(0, 4).forEach(s => {
+      const pnlColor = (s.change || 0) >= 0 ? '#00ff88' : '#ff4444';
+      html += '<div style="background:rgba(0,255,136,0.1);padding:8px;border-radius:6px;border:1px solid #00ff88;">' +
+        '<div style="font-weight:bold;color:#fff;">' + (s.name || s.code) + '</div>' +
+        '<div style="font-size:11px;color:#888;">¥' + (s.price || 0).toFixed(2) + ' | <span style="color:' + pnlColor + ';">' + (s.change >= 0 ? '+' : '') + (s.change || 0).toFixed(2) + '%</span></div>' +
+        '<div style="font-size:11px;color:#a855f7;">Score: ' + (s.score || 0) + '</div>' +
+        '<button class="btn btn-green" style="margin-top:6px;padding:4px 12px;font-size:11px;" onclick="buyFromSignal(\'' + (s.code || s.name) + '\',' + (s.price || 0) + ')">+ BUY</button>' +
+      '</div>';
+    });
+    html += '</div>';
+    
+    if (sellSignals.length > 0) {
+      html += '<div style="margin:15px 0 10px;"><b style="color:#ff4444;">🔴 SELL SIGNALS (' + sellSignals.length + ')</b></div>';
+      sellSignals.slice(0, 4).forEach(s => {
+        html += '<div style="background:rgba(255,68,68,0.1);padding:8px;border-radius:6px;border:1px solid #ff4444;margin-bottom:8px;">' +
+          '<div style="font-weight:bold;color:#fff;">' + (s.name || s.code) + '</div>' +
+          '<div style="font-size:11px;color:#888;">P&L: ' + ((s.change || 0) >= 0 ? '+' : '') + (s.change || 0).toFixed(2) + '%</div>' +
+        '</div>';
+      });
+    }
+    
+    out.innerHTML = html;
+  } catch(e) {
+    out.innerHTML = '<span style="color:#ff4444;">❌ Error: ' + e.message + '</span>';
+  }
+}
+
+function showTradingStatus() {
+  const out = document.getElementById('trading-output');
+  loadLivePositions().then(data => {
+    if (!data) {
+      out.innerHTML = '<span style="color:#ff4444;">❌ API offline</span>';
+      return;
+    }
+    const { capital = 126034, positions = [], closedPnL = 0 } = data;
+    const totalPnL = (closedPnL || 0) + positions.reduce((sum, p) => {
+      const pnl = ((p.currentPrice || 0) - (p.entryPrice || 0)) * (p.shares || 0);
+      return sum + pnl;
+    }, 0);
+    const winRate = positions.filter(p => (p.currentPrice || 0) >= (p.entryPrice || 0)).length;
+    
+    out.innerHTML = '<div style="line-height:1.8;">' +
+      '<div>💰 <b>Capital:</b> ¥' + Math.round(capital).toLocaleString() + '</div>' +
+      '<div>📊 <b>Positions:</b> ' + positions.length + '</div>' +
+      '<div>📈 <b>Total P&L:</b> <span style="color:' + (totalPnL >= 0 ? '#00ff88' : '#ff4444') + ';">' + (totalPnL >= 0 ? '+' : '') + '¥' + Math.round(totalPnL).toLocaleString() + '</span></div>' +
+      '<div>✅ <b>Win Rate:</b> ' + (positions.length > 0 ? Math.round(winRate / positions.length * 100) : 0) + '%</div>' +
+      '<div>🔒 <b>Max Loss:</b> -7% per position</div>' +
+    '</div>';
+  });
+}
+
+function sellFromTrading(code) {
+  if (confirm('Sell ' + code + '?')) {
+    out('trading-output', '<span style="color:#ff4444;">🔴 Sell order placed for ' + code + ' - Connect to live trading API to execute</span>');
+  }
+}
+
+function buyFromSignal(code, price) {
+  if (confirm('Buy ' + code + ' at ¥' + price + '?')) {
+    out('trading-output', '<span style="color:#00ff88;">🟢 Buy order placed for ' + code + ' at ¥' + price + ' - Connect to live trading API to execute</span>');
+  }
+}
+
+function out(id, txt) { document.getElementById(id).innerHTML = txt; }
+
+function runBuyScan() {
+  runTradingScan('mega');
+}
+
+function checkSell() {
+  runTradingScan('institutional');
 }
 
 // ==================== P&L TRACKER ====================
@@ -4038,6 +4302,10 @@ async function refreshPnLSection() {
     positions = d.positions || [];
     closedTrades = d.closedTrades || [];
     closedPnL = d.closedPnL || 0;
+    
+    // Update capital display
+    const capEl = document.getElementById('pnl-capital');
+    if (capEl) capEl.innerText = '¥' + Math.round(capital / 1000) + 'K';
   } else {
     tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:20px;color:#ffaa00;">API offline - start live_api.js</td></tr>';
     const el = document.getElementById('pnl-total');
